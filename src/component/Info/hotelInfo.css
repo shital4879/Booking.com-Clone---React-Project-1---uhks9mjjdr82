@@ -1,0 +1,216 @@
+.listContainer{
+    display: flex;
+    /* justify-content: center; */
+    margin-top: 20px;
+    width: 270px;
+    height: 400px;
+    display: block;
+    /* flex-direction: column;
+    justify-content: space-around; */
+    margin-left: -40px;
+}
+.infoLabel{
+    font-size: 14px;
+    margin-top: 20px;
+    margin-bottom: 15px;
+}
+.destinationlist{
+    height: 36px;
+    margin-bottom: 20px;
+    background-color: white;
+    border: 1px solid transparent;
+    width: 255px;
+    display: flex;
+    align-items: center;
+    padding: 4px 0px 4px 5px;
+    gap: 5px;
+}
+.searchinput1{
+    border: none;
+    font-size: 16px;
+    color: gray;
+    outline: none;
+}
+.searchicon1{
+    font-size: 18px;
+    margin-right: 5px;
+}
+.listWrapper{
+    width: 100%;
+    max-width: 1024px;
+    display: flex;
+    gap: 20px;
+}
+.listSearch{
+    flex: 1;
+    background-color: #febb02;
+    padding: 10px;
+    border-radius: 10px;
+}
+.listResult{
+    flex: 3;
+}
+.listTitle{
+    font-size: 22px;
+    margin-bottom: 10px;
+}
+.listResult-1{
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+.block-1{
+    height: 500px;
+    width: 500px;
+}
+.nav-overview{
+    display: flex;
+    justify-content: space-around;
+    font-size: 20px;
+}
+.moreBtn{
+    height: 25px;
+    font-weight: 600;
+    background-color: cadetblue;
+    border: none;
+    width: 40px;
+}
+/* .detailImg{
+    margin-left: -100px; */
+    /* grid-template-rows: 5fr 1/span 2;
+    grid-template-columns: 5fr 5fr;
+    grid-row: ; */
+    /* height: 100px;
+    width: 100px;   */
+    /* width: 60%; */
+    /* display: grid;
+    grid-auto-columns: 500px;
+    grid-template-columns: 500px 200px;
+    grid-auto-rows: 500px;
+} */
+/* image.images{
+    height: 100px;
+    width: 100px;
+} */
+.detailImg{
+    margin-top: 20px;
+    margin-left: -220px;
+    display: grid;
+    grid-template-columns: auto auto auto;
+    grid-template-rows: auto auto auto auto auto auto;
+    row-gap: 10px;
+    column-gap: 10px;
+    height: 500px;
+}
+.detailImg img{
+    height: 240px;
+    width: 170px;
+    object-fit: cover;
+}
+.maindiv{
+    display: flex;
+    justify-content: space-around;
+    margin-left: 30px;
+}
+.box-image--style{
+    height: 200px;
+    width: 200px;
+    /* display: grid;
+    grid-template-columns: 1fr 1fr 1fr;  */
+    /* grid-template-rows: 1fr 1fr 1fr; */
+}
+
+.hotel-amenities{
+    margin: 200px 100px 50px 200px;
+
+}
+.popular-facility{
+    font-size: 24px;
+    font-weight: 500;
+}
+.popular-service{
+    margin-top: 15px;
+    display: flex;
+}
+.popular{
+    display: flex;
+    justify-content: space-between;
+    margin-right: 30px;
+    align-items: center;
+}
+.service-name{
+    margin-left: 10px;
+    font-size: 16px;
+}
+.serive-logo{
+    color: green;
+    font-weight: 300;
+}
+.maincol{
+    display: flex;
+    gap: 10px;
+    margin-top: 30px;
+    font-size: 18px;
+    font-weight: 500;
+}
+.divisioncol{
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+    font-size: 16px;
+}
+.facilitycol-1{
+    display: flex;
+    justify-content: space-between;
+}
+.col3{
+    margin-right: 100px;
+}
+.hotel-info{
+    margin-left: 200px;
+    margin-right: 180px;
+    margin-top: 120px;
+    height: 1000px;
+}
+.info-type{
+    padding: 10px 10px 0px 10px;
+    display: flex;
+    justify-content: space-between;
+    background-color: #427aca;
+    font-size: 16px;
+    height: 60px;
+    font-weight: 500;
+}
+.room-type{
+    margin-top: 50px;
+    margin-bottom: 100px;
+}
+.typeRoom{
+    margin-bottom: 8px;
+    color: #427aca;
+    text-decoration: underline;
+    font-size: 17px;
+    font-weight: 500;
+}
+/* .bedType{
+    font-size: 14px;
+    font-weight: 400;
+    /* margin-right: 15px; */
+/* } */ */
+.bed{
+    margin-left: 15px;
+}
+.offpay{
+    color: #fff;
+    background-color: green;
+    height: auto;
+    width: 60px;
+    border: none;
+}
+.limitedDeal{
+    color: #fff;
+    background-color: green;
+    height: auto;
+    width: 120px;
+    border: none;
+}

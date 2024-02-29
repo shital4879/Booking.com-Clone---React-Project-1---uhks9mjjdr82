@@ -1,0 +1,145 @@
+.filter-card{
+    display: flex;
+    /* justify-content: space-; */
+    margin: 40px 190px 50px 190px;
+}
+.flight-filter{
+    width: 35%;
+}
+.flight-card{
+    height: 190px;
+    width: 800px;
+    /* border: 1px solid gray; */
+}
+.FlightBox{
+    height: 190px;
+    /* border-right: 1px solid gray; */
+    border: 1px solid gray;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+.flightBox1{
+    width: 60%;
+    padding-top: 15px;
+    display: flex;
+    justify-content: space-evenly;
+    border-right: 1px solid gray;
+   
+    height: 190px;
+}
+.duration{
+    display: flex;
+    justify-content: center;
+}
+.direct{
+    display: flex;
+    justify-content: center;
+    margin-top: -20px;
+}
+.flightBox2{
+    padding-top: 15px;
+    margin-right: 10px;
+}
+.luggage-logo{
+    display: flex;
+    justify-content: end;
+    gap: 8px;
+    color: rgb(24, 24, 24);
+    font-size: 16px;
+}
+.flightcard1{
+    display: flex;
+    justify-content: end;
+    font-size: 12px;
+    margin-top: 6px;
+    margin-bottom: 25px;
+    color: rgb(24, 24, 24);
+}
+.flight-price{
+   font-size: 20px;
+    font-weight: 500;
+    display: flex;
+    justify-content: end;
+}
+.flightpara{
+    display: flex;
+    justify-content: end;
+    font-size: 12px;
+    margin-bottom: 15px;
+    margin-top: 5px;
+}
+.flightView{
+    height: 36px;
+    width: 220px;
+    border-radius: 10px;
+    color: #006ce4;
+    border: 1px solid #006ce4;
+}
+.flight-Time{
+    font-size: 16px;
+    font-weight: 600;
+}
+.date-Time{
+    font-size: 12px;
+}
+.name-1{
+    font-size: 20px;
+    font-weight: 600;
+}
+.baggage-detail{
+    display: flex;
+    justify-content: space-between;
+    border-top: 1px solid gray;
+    border-bottom: 1px solid gray;
+    
+}
+.flyfly{
+    display: flex;
+    justify-content: space-between;
+    /* width: 40%; */
+    gap: 35px;
+    margin:30px 0px 20px ;
+}
+.detailing{
+    display: flex;
+    justify-content: space-between;
+}
+.fly-box2{
+    display: flex;
+    margin-right: 100px;
+}
+.flightGoingDetail{
+    /* display: flex; */
+    width: 100px;
+    /* margin: 5px 0px 30px */
+}
+.baggage-1{
+    padding-right: 30px;
+    width: 250px;
+    border-right: 1px solid gray;
+}
+.baggage-2{
+    margin-right: 250px;
+    margin-bottom: 20px;
+    margin-left: 50px;
+}
+.first-Item{
+    margin-bottom: 20px;
+    gap: 20px;
+}
+.total-price{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 40px;
+}
+.flightSelectbtn{
+    width: 85px;
+    height: 50px;
+    color: white;
+    background-color: #006ce4;
+    font-size: 16px;
+    border: none;
+    border-radius: 10px;
+}

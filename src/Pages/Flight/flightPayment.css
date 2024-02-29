@@ -1,0 +1,65 @@
+.boggage-details,.paymentMethod{
+    border: 1px solid gray;
+    border-radius: 10px;
+    width: 60%;
+    padding-left: 15px;
+    padding-top: 20px;
+    padding-bottom: 50px;
+}
+.bag-payment{
+    margin: 50px 190px 0px 190px;
+    display: flex;
+}
+.bag-Cat{
+    display: flex;
+    gap: 25px;
+    width: 250px;
+    margin-top: 20px;
+}
+.paymentdetailing{
+    margin-left: 150px;
+}
+.paymentMethod{
+    margin: 50px 190px 0px 190px;
+    width: 45%;
+}
+.payImg{
+    margin-right: 10px;
+    height: 18px;
+    width: 30px;
+    margin-bottom: 15px;
+}
+.inputdata{
+    height: 45px;
+    width: 450px;
+    margin-bottom: 15px;
+    /* margin-top: 10px; */
+}
+.carddetail{
+    display: flex;
+    height: 45px;
+    width: 450px;
+    border: 1px solid gray;
+    align-items: center;
+    padding-left: 10px;
+    gap: 15px;
+    margin-bottom:15px;
+}
+.expinput{
+    height: 45px;
+    width: 180px;
+    padding-left: 10px;
+    font-size: 16px;
+    margin-right: 70px;
+}
+.backBtn{
+    height:45px;
+    width:130px;
+    background-color:#006ce4;
+    color:white;
+    border: none;
+    cursor: pointer;
+    margin: 30px 0px 50px 750px;
+    border-radius: 10px;
+    font-size: 16px;
+}
