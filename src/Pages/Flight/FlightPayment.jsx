@@ -1,16 +1,22 @@
 import React, { useState } from "react";
 import "./flightPayment.css";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faSuitcaseRolling,
   faBriefcase,
   faCreditCard,
+  faL,
 } from "@fortawesome/free-solid-svg-icons";
 // import hi from "../Images/hi";
 
 const FlightPayment = () => {
-  const location = useLocation();
+  const navigat
+ = useNavigate();
+   const location = useLocation();
+  const[popUpPay,setPopUpPay] = useState(false);
+  const[openPopUp,setOpenPopUp] = useState(false);
+ 
   console.log(emailId);
   const [emailId, setEmailId] = useState(location.state.email);
   const [cvc, setCvc] = useState("");
@@ -28,13 +34,30 @@ const FlightPayment = () => {
       setCardNumber(inputNumber);
     }
   };
+  const [isvalid, setIsvalid] = useState(true);
+  const [exDate, setExDate] = useState();
+  const handleExDate = (e) => {
+    const expirydate = e.target.value;
+
+    const currentdate = new Date();
+    const entereddate = new Date(exDate);
+    let valid = true;
+    if (entereddate >= currentdate) {
+      setExDate(expirydate);
+      valid = false;
+    }
+    setIsvalid(valid);
+  };
+
+  const handlePaybtn = ()=>{
+    alert("Payment successful!");
+    navigat(`/`);
+  }
+  
   return (
     <div>
-      {/* <input type='email' 
-      placeholder={emailId}/> */}
-
-      <div className="bag-payment">
-        <div className="boggage-details">
+      <div className="bag-payment" style={{width:"50%"}}>
+        <div className="boggage-details" >
           <h2 style={{ fontSize: "20px", fontWeight: "600" }}>Baggage</h2>
           <h5
             style={{
@@ -130,7 +153,7 @@ const FlightPayment = () => {
               />
 
               {cardNumber.length === 16 ? (
-                <span style={{ color: "green" }}>
+                <span style={{ color: "green" }} className="cardData">
                   Valid 16-digit card number
                 </span>
               ) : (
@@ -138,25 +161,59 @@ const FlightPayment = () => {
               )}
             </div>
           </div>
-          <label>
-            Expiry Date{" "}
-            <span style={{ color: "red", marginRight: "160px" }}>*</span>
-          </label>
-          <label>
-            CVC <span style={{ color: "red" }}>*</span>
-          </label>
-          <br />
-          <input type="number" placeholder="MM/YY" className="expinput" />
-          <input
-            type="text"
-            className="expinput"
-            maxLength={4}
-            value={cvc}
-            onChange={handleInputChange}
-          />
+          <div style={{ marginTop: "20px" }}>
+            <label>
+              Expiry Date{" "}
+              <span style={{ color: "red", marginRight: "160px" }}>*</span>
+            </label>
+            <label>
+              CVC <span style={{ color: "red" }}>*</span>
+            </label>
+            <br />
+            {!isvalid ? <p>Please enter a valid expiry date</p>:<></>}
+            <input
+              type="text"
+              placeholder="MM/YY"
+              className="expinput"
+              value={exDate}
+              onChange={handleExDate}
+            />
+
+            <input
+              type="text"
+              className="expinput"
+              // maxLength={4}
+              value={cvc}
+              onChange={handleInputChange}
+            />
+
+            {cvc.length === 4 ? (
+              <span style={{ color: "green" }} className="cvcdata">
+                Valid 4-digit numbar
+              </span>
+            ) : (
+              <span style={{ color: "red" }}></span>
+            )}
+          </div>
         </div>
       </div>
-      <button className="backBtn">Pay Now</button>
+      <button className="backBtn" onClick={()=>setPopUpPay(!popUpPay)}>Pay Now</button>
+      {
+        popUpPay &&
+        (
+          <div className="flightinfo">
+          <div className="payPage">
+
+         <img src="https://cdn.pixabay.com/photo/2013/07/12/14/45/qr-code-148732_1280.png" alt="" style={{zIndex:"1",height:"300px",width:"300px",marginTop:"50px"}}/>
+         <br/>
+         <h3>Scan and pay</h3>
+         <div>
+         <button className="pay-Btn" onClick={handlePaybtn}>Pay</button>
+         </div>
+          </div>
+          </div>
+        )
+      }
     </div>
   );
 };

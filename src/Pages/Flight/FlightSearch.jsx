@@ -26,6 +26,7 @@ const FlightSearch = () => {
   const location = useLocation();
   const data = location.state;
   console.log("looooooo", data);
+  const[flightPrice,setFlightPrice] = useState();
   const [source, setSource] = useState(location.state.source);
   const [destination, setDestination] = useState(location.state.destination);
   const [bookingPeople, setBookingPeople] = useState(false);
@@ -50,7 +51,7 @@ const FlightSearch = () => {
   const flightSearchid = async () => {
     try {
       const responce = await fetch(
-        `https://academics.newtonschool.co/api/v1/bookingportals/flight/{{flightId}:{}`,
+        `https://academics.newtonschool.co/api/v1/bookingportals/flight?search={"source":"${source}","destination":"${destination}"}&day="Mon"${sort!=""?`&sort={"${sort=="rating"?"rating":"avgCostPerNight"}":"${sort=="highToLow"?-1:1}"}`:""}`,
         {
           method: "GET",
           headers: { projectID: "uhks9mjjdr82" },
@@ -92,8 +93,12 @@ const FlightSearch = () => {
   //     flightSearchid();
   //    },[])
 
-  const flightConfirmation=()=>{
-    navigate(`/flightconfirm`,{ state: data,destination});
+  const flightConfirmation=(fid)=>{
+    navigate(`/flightconfirm/${fid}`,{ state:{
+      data:data,
+      destination:destination,
+      flightPrice:flightPrice
+    }});
   };
 
 
@@ -278,12 +283,28 @@ const FlightSearch = () => {
       </div>
 
       <div className="filter-card">
-        <div className="flight-filter">filter</div>
+        <div className="flight-filter">
+
+        </div>
         <div className="flight-card">
+        <div className="sortoption">
+            <div>
+              <select className="sort"
+              //  onChange={(e)=>{setsort(e.target.value),console.log(e.target.value)}}
+               >
+                <option>Sort By</option>
+                <option style={{border:"5px solid black"}} value="early-late" > Departure (Early-Late)</option>
+                <option value="low-high" >Duration (Lowest-Highest)</option>
+                <option value="lowest-highest" >Cheapest Ticket (Lowest-Highest)</option>
+              </select>
+              
+            </div>
+            </div>
           <div className="flightcard-1">
             {data.data.flights.map((item) => {
               return (
                 <>
+                
                   <div className="FlightBox">
                     <div className="flightBox1">
                       <div className="flight-logo">
@@ -357,7 +378,8 @@ const FlightSearch = () => {
                       </div>
                       <button
                         className="flightView"
-                        onClick={() => setInfoPopUp(true)}
+                        onClick={() => {setInfoPopUp(true),setFlightPrice(item.ticketPrice
+                          )}}
                       >
                         View details
                       </button>
@@ -460,7 +482,7 @@ const FlightSearch = () => {
                                 <h2>INR{(item.ticketPrice.toFixed(2))*(people.adult)}</h2>
                                 <span>Total price for all travellers</span>
                               </div>
-                              <button className="flightSelectbtn" onClick={flightConfirmation}>SELECT</button>
+                              <button className="flightSelectbtn" onClick={()=>{flightConfirmation(item._id)}}>SELECT</button>
                             </div>
                         </FlightInfo>
                       )}

@@ -73,22 +73,7 @@ const FlightHeader = () => {
   };
 
 
-//   const airportSearch = async () => {
-//     try {
-//       const responce = await fetch(
-//         `https://academics.newtonschool.co/api/v1/bookingportals/airport?search={"city":"${source}"}`,
-//         {
-//           method: "GET",
-//           headers: { projectID: "uhks9mjjdr82" },
-//           "Content-Type": "application/json",
-//         }
-//       );
-//       const result = await responce.json();
-//       console.log(result);
-//     } catch (error) {
-//       return error;
-//     }
-//   };
+
 //   useEffect (()=>{
 //   airportSearch();
 //  },[source])

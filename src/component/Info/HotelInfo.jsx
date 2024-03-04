@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./hotelInfo.css";
 import Navbar from "../navbar/Navbar";
 import HotelSearch from "../../Pages/hotelSearchlist/HotelSearch";
-import { Navigate, useLocation } from "react-router-dom";
+import { Link, Navigate, useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
@@ -33,9 +33,10 @@ import {
   faComments,
   faMagnifyingGlass,
   faCalendarDays,
-  faUser
+  faUser,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import PaymentHotel from "../paymentHotel/PaymentHotel";
 
 const HotelInfo = () => {
   const navigate = useNavigate();
@@ -46,7 +47,8 @@ const HotelInfo = () => {
 
   // const destination = location.state.destination;
   // const selectedDate = location.state.selectedDate;
-  const [persons,setPersons] = useState(location.state.persons);
+  const [roomval, setRoomVal] = useState();
+  const [persons, setPersons] = useState(location.state.persons);
   const [bookingPersons, setBookingPersons] = useState(false);
   // const openbookingDate = location.state.openbookingDate;
   const [destination, setDestination] = useState(location.state.destination);
@@ -75,23 +77,19 @@ const HotelInfo = () => {
     objectFit: "cover",
   };
 
-  const handleImg = (data) => {
-    navigate(`/infoImg`, {
-      state: {
-        data: data,
-      },
+  const hotelPaymentPage = (data) => {
+    navigate(`/paymentHotel`);
+  };
+  // };
+
+  const handleOption = (name, operation) => {
+    setPersons((prev) => {
+      return {
+        ...prev,
+        [name]: operation === "i" ? persons[name] + 1 : persons[name] - 1,
+      };
     });
   };
-    // };
-
-    const handleOption = (name, operation) => {
-      setPersons((prev) => {
-        return {
-          ...prev,
-          [name]: operation === "i" ? persons[name] + 1 : persons[name] - 1,
-        };
-      });
-    };
 
   return (
     <div>
@@ -111,13 +109,13 @@ const HotelInfo = () => {
                     <FontAwesomeIcon
                       icon={faMagnifyingGlass}
                       className="searchicon1"
-                      style={{color:"rgb(90, 88, 88)"}}
+                      style={{ color: "rgb(90, 88, 88)" }}
                     />
                     <input
                       type="text"
                       value={destination}
                       className="searchinput1"
-                      style={{ color: "rgb(90, 88, 88)"}}
+                      style={{ color: "rgb(90, 88, 88)" }}
                       onChange={(e) => setDestination(e.target.value)}
                     />
                   </div>
@@ -131,7 +129,7 @@ const HotelInfo = () => {
                     <FontAwesomeIcon
                       icon={faCalendarDays}
                       className="searchicon1"
-                      style={{color:"rgb(90, 88, 88)"}}
+                      style={{ color: "rgb(90, 88, 88)" }}
                     />
                     <div
                       // className="headerSearchItem"
@@ -161,80 +159,82 @@ const HotelInfo = () => {
                 </div>
                 <div className="listItem">
                   <span className="destinationlist">
-                  <div className="headerSearchItem">
-                  <FontAwesomeIcon icon={faUser} className="headerIcon" />
-            <span
-              onClick={() => setBookingPersons(!bookingPersons)}
-              className="headerSearchText"
-            >{`${persons.adult}adult. ${persons.children}children. ${persons.room}room`}</span>
-            {bookingPersons && (
-              <div className="options">
-                <div className="optionItem">
-                  <span className="openText">Adult</span>
-                  <div className="optionCounter">
-                    <button
-                      disabled={persons.adult <= 1}
-                      className="optionbtn"
-                      onClick={() => handleOption("adult", "d")}
-                    >
-                      -
-                    </button>
-                    <span className="optionnum">{persons.adult}</span>
-                    <button
-                      className="optionbtn"
-                      onClick={() => handleOption("adult", "i")}
-                    >
-                      +
-                    </button>
-                  </div>
-                </div>
-                <div className="optionItem">
-                  <span className="openText">Children</span>
-                  <div className="optionCounter">
-                    <button
-                      disabled={persons.children <= 0}
-                      className="optionbtn"
-                      onClick={() => handleOption("children", "d")}
-                    >
-                      -
-                    </button>
-                    <span className="optionnum">{persons.children}</span>
-                    <button
-                      className="optionbtn"
-                      onClick={() => handleOption("children", "i")}
-                    >
-                      +
-                    </button>
-                  </div>
-                </div>
-                <div className="optionItem">
-                  <span className="openText">room</span>
-                  <div className="optionCounter">
-                    <button
-                      disabled={persons.room <= 1}
-                      className="optionbtn"
-                      onClick={() => handleOption("room", "d")}
-                    >
-                      -
-                    </button>
-                    <span className="optionnum">{persons.room}</span>
-                    <button
-                      className="optionbtn"
-                      onClick={() => handleOption("room", "i")}
-                    >
-                      +
-                    </button>
-                  </div>
-                </div>
-                <button
-                  onClick={() => setBookingPersons(!bookingPersons)}
-                  className="donebtn"
-                >
-                  Done
-                </button>
-              </div>
-            )}
-          </div>
+                    <div className="headerSearchItem">
+                      <FontAwesomeIcon icon={faUser} className="headerIcon" />
+                      <span
+                        onClick={() => setBookingPersons(!bookingPersons)}
+                        className="headerSearchText"
+                      >{`${persons.adult}adult. ${persons.children}children. ${persons.room}room`}</span>
+                      {bookingPersons && (
+                        <div className="options">
+                          <div className="optionItem">
+                            <span className="openText">Adult</span>
+                            <div className="optionCounter">
+                              <button
+                                disabled={persons.adult <= 1}
+                                className="optionbtn"
+                                onClick={() => handleOption("adult", "d")}
+                              >
+                                -
+                              </button>
+                              <span className="optionnum">{persons.adult}</span>
+                              <button
+                                className="optionbtn"
+                                onClick={() => handleOption("adult", "i")}
+                              >
+                                +
+                              </button>
+                            </div>
+                          </div>
+                          <div className="optionItem">
+                            <span className="openText">Children</span>
+                            <div className="optionCounter">
+                              <button
+                                disabled={persons.children <= 0}
+                                className="optionbtn"
+                                onClick={() => handleOption("children", "d")}
+                              >
+                                -
+                              </button>
+                              <span className="optionnum">
+                                {persons.children}
+                              </span>
+                              <button
+                                className="optionbtn"
+                                onClick={() => handleOption("children", "i")}
+                              >
+                                +
+                              </button>
+                            </div>
+                          </div>
+                          <div className="optionItem">
+                            <span className="openText">room</span>
+                            <div className="optionCounter">
+                              <button
+                                disabled={persons.room <= 1}
+                                className="optionbtn"
+                                onClick={() => handleOption("room", "d")}
+                              >
+                                -
+                              </button>
+                              <span className="optionnum">{persons.room}</span>
+                              <button
+                                className="optionbtn"
+                                onClick={() => handleOption("room", "i")}
+                              >
+                                +
+                              </button>
+                            </div>
+                          </div>
+                          <button
+                            onClick={() => setBookingPersons(!bookingPersons)}
+                            className="donebtn"
+                          >
+                            Done
+                          </button>
+                        </div>
+                      )}
+                    </div>
                   </span>
                 </div>
 
@@ -256,7 +256,7 @@ const HotelInfo = () => {
         <div className="detail-overview">
           <div className="nav-overview">
             {/* <div className="overview Active">Overview</div> */}
-            <a href="choice">Overview</a>
+            <Link to=".detailImg">Overview</Link>
             <div className="facilities">Facilities</div>
             <div className="amenities">Amenities</div>
           </div>
@@ -387,14 +387,37 @@ const HotelInfo = () => {
                     <input
                       type="number"
                       className="numroom"
-                      defaultValue="0"
-                      style={{ marginBottom: "120px", width: "50px" }}
+                      defaultValue="1"
+                      style={{ marginBottom: "110px", width: "50px" }}
+                      value={roomval}
+                      onChange={(e) => {
+                        setRoomVal(e.target.value);
+                      }}
                     />
                     <br />
                   </>
                 );
               })}
             </div>
+          </div>
+          <div>
+            {information.map((item) => (
+              <>
+                <button
+                  className="reserveBtn"
+                  style={{
+                    marginTop: "75px",
+                    marginRight: "5px",
+                    marginBottom: "28px",
+                  }}
+                  onClick={hotelPaymentPage}
+                >
+                  {/* {(item.rooms[0].costPerNight)*roomval} */}
+                  Reserve
+                </button>
+                <br />
+              </>
+            ))}
           </div>
         </div>
       </div>

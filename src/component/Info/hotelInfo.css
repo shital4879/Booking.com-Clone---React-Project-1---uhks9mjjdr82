@@ -214,3 +214,12 @@
     width: 120px;
     border: none;
 }
+.reserveBtn{
+    height: 30px;
+    width: 85px;
+    font-size: 15px;
+    background-color: #427aca;
+    color: white;
+    border: none;
+    border-radius: 5px;
+}

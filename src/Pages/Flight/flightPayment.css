@@ -1,7 +1,7 @@
 .boggage-details,.paymentMethod{
-    border: 1px solid gray;
+    border: 5px solid gray;
     border-radius: 10px;
-    width: 60%;
+    width: 50%;
     padding-left: 15px;
     padding-top: 20px;
     padding-bottom: 50px;
@@ -38,12 +38,12 @@
 .carddetail{
     display: flex;
     height: 45px;
-    width: 450px;
+    width: 300px;
     border: 1px solid gray;
     align-items: center;
     padding-left: 10px;
     gap: 15px;
-    margin-bottom:15px;
+    margin-bottom:25px;
 }
 .expinput{
     height: 45px;
@@ -62,4 +62,37 @@
     margin: 30px 0px 50px 750px;
     border-radius: 10px;
     font-size: 16px;
+}
+.cvcdata{
+    position: relative;
+    top: 40px;
+    left: -250px;
+    font-size: 14px;
+}
+.cardData{
+    position: relative;
+    top: 35px;
+    font-size: 14px;
+    left: -220px;
+}
+.payPage{
+    position: absolute;
+    /* display: flex;
+    justify-content: center; */
+    text-align: center;
+    top: 100px;
+    border: 1px solid gray;
+    height: 500px;
+    width: 40%;
+    background-color: white;
+}
+.pay-Btn{
+    font-size: 18px;
+    background-color: #006ce4;
+    color: white;
+    height: 30px;
+    width: 110px;
+    border: none;
+    border-radius: 10px;
+    margin-top: 30px;
 }

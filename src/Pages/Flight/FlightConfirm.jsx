@@ -4,14 +4,36 @@ import "./flightconfirm.css";
 import FlightInfo from "./FlightInfo";
 
 const FlightConfirm = () => {
+  const location = useLocation();
   const[emailId,setEmailId] = useState();
+  // const[flightPrice,setFlightPrice] = useState(location.state.flightPrice);
+  const flightPrice = location.state.flightPrice
+  console.log("mi",flightPrice)
   const navigation = useNavigate();
   // const[destination,setDestination] = useState(location.state.destination)
   // const destination = location.state
   // console.log(destination);
-  const location = useLocation();
   const data = location.state
-  console.log("may",data);
+  const fid=location.state
+
+
+
+  //   const airportSearch = async () => {
+  //   try {
+  //     const responce = await fetch(
+  //       ``,
+  //       {
+  //         method: "GET",
+  //         headers: { projectID: "uhks9mjjdr82" },
+  //         "Content-Type": "application/json",
+  //       }
+  //     );
+  //     const result = await responce.json();
+  //     console.log(result);
+  //   } catch (error) {
+  //     return error;
+  //   }
+  // };
 
   const flightPayment=()=>{
     navigation(`/flightPayment`,{state: 
@@ -20,6 +42,7 @@ const FlightConfirm = () => {
   }
   return (
     <div>
+      <form>
       <div className="confirmation-main">
         <div className="mainSet1">
           <div className="set1">
@@ -35,6 +58,7 @@ const FlightConfirm = () => {
               <span style={{ color: "red", marginRight: "5px" }}>*</span>
             </label>
             <br />
+            <form >
             <input
               type="email"
               value={emailId}
@@ -44,6 +68,7 @@ const FlightConfirm = () => {
               style={{ height: "35px", width: "250px", marginBottom: "30px" }}
               required
             />
+            </form>
             <br />
             <label>
               Phone number{" "}
@@ -101,9 +126,7 @@ const FlightConfirm = () => {
                     marginBottom: "8px",
                   }}
                 >
-                  INR{data.data.flights.
-ticketPrice
-}
+                  INR{flightPrice}
                 </h5>
                 <h5
                   style={{
@@ -196,6 +219,7 @@ ticketPrice
             <button className="backBtn" onClick={flightPayment}>Next</button>
         </div>
       </div>
+      </form>
     </div>
   );
 };

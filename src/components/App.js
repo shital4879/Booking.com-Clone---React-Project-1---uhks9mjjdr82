@@ -12,6 +12,9 @@ import Hotelimg from "../component/Info/Hotelimg";
 import FlightSearch from "../Pages/Flight/FlightSearch";
 import FlightConfirm from "../Pages/Flight/FlightConfirm";
 import FlightPayment from "../Pages/Flight/FlightPayment";
+import Register from "../component/register/Register";
+import SignIn from "../component/register/SignIn";
+import PaymentHotel from "../component/paymentHotel/PaymentHotel";
 // import HotelInfo from "../Pages/Info/HotelInfo"
 
 
@@ -26,8 +29,11 @@ function App() {
         <Route path="/Info" element={<HotelInfo/>}/>
         <Route path="/infoImg" element={<Hotelimg/>}/>
         <Route path="/flightsearch" element={<FlightSearch/>}/>
-        <Route path="/flightconfirm" element={<FlightConfirm/>}/>
+        <Route path="/flightconfirm/:fid" element={<FlightConfirm/>}/>
         <Route path="/flightPayment" element={<FlightPayment/>}/>
+        <Route path="/Register" element={<Register/>}/>
+        <Route path="/SignIn" element={<SignIn/>}/>
+        <Route path="/paymentHotel" element={<PaymentHotel/>}/>
       </Routes>
       </BrowserRouter>
   );

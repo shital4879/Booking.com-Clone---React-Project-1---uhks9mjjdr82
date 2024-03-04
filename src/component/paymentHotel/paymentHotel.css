@@ -1,0 +1,12 @@
+.paymentpage1{
+    gap: 60px;
+    display: flex;
+}
+.paymentMethodHotel{
+    /* margin-left: 200px; */
+    margin-top: 50px;
+    border: 1px solid gray;
+    width: 60%;
+    padding: 10px 0px 20px 10px;
+    border-radius: 10px;
+}

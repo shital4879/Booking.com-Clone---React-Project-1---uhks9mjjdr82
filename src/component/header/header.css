@@ -41,7 +41,8 @@
 }
 .selectedDate{
     position: absolute;
-    top: 50px;
+    top: 35px;
+    left: -40px;
     z-index: 1;
     background-color: #fff;
 }
@@ -105,3 +106,26 @@
     border: none;
     /* z-index: 0; */
 }
+.locationData{
+    height: 40px;
+    padding-left: 5px;
+    
+}
+.locationData-1{
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+.donebtnforDate{
+    position: absolute;
+    top: 370px;
+    z-index: 1000;
+    width: 150%;
+    height: 30px;
+    border-radius: 3px;
+    color: #0071c2;
+    left: -40px;
+    border: 1px solid #0071c2;
+}
+/* #searchitem{
+    height: 600px;
+} */

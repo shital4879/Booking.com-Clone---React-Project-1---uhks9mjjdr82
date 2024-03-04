@@ -1,0 +1,58 @@
+.signIn{
+    /* text-align: center; */
+    margin-top: 15px;
+    display: block;
+    justify-content: center;
+}
+.crateAccount{
+    display: flex;
+    justify-content: center;
+    font-size: 20px;
+}
+.emailAddress{
+    display: flex;
+    justify-content: center;
+    font-size:14px;
+    margin-top: 20px;
+    margin-left: -170px;
+}
+.signEmail,.signpass,.signName{
+    display: flex;
+    justify-content: center;
+    height: 36px;
+    width: 360px;
+    margin-left: 640px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    padding-left: 10px;
+    font-size: 14px;
+}
+.signEmailBtn{
+    margin-left: 640px;
+    border: none;
+    cursor: pointer;
+    height: 45px;
+    width: 360px;
+    align-items: center;
+    color: white;
+    background-color: #003b95;
+    font-size: 16px;
+    border-radius: 10px;
+}
+.password1{
+    margin-left: -200px;
+    display: flex;
+    justify-content: center;
+}
+.name1{
+    margin-left: -220px;
+    display: flex;
+    justify-content: center;
+}
+.clickHere{
+    display: flex;
+    justify-content: center;
+    /* margin-left: -5px; */
+    font-size: 18px;
+    margin-top: 20px;
+}

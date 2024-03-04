@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import "./header.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -6,6 +6,7 @@ import {
   faPlane,
   faCalendarDays,
   faUser,
+  faL,
 } from "@fortawesome/free-solid-svg-icons";
 import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
@@ -15,12 +16,18 @@ import { json, useNavigate } from "react-router-dom";
 
 const Header = () => {
   const navigate = useNavigate();
-
-  // const[destination,setDestination] = useState("");
+  const [fetchingData, setFetchingData] = useState();
+  const hotelInput = useRef();
+  const [hotelInputPopUp, setHotelInputPopUp] = useState(false);
+  function hotelInputFocus() {
+    setHotelInputPopUp(true);
+  }
+  function hotelInputBlur() {
+    setHotelInputPopUp(false);
+  }
   const [data, setData] = useState();
-
   const [destination, setDestination] = useState("");
-  console.log(destination);
+  const [openbtn, setOpenBtn] = useState(false);
   const [openbookingDate, setOpenBookingDate] = useState(false);
   const [selectedDate, setSelectedDate] = useState([
     {
@@ -67,7 +74,6 @@ const Header = () => {
     hotelSearch()
       .then((response) => {
         if (response) {
-          console.log(response);
           setData(response.data);
           handleSearch(response.data);
         }
@@ -76,40 +82,71 @@ const Header = () => {
         console.log(error);
       });
   }
+
+  //--------------------Hotel input cities data dynamically----------------------
+
+  const fetchHotelState = async () => {
+    try {
+      const responce = await fetch(
+        `https://academics.newtonschool.co/api/v1/bookingportals/hotel?search={"location":"${destination}"}`,
+        {
+          method: "GET",
+          headers: { projectID: "uhks9mjjdr82" },
+          "Content-Type": "application/json",
+        }
+      );
+      const result = await responce.json();
+      setFetchingData(result.data.hotels);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  function handleSearchlocation() {
+    fetchHotelState()
+      .then((response) => {
+        if (response) {
+          setFetchingData(response.data);
+          // handleSearch(response.data);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
+  //   useEffect(()=>{
+  //      fetchHotelState;
+  // },[])
+
   const handleSearch = (data) => {
-    navigate(`/hotel/destination=${destination}`, { state:{ 
-      data:data,
-      destination:destination,
-      selectedDate:selectedDate,
-      openbookingDate:openbookingDate,
-      persons:persons,
-      bookingPersons:bookingPersons
-      // selectedDate:selectedDate
-    }});
+    navigate(`/hotel/destination=${destination}`, {
+      state: {
+        data: data,
+        destination: destination,
+        selectedDate: selectedDate,
+        openbookingDate: openbookingDate,
+        persons: persons,
+        bookingPersons: bookingPersons,
+        // selectedDate:selectedDate
+      },
+    });
   };
 
-  
   // const handleLocation = ()=>{
   //   setDestination(destination)
-  // }
-  // useEffect(()=>{
-  //   console.log("Location",destination)
-  // },[destination])
-
-
-  // const findingHotel=()=>{
-  //   hotelSearch().then((responce)=>{
-  //     console.log("success",responce);
-  //   }).catch((error)=>{
-  //     console.log("error",error);
-  //   })
   // }
 
   return (
     <div className="head1">
       {/* SEARCHBAR */}
       <div className="headerSearch">
-        <div className="headerSearchItem">
+        <div
+          className="headerSearchItem"
+          style={{ position: "relative" }}
+          onClick={(e) => {
+            e.stopPropagation();
+          }}
+        >
           <FontAwesomeIcon icon={faBed} className="headerIcon" />
           <input
             type="text"
@@ -117,31 +154,88 @@ const Header = () => {
             className="HeaderSearchInput"
             value={destination}
             onChange={(e) => {
-              setDestination(e.target.value), e.preventDefault();
+              setDestination(e.target.value);
             }}
+            onClick={handleSearchlocation}
+            ref={hotelInput}
+            onBlur={hotelInputBlur}
+            onFocus={hotelInputFocus}
           />
-          {/* onChange={(e)=>setDestination(e.target.value)} */}
+
+          <div
+            onClick={(e) => {
+              e.stopPropagation();
+            }}
+          >
+            {destination && (
+              <div
+                style={{
+                  position: "absolute",
+                  top: "40px",
+                  width: "100%",
+                  height: "auto",
+                  overflowY:"scroll",
+                  right: "-35px",
+                  backgroundColor: "white",
+                  borderRadius: "10px",
+                  // zIndex:"1",
+                  // padding: "0px 0px 10px 5px",
+                  boxShadow: "0px 0px 10px -2px rgba(0,0,0,0.4)",
+                  // left: "-5px"
+                }}
+              >
+                {fetchingData &&
+                  fetchingData
+                    .filter((item) => {
+                      const lower = item.location.toLowerCase();
+
+                      return lower.startsWith(destination);
+                    })
+                    .map((item) => (
+                      <div
+                        className="locationData "
+                        onClick={(e) => setDestination(item.location)}
+                      >
+                        {item.location}
+                      </div>
+                    ))}
+              </div>
+            )}
+          </div>
+
+          {/* )} */}
         </div>
+
         <div
           className="headerSearchItem"
           id="searchitem"
-          onClick={() => setOpenBookingDate(!openbookingDate)}
+          onClick={(e) =>{ setOpenBookingDate(true)}}
         >
           <FontAwesomeIcon icon={faCalendarDays} className="headerIcon" />
-          <span className="headerSearchText">{`${format(
-            selectedDate[0].startDate,
-            "dd/MM/yyyy"
-          )} to ${format(selectedDate[0].endDate, "dd/MM/yyyy")}`}</span>
-          {openbookingDate && (
-            <DateRange
-              editableDateInputs={true}
-              onChange={(item) => setSelectedDate([item.selection])}
-              moveRangeOnFirstSelection={false}
-              ranges={selectedDate}
-              minDate={new Date()}
-              className="selectedDate"
-            />
-          )}
+          <div>
+            <span className="headerSearchText">{`${format(
+              selectedDate[0].startDate,
+              "dd/MM/yyyy"
+            )} to ${format(selectedDate[0].endDate, "dd/MM/yyyy")}`}</span>
+            {openbookingDate && (
+              <>
+                <DateRange
+                  editableDateInputs={true}
+                  onChange={(item) => setSelectedDate([item.selection])}
+                  moveRangeOnFirstSelection={false}
+                  ranges={selectedDate}
+                  minDate={new Date()}
+                  className="selectedDate"
+                />
+                <button
+                  onClick={(e) =>{e.stopPropagation(), setOpenBookingDate(false)}}
+                  className="donebtnforDate"
+                >
+                  Done
+                </button>
+              </>
+            )}
+          </div>
         </div>
         <div className="headerSearchItem">
           <FontAwesomeIcon icon={faUser} className="headerIcon" />
