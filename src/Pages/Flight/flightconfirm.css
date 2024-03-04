@@ -1,43 +1,45 @@
 .confirmation-main{
     /* margin-left: 190px;
     margin-right: 190px; */
-    margin: 50px 190px 0px 190px;
+    margin: 20px 190px 0px 190px;
 }
 .set1{
     border: 1px solid gray;
     border-radius: 10px;
-    width: 60%;
-    padding: 10px;
+    width: 55%;
+    padding-left: 30px;
 }
 .mainSet1{
     display: flex;
 }
 .set2{
-    
+    display: block;
 }
 .setBox1{
-    margin-left:100px ;
+    margin-left:200px ;
     width: 280px;
     display: flex;
     justify-content: space-between;
 }
 .mainSet2{
-    width: 60%;
+    width: 55%;
     padding: 10px;
-    margin-top: 50px;
+    margin-top: 30px;
     border: 1px solid gray;
     border-radius: 10px;
 }
-.backBtn{
+.backBtnbtn{
     height:45px;
     width:130px;
     background-color:#006ce4;
     color:white;
     border: none;
     cursor: pointer;
-    margin-right: 10px;
+    /* margin-right: 10px; */
     border-radius: 10px;
     font-size: 16px;
+    margin-top: 15px;
+    /* margin-right: 200px; */
 }
 .buttons{
     display: flex;

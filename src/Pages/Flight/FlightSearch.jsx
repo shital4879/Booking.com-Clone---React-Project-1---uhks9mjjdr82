@@ -27,12 +27,13 @@ const FlightSearch = () => {
   const data = location.state;
   console.log("looooooo", data);
   const[flightPrice,setFlightPrice] = useState();
-  const [source, setSource] = useState(location.state.source);
-  const [destination, setDestination] = useState(location.state.destination);
+
+  const [source, setSource] = useState(location.state.source?location.state.source:"");
+  const [destination, setDestination] = useState( location.state.destination?location.state.destination:"");
   const [bookingPeople, setBookingPeople] = useState(false);
-  const [people, setPeople] = useState(location.state.people);
+  const [people, setPeople] = useState( location.state.people? location.state.people:"");
   const [openbookingDate, setOpenBookingDate] = useState(false);
-  const [selectedDate, setSelectedDate] = useState(location.state.selectedDate);
+  const [selectedDate, setSelectedDate] = useState(location.state.selectedDate ?location.state.selectedDate:"");
   const [goingflight, setGoingflight] = useState();
   const [comingflight, setComingflight] = useState();
   const [infoPopUp, setInfoPopUp] = useState(false);
@@ -92,12 +93,15 @@ const FlightSearch = () => {
   // useEffect  (()=>{
   //     flightSearchid();
   //    },[])
-
+  console.log("searchcheck",location.state);
   const flightConfirmation=(fid)=>{
     navigate(`/flightconfirm/${fid}`,{ state:{
       data:data,
       destination:destination,
-      flightPrice:flightPrice
+      flightPrice:flightPrice, 
+      source:location.state.source,
+      selectedDate:location.state.selectedDate,
+      people:location.state.people
     }});
   };
 

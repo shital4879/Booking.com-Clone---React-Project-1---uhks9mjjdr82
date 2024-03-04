@@ -47,6 +47,7 @@ const HotelInfo = () => {
 
   // const destination = location.state.destination;
   // const selectedDate = location.state.selectedDate;
+  const[hotelPrice,setHotelPrice] = useState();
   const [roomval, setRoomVal] = useState();
   const [persons, setPersons] = useState(location.state.persons);
   const [bookingPersons, setBookingPersons] = useState(false);
@@ -78,7 +79,11 @@ const HotelInfo = () => {
   };
 
   const hotelPaymentPage = (data) => {
-    navigate(`/paymentHotel`);
+    navigate(`/paymentHotel`,{
+      state:{
+        hotelPrice:hotelPrice
+      }
+    });
   };
   // };
 
@@ -410,7 +415,8 @@ const HotelInfo = () => {
                     marginRight: "5px",
                     marginBottom: "28px",
                   }}
-                  onClick={hotelPaymentPage}
+                  onClick={()=>{hotelPaymentPage(),setHotelPrice(item.amenities
+                    )}}
                 >
                   {/* {(item.rooms[0].costPerNight)*roomval} */}
                   Reserve

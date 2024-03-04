@@ -6,9 +6,10 @@
 }
 .navContainer{
     color: #fff;
-    width: 80%;
+    width: 88%;
     display: flex;
     align-items: center;
+    margin-top: 5px;
     justify-content: space-evenly;
 }
 .logo{
@@ -88,9 +89,11 @@
     background-color: black;
 }
 .profile{
-    height: 30px;
-    width: 30px;
+    height: 35px;
+    width: 35px;
     background-size: cover;
     position: relative;
-    background-image: url("../../../public/1.png");
+    background-image: url("../../../public/profile.jpg");
+    border-radius: 20px;
+    border: 3px solid gray;
 }

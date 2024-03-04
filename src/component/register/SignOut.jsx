@@ -9,7 +9,7 @@ const SignOut = () => {
     }
   return (
     <div onClick={(e)=>{e.stopPropagation()}} style={{position:"absolute",top:"30px",right:"0",zIndex:"10"}}>
-      <button onClick={()=>{logOut()}} style={{height:"30px",width:"80px",marginTop:"px",zIndex:"1000"}}>Sign Out</button>
+      <button onClick={()=>{logOut()}} style={{height:"30px",width:"80px",marginTop:"10px",zIndex:"1000"}}>Sign Out</button>
     </div>
   )
 }

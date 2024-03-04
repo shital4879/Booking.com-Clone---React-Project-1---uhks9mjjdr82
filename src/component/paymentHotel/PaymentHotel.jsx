@@ -14,6 +14,9 @@ const PaymentHotel = () => {
   const navigat
   = useNavigate();
     const location = useLocation();
+    const hotelPrice = location.state.hotelPrice;
+    // const[hotelPrice,setHotelPrice] = useState(location.state.hotelPrice)
+    console.log("mm",hotelPrice);
    const[popUpPay,setPopUpPay] = useState(false);
    const[openPopUp,setOpenPopUp] = useState(false);
   
@@ -34,7 +37,7 @@ const PaymentHotel = () => {
      }
    };
     const[emailId,setEmailId] = useState();
-
+   
 
     const handlePaybtn = ()=>{
       alert("Payment successful!");
@@ -67,7 +70,6 @@ const PaymentHotel = () => {
             {localStorage.getItem("token") &&
             <div className="profile">
               <div style={{height:"20px",width:"20px"}} onClick={()=>setOpenSing(!openSign)} >
-                <img src="./1.jpg" alt=""  style={{height:"20px",width:"20px"}}/>
               </div>
               {openSign && (
               <SignOut/>
@@ -115,7 +117,7 @@ const PaymentHotel = () => {
             />
           </div>
           <div>
-            <h2>Total</h2>
+            <h2>Total{hotelPrice}</h2>
           <h5
                   style={{
                     fontSize: "15px",

@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import "./flightconfirm.css";
 import FlightInfo from "./FlightInfo";
 
+
 const FlightConfirm = () => {
   const location = useLocation();
   const[emailId,setEmailId] = useState();
@@ -14,7 +15,16 @@ const FlightConfirm = () => {
   // const destination = location.state
   // console.log(destination);
   const data = location.state
-  const fid=location.state
+  const fid=location.state;
+  const[openSign,setOpenSing] = useState(false);
+  const navigate = useNavigate();
+
+  const RegisterPage = () => {
+    navigate(`/Register`);
+  };
+  const SignInPage = () => {
+    navigate(`/SignIn`);
+  };
 
 
 
@@ -34,14 +44,50 @@ const FlightConfirm = () => {
   //     return error;
   //   }
   // };
-
+  console.log("check",location.state);
+ const handlebackbtn=()=>{
+  navigation(`/flightsearch`),{ state:{
+    data:location.state.data,
+    destination:location.state.destination,
+    flightPrice:location.state.flightPrice,
+    source:location.state.source,
+    selectedDate:location.state.selectedDate,
+    people:location.state.people
+  }}
+ }
   const flightPayment=()=>{
     navigation(`/flightPayment`,{state: 
       {
+        flightPrice:flightPrice,
         emailId:emailId}})
   }
   return (
     <div>
+       <div className="navbar">
+        <div className="navContainer">
+          <span className="logo">Booking.com</span>
+          <div className="navItems">
+            {!localStorage.getItem("token") && (
+              <button className="navButton" onClick={RegisterPage}>
+                Register
+              </button>
+            )}
+            {!localStorage.getItem("token") && (
+              <button className="navButton" onClick={SignInPage}>
+                Sign in
+              </button>
+            )}
+            {localStorage.getItem("token") &&
+              <div className="profile" onClick={(e)=>{e.stopPropagation(),setOpenSing(!openSign)}} >
+                {openSign && 
+                <SignOut/>
+                }
+              </div>
+            }
+
+          </div>
+        </div>
+      </div>
       <form>
       <div className="confirmation-main">
         <div className="mainSet1">
@@ -49,7 +95,7 @@ const FlightConfirm = () => {
             <h2 style={{ fontSize: "20px", marginBottom: "5px" }}>
               Contact details
             </h2>
-            <h5 style={{ fontWeight: "400", marginBottom: "20px" }}>
+            <h5 style={{ fontWeight: "400", marginBottom: "8px" }}>
               <span style={{ color: "red", marginRight: "5px" }}>*</span>
               Required
             </h5>
@@ -65,7 +111,7 @@ const FlightConfirm = () => {
               onChange={(e) => {
                 setEmailId(e.target.value), e.preventDefault();
               }}
-              style={{ height: "35px", width: "250px", marginBottom: "30px" }}
+              style={{ height: "35px", width: "250px", marginBottom: "-5px" }}
               required
             />
             </form>
@@ -89,12 +135,12 @@ const FlightConfirm = () => {
                   style={{
                     fontSize: "15px",
                     fontWeight: "700",
-                    marginBottom: "8px",
+                    marginBottom: "5px",
                   }}
                 >
                   Ticket (1 adult)
                 </h5>
-                <h5
+                {/* <h5
                   style={{
                     fontSize: "15px",
                     fontWeight: "400",
@@ -102,8 +148,8 @@ const FlightConfirm = () => {
                   }}
                 >
                   Flight fare
-                </h5>
-                <h5
+                </h5> */}
+                {/* <h5
                   style={{
                     fontSize: "15px",
                     fontWeight: "400",
@@ -111,12 +157,9 @@ const FlightConfirm = () => {
                   }}
                 >
                   Taxes and charges
-                </h5>
+                </h5> */}
                 <h2 style={{ marginTop: "40px" }}>Total</h2>
-                <p style={{ marginBottom: "15px" }}>
-                  Includes taxes and charges
-                </p>
-                <p>No hidden fees - track your price at every step</p>
+                
               </div>
               <div className="setMoney">
                 <h5
@@ -126,9 +169,9 @@ const FlightConfirm = () => {
                     marginBottom: "8px",
                   }}
                 >
-                  INR{flightPrice}
+                  INR{(flightPrice.toFixed(2))}
                 </h5>
-                <h5
+                {/* <h5
                   style={{
                     fontSize: "15px",
                     fontWeight: "400",
@@ -136,8 +179,8 @@ const FlightConfirm = () => {
                   }}
                 >
                   INR
-                </h5>
-                <h5
+                </h5> */}
+                {/* <h5
                   style={{
                     fontSize: "15px",
                     fontWeight: "400",
@@ -145,17 +188,23 @@ const FlightConfirm = () => {
                   }}
                 >
                   INR
-                </h5>
-                <h2 style={{ marginTop: "40px" }}>INR</h2>
+                </h5> */}
+                <h2 style={{ marginTop: "40px" }}> INR{(flightPrice.toFixed(2))}</h2>
               </div>
             </div>
+            <div style={{marginLeft:"200px",marginTop:"30px"}}>
+            <p style={{ marginBottom: "5px"}}>
+                  Includes taxes and charges
+                </p>
+                <p>No hidden fees - track your price at every step</p>
+                </div>
           </div>
         </div>
-        <div className="mainSet2">
+        <div className="mainSet2" >
           <h2 style={{ fontSize: "20px", marginBottom: "5px" }}>
             Contact details
           </h2>
-          <h5 style={{ fontWeight: "400", marginBottom: "20px" }}>
+          <h5 style={{ fontWeight: "400", marginBottom: "10px" }}>
             <span style={{ color: "red", marginRight: "5px" }}>*</span>Required
           </h5>
           <label style={{ fontSize: "15px", marginRight: "250px" }}>
@@ -168,7 +217,7 @@ const FlightConfirm = () => {
           </label>
           <br />
           <input
-            type="email"
+            type="text"
             style={{
               height: "35px",
               width: "250px",
@@ -178,7 +227,7 @@ const FlightConfirm = () => {
           />
           {/* <p style={{fontSize:"12px",width:"250px", marginRight:"10px"}}>Enter exactly what's written on this traveller's travel document</p> */}
           <input
-            type="email"
+            type="text"
             style={{ height: "35px", width: "250px" }}
            
             required
@@ -214,9 +263,8 @@ const FlightConfirm = () => {
         </div>
 
         <div className="buttons">
-            <button className="backBtn" onClick={<FlightInfo
-            />} >Back</button>
-            <button className="backBtn" onClick={flightPayment}>Next</button>
+            <button className="backBtnbtn" style={{marginRight:"100px"}} onClick={()=>handlebackbtn()} >Back</button>
+            <button className="backBtnbtn" style={{marginLeft:"0px"}} onClick={flightPayment}>Next</button>
         </div>
       </div>
       </form>

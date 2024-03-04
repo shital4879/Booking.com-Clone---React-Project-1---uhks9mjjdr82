@@ -16,6 +16,9 @@ const FlightPayment = () => {
    const location = useLocation();
   const[popUpPay,setPopUpPay] = useState(false);
   const[openPopUp,setOpenPopUp] = useState(false);
+  const flightprice = location.state.flightprice;
+  
+  console.log("yes",flightprice);
  
   console.log(emailId);
   const [emailId, setEmailId] = useState(location.state.email);
