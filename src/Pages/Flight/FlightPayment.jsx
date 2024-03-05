@@ -8,6 +8,7 @@ import {
   faCreditCard,
   faL,
 } from "@fortawesome/free-solid-svg-icons";
+import SignOut from "../../component/register/SignOut";
 // import hi from "../Images/hi";
 
 const FlightPayment = () => {
@@ -16,7 +17,8 @@ const FlightPayment = () => {
    const location = useLocation();
   const[popUpPay,setPopUpPay] = useState(false);
   const[openPopUp,setOpenPopUp] = useState(false);
-  const flightprice = location.state.flightprice;
+  const[flightprice,setFlightprice] = useState(location.state.flightPrice)
+  // const flightprice = location.state.flightprice;
   
   console.log("yes",flightprice);
  
@@ -52,28 +54,67 @@ const FlightPayment = () => {
     setIsvalid(valid);
   };
 
-  const handlePaybtn = ()=>{
-    alert("Payment successful!");
-    navigat(`/`);
+  const[openSign,setOpenSing] = useState(false);
+  const navigate = useNavigate();
+
+  const RegisterPage = () => {
+    navigate(`/Register`);
+  };
+  const SignInPage = () => {
+    navigate(`/SignIn`);
+  };
+  const[action,setAction] = useState();
+  const[status,setStatus] = useState();
+  const handlepaybtn = () =>{
+      setAction("Payment successful!"),
+      setStatus("Enjoy your journey");
+      setTimeout(() => {
+        navigat(`/`)
+      }, 3000);
   }
   
   return (
     <div>
-      <div className="bag-payment" style={{width:"50%"}}>
+      <div className="navbar">
+        <div className="navContainer">
+          <span className="logo">Booking.com</span>
+          <div className="navItems">
+            {!localStorage.getItem("token") && (
+              <button className="navButton" onClick={RegisterPage}>
+                Register
+              </button>
+            )}
+            {!localStorage.getItem("token") && (
+              <button className="navButton" onClick={SignInPage}>
+                Sign in
+              </button>
+            )}
+            {localStorage.getItem("token") &&
+              <div className="profile" onClick={(e)=>{e.stopPropagation(),setOpenSing(!openSign)}} >
+                {openSign && 
+                <SignOut/>
+                }
+              </div>
+            }
+
+          </div>
+        </div>
+      </div>
+      <div className="bag-payment" >
         <div className="boggage-details" >
           <h2 style={{ fontSize: "20px", fontWeight: "600" }}>Baggage</h2>
           <h5
             style={{
               fontSize: "16px",
               fontWeight: "400",
-              margin: "15px 0px 10px ",
+              margin: "5px 0px 10px ",
               color: "gray",
             }}
           >
             Total number of bags included for all travellers
           </h5>
           <div className="bag-Cat">
-            <FontAwesomeIcon icon={faBriefcase} style={{ marginTop: "10px" }} />
+            <FontAwesomeIcon icon={faBriefcase} style={{ marginTop: "5px" }} />
             <p>1 personal item Fits under the seat in front of you</p>
           </div>
           <div className="bag-Cat">
@@ -92,13 +133,14 @@ const FlightPayment = () => {
           </div>
         </div>
         <div className="paymentdetailing">
-          <div>
+          <div style={{display:"flex"}}>
             <h2>Total</h2>
+            <h3 style={{margin:"4px 0px 0px 150px"}}>INR{(flightprice).toFixed(2)}</h3>
           </div>
           <p style={{ color: "gray", marginBottom: "30px", marginTop: "5px" }}>
             Includes taxes and charges
           </p>
-          <p>No hidden fees - here's what you'll pay</p>
+          <p style={{marginTop: "30px"}}>No hidden fees</p>
         </div>
       </div>
       <div className="paymentMethod">
@@ -108,7 +150,7 @@ const FlightPayment = () => {
             style={{
               fontSize: "16px",
               fontWeight: "400",
-              margin: "15px 0px 10px ",
+              margin: "10x 0px 10px ",
               color: "gray",
             }}
           >
@@ -200,18 +242,17 @@ const FlightPayment = () => {
           </div>
         </div>
       </div>
-      <button className="backBtn" onClick={()=>setPopUpPay(!popUpPay)}>Pay Now</button>
+      <button className="backBtn" onClick={()=>{setPopUpPay(!popUpPay),handlepaybtn}}>Pay Now</button>
       {
         popUpPay &&
         (
-          <div className="flightinfo">
-          <div className="payPage">
+          <div className="flightinfo" >
+          <div className="payPage" style={{height:"300px",width:"300px",marginTop:"50px", border:"2px solid gray",borderRadius:"15px"}}>
 
-         <img src="https://cdn.pixabay.com/photo/2013/07/12/14/45/qr-code-148732_1280.png" alt="" style={{zIndex:"1",height:"300px",width:"300px",marginTop:"50px"}}/>
-         <br/>
-         <h3>Scan and pay</h3>
+          <p style={{marginTop:"75px",fontSize:"18px"}}>{action}</p>
          <div>
-         <button className="pay-Btn" onClick={handlePaybtn}>Pay</button>
+         <button className="pay-Btn" onClick={handlepaybtn} >Done</button>
+         <p style={{marginTop:"10px",fontSize:"16px"}}>{status}</p>
          </div>
           </div>
           </div>

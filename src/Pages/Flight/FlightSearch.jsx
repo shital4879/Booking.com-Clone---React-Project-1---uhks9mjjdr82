@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import "./flightSearch.css";
 import Navbar from "../../component/navbar/Navbar";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -18,14 +18,13 @@ import "react-date-range/dist/theme/default.css";
 import { format } from "date-fns";
 import { DateRange } from "react-date-range";
 import FlightInfo from "./FlightInfo";
-import { AIRPORT } from "../../utils";
+import { AIRPORT, iataCodeGet } from "../../utils";
 import FlightConfirm from "./FlightConfirm";
 
 const FlightSearch = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const data = location.state;
-  console.log("looooooo", data);
+  const [data, setData] = useState();
   const[flightPrice,setFlightPrice] = useState();
 
   const [source, setSource] = useState(location.state.source?location.state.source:"");
@@ -37,7 +36,16 @@ const FlightSearch = () => {
   const [goingflight, setGoingflight] = useState();
   const [comingflight, setComingflight] = useState();
   const [infoPopUp, setInfoPopUp] = useState(false);
-  console.log(source);
+  const[searchinput,setSearchInput] = useState(source);
+  const[destinationinput,setDestinationInput] = useState(destination);
+  const [toggle,settoggle]=useState(false);
+  const [sort,setsort]=useState("");
+  const[airlinevisibility,setairlinevisibility] = useState({
+      "Indigo":true,"AirIndia":true,"AkasaAir":true,"Vistara":true,"AirIndiaExpress":true,"Spicejet":true
+})
+function airlinevisibilitysetter(key){
+  setairlinevisibility((prev)=> ({...prev,[key]: !airlinevisibility[key]}))
+}
 
   const handleOption = (name, operation) => {
     setPeople((prev) => {
@@ -48,11 +56,12 @@ const FlightSearch = () => {
     });
   };
 
-  console.log(AIRPORT[0]._id);
-  const flightSearchid = async () => {
+  
+  const flightSearch = useMemo( async () => {
     try {
       const responce = await fetch(
-        `https://academics.newtonschool.co/api/v1/bookingportals/flight?search={"source":"${source}","destination":"${destination}"}&day="Mon"${sort!=""?`&sort={"${sort=="rating"?"rating":"avgCostPerNight"}":"${sort=="highToLow"?-1:1}"}`:""}`,
+        // `https://academics.newtonschool.co/api/v1/bookingportals/flight?search={"source":"${iataCodeGet(source)}","destination":"${iataCodeGet(destination)}"}&day=Mon${sort==""?"":`&sort={"${sort}":1}`}`,
+        `https://academics.newtonschool.co/api/v1/bookingportals/flight?search={"source":"${iataCodeGet(source)}","destination":"${iataCodeGet(destination)}"}&day=Mon${sort==""?"":`&sort={"${sort}":1}`}`,
         {
           method: "GET",
           headers: { projectID: "uhks9mjjdr82" },
@@ -60,43 +69,34 @@ const FlightSearch = () => {
         }
       );
       const result = await responce.json();
-      return result;
+      setData(result.data);
     } catch (error) {
       return error;
     }
-  };
-  const flightse = () => {
-    flightSearchid()
-      .then((responce) => {
-        console.log("success", responce.data);
-        // handleFlight(responce)
-      })
-      .catch((error) => {
-        console.log("error", error);
-      });
-  };
+  },[toggle,sort])
 
-  // const handleFlightSearch=()=>{
-  //   flightSearchid()
-  //   .then((responce)=>{
-  //     if(responce){
-  //       console.log("auu",responce.data)
-  //       // setData(responce.data);
-  //       // handleFlight(responce.data)
-  //     }
-  //   }
-  //   )
-  //   .catch((error) => {
-  //     console.log(error);
-  //   });
-  // }
-  // useEffect  (()=>{
-  //     flightSearchid();
-  //    },[])
-  console.log("searchcheck",location.state);
+  useEffect(()=>{
+    flightSearch
+  })
+  
+
+
+  const SelfNavigate = () => {
+    if (searchinput != "" && destinationinput != "") {
+      navigate(`flightsearch=${searchinput}`, {
+        state: {
+          destination: destinationinput,
+          source:searchinput,
+          selectedDate: location.state.selectedDate,
+          openbookingDate: location.state.openbookingDate,
+          people:location.state.people
+        }
+      })
+    }
+  }
+
   const flightConfirmation=(fid)=>{
     navigate(`/flightconfirm/${fid}`,{ state:{
-      data:data,
       destination:destination,
       flightPrice:flightPrice, 
       source:location.state.source,
@@ -105,6 +105,12 @@ const FlightSearch = () => {
     }});
   };
 
+  function swapinputs(){
+    const temp=source;
+    setSource(destination);
+    setDestination(temp);
+  }
+  
 
   const getAirlineInfo = (flightIDs) => {
     let logoSrc, airlineName;
@@ -235,6 +241,7 @@ const FlightSearch = () => {
             }}
             // onClick={() => setGoingflight(!goingflight)}
             className="inputflighttext"
+            
           />
         </div>
         <FontAwesomeIcon
@@ -242,6 +249,7 @@ const FlightSearch = () => {
           className="headerIcon"
           id="reverseicon"
           style={{ fontSize: "22px" }}
+          onClick={()=>{swapinputs()}}
         />
         <div className="flightComing">
           <FontAwesomeIcon icon={faPlaneArrival} className="headerIcon" />
@@ -279,7 +287,8 @@ const FlightSearch = () => {
         <div className="headerSearchItem" id="searchbtn">
           <button
             className="headerBtn"
-            // onClick={handleFlightSearch}
+            onClick={()=>{SelfNavigate,((searchinput && destinationinput) != ""?settoggle(!toggle):"")}}
+            
           >
             Search
           </button>
@@ -287,25 +296,55 @@ const FlightSearch = () => {
       </div>
 
       <div className="filter-card">
+        <h2>Filters:</h2>
         <div className="flight-filter">
-
+           <div className="flightStops">
+               <h3>Stops</h3>
+           </div>
+           <div className="flightAir">
+            <h3>Airlines</h3>
+            <div onClick={()=>{airlinevisibilitysetter("indigo")}}>
+              <input type="checkbox" name="indigo" id="indigo" checked={airlinevisibility["indigo"]}/>
+              <label htmlFor="indigo">Indigo</label>
+            </div>
+            <div onClick={()=>{airlinevisibilitysetter("airIndia")}}>
+              <input type="checkbox" name="airIndia" id="airIndia" checked={airlinevisibility["airIndia"]}/>
+              <label htmlFor="airIndia">Air India</label>
+            </div>
+            <div onClick={()=>{airlinevisibilitysetter("akasaair")}}>
+              <input type="checkbox" name="AkasaAir" id="AkasaAir" checked={airlinevisibility["vistara"]}/>
+              <label htmlFor="AkasaAir">Akasa Air</label>
+            </div>
+            <div onClick={()=>{airlinevisibilitysetter("vistara")}}>
+              <input type="checkbox" name="Vistara" id="Vistara" checked={airlinevisibility["vistara"]}/>
+              <label htmlFor="Vistara">Vistara</label>
+            </div>
+            <div onClick={()=>{airlinevisibilitysetter("airindiaexpress")}}>
+              <input type="checkbox" name="AirIndiaExp" id="AirIndiaExp" checked={airlinevisibility["airindiaexpress"]} />
+              <label htmlFor="AirIndiaExp">Air India Express</label>
+            </div>
+            <div onClick={()=>{airlinevisibilitysetter("airindiaexpress")}}>
+              <input type="checkbox" name="spicejet" id="spicejet" checked={airlinevisibility["airispicejet"]} />
+              <label htmlFor="spicejet">Spicejet</label>
+            </div>
+           </div>
         </div>
         <div className="flight-card">
         <div className="sortoption">
-            <div>
-              <select className="sort"
-              //  onChange={(e)=>{setsort(e.target.value),console.log(e.target.value)}}
+            <div style={{marginTop:"-20px",marginBottom:"20px"}}>
+              <select className="sort" 
+               onChange={(e)=>{setsort(e.target.value)}}
                >
-                <option>Sort By</option>
-                <option style={{border:"5px solid black"}} value="early-late" > Departure (Early-Late)</option>
-                <option value="low-high" >Duration (Lowest-Highest)</option>
-                <option value="lowest-highest" >Cheapest Ticket (Lowest-Highest)</option>
+                <option value="">Sort By</option>
+                <option style={{border:"5px solid black"}} value="departure" > Departure </option>
+                <option value="duration" >Duration </option>
+                <option value="price" >Cheapest Ticket </option>
               </select>
               
             </div>
             </div>
           <div className="flightcard-1">
-            {data.data.flights.map((item) => {
+            {data && data.flights.map((item) => {
               return (
                 <>
                 
@@ -382,8 +421,10 @@ const FlightSearch = () => {
                       </div>
                       <button
                         className="flightView"
-                        onClick={() => {setInfoPopUp(true),setFlightPrice(item.ticketPrice
-                          )}}
+                        onClick={() => {setInfoPopUp(true)
+                          ,setFlightPrice(item.ticketPrice
+                          )
+                        }}
                       >
                         View details
                       </button>
@@ -466,7 +507,7 @@ const FlightSearch = () => {
                                 The total baggage included in the price
                               </span>
                             </div>
-                            <div className="baggage-2" onClick={flightse}>
+                            <div className="baggage-2" onClick={()=>{setInfoPopUp(true)}}>
                               <div className="first-Item">
                               <FontAwesomeIcon icon={faSuitcaseRolling} />
                               <span style={{fontSize:"14px",fontWeight:"400",marginLeft:"15px"}}>1 personal item
@@ -483,7 +524,7 @@ const FlightSearch = () => {
                           </div>
                             <div className="total-price">
                               <div className="price-Detail">
-                                <h2>INR{(item.ticketPrice.toFixed(2))*(people.adult)}</h2>
+                                <h2>INR{(item.ticketPrice)}</h2>
                                 <span>Total price for all travellers</span>
                               </div>
                               <button className="flightSelectbtn" onClick={()=>{flightConfirmation(item._id)}}>SELECT</button>

@@ -17,6 +17,7 @@ import { json, useNavigate } from "react-router-dom";
 const Header = () => {
   const navigate = useNavigate();
   const [fetchingData, setFetchingData] = useState();
+  const[opendestination,setOpenDestination] = useState(false);
   const hotelInput = useRef();
   const [hotelInputPopUp, setHotelInputPopUp] = useState(false);
   function hotelInputFocus() {
@@ -139,10 +140,10 @@ const Header = () => {
   return (
     <div className="head1">
       {/* SEARCHBAR */}
-      <div className="headerSearch">
+      <div className="headerSearch" >
         <div
           className="headerSearchItem"
-          style={{ position: "relative" }}
+          style={{ position: "relative", paddingLeft: "20px" }}
           onClick={(e) => {
             e.stopPropagation();
           }}
@@ -156,7 +157,7 @@ const Header = () => {
             onChange={(e) => {
               setDestination(e.target.value);
             }}
-            onClick={handleSearchlocation}
+            onClick={()=>{handleSearchlocation,setOpenDestination(true)}}
             ref={hotelInput}
             onBlur={hotelInputBlur}
             onFocus={hotelInputFocus}
@@ -174,7 +175,7 @@ const Header = () => {
                   top: "40px",
                   width: "100%",
                   height: "auto",
-                  overflowY:"scroll",
+                  overflowY: "scroll",
                   right: "-35px",
                   backgroundColor: "white",
                   borderRadius: "10px",
@@ -207,9 +208,10 @@ const Header = () => {
         </div>
 
         <div
+        style={{marginLeft:"25px"}}
           className="headerSearchItem"
           id="searchitem"
-          onClick={(e) =>{ setOpenBookingDate(true)}}
+          onClick={(e) => { setOpenBookingDate(true) }}
         >
           <FontAwesomeIcon icon={faCalendarDays} className="headerIcon" />
           <div>
@@ -228,7 +230,7 @@ const Header = () => {
                   className="selectedDate"
                 />
                 <button
-                  onClick={(e) =>{e.stopPropagation(), setOpenBookingDate(false)}}
+                  onClick={(e) => { e.stopPropagation(), setOpenBookingDate(false) }}
                   className="donebtnforDate"
                 >
                   Done
@@ -237,14 +239,15 @@ const Header = () => {
             )}
           </div>
         </div>
-        <div className="headerSearchItem">
+        <div className="headerSearchItem"  style={{marginLeft:"20px"}}>
+          
           <FontAwesomeIcon icon={faUser} className="headerIcon" />
           <span
             onClick={() => setBookingPersons(!bookingPersons)}
             className="headerSearchText"
           >{`${persons.adult}adult. ${persons.children}children. ${persons.room}room`}</span>
           {bookingPersons && (
-            <div className="options">
+            <div className="options" >
               <div className="optionItem">
                 <span className="openText">Adult</span>
                 <div className="optionCounter">
@@ -312,12 +315,10 @@ const Header = () => {
             </div>
           )}
         </div>
-        <div className="headerSearchItem" id="searchbtn">
-          <button className="headerBtn" onClick={handleHotelSearch}>
+          <button className="headerBtn"  onClick={handleHotelSearch}>
             Search
           </button>
-          {/* onClick={findingHotel} */}
-        </div>
+         
       </div>
     </div>
   );

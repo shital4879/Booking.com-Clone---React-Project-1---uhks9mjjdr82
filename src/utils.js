@@ -1,3 +1,9 @@
+export function iataCodeGet (val){
+  const objIata=AIRPORT.filter(item=>{
+   return item.city.toLowerCase() == val.toLowerCase();
+  })
+  return objIata[0].iata_code;
+}
 export const AIRPORT = [
   {
     coordinates: {

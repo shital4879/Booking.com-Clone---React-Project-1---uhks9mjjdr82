@@ -2,6 +2,7 @@ import { useState } from "react";
 import React from "react";
 import "./SignIn.css"
 import { Link, useNavigate } from "react-router-dom";
+import SignOut from "./SignOut";
 
 const SignIn = () => {
   const navigate = useNavigate();
@@ -48,6 +49,12 @@ const SignIn = () => {
     }
   };
 
+  const RegisterPage = () => {
+    navigate(`/Register`);
+  };
+  const SignInPage = () => {
+    navigate(`/SignIn`);
+  };
 
 
   const handleSubmit = (e) =>{
@@ -86,11 +93,13 @@ const SignIn = () => {
  
   return (
     <div>
-    <div className="navbar">
-      <div className="navContainer">
-        <span className="logo">Booking.com</span>
+   <div className="navbar">
+        <div className="navContainer">
+          <span className="logo">Booking.com</span>
+          <div className="navItems">
+          </div>
+        </div>
       </div>
-    </div>
     <form onSubmit={handleSubmit}>
     {!toggle && (
       <div className="signIn">
@@ -104,13 +113,14 @@ const SignIn = () => {
           // onChange={(e) => setEmail(e.target.value)}
           onChange={(e)=>setRegisterData({...registerData, email:(e.target.value)})}
           placeholder="Enter email address"
+          style={{marginBottom:"20px"}}
         />
         {
           valid?<></>:
-          <span className="dangerZone">{error.email}</span>
+          <span className="dangerZone-A">{error.email}</span>
         }
     
-        <h5 className="emailAddress">Password</h5>
+        <h5 className="password-12">Password</h5>
         <input
           type="password"
           name="password"
@@ -119,17 +129,18 @@ const SignIn = () => {
           // onChange={(e) => setPassword(e.target.value)}
           onChange={(e)=>setRegisterData({...registerData,password:(e.target.value)})}
           placeholder="Enter Password"
+          style={{marginBottom:"25px"}}
         />
           {
           valid?<></>:
-          <span className="dangerZone">{error.password}</span>
+          <span className="dangerZoneB">{error.password}</span>
         }
 
         <button className="signEmailBtn" onClick={()=>SignIndata()}>
           Sign In
         </button>
-        <p className="clickHere">If u dont have account! <Link to="/Register" style={{textDecoration:"none"}}> click here</Link>
-        </p>
+        {/* <p className="clickHere">If u don't have account! <Link to="/Register" style={{textDecoration:"none"}}> click here</Link>
+        </p> */}
         {/* <button onClick={()=>setToggle(!toggle)}>okok</button> */}
       </div>
     )}

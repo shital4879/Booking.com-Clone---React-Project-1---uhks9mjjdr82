@@ -42,7 +42,7 @@ const Navbar = ({ type }) => {
               </button>
             )}
             {localStorage.getItem("token") &&
-              <div className="profile" onClick={(e)=>{e.stopPropagation(),setOpenSing(!openSign)}} >
+              <div className="profile"  style={{marginLeft:"0px",marginRight:"110px"}} onClick={(e)=>{e.stopPropagation(),setOpenSing(!openSign)}} >
                 {openSign && 
                 <SignOut/>
                 }
@@ -57,16 +57,19 @@ const Navbar = ({ type }) => {
         <div className="header">
           <div className="headerContainer">
             <div className="headerList">
-              <div className="headerListItem active">
+              <div className="headerListItem active" onClick={()=>navigate("/")}>
                 <FontAwesomeIcon icon={faBed} className="stays-i" />
-                <span>Stays</span>
+                <span>
+                  Stays</span>
               </div>
               <div
                 className="headerListItem"
                 onClick={() => navigate("/flight")}
               >
+                
                 <FontAwesomeIcon icon={faPlane} className="flights-i" />
                 <span>Flights</span>
+                
               </div>
             </div>
           </div>
@@ -76,8 +79,8 @@ const Navbar = ({ type }) => {
       {type !== "list" && (
         <>
           <div className="headerTitle">
-            <h1 className="heading1">Find your next stay</h1>
-            <p className="para">
+            <h1 className="heading1" style={{fontSize:"40px"}}>Find your next stay</h1>
+            <p className="para" style={{fontSize:"26px"}}>
               Search low prices hotels,homes and much more...
             </p>
           </div>

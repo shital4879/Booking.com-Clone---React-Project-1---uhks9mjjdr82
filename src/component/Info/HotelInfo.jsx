@@ -37,18 +37,17 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import PaymentHotel from "../paymentHotel/PaymentHotel";
+import HotelRoom from "./HotelRoom";
 
 const HotelInfo = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const data = location.state;
+  const [totalguest,setTotalguest] = useState();
   // console.log("lo",destination)
   console.log(location);
-
-  // const destination = location.state.destination;
-  // const selectedDate = location.state.selectedDate;
   const[hotelPrice,setHotelPrice] = useState();
-  const [roomval, setRoomVal] = useState();
+ 
   const [persons, setPersons] = useState(location.state.persons);
   const [bookingPersons, setBookingPersons] = useState(false);
   // const openbookingDate = location.state.openbookingDate;
@@ -58,6 +57,7 @@ const HotelInfo = () => {
   //  const selectedDate= location.state.selectedDate;
   console.log("date", selectedDate);
   console.log("destination", destination);
+  console.log("hotel",hotelPrice);
   const [information, setInformation] = useState(data.data.hotels.slice(0, 6));
 
   const [visibleImages, setVisibleImages] = useState(
@@ -81,7 +81,8 @@ const HotelInfo = () => {
   const hotelPaymentPage = (data) => {
     navigate(`/paymentHotel`,{
       state:{
-        hotelPrice:hotelPrice
+        data:data,
+        // hotelPrice:location.state.hotelPrice
       }
     });
   };
@@ -163,6 +164,9 @@ const HotelInfo = () => {
                   </div>
                 </div>
                 <div className="listItem">
+                  <label className="infoLabel" style={{marginBottom:"5px"}}>
+                    2-night stay:
+                  </label>
                   <span className="destinationlist">
                     <div className="headerSearchItem">
                       <FontAwesomeIcon icon={faUser} className="headerIcon" />
@@ -243,7 +247,7 @@ const HotelInfo = () => {
                   </span>
                 </div>
 
-                <div className="listResult">
+                {/* <div className="listResult">
                   <div className="listResult-1">
                     <input type="checkbox" className="rescheck" />
                     <div className="listRes1">Entire homes & apartments ?</div>
@@ -252,7 +256,7 @@ const HotelInfo = () => {
                     <input type="checkbox" className="rescheck" />
                     <div className="listRes2">I'm travelling for work ?</div>
                   </div>
-                </div>
+                </div> */}
               </div>
             </div>
           </div>
@@ -386,28 +390,13 @@ const HotelInfo = () => {
           <div className="selectRoom">
             <div className="tablehead">Select room</div>
             <div className="room-type">
-              {information.map((item) => {
-                return (
-                  <>
-                    <input
-                      type="number"
-                      className="numroom"
-                      defaultValue="1"
-                      style={{ marginBottom: "110px", width: "50px" }}
-                      value={roomval}
-                      onChange={(e) => {
-                        setRoomVal(e.target.value);
-                      }}
-                    />
-                    <br />
-                  </>
-                );
-              })}
-            </div>
+              {information.map((item) => (
+            <HotelRoom information={information} totalguest={totalguest}
+            setTotalguest={setTotalguest}/>
+              ))}
+              </div>
           </div>
           <div>
-            {information.map((item) => (
-              <>
                 <button
                   className="reserveBtn"
                   style={{
@@ -415,15 +404,22 @@ const HotelInfo = () => {
                     marginRight: "5px",
                     marginBottom: "28px",
                   }}
-                  onClick={()=>{hotelPaymentPage(),setHotelPrice(item.amenities
-                    )}}
+                  onClick={()=>{hotelPaymentPage()
+                    // ,setHotelPrice(item.location                   
+                    // )
+                  }}
                 >
-                  {/* {(item.rooms[0].costPerNight)*roomval} */}
+                 
                   Reserve
                 </button>
-                <br />
-              </>
-            ))}
+           <div>
+            persons{
+              totalguest
+            }
+           </div>
+
+
+          
           </div>
         </div>
       </div>

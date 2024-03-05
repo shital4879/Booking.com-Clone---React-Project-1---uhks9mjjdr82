@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./register.css";
 import { json, useNavigate } from "react-router-dom";
+import SignOut from "./SignOut";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -14,6 +15,7 @@ const Register = () => {
  
   const [toggle, setToggle] = useState();
   const[token,setToken] = useState(localStorage.getItem("token"))
+  
 
   const SignUpdata = async () => {
     try {
@@ -79,20 +81,26 @@ const Register = () => {
     }
    
     const handleHome = ()=>{
-      // (Object.keys((validationError).length === 0)){
         navigate(`/`)
-      // }
     }
   
  
 
   return (
     <div>
+     <div className="navbar">
+        <div className="navContainer">
+          <span className="logo">Booking.com</span>
+          <div className="navItems">
+          </div>
+        </div>
+      </div>
+
     {!toggle && (
       <form onSubmit={handleSubmit}>
       <div className="signIn">
         <h2 className="crateAccount">Sign in or create an account</h2>
-        <h5 className="name1">Name</h5>
+        <h5 className="name1" style={{marginTop:"10px"}}>Name</h5>
         <input
           type="text"
           name="name"
@@ -127,7 +135,7 @@ const Register = () => {
             </span>
           }
 
-        <h5 className="password1">Password</h5>
+        <h5 className="pass">Password</h5>
         <input
           type="password"
           name="password"

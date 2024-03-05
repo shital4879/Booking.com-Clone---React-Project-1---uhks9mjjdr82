@@ -1,16 +1,18 @@
 .confirmation-main{
     /* margin-left: 190px;
     margin-right: 190px; */
-    margin: 20px 190px 0px 190px;
+    margin: 40px 190px 0px 190px;
 }
 .set1{
-    border: 1px solid gray;
+    border: 2px solid gray;
     border-radius: 10px;
     width: 55%;
-    padding-left: 30px;
+    /* padding-left: 30px; */
+    padding: 20px 0px 20px 25px;
 }
 .mainSet1{
     display: flex;
+   
 }
 .set2{
     display: block;
@@ -24,9 +26,11 @@
 .mainSet2{
     width: 55%;
     padding: 10px;
-    margin-top: 30px;
-    border: 1px solid gray;
+    margin-top: 50px;
+    border: 2px solid gray;
     border-radius: 10px;
+    padding: 20px 0px 20px 25px;
+    margin-bottom: 30px;
 }
 .backBtnbtn{
     height:45px;

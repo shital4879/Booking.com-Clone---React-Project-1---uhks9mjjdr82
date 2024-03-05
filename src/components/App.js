@@ -8,7 +8,6 @@ import Flight from "../Pages/Flight/Flight";
 import Home from "../Pages/home/Home";
 import HotelSearch from "../Pages/hotelSearchlist/HotelSearch";
 import HotelInfo from "../component/Info/HotelInfo";
-import Hotelimg from "../component/Info/Hotelimg";
 import FlightSearch from "../Pages/Flight/FlightSearch";
 import FlightConfirm from "../Pages/Flight/FlightConfirm";
 import FlightPayment from "../Pages/Flight/FlightPayment";
@@ -23,17 +22,17 @@ function App() {
     
       <BrowserRouter>
       <Routes>
-         <Route path="/flight" element={<Flight/>}/>
         <Route path="/" element={<Home/>}/>
         <Route path="/hotel/:results" element={<HotelSearch/>}/>
         <Route path="/Info" element={<HotelInfo/>}/>
-        <Route path="/infoImg" element={<Hotelimg/>}/>
+         <Route path="/flight" element={<Flight/>}/>
+        <Route path="/paymentHotel" element={<PaymentHotel/>}/>
+    
         <Route path="/flightsearch" element={<FlightSearch/>}/>
         <Route path="/flightconfirm/:fid" element={<FlightConfirm/>}/>
         <Route path="/flightPayment" element={<FlightPayment/>}/>
         <Route path="/Register" element={<Register/>}/>
         <Route path="/SignIn" element={<SignIn/>}/>
-        <Route path="/paymentHotel" element={<PaymentHotel/>}/>
       </Routes>
       </BrowserRouter>
   );

@@ -6,6 +6,7 @@
 .flight-filter{
     width: 35%;
 }
+
 .flight-card{
     height: 190px;
     width: 800px;
@@ -142,4 +143,13 @@
     font-size: 16px;
     border: none;
     border-radius: 10px;
+}
+.infoPopBox1{
+     background-color: rgba(0, 0, 0, 0.2);
+}
+.infoPopBox2{
+    height: 400px;
+    width: 400px;
+    background-color: white;
+    border: 5px solid yellow;
 }

@@ -17,7 +17,7 @@ import { AIRPORT } from "../../utils";
 
 const FlightHeader = () => {
   const navigate = useNavigate();
-  const [data, setData] = useState();
+
   const[source,setSource] = useState();
   const[destination,setDestination] = useState();
   const [bookingchildage, setBookingchildage] = useState(false);
@@ -39,6 +39,11 @@ const FlightHeader = () => {
     },
   ]);
 
+  function swapinputs(){
+    const temp=source;
+    setSource(destination);
+    setDestination(temp);
+  }
   const handleOption = (name, operation) => {
     setPeople((prev) => {
       return {
@@ -55,49 +60,9 @@ const FlightHeader = () => {
 //  console.log("date",dayjs(selectedDate).format("ddd"));
 
 
-  const flightSearch = async () => {
-    try {
-      const responce = await fetch(
-        `https://academics.newtonschool.co/api/v1/bookingportals/flight?search={"source":"${AIRPORT[0].iata_code}","destination":"${destination}"}&day=Mon`,
-        {
-          method: "GET",
-          headers: { projectID: "uhks9mjjdr82" },
-          "Content-Type": "application/json",
-        }
-      );
-      const result = await responce.json();
-      return result;
-    } catch (error) {
-      return error;
-    }
-  };
-
-
-
-//   useEffect (()=>{
-//   airportSearch();
-//  },[source])
-
-
-  const handleFlightSearch=()=>{
-    flightSearch()
-    .then((responce)=>{
-      if(responce){
-        console.log("juu",responce.data)
-        setData(responce.data);
-        handleFlight(responce.data)
-      }
-    }
-    )
-    .catch((error) => {
-      console.log(error);
-    });
-  }
-
-  const handleFlight=(data)=>{
+  const handleFlight=()=>{
     navigate(`/flightsearch`
     ,{state:{
-      data:data,
       source:source,
       destination:destination,
       selectedDate:selectedDate,
@@ -121,7 +86,7 @@ const FlightHeader = () => {
         <h3 className="mainPara">Discover your next dream destination</h3>
       </div>
       <div className="flight-class">
-        <select className="flightOption">
+        <select className="flightOption" onClick={()=>{bookingPeople?setBookingPeople(false):""}}>
           <option>Economy</option>
           <option>Premium Economy</option>
           <option>Business</option>
@@ -199,7 +164,7 @@ const FlightHeader = () => {
             // onClick={() => setGoingflight(!goingflight)}
             className="inputflighttext"
           />
-          {goingflight && (
+          {/* {goingflight && (
             <div  className="airportsearch">
             <input
               type="text"
@@ -211,13 +176,14 @@ const FlightHeader = () => {
             Select multiple airports at once and compare flights
             </span>
             </div>
-          )}
+          )} */}
         </div>
         <FontAwesomeIcon
           icon={faArrowRightArrowLeft}
           className="headerIcon"
           id="reverseicon"
           style={{ fontSize: "22px" }}
+          onClick={()=>{swapinputs()}}
         />
         <div className="flightComing">
           <FontAwesomeIcon icon={faPlaneArrival} className="headerIcon" />
@@ -245,12 +211,12 @@ const FlightHeader = () => {
           )}
         </div>
         <div
-          className="headerSearchItem"
+          className="headerSearchItem1"
           id="searchitem"
           onClick={() => setOpenBookingDate(!openbookingDate)}
         >
           <FontAwesomeIcon icon={faCalendarDays} className="headerIcon" />
-          <span className="headerSearchText">{`${format(
+          <span className="headerSearchText1">{`${format(
             selectedDate[0].startDate,
             "dd/MM/yyyy"
           )} to ${format(selectedDate[0].endDate, "dd/MM/yyyy")}`}</span>
@@ -261,14 +227,14 @@ const FlightHeader = () => {
               moveRangeOnFirstSelection={false}
               ranges={selectedDate}
               minDate={new Date()}
-              className="selectedDate"
+              className="selectedDate1"
             />
           )}
         </div>
-        <div className="headerSearchItem" id="searchbtn">
+        <div className="flightsearchbuttonHero">
           <button
             className="headerBtn"
-            onClick={handleFlightSearch}
+            onClick={handleFlight}
           >
             Search
           </button>

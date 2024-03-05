@@ -2,18 +2,15 @@ import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import "./flightconfirm.css";
 import FlightInfo from "./FlightInfo";
+import SignOut from "../../component/register/SignOut";
 
 
 const FlightConfirm = () => {
   const location = useLocation();
   const[emailId,setEmailId] = useState();
-  // const[flightPrice,setFlightPrice] = useState(location.state.flightPrice);
   const flightPrice = location.state.flightPrice
   console.log("mi",flightPrice)
   const navigation = useNavigate();
-  // const[destination,setDestination] = useState(location.state.destination)
-  // const destination = location.state
-  // console.log(destination);
   const data = location.state
   const fid=location.state;
   const[openSign,setOpenSing] = useState(false);
@@ -92,10 +89,10 @@ const FlightConfirm = () => {
       <div className="confirmation-main">
         <div className="mainSet1">
           <div className="set1">
-            <h2 style={{ fontSize: "20px", marginBottom: "5px" }}>
-              Contact details
+            <h2 style={{ fontSize: "20px", marginBottom: "8px" }}>
+            Contact details
             </h2>
-            <h5 style={{ fontWeight: "400", marginBottom: "8px" }}>
+            <h5 style={{ fontWeight: "400", marginBottom: "10px" }}>
               <span style={{ color: "red", marginRight: "5px" }}>*</span>
               Required
             </h5>
@@ -111,7 +108,7 @@ const FlightConfirm = () => {
               onChange={(e) => {
                 setEmailId(e.target.value), e.preventDefault();
               }}
-              style={{ height: "35px", width: "250px", marginBottom: "-5px" }}
+              style={{ height: "35px", width: "250px", marginBottom: "-5px",width:"320px",fontSize:"16px"}}
               required
             />
             </form>
@@ -121,11 +118,11 @@ const FlightConfirm = () => {
               <span style={{ color: "red", marginRight: "5px" }}>*</span>
             </label>
             <br />
-            <span>+91</span>
             <input
               type="number"
-              style={{ height: "30px", width: "250px", marginBottom: "30px" }}
+              style={{ height: "30px", width: "250px", marginBottom: "30px",width:"320px",fontSize:"16px" }}
               required
+              placeholder="+91"
             />
           </div>
           <div className="set2">
@@ -169,7 +166,7 @@ const FlightConfirm = () => {
                     marginBottom: "8px",
                   }}
                 >
-                  INR{(flightPrice.toFixed(2))}
+                  INR{(flightPrice)}
                 </h5>
                 {/* <h5
                   style={{
@@ -189,7 +186,7 @@ const FlightConfirm = () => {
                 >
                   INR
                 </h5> */}
-                <h2 style={{ marginTop: "40px" }}> INR{(flightPrice.toFixed(2))}</h2>
+                <h2 style={{ marginTop: "40px" }}> INR{(flightPrice)}</h2>
               </div>
             </div>
             <div style={{marginLeft:"200px",marginTop:"30px"}}>
@@ -202,9 +199,12 @@ const FlightConfirm = () => {
         </div>
         <div className="mainSet2" >
           <h2 style={{ fontSize: "20px", marginBottom: "5px" }}>
-            Contact details
+            
+
+
+            Traveller 1 (adult)
           </h2>
-          <h5 style={{ fontWeight: "400", marginBottom: "10px" }}>
+          <h5 style={{ fontWeight: "400", marginBottom: "20px" }}>
             <span style={{ color: "red", marginRight: "5px" }}>*</span>Required
           </h5>
           <label style={{ fontSize: "15px", marginRight: "250px" }}>
@@ -232,7 +232,7 @@ const FlightConfirm = () => {
            
             required
           />
-          <p style={{ fontSize: "12px", width: "250px" }}>
+          <p style={{ fontSize: "12px", width: "250px", marginTop:"5px",marginBottom:"10px"}}>
             Enter exactly what's written on this traveller's travel document
           </p>
           <br />
@@ -246,7 +246,7 @@ const FlightConfirm = () => {
             style={{
               height: "25px",
               width: "150px",
-              marginTop: "8px",
+              marginTop: "10px",
               fontSize: "14px",
               height: "35px",
               width: "250px",
@@ -256,14 +256,13 @@ const FlightConfirm = () => {
             <option value="male">Male</option>
             <option value="female">Female</option>
           </select>
-          <p style={{ fontSize: "12px", width: "300px" }}>
+          <p style={{ fontSize: "12px", width: "300px", marginTop:"5px"}}>
             We're currently required by airlines and providers to ask for this
             information
           </p>
         </div>
 
         <div className="buttons">
-            <button className="backBtnbtn" style={{marginRight:"100px"}} onClick={()=>handlebackbtn()} >Back</button>
             <button className="backBtnbtn" style={{marginLeft:"0px"}} onClick={flightPayment}>Next</button>
         </div>
       </div>

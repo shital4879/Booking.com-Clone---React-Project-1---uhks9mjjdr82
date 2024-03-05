@@ -39,7 +39,7 @@
     font-size: 16px;
     border-radius: 10px;
 }
-.password1{
+.password-12{
     margin-left: -200px;
     display: flex;
     justify-content: center;
@@ -55,4 +55,18 @@
     /* margin-left: -5px; */
     font-size: 18px;
     margin-top: 20px;
+}
+.dangerZone-A{
+    position: absolute;
+    top: 172px;
+    color: red;
+    font-size: 14px;
+    left: 638px;
+}
+.dangerZoneB{
+    position: absolute;
+    top: 250px;
+    color: red;
+    font-size: 14px;
+    left: 638px;
 }
