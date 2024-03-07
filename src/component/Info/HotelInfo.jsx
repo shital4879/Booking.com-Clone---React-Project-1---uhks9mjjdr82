@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import "./hotelInfo.css";
 import Navbar from "../navbar/Navbar";
 import HotelSearch from "../../Pages/hotelSearchlist/HotelSearch";
-import { Link, Navigate, useLocation } from "react-router-dom";
+import { Link, Navigate, useLocation, useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
@@ -42,34 +42,34 @@ import HotelRoom from "./HotelRoom";
 const HotelInfo = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const data = location.state;
+  // const data = location.state;
   const [totalguest,setTotalguest] = useState();
-  // console.log("lo",destination)
-  console.log(location);
   const[hotelPrice,setHotelPrice] = useState();
  
   const [persons, setPersons] = useState(location.state.persons);
   const [bookingPersons, setBookingPersons] = useState(false);
-  // const openbookingDate = location.state.openbookingDate;
   const [destination, setDestination] = useState(location.state.destination);
   const [openbookingDate, setOpenBookingDate] = useState(false);
   const [selectedDate, setSelectedDate] = useState(location.state.selectedDate);
-  //  const selectedDate= location.state.selectedDate;
-  console.log("date", selectedDate);
-  console.log("destination", destination);
-  console.log("hotel",hotelPrice);
-  const [information, setInformation] = useState(data.data.hotels.slice(0, 6));
+  const [selectedId,setselectedId]=useState(location.state.selectedId);
+  const [fetchData, setFetchData] = useState();
+  // console.log("date", selectedDate);
+  // console.log("destination", destination);
+  // console.log("hotel",hotelPrice);
+  const params = useParams();
+  console.log(params.id)
+  const [information, setInformation] = useState();
+  // const [visibleImages, setVisibleImages] = useState(
+  //   data.data.hotels.slice(0, 6)
+  // );
+  console.log("ae",location.state.selectedId)
+  // const [hiddenImages, setHiddenImages] = useState(data.data.hotels.slice(6));
 
-  const [visibleImages, setVisibleImages] = useState(
-    data.data.hotels.slice(0, 6)
-  );
-  const [hiddenImages, setHiddenImages] = useState(data.data.hotels.slice(6));
-
-  const showMoreImages = () => {
-    const nextBatch = hiddenImages.slice(0, 6);
-    setVisibleImages((prevVisible) => [...prevVisible, ...nextBatch]);
-    setHiddenImages((prevHidden) => prevHidden.slice(6));
-  };
+  // const showMoreImages = () => {
+  //   const nextBatch = hiddenImages.slice(0, 6);
+  //   setVisibleImages((prevVisible) => [...prevVisible, ...nextBatch]);
+  //   setHiddenImages((prevHidden) => prevHidden.slice(6));
+  // };
   const grid = {
     gridColumnStart: "2",
     gridColumnEnd: "5",
@@ -78,15 +78,32 @@ const HotelInfo = () => {
     objectFit: "cover",
   };
 
-  const hotelPaymentPage = (data) => {
-    navigate(`/paymentHotel`,{
-      state:{
-        data:data,
-        // hotelPrice:location.state.hotelPrice
-      }
-    });
-  };
-  // };
+ 
+ 
+
+  const fetchHotelData = useMemo(async () => {
+    try {
+      const response = await fetch(
+        `https://academics.newtonschool.co/api/v1/bookingportals/hotel/${params.id}`,
+        {
+          method: "GET",
+          headers: { 
+            projectID: "uhks9mjjdr82",
+         },
+          "Content-Type": "application/json",
+        }
+      );
+      const result = await response.json();
+      setInformation(result.data);
+      console.log("reho",result);
+    } catch (error) {
+      console.log(error);
+    }
+  }, []);
+
+  useEffect(() => {
+    fetchHotelData;
+  }, []);
 
   const handleOption = (name, operation) => {
     setPersons((prev) => {
@@ -97,13 +114,25 @@ const HotelInfo = () => {
     });
   };
 
+
+  const hotelPaymentPage = (cost) => {
+    console.log("cost",cost);
+    navigate(`/paymentHotel/${cost}`,{
+      state:{
+        // data:data,
+        totalguest:totalguest
+     
+      }
+    });
+  };
+
   return (
     <div>
       <Navbar type="list" />
       <div className="maindiv">
-        <header>
+        
           <div className="listContainer">
-            <div className="listWrapper">
+           
               <div className="listSearch">
                 <h1 className="listTitle">Search</h1>
                 <div className="listItem">
@@ -246,68 +275,42 @@ const HotelInfo = () => {
                     </div>
                   </span>
                 </div>
-
-                {/* <div className="listResult">
-                  <div className="listResult-1">
-                    <input type="checkbox" className="rescheck" />
-                    <div className="listRes1">Entire homes & apartments ?</div>
-                  </div>
-                  <div className="listResult-1">
-                    <input type="checkbox" className="rescheck" />
-                    <div className="listRes2">I'm travelling for work ?</div>
-                  </div>
-                </div> */}
-              </div>
             </div>
           </div>
-        </header>
+        
 
         <div className="detail-overview">
           <div className="nav-overview">
-            {/* <div className="overview Active">Overview</div> */}
             <Link to=".detailImg">Overview</Link>
             <div className="facilities">Facilities</div>
             <div className="amenities">Amenities</div>
           </div>
-          <div className="detailImg" style={{ height: "auto", width: "790px" }}>
-            {visibleImages.map((image, key) => {
-              return (
-                <>
-                  <img
-                    src={image.images[0]}
-                    className="bb"
-                    style={
-                      key === 1
-                        ? { ...grid }
-                        : key === 0
-                        ? { height: "380px", width: "220px" }
-                        : {}
-                    }
-                  />
-                </>
-              );
-            })}
-            <div>
-              {hiddenImages.length > 0 && (
-                <button onClick={showMoreImages} className="moreBtn">
-                  More
-                </button>
-              )}
-            </div>
+          <div className="detailImg">
+             {information && information.images.map((item,key)=>(
+                <div className="img-img"
+                >
+                <img src={item} alt="j"
+                style={{height:"325px",width:"380px"
+                }} />
+              </div>
+              )
+             )}
           </div>
         </div>
       </div>
 
-      <div className="hotel-info">
+       <div className="hotel-info">
         <div className="info-type">
           <div className="roomTypeHead">
             <div className="tablehead">Room type</div>
             <div className="room-type">
-              {information.map((item) => {
+              {information &&
+              information.rooms.slice(0,6).map((item,key) => {
                 return (
+            
                   <div style={{ height: "130px" }}>
                     <div className="typeRoom">
-                      {item.rooms[0].roomType} Room
+                      {item.roomType} Room
                     </div>
                     <div className="bedDetail">
                       <div
@@ -319,7 +322,7 @@ const HotelInfo = () => {
                           gap: "10px",
                         }}
                       >
-                        {item.rooms[0].bedDetail}
+                        {information.rooms[0].bedDetail}
                         <FontAwesomeIcon
                           icon={faBed}
                           className="bed"
@@ -328,18 +331,20 @@ const HotelInfo = () => {
                       </div>
                     </div>
                   </div>
-                );
-              })}
+
+              )})}
             </div>
           </div>
           <div className="pricefornight">
             <div className="tablehead">Price for 2 night</div>
             <div className="room-type">
-              {information.map((item) => {
-                return (
+              {information &&
+              information.rooms.slice(0,6).map((item)=>(
+
+            
                   <div style={{ height: "130px" }}>
                     <div className="pricefor">
-                      ₹ {item.rooms[0].costPerNight}
+                      ₹ {item.costPerNight}
                     </div>
                     <div
                       className="pricetax"
@@ -351,22 +356,21 @@ const HotelInfo = () => {
                         marginTop: "5px",
                       }}
                     >
-                      + ₹{item.rooms[0].costDetails.taxesAndFees} taxes and
+                      + ₹{information.rooms[0].costDetails.taxesAndFees} taxes and
                       charges
                     </div>
                     <button className="offpay">40% off</button>
                     <br />
                     <button className="limitedDeal">Limited time deal</button>
                   </div>
-                );
-              })}
+                 )) }
             </div>
           </div>
           <div className="yourChoices" id="choice">
             <div className="tablehead">Your choices</div>
             <div className="room-type">
-              {information.map((item) => {
-                return (
+              {information &&
+              information.rooms.slice(0,6).map((item)=>(
                   <div style={{ height: "130px" }}>
                     <div className="choices" style={{ fontFamily: "lighter" }}>
                       Non refundable
@@ -380,23 +384,26 @@ const HotelInfo = () => {
                         className="divisioncol-logo"
                         style={{ marginRight: "5px", fontFamily: "lighter" }}
                       />
-                      {item.rooms[0].cancellationPolicy}
+                      {information.rooms[0].cancellationPolicy}
                     </div>
                   </div>
-                );
-              })}
+              ))}
             </div>
           </div>
           <div className="selectRoom">
             <div className="tablehead">Select room</div>
             <div className="room-type">
-              {information.map((item) => (
+              {information &&
+                 information.rooms.slice(0,6).map((item)=>(
             <HotelRoom information={information} totalguest={totalguest}
             setTotalguest={setTotalguest}/>
               ))}
               </div>
           </div>
           <div>
+          {information &&
+                  information.rooms.slice(0,6).map((item,key)=>(
+                    <>
                 <button
                   className="reserveBtn"
                   style={{
@@ -404,14 +411,17 @@ const HotelInfo = () => {
                     marginRight: "5px",
                     marginBottom: "28px",
                   }}
-                  onClick={()=>{hotelPaymentPage()
-                    // ,setHotelPrice(item.location                   
-                    // )
+                  onClick={()=>{hotelPaymentPage(information.rooms[key].
+                    costPerNight)
+                  
                   }}
                 >
                  
                   Reserve
                 </button>
+                <br/>
+                </>
+                  ))}
            <div>
             persons{
               totalguest
@@ -422,7 +432,7 @@ const HotelInfo = () => {
           
           </div>
         </div>
-      </div>
+      </div> 
 
       <div className="hotel-amenities">
         <div className="amenities-head">

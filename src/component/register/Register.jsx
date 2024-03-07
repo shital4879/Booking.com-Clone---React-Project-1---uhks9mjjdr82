@@ -39,12 +39,23 @@ const Register = () => {
         }
       );
       const result = await responce.json();
+   
       if (result.status === "success") {
         localStorage.setItem("token", result.token);
         handleHome();
       }
+      if(result.status === "fail"){
+        setValid(false);
+        setErrors(prev =>{
+          return {...prev,correction:result.message}
+        })
+      }
       console.log(result);
     } catch (error) {
+      setValid(false);
+      setErrors(prev =>{
+        return {...prev,correction:result.message}
+      })
       console.log(error);
     }
   };
@@ -104,9 +115,11 @@ const Register = () => {
         <input
           type="text"
           name="name"
-          // value={name}
-          // onChange={(e) => setName(e.target.value)}
-          onChange={(e)=>setRegisterData({...registerData, name:(e.target.value)})}
+          onChange={(e)=>{setRegisterData({...registerData, name:(e.target.value)})
+          setErrors(prev =>{
+            return {...prev,name:""}
+           })
+        }}
           placeholder="Enter name"
           className="signName"
           style={{marginBottom:"25px"}}
@@ -125,7 +138,11 @@ const Register = () => {
           // value={email}
           // onChange={(e) => setEmail(e.target.value)}
           placeholder="Enter email address"
-          onChange={(e)=>setRegisterData({...registerData, email:(e.target.value)})}
+          onChange={(e)=>{setRegisterData({...registerData, email:(e.target.value)})
+          setErrors(prev =>{
+            return {...prev,email:""}
+           })
+        }}
           style={{marginBottom:"25px"}}
         />
           {
@@ -143,7 +160,11 @@ const Register = () => {
           placeholder="Enter Password"
           // value={password}
           // onChange={(e) => setPassword(e.target.value)}
-          onChange={(e)=>setRegisterData({...registerData, password:(e.target.value)})}
+          onChange={(e)=>{setRegisterData({...registerData, password:(e.target.value)})
+          setErrors(prev =>{
+            return {...prev,password:""}
+           })
+        }}
           style={{marginBottom:"25px"}}
         />
           {
@@ -156,7 +177,12 @@ const Register = () => {
           <button className="signEmailBtn">
           Register
         </button>
-    
+        {
+            valid ? <></>:
+            <span className="text1">
+              {errors.correction}
+            </span>
+          }
        
       </div>
       </form>

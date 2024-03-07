@@ -10,7 +10,7 @@ const HotelRoom = ({inf}) => {
     <div>
      
               
-                    {/* <input
+                    <input
                       type="number"
                       className="numroom"
                       
@@ -19,8 +19,8 @@ const HotelRoom = ({inf}) => {
                       onChange={(e) => {
                         setRoomVal(e.target.value),setTotalvaluefun()
                       }}
-                    /> */}
-                    <button>add room</button>
+                    />
+                   
                 
               
           

@@ -14,6 +14,7 @@ const SignIn = () => {
   })
   const [toggle, setToggle] = useState();
   const [token, setToken] = useState(localStorage.getItem("token"));
+  
  
 
   const SignIndata = async () => {
@@ -42,10 +43,19 @@ const SignIn = () => {
           email:result.data.email
         }))
       }
-
+    if(result.status === "fail"){
+      setValid(false);
+      setError(prev =>{
+        return {...prev,correction: result.message}
+      })
+    }
       console.log(result);
     } catch (error) {
       console.log(error);
+      setValid(false);
+      setError(prev =>{
+        return {...prev,correction: "some error occured please try again later!"}
+      })
     }
   };
 
@@ -111,7 +121,11 @@ const SignIn = () => {
           className="signEmail"
           // value={email}
           // onChange={(e) => setEmail(e.target.value)}
-          onChange={(e)=>setRegisterData({...registerData, email:(e.target.value)})}
+          onChange={(e)=>{setRegisterData({...registerData, email:(e.target.value)})
+             setError(prev =>{
+              return {...prev,email:""}
+             })
+        }}
           placeholder="Enter email address"
           style={{marginBottom:"20px"}}
         />
@@ -127,7 +141,11 @@ const SignIn = () => {
           className="signpass"
           // value={password}
           // onChange={(e) => setPassword(e.target.value)}
-          onChange={(e)=>setRegisterData({...registerData,password:(e.target.value)})}
+          onChange={(e)=>{setRegisterData({...registerData,password:(e.target.value)})
+          setError(prev =>{
+            return {...prev,password:""}
+           })
+        }}
           placeholder="Enter Password"
           style={{marginBottom:"25px"}}
         />
@@ -139,9 +157,10 @@ const SignIn = () => {
         <button className="signEmailBtn" onClick={()=>SignIndata()}>
           Sign In
         </button>
-        {/* <p className="clickHere">If u don't have account! <Link to="/Register" style={{textDecoration:"none"}}> click here</Link>
-        </p> */}
-        {/* <button onClick={()=>setToggle(!toggle)}>okok</button> */}
+        {
+          valid?<></>:
+          <span className="text1">{error.correction}</span>
+        }
       </div>
     )}
 </form>

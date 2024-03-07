@@ -82,7 +82,7 @@ const Search = () => {
   };
 
   const hotelinfo = (val) => {
-    navigate(`/info/${val}`, { state: {
+    navigate(`/info`, { state: {
       data: location.state.data,
       selectedId: val,
       destination: location.state.destination,

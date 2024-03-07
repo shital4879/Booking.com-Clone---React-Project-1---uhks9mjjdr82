@@ -161,22 +161,9 @@ const FlightHeader = () => {
             onChange={(e) => {
               setSource(e.target.value), e.preventDefault();
             }}
-            // onClick={() => setGoingflight(!goingflight)}
+            style={{paddingRight:"50px",marginRight:"50px"}}
             className="inputflighttext"
           />
-          {/* {goingflight && (
-            <div  className="airportsearch">
-            <input
-              type="text"
-              placeholder="Airport or city"
-              className="airportinput"
-            />
-             <br/>
-            <span className="airportsearchtext">
-            Select multiple airports at once and compare flights
-            </span>
-            </div>
-          )} */}
         </div>
         <FontAwesomeIcon
           icon={faArrowRightArrowLeft}
@@ -195,24 +182,13 @@ const FlightHeader = () => {
               {setDestination(e.target.value),(e.preventDefault())}}
             onClick={() => setComingflight(!comingflight)}
             className="inputflighttext"
+            style={{marginRight:"50px"}}
           />
-          {comingflight && (
-            <div  className="airportsearch">
-            <input
-              type="text"
-              placeholder="Airport or city"
-              className="airportinput"
-            />
-            <br/>
-             <span className="airportsearchtext">
-            Select multiple airports at once and compare flights
-            </span>
-            </div>
-          )}
         </div>
         <div
           className="headerSearchItem1"
           id="searchitem"
+          // style={{marginLeft:"50px",marginRight:"-100px"}}
           onClick={() => setOpenBookingDate(!openbookingDate)}
         >
           <FontAwesomeIcon icon={faCalendarDays} className="headerIcon" />

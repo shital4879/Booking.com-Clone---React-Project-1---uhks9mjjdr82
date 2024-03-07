@@ -98,6 +98,7 @@ const Header = () => {
       );
       const result = await responce.json();
       setFetchingData(result.data.hotels);
+      console.log(result.data.hotels)
     } catch (error) {
       console.log(error);
     }
@@ -156,8 +157,11 @@ const Header = () => {
             value={destination}
             onChange={(e) => {
               setDestination(e.target.value);
+              handleSearchlocation();setOpenDestination(true)
             }}
-            onClick={()=>{handleSearchlocation,setOpenDestination(true)}}
+            onClick={()=>{
+              handleSearchlocation();setOpenDestination(true)
+            }}
             ref={hotelInput}
             onBlur={hotelInputBlur}
             onFocus={hotelInputFocus}
@@ -179,10 +183,9 @@ const Header = () => {
                   right: "-35px",
                   backgroundColor: "white",
                   borderRadius: "10px",
-                  // zIndex:"1",
-                  // padding: "0px 0px 10px 5px",
+               
                   boxShadow: "0px 0px 10px -2px rgba(0,0,0,0.4)",
-                  // left: "-5px"
+              
                 }}
               >
                 {fetchingData &&

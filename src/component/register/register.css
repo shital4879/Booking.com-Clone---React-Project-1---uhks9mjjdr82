@@ -65,3 +65,11 @@
     display: flex;
     justify-content: center;
 }
+.text1{
+    
+    position: relative;
+    right: 240px;
+    top: 50px;
+    color: red;
+    font-size: 14px;
+}

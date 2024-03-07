@@ -12,16 +12,17 @@ import SignOut from "../../component/register/SignOut";
 // import hi from "../Images/hi";
 
 const FlightPayment = () => {
-  const navigat
- = useNavigate();
-   const location = useLocation();
-  const[popUpPay,setPopUpPay] = useState(false);
-  const[openPopUp,setOpenPopUp] = useState(false);
-  const[flightprice,setFlightprice] = useState(location.state.flightPrice)
-  // const flightprice = location.state.flightprice;
-  
-  console.log("yes",flightprice);
+  const navigat = useNavigate();
+  const location = useLocation();
  
+  const [popUpPay, setPopUpPay] = useState(false);
+  const [openPopUp, setOpenPopUp] = useState(false);
+  const [flightprice, setFlightprice] = useState(location.state.flightPrice);
+  console.log("ol",flightprice);
+  // const flightprice = location.state.flightprice;
+
+  console.log("yes", flightprice);
+
   console.log(emailId);
   const [emailId, setEmailId] = useState(location.state.email);
   const [cvc, setCvc] = useState("");
@@ -54,7 +55,7 @@ const FlightPayment = () => {
     setIsvalid(valid);
   };
 
-  const[openSign,setOpenSing] = useState(false);
+  const [openSign, setOpenSing] = useState(false);
   const navigate = useNavigate();
 
   const RegisterPage = () => {
@@ -63,16 +64,37 @@ const FlightPayment = () => {
   const SignInPage = () => {
     navigate(`/SignIn`);
   };
-  const[action,setAction] = useState();
-  const[status,setStatus] = useState();
-  const handlepaybtn = () =>{
-      setAction("Payment successful!"),
-      setStatus("Enjoy your journey");
-      setTimeout(() => {
-        navigat(`/`)
-      }, 3000);
+  const [action, setAction] = useState();
+  const [status, setStatus] = useState();
+  const handlepaybtn = () => {
+    setAction("Payment successful!"), setStatus("Enjoy your journey");
+    setTimeout(() => {
+      navigat(`/`);
+    }, 3000);
+  };
+
+  const[valid,setValid] = useState(true);
+  const[error,setError] = useState({})
+  const[registerData,setRegisterData] = useState({
+    email:"",
+    password:""
+  })
+  const handleSubmit = (e) =>{
+    e.preventDefault();
+    let isValid = true;
+    let validationError = {};
+    if(registerData.email === "" || registerData.email === null){
+      isValid = false;
+      validationError.email= "Email is required!"
+    }
+    else if(!/\S+@\S+\.\S+/.test(registerData.email)){
+     isValid=false;
+     validationError.email= "Invalid EmailId!"
+    }
+    setValid(isValid);
+    setError(validationError);
   }
-  
+
   return (
     <div>
       <div className="navbar">
@@ -89,19 +111,21 @@ const FlightPayment = () => {
                 Sign in
               </button>
             )}
-            {localStorage.getItem("token") &&
-              <div className="profile" onClick={(e)=>{e.stopPropagation(),setOpenSing(!openSign)}} >
-                {openSign && 
-                <SignOut/>
-                }
+            {localStorage.getItem("token") && (
+              <div
+                className="profile"
+                onClick={(e) => {
+                  e.stopPropagation(), setOpenSing(!openSign);
+                }}
+              >
+                {openSign && <SignOut />}
               </div>
-            }
-
+            )}
           </div>
         </div>
       </div>
-      <div className="bag-payment" >
-        <div className="boggage-details" >
+      <div className="bag-payment">
+        <div className="boggage-details">
           <h2 style={{ fontSize: "20px", fontWeight: "600" }}>Baggage</h2>
           <h5
             style={{
@@ -133,14 +157,16 @@ const FlightPayment = () => {
           </div>
         </div>
         <div className="paymentdetailing">
-          <div style={{display:"flex"}}>
+          <div style={{ display: "flex" }}>
             <h2>Total</h2>
-            <h3 style={{margin:"4px 0px 0px 150px"}}>INR{(flightprice).toFixed(2)}</h3>
+            <h3 style={{ margin: "4px 0px 0px 150px" }}>
+              INR{flightprice.toFixed(2)}
+            </h3>
           </div>
           <p style={{ color: "gray", marginBottom: "30px", marginTop: "5px" }}>
             Includes taxes and charges
           </p>
-          <p style={{marginTop: "30px"}}>No hidden fees</p>
+          <p style={{ marginTop: "30px" }}>No hidden fees</p>
         </div>
       </div>
       <div className="paymentMethod">
@@ -189,6 +215,7 @@ const FlightPayment = () => {
             <br />
             <div className="carddetail">
               <FontAwesomeIcon icon={faCreditCard} />
+              <form>
               <input
                 type="text"
                 name="name"
@@ -204,6 +231,7 @@ const FlightPayment = () => {
               ) : (
                 <span style={{ color: "red" }}></span>
               )}
+              </form>
             </div>
           </div>
           <div style={{ marginTop: "20px" }}>
@@ -215,7 +243,7 @@ const FlightPayment = () => {
               CVC <span style={{ color: "red" }}>*</span>
             </label>
             <br />
-            {!isvalid ? <p>Please enter a valid expiry date</p>:<></>}
+            {!isvalid ? <p>Please enter a valid expiry date</p> : <></>}
             <input
               type="text"
               placeholder="MM/YY"
@@ -242,22 +270,36 @@ const FlightPayment = () => {
           </div>
         </div>
       </div>
-      <button className="backBtn" onClick={()=>{setPopUpPay(!popUpPay),handlepaybtn}}>Pay Now</button>
-      {
-        popUpPay &&
-        (
-          <div className="flightinfo" >
-          <div className="payPage" style={{height:"300px",width:"300px",marginTop:"50px", border:"2px solid gray",borderRadius:"15px"}}>
-
-          <p style={{marginTop:"75px",fontSize:"18px"}}>{action}</p>
-         <div>
-         <button className="pay-Btn" onClick={handlepaybtn} >Done</button>
-         <p style={{marginTop:"10px",fontSize:"16px"}}>{status}</p>
-         </div>
+      <button
+        className="backBtn"
+        onClick={() => {
+          setPopUpPay(!popUpPay), handlepaybtn;
+        }}
+      >
+        Pay Now
+      </button>
+      {popUpPay && (
+        <div className="flightinfo">
+          <div
+            className="payPage"
+            style={{
+              height: "300px",
+              width: "300px",
+              marginTop: "50px",
+              border: "2px solid gray",
+              borderRadius: "15px",
+            }}
+          >
+            <p style={{ marginTop: "75px", fontSize: "18px" }}>{action}</p>
+            <div>
+              <button className="pay-Btn" onClick={handlepaybtn}>
+                Done
+              </button>
+              <p style={{ marginTop: "10px", fontSize: "16px" }}>{status}</p>
+            </div>
           </div>
-          </div>
-        )
-      }
+        </div>
+      )}
     </div>
   );
 };

@@ -1,5 +1,5 @@
 .boggage-details,.paymentMethod{
-    border: 5px solid gray;
+    border: 2px solid gray;
     border-radius: 10px;
     width: 60%;
     padding-left: 15px;
@@ -39,8 +39,9 @@
     /* margin-top: 10px; */
 }
 .carddetail{
-    display: flex;
     height: 45px;
+    /* text-align: center; */
+    padding: 7px 0px 0px 5px;
     width: 300px;
     border: 1px solid gray;
     align-items: center;

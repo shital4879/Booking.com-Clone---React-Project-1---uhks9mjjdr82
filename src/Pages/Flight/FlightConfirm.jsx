@@ -8,7 +8,7 @@ import SignOut from "../../component/register/SignOut";
 const FlightConfirm = () => {
   const location = useLocation();
   const[emailId,setEmailId] = useState();
-  const flightPrice = location.state.flightPrice
+  const flightPrice = location.state.flightPrice;
   console.log("mi",flightPrice)
   const navigation = useNavigate();
   const data = location.state
@@ -23,24 +23,6 @@ const FlightConfirm = () => {
     navigate(`/SignIn`);
   };
 
-
-
-  //   const airportSearch = async () => {
-  //   try {
-  //     const responce = await fetch(
-  //       ``,
-  //       {
-  //         method: "GET",
-  //         headers: { projectID: "uhks9mjjdr82" },
-  //         "Content-Type": "application/json",
-  //       }
-  //     );
-  //     const result = await responce.json();
-  //     console.log(result);
-  //   } catch (error) {
-  //     return error;
-  //   }
-  // };
   console.log("check",location.state);
  const handlebackbtn=()=>{
   navigation(`/flightsearch`),{ state:{
@@ -56,8 +38,13 @@ const FlightConfirm = () => {
     navigation(`/flightPayment`,{state: 
       {
         flightPrice:flightPrice,
-        emailId:emailId}})
+        }})
   }
+  // const handlepopup = () =>{
+  //   if(emailId === ""  || emailId === null){
+  //     alert("pop")
+  //   }
+  // }
   return (
     <div>
        <div className="navbar">
@@ -101,17 +88,18 @@ const FlightConfirm = () => {
               <span style={{ color: "red", marginRight: "5px" }}>*</span>
             </label>
             <br />
-            <form >
+          
             <input
               type="email"
-              value={emailId}
-              onChange={(e) => {
-                setEmailId(e.target.value), e.preventDefault();
-              }}
-              style={{ height: "35px", width: "250px", marginBottom: "-5px",width:"320px",fontSize:"16px"}}
+              name="email"
+              // value={emailId}
+              // onChange={(e) => {
+              //   setEmailId(e.target.value), e.preventDefault();
+              // }}
+              style={{ height: "35px", width: "250px", marginBottom: "15px",width:"320px",fontSize:"16px"}}
               required
             />
-            </form>
+        
             <br />
             <label>
               Phone number{" "}
@@ -120,9 +108,10 @@ const FlightConfirm = () => {
             <br />
             <input
               type="number"
-              style={{ height: "30px", width: "250px", marginBottom: "30px",width:"320px",fontSize:"16px" }}
+              style={{ height: "35px", width: "250px", marginBottom: "30px",width:"320px",fontSize:"16px" }}
               required
               placeholder="+91"
+              
             />
           </div>
           <div className="set2">
