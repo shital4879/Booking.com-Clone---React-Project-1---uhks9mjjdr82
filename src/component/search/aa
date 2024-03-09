@@ -8,6 +8,45 @@ import HotelInfo from "../Info/HotelInfo";
 import { format } from "date-fns";
 import { DateRange } from "react-date-range";
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+const flightSearch = useMemo(async () => {
+  try {
+    const responce = await fetch(
+      // `https://academics.newtonschool.co/api/v1/bookingportals/flight?search={"source":"${iataCodeGet(source)}","destination":"${iataCodeGet(destination)}"}&day=Mon${sort==""?"":`&sort={"${sort}":1}`}`,
+      `https://academics.newtonschool.co/api/v1/bookingportals/flight?search={"source":"${iataCodeGet(
+        source
+      )}","destination":"${iataCodeGet(destination)}"}&day=Mon${
+        sort == "" ? "" : `&sort={"${sort}":1}`
+      }`,
+      {
+        method: "GET",
+        headers: { projectID: "uhks9mjjdr82" },
+        "Content-Type": "application/json",
+      }
+    );
+    const result = await responce.json();
+    setData(result.data);
+    console.log("ko",result)
+  } catch (error) {
+    console.log(error);
+  }
+}, [toggle, sort]);
+https://academics.newtonschool.co/api/v1/bookingportals/flight?search={"source":"DEL","destination":"BOM"}&day=Mon&filter={"ticketPrice":{"$lte":2450,"$gte":2400}}
+
 const Search = () => {
   const navigate = useNavigate();
   const [minPrice, setMinPrice] = useState(900);

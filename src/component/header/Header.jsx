@@ -134,6 +134,7 @@ const Header = () => {
     });
   };
 
+
   // const handleLocation = ()=>{
   //   setDestination(destination)
   // }
@@ -318,7 +319,7 @@ const Header = () => {
             </div>
           )}
         </div>
-          <button className="headerBtn"  onClick={handleHotelSearch}>
+          <button className="headerBtn"  onClick={handleSearch}>
             Search
           </button>
          

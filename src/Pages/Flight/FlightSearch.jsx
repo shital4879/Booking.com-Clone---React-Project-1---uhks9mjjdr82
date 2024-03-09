@@ -20,6 +20,7 @@ import { DateRange } from "react-date-range";
 import FlightInfo from "./FlightInfo";
 import { AIRPORT, iataCodeGet } from "../../utils";
 import FlightConfirm from "./FlightConfirm";
+import FlightDetail from "./FlightDetail";
 
 const FlightSearch = () => {
   const navigate = useNavigate();
@@ -48,6 +49,8 @@ const FlightSearch = () => {
   const [destinationinput, setDestinationInput] = useState(destination);
   const [toggle, settoggle] = useState(false);
   const [sort, setsort] = useState("");
+  const[sorting,setSorting] = useState("");
+  const[filter,setFilter] = useState("")
   const [airlinevisibility, setairlinevisibility] = useState({
     Indigo: true,
     AirIndia: true,
@@ -75,12 +78,11 @@ const FlightSearch = () => {
   const flightSearch = useMemo(async () => {
     try {
       const responce = await fetch(
-        // `https://academics.newtonschool.co/api/v1/bookingportals/flight?search={"source":"${iataCodeGet(source)}","destination":"${iataCodeGet(destination)}"}&day=Mon${sort==""?"":`&sort={"${sort}":1}`}`,
-        `https://academics.newtonschool.co/api/v1/bookingportals/flight?search={"source":"${iataCodeGet(
-          source
-        )}","destination":"${iataCodeGet(destination)}"}&day=Mon${
-          sort == "" ? "" : `&sort={"${sort}":1}`
-        }`,
+         `https://academics.newtonschool.co/api/v1/bookingportals/flight?search={"source":"${iataCodeGet(source)}","destination":"${iataCodeGet(destination)}"}&day=Mon${sort==""?"":`&sort={"${sort}":1}`}`,
+        // `https://academics.newtonschool.co/api/v1/bookingportals/flight?search={"source":"${iataCodeGet(
+        //   source
+        // )}","destination":"${iataCodeGet(destination)}"}&day=Mon${filter == ""? "" : `&filter={"${filter}":1}`}
+        // }`,
         {
           method: "GET",
           headers: { projectID: "uhks9mjjdr82" },
@@ -89,11 +91,45 @@ const FlightSearch = () => {
       );
       const result = await responce.json();
       setData(result.data);
+      console.log("ko",result)
     } catch (error) {
-      return error;
+      console.log(error);
     }
   }, [toggle, sort]);
 
+  // const flightflight = async () => {
+  //   try {
+  //     const responce = await fetch(
+  //      `https://academics.newtonschool.co/api/v1/bookingportals/flight?search={"source":"DEL","destination":"BOM"}&day=Mon&filter={"ticketPrice":{"$lte":2450,"$gte":2400}}`
+  //       ,{
+  //         method: "GET",
+  //         headers: { projectID: "uhks9mjjdr82" },
+  //         "Content-Type": "application/json",
+  //       }
+  //     );
+  //     const result = await responce.json();
+  //     setData(result.data);
+  //   } catch (error) {
+  //     return error;
+  //   }
+  // };
+  
+  // function handleSearch() {
+  //   flightflight()
+  //     .then((response) => {
+  //       if (response) {
+  //         setFilterOpt(response.data);
+  //         console.log(response.data);
+  //         handleSearch(response.data);
+  //       }
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // }
+
+  
+ 
   useEffect(() => {
     flightSearch;
   });
@@ -112,16 +148,28 @@ const FlightSearch = () => {
     }
   };
 
-  const flightConfirmation = (fid) => {
-    navigate(`/flightconfirm/${fid}`, {
-      state: {
-        destination: destination,
-        flightPrice: flightPrice,
-        source: location.state.source,
-        selectedDate: location.state.selectedDate,
-        people: location.state.people,
-      },
-    });
+  // const flightConfirmation = (fid) => {
+  //   navigate(`/flightconfirm/${fid}`, {
+  //     state: {
+  //       destination: destination,
+  //       flightPrice: flightPrice,
+  //       source: location.state.source,
+  //       selectedDate: location.state.selectedDate,
+  //       people: location.state.people,
+  //     },
+  //   });
+  // };
+  
+  const flightDetail = (id) => {
+    navigate(`/flightDetail/${id}`,{state:{
+    selectedDate: selectedDate,
+    destination: location.state.destination,
+    flightPrice: location.state.flightPrice,
+    source: location.state.source,
+   
+    people: location.state.people,
+    }}
+    );
   };
 
   function swapinputs() {
@@ -328,7 +376,14 @@ const FlightSearch = () => {
         <div className="flight-filter">
           <div className="flightStops">
             <h3 className="filterName">Stops</h3>
-            <div style={{ marginBottom: "4px" }}>
+            <div>
+              <select onChange={(e)=>{setFilter(e.target.value),console.log(e.target.value)}}> 
+              <option value="">ki</option>
+              <option value="stops">any</option>
+              </select>
+              
+            </div>
+            <div style={{ marginBottom: "4px",marginTop:"20px" }}>
               <input
                 type="radio"
                 name="radio"
@@ -479,12 +534,13 @@ const FlightSearch = () => {
                 }}
               >
                 <option value="">Sort By</option>
-                <option style={{ border: "5px solid black" }} value="departure">
+                <option style={{ border: "5px solid black" }} value="departureTime">
                   {" "}
                   Departure{" "}
                 </option>
                 <option value="duration">Duration </option>
-                <option value="price">Cheapest Ticket </option>
+                <option value="ticketPrice
+">Cheapest Ticket </option>
               </select>
             </div>
           </div>
@@ -493,6 +549,8 @@ const FlightSearch = () => {
               data.flights.map((item) => {
                 return (
                   <>
+                  <flightDetail data={item._id}/>
+                  {/* <h1>{item._id}</h1> */}
                     <div className="FlightBox">
                       <div className="flightBox1">
                         <div className="flight-logo">
@@ -516,7 +574,7 @@ const FlightSearch = () => {
                         </div>
                         <div className="flightArrivalTime">
                           <span className="flight-Time">
-                            {item.arrivalTime}
+                            {item.departureTime}
                           </span>
                           <br />
                           <span className="date-Time">
@@ -543,7 +601,7 @@ const FlightSearch = () => {
                         </div>
                         <div className="departureTime">
                           <span className="flight-Time">
-                            {item.departureTime}
+                            {item.arrivalTime}
                           </span>
                           <br />
                           <span className="date-Time">
@@ -568,164 +626,23 @@ const FlightSearch = () => {
                         </div>
                         <button
                           className="flightView"
-                          onClick={() => {
-                            setInfoPopUp(true),
-                              setFlightPrice(item.ticketPrice);
-                          }}
+                          // onClick={() => {
+                          //   setInfoPopUp(true),
+                          //     setFlightPrice(item.ticketPrice);
+                          // }}
+                          onClick={()=>flightDetail(item._id)}
                         >
                           View details
                         </button>
-
+{/* 
                         {infoPopUp && (
                           <FlightInfo
                             trigger={infoPopUp}
                             setTrigger={setInfoPopUp}
                           >
-                            <div className="mainContent">
-                              <div className="name-1">
-                                Flight to {destination}
-                              </div>
-                              <div className="main-duration">
-                                direct - {item.duration}hour
-                              </div>
-                              <div className="detailing">
-                                <div className="fly-box1">
-                                  <div className="flyfly">
-                                    <FontAwesomeIcon
-                                      icon={faCircle}
-                                      style={{ marginTop: "10px" }}
-                                    />
-                                    <div className="flightGoingDetail">
-                                      <span>
-                                        {" "}
-                                        {format(
-                                          selectedDate[0].startDate,
-                                          "dd/MM"
-                                        )}{" "}
-                                        - {item.arrivalTime}
-                                      </span>
-                                      <h5>{item.source}</h5>
-                                    </div>
-                                  </div>
-                                  <br />
-                                  <FontAwesomeIcon icon={faArrowDown} />
-
-                                  <br />
-                                  <div className="flyfly">
-                                    <FontAwesomeIcon icon={faCircle} />
-                                    <div className="flightGoingDetail">
-                                      <span>
-                                        {" "}
-                                        {format(
-                                          selectedDate[0].startDate,
-                                          "dd/MM"
-                                        )}{" "}
-                                        - {item.arrivalTime}
-                                      </span>
-                                      <h5>{item.destination}</h5>
-                                    </div>
-                                  </div>
-                                </div>
-                                <div className="fly-box2">
-                                  <img
-                                    src={
-                                      getAirlineInfo(item.flightID.slice(0, 2))
-                                        .logoSrc
-                                    }
-                                    className="airline-logo"
-                                    style={{ height: "40px", width: "40px" }}
-                                  />
-                                  <div>
-                                    <h5
-                                      style={{
-                                        fontSize: "12px",
-                                        fontWeight: "400",
-                                      }}
-                                    >
-                                      {
-                                        getAirlineInfo(
-                                          item.flightID.slice(0, 2)
-                                        ).airlineName
-                                      }
-                                    </h5>
-                                    {/* <br/> */}
-                                    <h5
-                                      style={{
-                                        fontSize: "12px",
-                                        fontWeight: "400",
-                                      }}
-                                    >
-                                      Flight time {item.duration}
-                                    </h5>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-
-                            <div
-                              className="baggage-detail"
-                              style={{ paddingTop: "15px" }}
-                            >
-                              <div className="baggage-1">
-                                <h2 style={{ fontSize: "16px" }}>
-                                  Included baggage
-                                </h2>
-                                <span style={{ fontSize: "14px" }}>
-                                  The total baggage included in the price
-                                </span>
-                              </div>
-                              <div
-                                className="baggage-2"
-                                onClick={() => {
-                                  setInfoPopUp(true);
-                                }}
-                              >
-                                <div className="first-Item">
-                                  <FontAwesomeIcon icon={faSuitcaseRolling} />
-                                  <span
-                                    style={{
-                                      fontSize: "14px",
-                                      fontWeight: "400",
-                                      marginLeft: "15px",
-                                    }}
-                                  >
-                                    1 personal item
-                                    <br />
-                                    Fits under the seat in front of you
-                                  </span>
-                                </div>
-                                <div className="second-Item">
-                                  <FontAwesomeIcon icon={faBriefcase} />
-                                  <span
-                                    style={{
-                                      fontSize: "14px",
-                                      fontWeight: "400",
-                                      marginLeft: "15px",
-                                    }}
-                                  >
-                                    1 cabin bag
-                                    <br />
-                                    25 x 35 x 55 cm · Max weight 7 kg
-                                  </span>
-                                </div>
-                              </div>
-                            </div>
-                            <div className="total-price">
-                              <div className="price-Detail">
-                                <h2>INR{item.ticketPrice}</h2>
-                                <span>Total price for all travellers</span>
-                              </div>
-                              <button
-                                className="flightSelectbtn"
-                                onClick={() => {
-                                  flightConfirmation(item._id);
-                                }}
-                              >
-                                SELECT
-                              </button>
-                            </div>
+                           <FlightDetail/>
                           </FlightInfo>
-                        )}
+                        )} */}
                       </div>
                     </div>
                   </>

@@ -1,11 +1,13 @@
 import React, { useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import "./flightconfirm.css";
 import FlightInfo from "./FlightInfo";
 import SignOut from "../../component/register/SignOut";
 
 
 const FlightConfirm = () => {
+  const params = useParams();
+  console.log(params.fid,"kt");
   const location = useLocation();
   const[emailId,setEmailId] = useState();
   const flightPrice = location.state.flightPrice;
@@ -34,8 +36,9 @@ const FlightConfirm = () => {
     people:location.state.people
   }}
  }
-  const flightPayment=()=>{
-    navigation(`/flightPayment`,{state: 
+ console.log(flightPrice,"lolo");
+  const flightPayment=(fid)=>{
+    navigation(`/flightPayment/${fid}`,{state: 
       {
         flightPrice:flightPrice,
         }})
@@ -153,9 +156,10 @@ const FlightConfirm = () => {
                     fontSize: "15px",
                     fontWeight: "700",
                     marginBottom: "8px",
+                    display:"flex",justifyContent:"end"
                   }}
                 >
-                  INR{(flightPrice)}
+                  INR{(params.fid)}
                 </h5>
                 {/* <h5
                   style={{
@@ -175,7 +179,7 @@ const FlightConfirm = () => {
                 >
                   INR
                 </h5> */}
-                <h2 style={{ marginTop: "40px" }}> INR{(flightPrice)}</h2>
+                <h2 style={{ marginTop: "40px",display:"flex",justifyContent:"end"}}> INR{(params.fid)}</h2>
               </div>
             </div>
             <div style={{marginLeft:"200px",marginTop:"30px"}}>
@@ -252,7 +256,7 @@ const FlightConfirm = () => {
         </div>
 
         <div className="buttons">
-            <button className="backBtnbtn" style={{marginLeft:"0px"}} onClick={flightPayment}>Next</button>
+            <button className="backBtnbtn" style={{marginLeft:"0px",marginBottom:"50px"}} onClick={()=>flightPayment(params.fid)}>Next</button>
         </div>
       </div>
       </form>

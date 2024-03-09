@@ -45,7 +45,7 @@ const HotelInfo = () => {
   // const data = location.state;
   const [totalguest,setTotalguest] = useState();
   const[hotelPrice,setHotelPrice] = useState();
- 
+  const[inputval,setinputval] = useState();
   const [persons, setPersons] = useState(location.state.persons);
   const [bookingPersons, setBookingPersons] = useState(false);
   const [destination, setDestination] = useState(location.state.destination);
@@ -117,11 +117,12 @@ const HotelInfo = () => {
 
   const hotelPaymentPage = (cost) => {
     console.log("cost",cost);
+    console.log("guest",inputval)
     navigate(`/paymentHotel/${cost}`,{
       state:{
         // data:data,
-        totalguest:totalguest
-     
+        totalguest:totalguest,
+        inputval:inputval
       }
     });
   };
@@ -171,6 +172,7 @@ const HotelInfo = () => {
                       className="searchinput1"
                       id="searchitem"
                       onClick={() => setOpenBookingDate(!openbookingDate)}
+                      style={{position:"relative",}}
                     >
                       <span className="headerSearchText">{`${format(
                         selectedDate[0].startDate,
@@ -279,15 +281,16 @@ const HotelInfo = () => {
           </div>
         
 
-        <div className="detail-overview">
+        <div className="detail-overview" id="detail-overview">
           <div className="nav-overview">
-            <Link to=".detailImg">Overview</Link>
-            <div className="facilities">Facilities</div>
+            <a href="#detailImg">Overview</a>
+            <a href="#infoHotel" className="facilities">Facilities</a>
             <div className="amenities">Amenities</div>
           </div>
-          <div className="detailImg">
+          <div className="detailImg" id="detailImg">
              {information && information.images.map((item,key)=>(
                 <div className="img-img"
+                style={{height:"auto"}}
                 >
                 <img src={item} alt="j"
                 style={{height:"325px",width:"380px"
@@ -299,7 +302,7 @@ const HotelInfo = () => {
         </div>
       </div>
 
-       <div className="hotel-info">
+       <div className="hotel-info" id="infoHotel">
         <div className="info-type">
           <div className="roomTypeHead">
             <div className="tablehead">Room type</div>
@@ -395,8 +398,12 @@ const HotelInfo = () => {
             <div className="room-type">
               {information &&
                  information.rooms.slice(0,6).map((item)=>(
-            <HotelRoom information={information} totalguest={totalguest}
-            setTotalguest={setTotalguest}/>
+            // <HotelRoom information={information} totalguest={totalguest}
+            // setTotalguest={setTotalguest}/>
+            <div style={{ height: "130px",marginTop:"5px",marginLeft:"10px" }}>
+            <input type="number" style={{width:"50px"}} onChange={(e)=>{setinputval(e.target.value)}}/>
+            <br/>
+            </div>
               ))}
               </div>
           </div>
@@ -412,7 +419,7 @@ const HotelInfo = () => {
                     marginBottom: "28px",
                   }}
                   onClick={()=>{hotelPaymentPage(information.rooms[key].
-                    costPerNight)
+                    costPerNight,totalguest)
                   
                   }}
                 >
@@ -422,11 +429,11 @@ const HotelInfo = () => {
                 <br/>
                 </>
                   ))}
-           <div>
+           {/* <div>
             persons{
               totalguest
             }
-           </div>
+           </div> */}
 
 
           

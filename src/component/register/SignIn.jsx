@@ -159,7 +159,7 @@ const SignIn = () => {
         </button>
         {
           valid?<></>:
-          <span className="text1">{error.correction}</span>
+          <span className="text1" style={{marginLeft:"-20px"}}>{error.correction}</span>
         }
       </div>
     )}

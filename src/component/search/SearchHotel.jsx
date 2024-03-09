@@ -50,6 +50,9 @@ const Search = () => {
       console.log(result.data.hotels);
     } catch (error) {
       console.log(error);
+      console.log("oh",`https://academics.newtonschool.co/api/v1/bookingportals/hotel?search={"location":"${searchinput}"}       
+      ${sort != ""
+        ? `&sort={"${sort == "rating" ? "rating" : "avgCostPerNight"}":"${sort == "highToLow" ? -1 : 1}"}` : ""}`);
     }
   }, [sort, maxPrice, minPrice,toggle]);
 

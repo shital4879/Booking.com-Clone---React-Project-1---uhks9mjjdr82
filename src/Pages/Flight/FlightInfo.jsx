@@ -4,6 +4,7 @@ import "./flightInfo.css"
 const FlightInfo = (props) => {
     // console.log(data);
     const[infoPopUp,setInfoPopUp] = useState(false)
+    // console.log(props)
   return (props.trigger)?(
     <div>
       <div className="flightinfo">

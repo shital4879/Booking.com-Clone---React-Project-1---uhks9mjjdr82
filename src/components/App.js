@@ -14,6 +14,7 @@ import FlightPayment from "../Pages/Flight/FlightPayment";
 import Register from "../component/register/Register";
 import SignIn from "../component/register/SignIn";
 import PaymentHotel from "../component/paymentHotel/PaymentHotel";
+import FlightDetail from "../Pages/Flight/FlightDetail";
 // import HotelInfo from "../Pages/Info/HotelInfo"
 
 
@@ -30,7 +31,8 @@ function App() {
     
         <Route path="/flightsearch" element={<FlightSearch/>}/>
         <Route path="/flightconfirm/:fid" element={<FlightConfirm/>}/>
-        <Route path="/flightPayment" element={<FlightPayment/>}/>
+        <Route path="/flightPayment/:fid" element={<FlightPayment/>}/>
+        <Route path="/flightDetail/:id" element={<FlightDetail/>}/>
         <Route path="/Register" element={<Register/>}/>
         <Route path="/SignIn" element={<SignIn/>}/>
       </Routes>

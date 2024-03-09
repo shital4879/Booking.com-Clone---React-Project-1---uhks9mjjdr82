@@ -1,5 +1,5 @@
 .paymentpage1{
-    gap: 80px;
+    gap: 130px;
     display: flex;
 }
 .paymentMethodHotel{
@@ -9,6 +9,7 @@
     padding: 15px 0px 40px 20px;
     border-radius: 10px;
     margin-left: -5px;
+    position: relative;
 }
 .hotelset1{
     width: 60%;
@@ -16,17 +17,21 @@
     padding: 15px 0px 20px 20px;
     border-radius: 10px;
     margin-left: -5px;
+    position: relative;
 }
 .emailZone1{
-    position: relative;
-    top: -20px;
+    position: absolute;
+    /* top: 5px; */
+    /* bottom: 5px; */
+    margin-top: -30px;
     color: red;
     font-size: 14px;
     /* bottom: -10px; */
 }
 .numberZone2{
-    position: relative;
-    top: -20px;
+    position: absolute;
+    margin-top: -30px;
+    /* top: -30px; */
     color: red;
     font-size: 14px;
 }
@@ -35,4 +40,29 @@
 }
 .cvczone{
     font-size: 24px;
+}
+.cardZone{
+    margin-top: -45px;
+    /* margin-left: -10px; */
+    color: red;
+    font-size: 14px;
+    position: absolute;
+}
+.nameZone{
+    position: absolute;
+    margin-top: -30px;
+    /* margin-left: -10px; */
+    color: red;
+    font-size: 14px;
+}
+.cvcZone{
+    color: red;
+    font-size: 14px;
+    margin-top: 50px;
+}
+.expZone{
+    margin-right: 110px;
+    position: relative;
+    color: red;
+    font-size: 14px;
 }

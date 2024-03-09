@@ -10,9 +10,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { json, useNavigate } from "react-router-dom";
 import SignOut from "../register/SignOut";
 
-
 const Navbar = ({ type }) => {
-  const[openSign,setOpenSing] = useState(false);
+  const [openSign, setOpenSing] = useState(false);
   const navigate = useNavigate();
 
   const RegisterPage = () => {
@@ -41,14 +40,20 @@ const Navbar = ({ type }) => {
                 Sign in
               </button>
             )}
-            {localStorage.getItem("token") &&
-              <div className="profile"  style={{marginLeft:"0px",marginRight:"110px"}} onClick={(e)=>{e.stopPropagation(),setOpenSing(!openSign)}} >
-                {openSign && 
-                <SignOut/>
-                }
+            {localStorage.getItem("token") && (
+              <div>
+              <div style={{width:"190px",display:"flex"}}></div>
+              <div
+                className="profile"
+                style={{ marginLeft: "40px", }}
+                onClick={(e) => {
+                  e.stopPropagation(), setOpenSing(!openSign);
+                }}
+              >
+                {openSign && <SignOut />}
               </div>
-            }
-
+              </div>
+            )}
           </div>
         </div>
       </div>
@@ -57,19 +62,19 @@ const Navbar = ({ type }) => {
         <div className="header">
           <div className="headerContainer">
             <div className="headerList">
-              <div className="headerListItem active" onClick={()=>navigate("/")}>
+              <div
+                className="headerListItem active"
+                onClick={() => navigate("/")}
+              >
                 <FontAwesomeIcon icon={faBed} className="stays-i" />
-                <span>
-                  Stays</span>
+                <span>Stays</span>
               </div>
               <div
                 className="headerListItem"
                 onClick={() => navigate("/flight")}
               >
-                
                 <FontAwesomeIcon icon={faPlane} className="flights-i" />
                 <span>Flights</span>
-                
               </div>
             </div>
           </div>
@@ -79,8 +84,10 @@ const Navbar = ({ type }) => {
       {type !== "list" && (
         <>
           <div className="headerTitle">
-            <h1 className="heading1" style={{fontSize:"40px"}}>Find your next stay</h1>
-            <p className="para" style={{fontSize:"26px"}}>
+            <h1 className="heading1" style={{ fontSize: "40px" }}>
+              Find your next stay
+            </h1>
+            <p className="para" style={{ fontSize: "26px" }}>
               Search low prices hotels,homes and much more...
             </p>
           </div>
