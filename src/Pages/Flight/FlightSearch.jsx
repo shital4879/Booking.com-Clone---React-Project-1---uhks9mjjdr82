@@ -49,15 +49,15 @@ const FlightSearch = () => {
   const [destinationinput, setDestinationInput] = useState(destination);
   const [toggle, settoggle] = useState(false);
   const [sort, setsort] = useState("");
-  const[sorting,setSorting] = useState("");
-  const[filter,setFilter] = useState("")
+  const [sorting, setSorting] = useState("");
+  const [filter, setFilter] = useState("");
   const [airlinevisibility, setairlinevisibility] = useState({
-    Indigo: true,
-    AirIndia: true,
-    AkasaAir: true,
-    Vistara: true,
-    AirIndiaExpress: true,
-    Spicejet: true,
+    indigo: true,
+    airindia: true,
+    akasaair: true,
+    vistara: true,
+    airindiaexpress: true,
+    spicejet: false,
   });
   function airlinevisibilitysetter(key) {
     setairlinevisibility((prev) => ({
@@ -78,11 +78,11 @@ const FlightSearch = () => {
   const flightSearch = useMemo(async () => {
     try {
       const responce = await fetch(
-         `https://academics.newtonschool.co/api/v1/bookingportals/flight?search={"source":"${iataCodeGet(source)}","destination":"${iataCodeGet(destination)}"}&day=Mon${sort==""?"":`&sort={"${sort}":1}`}`,
-        // `https://academics.newtonschool.co/api/v1/bookingportals/flight?search={"source":"${iataCodeGet(
-        //   source
-        // )}","destination":"${iataCodeGet(destination)}"}&day=Mon${filter == ""? "" : `&filter={"${filter}":1}`}
-        // }`,
+        `https://academics.newtonschool.co/api/v1/bookingportals/flight?search={"source":"${iataCodeGet(
+          source
+        )}","destination":"${iataCodeGet(destination)}"}&day=Mon${
+          sort == "" ? "" : `&sort={"${sort}":1}`
+        }`,
         {
           method: "GET",
           headers: { projectID: "uhks9mjjdr82" },
@@ -90,46 +90,36 @@ const FlightSearch = () => {
         }
       );
       const result = await responce.json();
-      setData(result.data);
-      console.log("ko",result)
+      let flightresults = result.data;
+      console.log(flightresults);
+      if (filter != "") {
+        flightresults.flights = flightresults.flights.filter((item) => {
+          if (filter === "nonstop") {
+            return item.stops === 0;
+          } else if (filter == "stops") {
+            return item.stops == 1;
+          } else if (filter == "anystops") {
+            return item.stops >= 0;
+          }
+          // else if (filter === "stops") {
+          //   return item.stops >=0;
+          // }
+          return true;
+        });
+      }
+      // if(filter!= ""){
+      //   flightresults.flights = flightresults.flightID.filter(item=>{
+      //     if(filter == item.flightID.slice(0,2))
+      //   )}
+      // }
+
+      setData(flightresults);
+      console.log("ko", result);
     } catch (error) {
       console.log(error);
     }
-  }, [toggle, sort]);
+  }, [toggle, sort, filter, flightPrice]);
 
-  // const flightflight = async () => {
-  //   try {
-  //     const responce = await fetch(
-  //      `https://academics.newtonschool.co/api/v1/bookingportals/flight?search={"source":"DEL","destination":"BOM"}&day=Mon&filter={"ticketPrice":{"$lte":2450,"$gte":2400}}`
-  //       ,{
-  //         method: "GET",
-  //         headers: { projectID: "uhks9mjjdr82" },
-  //         "Content-Type": "application/json",
-  //       }
-  //     );
-  //     const result = await responce.json();
-  //     setData(result.data);
-  //   } catch (error) {
-  //     return error;
-  //   }
-  // };
-  
-  // function handleSearch() {
-  //   flightflight()
-  //     .then((response) => {
-  //       if (response) {
-  //         setFilterOpt(response.data);
-  //         console.log(response.data);
-  //         handleSearch(response.data);
-  //       }
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //     });
-  // }
-
-  
- 
   useEffect(() => {
     flightSearch;
   });
@@ -159,17 +149,18 @@ const FlightSearch = () => {
   //     },
   //   });
   // };
-  
+
   const flightDetail = (id) => {
-    navigate(`/flightDetail/${id}`,{state:{
-    selectedDate: selectedDate,
-    destination: location.state.destination,
-    flightPrice: location.state.flightPrice,
-    source: location.state.source,
-   
-    people: location.state.people,
-    }}
-    );
+    navigate(`/flightDetail/${id}`, {
+      state: {
+        selectedDate: selectedDate,
+        destination: location.state.destination,
+        flightPrice: location.state.flightPrice,
+        source: location.state.source,
+
+        people: location.state.people,
+      },
+    });
   };
 
   function swapinputs() {
@@ -231,7 +222,7 @@ const FlightSearch = () => {
   return (
     <div>
       <Navbar type="list" />
-      <div className="flight-class">
+      <div className="flight-class" style={{marginTop:"10px"}}>
         <select className="flightOption">
           <option>Economy</option>
           <option>Premium Economy</option>
@@ -366,161 +357,180 @@ const FlightSearch = () => {
         </div>
       </div>
 
-      <div className="filter-card">
+      <div className="filter-card" >
         <div
-          style={{ marginTop: "-20px", fontSize: "20px", fontWeight: "600" }}
+          style={{ marginTop: "-20px", fontSize: "20px", fontWeight: "600",marginBottom:"20px" }}
         >
           Filters:
         </div>
 
         <div className="flight-filter">
-          <div className="flightStops">
-            <h3 className="filterName">Stops</h3>
-            <div>
-              <select onChange={(e)=>{setFilter(e.target.value),console.log(e.target.value)}}> 
-              <option value="">ki</option>
-              <option value="stops">any</option>
-              </select>
-              
-            </div>
-            <div style={{ marginBottom: "4px",marginTop:"20px" }}>
-              <input
-                type="radio"
-                name="radio"
-                style={{ marginRight: "10px" }}
-              />
-              <label htmlFor="radio" style={{ fontSize: "14px" }}>
-                Any
-              </label>
-            </div>
+          <div className="flightflight">
+            <div className="flightStops">
+              <h3 className="filterName" style={{marginTop:"-10px",marginBottom:"15px"}}>Stops</h3>
 
-            <div style={{ marginBottom: "4px" }}>
-              <input
-                type="radio"
-                name="radio"
-                style={{ marginRight: "10px" }}
-              />
-              <label htmlFor="radio" style={{ fontSize: "14px" }}>
-                Direct only
-              </label>
-            </div>
+              <div>
+                <div
+                  style={{ marginBottom: "4px"}}
+                  onChange={(e) => {
+                    setFilter(e.target.value), console.log(e.target.value);
+                  }}
+                >
+                  <input
+                    type="radio"
+                    name="radio"
+                    style={{ marginRight: "10px" }}
+                    className="radioBtn"
+                    value="nonstop"
+                  />
+                  <label style={{ fontSize: "16px" }}>Direct only</label>
+                </div>
 
-            <div style={{ marginBottom: "4px" }}>
-              <input
-                type="radio"
-                name="radio"
-                style={{ marginRight: "10px" }}
-              />
-              <label htmlFor="radio" style={{ fontSize: "14px" }}>
-                1 Stop max
-              </label>
+                <div
+                  style={{ marginBottom: "4px" }}
+                  onChange={(e) => {
+                    setFilter(e.target.value), console.log(e.target.value);
+                  }}
+                >
+                  <input
+                    type="radio"
+                    name="radio"
+                    style={{ marginRight: "10px" }}
+                    value="stops"
+                    className="radioBtn"
+                  />
+                  <label style={{ fontSize: "16px" }}>1 Stop max</label>
+                </div>
+                <div
+                  style={{ marginBottom: "4px", marginTop: "px" }}
+                  onChange={(e) => {
+                    setFilter(e.target.value), console.log(e.target.value);
+                  }}
+                >
+                  <input
+                    type="radio"
+                    name="radio"
+                    style={{ marginRight: "10px" }}
+                    value="any"
+                    defaultChecked={true}
+                    className="radioBtn"
+                  />
+                  <label style={{ fontSize: "16px" }}>Any</label>
+                </div>
+              </div>
             </div>
-          </div>
-          <div className="flightAir">
-            <h3 className="filterName" style={{ marginTop: "40px" }}>
-              Airlines
-            </h3>
-            <div
-              onClick={() => {
-                airlinevisibilitysetter("indigo");
-              }}
-              style={{ marginBottom: "4px" }}
-            >
-              <input
-                type="checkbox"
-                name="indigo"
-                id="indigo"
-                checked={airlinevisibility["indigo"]}
-                style={{ marginRight: "10px" }}
-              />
-              <label htmlFor="indigo" style={{ fontSize: "14px" }}>
-                Indigo
-              </label>
-            </div>
-            <div
-              onClick={() => {
-                airlinevisibilitysetter("airIndia");
-              }}
-              style={{ marginBottom: "4px" }}
-            >
-              <input
-                type="checkbox"
-                name="airIndia"
-                id="airIndia"
-                checked={airlinevisibility["airIndia"]}
-                style={{ marginRight: "10px" }}
-              />
-              <label htmlFor="airIndia" style={{ fontSize: "14px" }}>
-                Air India
-              </label>
-            </div>
-            <div
-              onClick={() => {
-                airlinevisibilitysetter("akasaair");
-              }}
-              style={{ marginBottom: "4px" }}
-            >
-              <input
-                type="checkbox"
-                name="AkasaAir"
-                id="AkasaAir"
-                checked={airlinevisibility["vistara"]}
-                style={{ marginRight: "10px" }}
-              />
-              <label htmlFor="AkasaAir" style={{ fontSize: "14px" }}>
-                Akasa Air
-              </label>
-            </div>
-            <div
-              onClick={() => {
-                airlinevisibilitysetter("vistara");
-              }}
-              style={{ marginBottom: "4px" }}
-            >
-              <input
-                type="checkbox"
-                name="Vistara"
-                id="Vistara"
-                checked={airlinevisibility["vistara"]}
-                style={{ marginRight: "10px" }}
-              />
-              <label htmlFor="Vistara" style={{ fontSize: "14px" }}>
-                Vistara
-              </label>
-            </div>
-            <div
-              onClick={() => {
-                airlinevisibilitysetter("airindiaexpress");
-              }}
-              style={{ marginBottom: "4px" }}
-            >
-              <input
-                type="checkbox"
-                name="AirIndiaExp"
-                id="AirIndiaExp"
-                checked={airlinevisibility["airindiaexpress"]}
-                style={{ marginRight: "10px" }}
-              />
-              <label htmlFor="AirIndiaExp" style={{ fontSize: "14px" }}>
-                Air India Express
-              </label>
-            </div>
-            <div
-              onClick={() => {
-                airlinevisibilitysetter("airindiaexpress");
-              }}
-              style={{ marginBottom: "4px" }}
-            >
-              <input
-                type="checkbox"
-                name="spicejet"
-                id="spicejet"
-                checked={airlinevisibility["airispicejet"]}
-                style={{ marginRight: "10px" }}
-              />
-              <label htmlFor="spicejet" style={{ fontSize: "14px" }}>
-                Spicejet
-              </label>
+            <div className="flightAir">
+              <h3 className="filterName" style={{ marginTop: "40px" }}>
+                Airlines
+              </h3>
+              <div
+                onClick={() => {
+                  airlinevisibilitysetter("indigo");
+                }}
+                style={{ marginBottom: "4px" }}
+              >
+                <input
+                  type="checkbox"
+                  name="indigo"
+                  id="indigo"
+                  checked={airlinevisibility["indigo"]}
+                  style={{ marginRight: "10px" }}
+                  className="radioBtn"
+                />
+                <label htmlFor="indigo" style={{ fontSize: "16px" }}>
+                  Indigo
+                </label>
+              </div>
+              <div
+                onClick={() => {
+                  airlinevisibilitysetter("airindia");
+                }}
+                style={{ marginBottom: "4px" }}
+              >
+                <input
+                  type="checkbox"
+                  name="airIndia"
+                  id="airIndia"
+                  checked={airlinevisibility["airindia"]}
+                  style={{ marginRight: "10px" }}
+                  className="radioBtn"
+                />
+                <label htmlFor="airindia" style={{ fontSize: "16px" }}>
+                  Air India
+                </label>
+              </div>
+              <div
+                onClick={() => {
+                  airlinevisibilitysetter("akasaair");
+                }}
+                style={{ marginBottom: "4px" }}
+              >
+                <input
+                  type="checkbox"
+                  name="AkasaAir"
+                  id="AkasaAir"
+                  checked={airlinevisibility["akasaair"]}
+                  style={{ marginRight: "10px" }}
+                  className="radioBtn"
+                />
+                <label htmlFor="akasaair" style={{ fontSize: "16px" }}>
+                  Akasa Air
+                </label>
+              </div>
+              <div
+                onClick={() => {
+                  airlinevisibilitysetter("vistara");
+                }}
+                style={{ marginBottom: "4px" }}
+              >
+                <input
+                  type="checkbox"
+                  name="Vistara"
+                  id="Vistara"
+                  checked={airlinevisibility["vistara"]}
+                  style={{ marginRight: "10px" }}
+                  className="radioBtn"
+                />
+                <label htmlFor="vistara" style={{ fontSize: "16px" }}>
+                  Vistara
+                </label>
+              </div>
+              <div
+                onClick={() => {
+                  airlinevisibilitysetter("airindiaexpress");
+                }}
+                style={{ marginBottom: "4px" }}
+              >
+                <input
+                  type="checkbox"
+                  name="AirIndiaExp"
+                  id="AirIndiaExp"
+                  checked={airlinevisibility["airindiaexpress"]}
+                  style={{ marginRight: "10px" }}
+                  className="radioBtn"
+                />
+                <label htmlFor="airindiaexp" style={{ fontSize: "16px" }}>
+                  Air India Express
+                </label>
+              </div>
+              <div
+                onClick={() => {
+                  airlinevisibilitysetter("spicejet");
+                }}
+                style={{ marginBottom: "4px" }}
+              >
+                <input
+                  type="checkbox"
+                  name="spicejet"
+                  id="spicejet"
+                  checked={airlinevisibility["spicejet"]}
+                  style={{ marginRight: "10px" }}
+                  className="radioBtn"
+                />
+                <label htmlFor="spicejet" style={{ fontSize: "16px" }}>
+                  Spicejet
+                </label>
+              </div>
             </div>
           </div>
         </div>
@@ -528,113 +538,150 @@ const FlightSearch = () => {
           <div className="sortoption">
             <div style={{ marginTop: "-20px", marginBottom: "20px" }}>
               <select
+               style={{width:"150px"}}
                 className="sort"
                 onChange={(e) => {
                   setsort(e.target.value);
                 }}
               >
                 <option value="">Sort By</option>
-                <option style={{ border: "5px solid black" }} value="departureTime">
+                <option
+                  style={{ border: "5px solid black" }}
+                  value="departureTime"
+                >
                   {" "}
                   Departure{" "}
                 </option>
                 <option value="duration">Duration </option>
-                <option value="ticketPrice
-">Cheapest Ticket </option>
+                <option
+                  value="ticketPrice
+"
+                >
+                  Cheapest Ticket{" "}
+                </option>
               </select>
             </div>
           </div>
-          <div className="flightcard-1">
+          <div className="flightcard-1" style={{marginBottom:"100px"}}>
             {data &&
-              data.flights.map((item) => {
-                return (
-                  <>
-                  <flightDetail data={item._id}/>
-                  {/* <h1>{item._id}</h1> */}
-                    <div className="FlightBox">
-                      <div className="flightBox1">
-                        <div className="flight-logo">
-                          <img
-                            src={
-                              getAirlineInfo(item.flightID.slice(0, 2)).logoSrc
-                            }
-                            style={{
-                              height: "36px",
-                              width: "36px",
-                              marginTop: "10px",
-                              marginBottom: "7px",
-                            }}
-                          />
-                          <h5>
-                            {
-                              getAirlineInfo(item.flightID.slice(0, 2))
-                                .airlineName
-                            }
-                          </h5>
+              data.flights.map(
+                (item) =>
+                  (item.flightID.slice(0, 2) == "6E"
+                    ? airlinevisibility["indigo"]
+                    : true &&
+                      (item.flightID.slice(0, 2) == "AI"
+                        ? airlinevisibility["airindia"]
+                        : true) &&
+                      (item.flightID.slice(0, 2) == "QP"
+                        ? airlinevisibility["airindia"]
+                        : true) &&
+                      (item.flightID.slice(0, 2) == "UK"
+                        ? airlinevisibility["vistara"]
+                        : true) &&
+                      (item.flightID.slice(0, 2) == "IX"
+                        ? airlinevisibility["airindiaexpress"]
+                        : true) &&
+                      (item.flightID.slice(0, 2) == "SG"
+                        ? airlinevisibility["spicejet"]
+                        : true)) && (
+                    <>
+                      <flightDetail data={item._id} />
+                      {/* <h1>{item._id}</h1> */}
+                      <div className="FlightBox" >
+                        <div className="flightBox1">
+                          <div className="flight-logo">
+                            <img
+                              src={
+                                getAirlineInfo(item.flightID.slice(0, 2))
+                                  .logoSrc
+                              }
+                              style={{
+                                height: "36px",
+                                width: "36px",
+                                marginTop: "10px",
+                                marginBottom: "7px",
+                                
+                              }}
+                            />
+                            <h5 style={{fontSize:"16px"}}>
+                              {
+                                getAirlineInfo(item.flightID.slice(0, 2))
+                                  .airlineName
+                              }
+                            </h5>
+                          </div>
+                          <div className="flightArrivalTime">
+                            <span className="flight-Time">
+                              {item.departureTime}
+                            </span>
+                            <br />
+                            <span className="date-Time">
+                              {item.source} -
+                              {format(selectedDate[0].startDate, "dd/MM")}
+                            </span>
+                          </div>
+                          <div className="flightDuration">
+                            <span
+                              style={{
+                                width: "170px",
+                                textAlign: "center",
+                                fontSize: "14px",
+                              }}
+                              className="duration"
+                            >
+                              {item.duration}hour
+                            </span>
+                            <hr style={{ width: "170px" }} />
+                            <br />
+                            <span
+                              className="direct"
+                              style={{ fontSize: "14px" }}
+                            >
+                              {data.stops == 1
+                                ? "1 stop"
+                                : item.stops == 0
+                                ? "direct"
+                                : item.stops >= 2
+                                ? "any"
+                                : "1 stop"}
+                            </span>
+                          </div>
+                          <div className="departureTime">
+                            <span className="flight-Time">
+                              {item.arrivalTime}
+                            </span>
+                            <br />
+                            <span className="date-Time">
+                              {item.destination} -
+                              {format(selectedDate[0].startDate, "dd/MM")}
+                            </span>
+                          </div>
                         </div>
-                        <div className="flightArrivalTime">
-                          <span className="flight-Time">
-                            {item.departureTime}
-                          </span>
-                          <br />
-                          <span className="date-Time">
-                            {item.source} -
-                            {format(selectedDate[0].startDate, "dd/MM")}
-                          </span>
-                        </div>
-                        <div className="flightDuration">
-                          <span
-                            style={{
-                              width: "170px",
-                              textAlign: "center",
-                              fontSize: "12px",
-                            }}
-                            className="duration"
+                        <div className="flightBox2">
+                          <div className="luggage-logo">
+                            <FontAwesomeIcon icon={faSuitcaseRolling} />
+                            <FontAwesomeIcon icon={faBriefcase} />
+                          </div>
+                          <div className="flightcard1">
+                            Included: cabin bag, checked bag
+                          </div>
+                          <div className="flight-price">
+                            INR-{item.ticketPrice.toFixed(2)}
+                          </div>
+                          <div className="flightpara">
+                            Total price for all travellers
+                          </div>
+                          <button
+                            className="flightView"
+                            // onClick={() => {
+                            //   setInfoPopUp(true),
+                            //     setFlightPrice(item.ticketPrice);
+                            // }}
+                            onClick={() => flightDetail(item._id)}
                           >
-                            {item.duration}hour
-                          </span>
-                          <hr style={{ width: "170px" }} />
-                          <br />
-                          <span className="direct" style={{ fontSize: "12px" }}>
-                            direct
-                          </span>
-                        </div>
-                        <div className="departureTime">
-                          <span className="flight-Time">
-                            {item.arrivalTime}
-                          </span>
-                          <br />
-                          <span className="date-Time">
-                            {item.destination} -
-                            {format(selectedDate[0].startDate, "dd/MM")}
-                          </span>
-                        </div>
-                      </div>
-                      <div className="flightBox2">
-                        <div className="luggage-logo">
-                          <FontAwesomeIcon icon={faSuitcaseRolling} />
-                          <FontAwesomeIcon icon={faBriefcase} />
-                        </div>
-                        <div className="flightcard1">
-                          Included: cabin bag, checked bag
-                        </div>
-                        <div className="flight-price">
-                          INR-{item.ticketPrice.toFixed(2)}
-                        </div>
-                        <div className="flightpara">
-                          Total price for all travellers
-                        </div>
-                        <button
-                          className="flightView"
-                          // onClick={() => {
-                          //   setInfoPopUp(true),
-                          //     setFlightPrice(item.ticketPrice);
-                          // }}
-                          onClick={()=>flightDetail(item._id)}
-                        >
-                          View details
-                        </button>
-{/* 
+                            View details
+                          </button>
+                          {/* 
                         {infoPopUp && (
                           <FlightInfo
                             trigger={infoPopUp}
@@ -643,11 +690,11 @@ const FlightSearch = () => {
                            <FlightDetail/>
                           </FlightInfo>
                         )} */}
+                        </div>
                       </div>
-                    </div>
-                  </>
-                );
-              })}
+                    </>
+                  )
+              )}
           </div>
         </div>
       </div>

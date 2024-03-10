@@ -115,12 +115,14 @@ const FlightDetail = () => {
       <div className="mainContent">
         {data && (
           <>
-          <button onClick={()=>navigation(-2)}>no</button>
+          <div style={{display:"flex",marginRight:"50px",justifyContent:"space-between"}}>
            <h2 style={{fontSize:"19px",marginBottom:"20px"}}>Your flight to {data.destination}</h2>
+           <button onClick={()=>navigation(-1)} className="nobtn">X</button>
+           </div>
             <div className="mainContent">
             <div className="name-1">Flight to {data.destination}</div>
             <div className="main-duration">
-            {(data.stops == 1 )? "1 stop" : (data.stops == 0) ? "direct" : (data.stops >= 2) ? "any": ""}-{data.duration}hour
+            {(data.stops == 1 )? "1 stop" : (data.stops == 0) ? "direct" : (data.stops >= 2) ? "any": "1 stop"}-{data.duration}hour
             </div>
              
              

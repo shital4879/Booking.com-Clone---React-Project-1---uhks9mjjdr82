@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import "./hotelInfo.css";
 import Navbar from "../navbar/Navbar";
 import HotelSearch from "../../Pages/hotelSearchlist/HotelSearch";
-import { Link, Navigate, useLocation, useParams } from "react-router-dom";
+import { Link, Navigate, redirect, useLocation, useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
@@ -114,8 +114,18 @@ const HotelInfo = () => {
     });
   };
 
-
-  const hotelPaymentPage = (cost) => {
+  const hotelPaymentPage=(cost)=>{
+if(!localStorage.getItem("token")){
+  navigate(`/Register?redirect=${encodeURI(`/paymentHotel/${cost}`)}`,{
+    state:{
+      // data:data,
+      totalguest:totalguest,
+      inputval:inputval
+    }
+  })
+}
+else{
+  // const PaymentPage = () => {
     console.log("cost",cost);
     console.log("guest",inputval)
     navigate(`/paymentHotel/${cost}`,{
@@ -125,7 +135,9 @@ const HotelInfo = () => {
         inputval:inputval
       }
     });
-  };
+  // };
+}
+  }
 
   return (
     <div>
@@ -401,7 +413,7 @@ const HotelInfo = () => {
             // <HotelRoom information={information} totalguest={totalguest}
             // setTotalguest={setTotalguest}/>
             <div style={{ height: "130px",marginTop:"5px",marginLeft:"10px" }}>
-            <input type="number" style={{width:"50px"}} onChange={(e)=>{setinputval(e.target.value)}}/>
+            <input type="number" defaultValue={0} style={{width:"50px"}} onChange={(e)=>{setinputval(e.target.value)}}/>
             <br/>
             </div>
               ))}

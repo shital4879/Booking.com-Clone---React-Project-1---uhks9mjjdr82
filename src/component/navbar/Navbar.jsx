@@ -23,6 +23,14 @@ const Navbar = ({ type }) => {
   // const SignOut = () =>{
   //   navigate()
   // }
+  const [activeButton, setActiveButton] = useState(1);
+
+  // Function to handle button click
+  const handleButtonClick = (buttonId) => {
+    setActiveButton(buttonId);
+  };
+
+
 
   return (
     <div>
@@ -42,10 +50,10 @@ const Navbar = ({ type }) => {
             )}
             {localStorage.getItem("token") && (
               <div>
-              <div style={{width:"190px",display:"flex"}}></div>
+              <div style={{width:"180px",display:"flex"}}></div>
               <div
                 className="profile"
-                style={{ marginLeft: "40px", }}
+                style={{ marginLeft: "50px", }}
                 onClick={(e) => {
                   e.stopPropagation(), setOpenSing(!openSign);
                 }}
@@ -62,20 +70,24 @@ const Navbar = ({ type }) => {
         <div className="header">
           <div className="headerContainer">
             <div className="headerList">
-              <div
-                className="headerListItem active"
-                onClick={() => navigate("/")}
+              <button
+                // className="headerListItem active"
+                id="activebutton"
+                className={activeButton == 1 ? 'active' : 'activity'}
+                onClick={() => {handleButtonClick(1),navigate("/")}}
               >
                 <FontAwesomeIcon icon={faBed} className="stays-i" />
                 <span>Stays</span>
-              </div>
-              <div
-                className="headerListItem"
-                onClick={() => navigate("/flight")}
+              </button>
+              <button
+                // className="headerListItem"
+                className={activeButton == 2 ? 'active' : 'activity'}
+                id="activebutton"
+                onClick={() => {handleButtonClick(2),navigate("/flight")}}
               >
                 <FontAwesomeIcon icon={faPlane} className="flights-i" />
                 <span>Flights</span>
-              </div>
+              </button>
             </div>
           </div>
         </div>

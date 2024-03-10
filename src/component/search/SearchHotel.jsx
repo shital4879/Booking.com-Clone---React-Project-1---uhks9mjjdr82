@@ -26,19 +26,30 @@ const Search = () => {
   const [bookingPersons, setBookingPersons] = useState(false);
   const [persons, setPersons] = useState(location.state.persons);
   const [sort, setsort] = useState("");
-  const [toggle,settoggle]=useState(false);
-  const [searchinput, setsearchinput] = useState(destination)
-  const [rating, setrating] = useState({ "one": true, "two": true, "three": true, "four": true, "five": false })
+  const [toggle, settoggle] = useState(false);
+  const [searchinput, setsearchinput] = useState(destination);
+  const [rating, setrating] = useState({
+    one: true,
+    two: true,
+    three: true,
+    four: true,
+    five: false,
+  });
   function ratingchecker(key) {
-    setrating((prev) => ({ ...prev, [key]: !rating[key] }))
+    setrating((prev) => ({ ...prev, [key]: !rating[key] }));
   }
   // &filter={"price":{"$lte":${maxPrice},"$gte":${minPrice}}}
   const fetchresult = useMemo(async () => {
     try {
       const sortResponse = await fetch(
         `https://academics.newtonschool.co/api/v1/bookingportals/hotel?search={"location":"${searchinput}"}       
-        ${sort != ""
-          ? `&sort={"${sort == "rating" ? "rating" : "avgCostPerNight"}":"${sort == "highToLow" ? -1 : 1}"}` : ""}`,
+        ${
+          sort != ""
+            ? `&sort={"${sort == "rating" ? "rating" : "avgCostPerNight"}":"${
+                sort == "highToLow" ? -1 : 1
+              }"}`
+            : ""
+        }`,
         {
           method: "GET",
           headers: { projectID: "uhks9mjjdr82" },
@@ -48,13 +59,21 @@ const Search = () => {
       const result = await sortResponse.json();
       setFetchData(result.data.hotels);
       console.log(result.data.hotels);
+      console.log(
+        "oh",
+        `https://academics.newtonschool.co/api/v1/bookingportals/hotel?search={"location":"${searchinput}"}       
+      ${
+        sort != ""
+          ? `&sort={"${sort == "rating" ? "rating" : "avgCostPerNight"}":"${
+              sort == "highToLow" ? -1 : 1
+            }"}`
+          : ""
+      }`
+      );
     } catch (error) {
       console.log(error);
-      console.log("oh",`https://academics.newtonschool.co/api/v1/bookingportals/hotel?search={"location":"${searchinput}"}       
-      ${sort != ""
-        ? `&sort={"${sort == "rating" ? "rating" : "avgCostPerNight"}":"${sort == "highToLow" ? -1 : 1}"}` : ""}`);
     }
-  }, [sort, maxPrice, minPrice,toggle]);
+  }, [sort, maxPrice, minPrice, toggle]);
 
   useEffect(() => {
     fetchresult;
@@ -70,10 +89,10 @@ const Search = () => {
           openbookingDate: location.state.openbookingDate,
           persons: location.state.persons,
           bookingPersons: location.state.bookingPersons,
-        }
-      })
+        },
+      });
     }
-  }
+  };
 
   const handleOption = (name, operation) => {
     setPersons((prev) => {
@@ -85,16 +104,18 @@ const Search = () => {
   };
 
   const hotelinfo = (val) => {
-    navigate(`/info/${val}`, { state: {
-      data: location.state.data,
-      selectedId: val,
-      destination: location.state.destination,
-      selectedDate: location.state.selectedDate,
-      openbookingDate: location.state.openbookingDate,
-      persons: location.state.persons,
-      bookingPersons: location.state.bookingPersons,
-      // selectedDate:selectedDate
-    }});
+    navigate(`/info/${val}`, {
+      state: {
+        data: location.state.data,
+        selectedId: val,
+        destination: location.state.destination,
+        selectedDate: location.state.selectedDate,
+        openbookingDate: location.state.openbookingDate,
+        persons: location.state.persons,
+        bookingPersons: location.state.bookingPersons,
+        // selectedDate:selectedDate
+      },
+    });
   };
 
   return (
@@ -110,7 +131,7 @@ const Search = () => {
               onChange={(e) => {
                 setsearchinput(e.target.value), e.preventDefault();
               }}
-              style={{ color: "rgb(90, 88, 88)",marginLeft:"50px" }}
+              style={{ color: "rgb(90, 88, 88)", marginLeft: "50px" }}
             />
             {/* onChange={(e)=>setDestination(e.target.value)} */}
           </div>
@@ -212,7 +233,9 @@ const Search = () => {
           <div className="headerSearchItem" id="searchbtn">
             <button
               className="headerBtn"
-              onClick={() => { SelfNavigate(),(searchinput != ""?settoggle(!toggle):"") }}
+              onClick={() => {
+                SelfNavigate(), searchinput != "" ? settoggle(!toggle) : "";
+              }}
             >
               Search
             </button>
@@ -223,7 +246,9 @@ const Search = () => {
       <div className="mainSearch">
         <div className="mainfilter">
           <br />
-          <h3 className="fliterby" style={{marginLeft:"-15px"}}>Filter by:</h3>
+          <h3 className="fliterby" style={{ marginLeft: "-15px" }}>
+            Filter by:
+          </h3>
           <br />
           <div className="searchbox1">
             <div className="searchbarbox-1">
@@ -271,7 +296,11 @@ const Search = () => {
               <div className="searchbarbox-3">
                 <div className="property-rate">
                   <div className="property-rating">Property rating</div>
-                  <div onClick={() => { ratingchecker("one") }}>
+                  <div
+                    onClick={() => {
+                      ratingchecker("one");
+                    }}
+                  >
                     <input
                       type="checkbox"
                       id="1-star"
@@ -284,7 +313,11 @@ const Search = () => {
                     </label>
                   </div>
 
-                  <div onClick={() => { ratingchecker("two") }}>
+                  <div
+                    onClick={() => {
+                      ratingchecker("two");
+                    }}
+                  >
                     <input
                       type="checkbox"
                       id="2-star"
@@ -297,7 +330,11 @@ const Search = () => {
                     </label>
                   </div>
 
-                  <div onClick={() => { ratingchecker("three") }}>
+                  <div
+                    onClick={() => {
+                      ratingchecker("three");
+                    }}
+                  >
                     <input
                       type="checkbox"
                       id="3-star"
@@ -310,7 +347,11 @@ const Search = () => {
                     </label>
                   </div>
 
-                  <div onClick={() => { ratingchecker("four") }}>
+                  <div
+                    onClick={() => {
+                      ratingchecker("four");
+                    }}
+                  >
                     <input
                       type="checkbox"
                       id="4-star"
@@ -323,14 +364,20 @@ const Search = () => {
                     </label>
                   </div>
 
-                  <div onClick={() => { ratingchecker("five") }}>
+                  <div
+                    onClick={() => {
+                      ratingchecker("five");
+                    }}
+                  >
                     <input
                       type="checkbox"
                       id="5-star"
                       name="5-star"
                       className="inputRating"
                       checked={rating["five"]}
-                      onChange={() => { console.log(rating["five"]) }}
+                      onChange={() => {
+                        console.log(rating["five"]);
+                      }}
                     />
                     <label for="5-star" className="ratingType">
                       5 star
@@ -346,7 +393,7 @@ const Search = () => {
           </div>
         </div>
         <div className="searchbox2" style={{ marginTop: "-10px" }}>
-          <div className="sortoption" style={{marginLeft:"20px"}}>
+          <div className="sortoption" style={{ marginLeft: "20px" }}>
             <div>
               <br />
               <FontAwesomeIcon icon={faArrowsUpDown} className="sortlogo" />
@@ -356,7 +403,7 @@ const Search = () => {
                   setsort(e.target.value), console.log(e.target.value);
                 }}
               >
-                <option style={{ fontWeight: "400"}}>Sort By</option>
+                <option style={{ fontWeight: "400" }}>Sort By</option>
                 <option style={{ border: "5px solid black" }} value="lowToHigh">
                   Price (Low to High)
                 </option>
@@ -366,56 +413,74 @@ const Search = () => {
             </div>
           </div>
           {fetchData &&
-            fetchData.map((item) =>
-            (((item.rating == 1 || item.rating == 1.5) ? rating["one"] : true && (item.rating == 2 || item.rating == 2.5) ? rating["two"] : true && (item.rating == 3 || item.rating == 3.5) ? rating["three"] : true && (item.rating == 4 || item.rating == 4.5) ? rating["four"] : true && (item.rating == 5 || item.rating == 5.5) ? rating["five"] : true) && (
-              <div className="searchOptions" style={{ marginTop: "10px" }}>
-                <div className="searchCard">
-                  <div className="card-1">
-                    <img
-                      src={item.images[0]}
-                      className="hotelimg"
-                      onClick={hotelinfo}
-                    />
-                  </div>
-                  <div className="card-2">
-                    <div className="hotelName">{item.name}</div>
-                    <div className="locationName">{item.location}</div>
-                    <div className="box1">
-                      <span className="card-box1">
-                        {item.rooms[0].roomType}
-                      </span>
-                      <br />
-                      <span className="card-box2">
-                        {item.rooms[0].bedDetail}
-                      </span>
-                      <br />
-                      <span className="card-box3">
-                        {item.rooms[0].cancellationPolicy}
-                      </span>
+            fetchData.filter(item =>{
+              return +item.avgCostPerNight >= minPrice && +item.avgCostPerNight <= maxPrice
+            }).map(
+              (item) =>
+                (item.rating == 1 || item.rating == 1.5
+                  ? rating["one"]
+                  : true && (item.rating == 2 || item.rating == 2.5)
+                  ? rating["two"]
+                  : true && (item.rating == 3 || item.rating == 3.5)
+                  ? rating["three"]
+                  : true && (item.rating == 4 || item.rating == 4.5)
+                  ? rating["four"]
+                  : true && (item.rating == 5 || item.rating == 5.5)
+                  ? rating["five"]
+                  : true) && (
+                  <div className="searchOptions" style={{ marginTop: "10px" }}>
+                    <div className="searchCard">
+                      <div className="card-1">
+                        <img
+                          src={item.images[0]}
+                          className="hotelimg"
+                          onClick={hotelinfo}
+                        />
+                      </div>
+                      <div className="card-2">
+                        <div className="hotelName">{item.name}</div>
+                        <div className="locationName">{item.location}</div>
+                        <div className="box1">
+                          <span className="card-box1">
+                            {item.rooms[0].roomType}
+                          </span>
+                          <br />
+                          <span className="card-box2">
+                            {item.rooms[0].bedDetail}
+                          </span>
+                          <br />
+                          <span className="card-box3">
+                            {item.rooms[0].cancellationPolicy}
+                          </span>
+                        </div>
+                      </div>
+                      <div className="card-3">
+                        <div className="box-A">
+                          Rating
+                          <p className="rating">{item.rating}</p>
+                        </div>
+                        <div className="box-B">2 nights, 2 adults</div>
+                        <div className="box-C">
+                          ₹ {item.avgCostPerNight.toFixed(0)}
+                        </div>
+                        <div className="box-D">
+                          ₹ {(item.avgCostPerNight / 9).toFixed(2)}taxes and
+                          charges
+                        </div>
+                        <button
+                          className="box-E"
+                          onClick={() => {
+                            hotelinfo(item._id);
+                          }}
+                        >
+                          See availability{" "}
+                          <FontAwesomeIcon icon={faChevronRight} />
+                        </button>
+                      </div>
                     </div>
                   </div>
-                  <div className="card-3">
-                    <div className="box-A">
-                      Rating
-                      <p className="rating">{item.rating}</p>
-                    </div>
-                    <div className="box-B">2 nights, 2 adults</div>
-                    <div className="box-C">
-                      ₹ {item.avgCostPerNight.toFixed(0)}
-                    </div>
-                    <div className="box-D">
-                      ₹ {(item.avgCostPerNight / 9).toFixed(2)}taxes and
-                      charges
-                    </div>
-                    <button className="box-E" onClick={()=>{hotelinfo(item._id)}}>
-                      See availability{" "}
-                      <FontAwesomeIcon icon={faChevronRight} />
-                    </button>
-                  </div>
-                </div>
-              </div>
-            )
-            ))}
+                )
+            )}
         </div>
       </div>
     </div>

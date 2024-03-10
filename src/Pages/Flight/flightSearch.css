@@ -1,7 +1,15 @@
 .filter-card{
     display: flex;
+   
     /* justify-content: space-; */
     margin: 40px 190px 50px 190px;
+}
+.flightflight{
+    border: 1px solid gray;
+    margin: 30px 50px 0px -15px;
+    border-radius: 10px;
+    padding-left: 20px;
+    padding-bottom: 30px;
 }
 .flight-filter{
     width: 35%;
@@ -33,6 +41,7 @@
 .duration{
     display: flex;
     justify-content: center;
+    font-size: 14px;
 }
 .direct{
     display: flex;
@@ -83,9 +92,12 @@
     font-weight: 600;
 }
 .date-Time{
-    font-size: 12px;
+    font-size: 14px;
 }
-
+.flightcard{
+    margin-bottom: 200px;
+    height: auto;
+}
 
 
 
@@ -106,7 +118,11 @@
     margin-left: -45px;
 }
 .filterName{
-    font-size: 16px;
-    margin-top: 20px;
+    font-size: 18px;
+    /* margin-top: 20px; */
     margin-bottom: 8px;
+}
+.radioBtn{
+    height: 16px;
+    width: 16px;
 }

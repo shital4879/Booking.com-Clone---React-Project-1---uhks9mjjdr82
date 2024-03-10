@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import "./register.css";
-import { json, useNavigate } from "react-router-dom";
+import { Link, json, useNavigate } from "react-router-dom";
 import SignOut from "./SignOut";
+import SignIn from "./SignIn";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -185,7 +186,11 @@ const Register = () => {
           }
        
       </div>
+      <p style={{textAlign:"center",margin:"15px 0px 0px 70px"}}>Do you have an account? 
+        <Link to="/SignIn" style={{textDecoration:"none"}} > SignIn</Link>
+      </p>
       </form>
+      
     )}
   </div>
   );

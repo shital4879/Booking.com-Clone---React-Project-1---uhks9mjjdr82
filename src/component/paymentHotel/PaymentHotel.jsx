@@ -62,6 +62,10 @@ const PaymentHotel = () => {
       isValid = true;
       validationError.number = "number is required";
     }
+    else if(number.length < 10 && number.length >10){
+      isValid = true;
+      validationError.number = "10 digit number is required";
+    }
     if (name.length == 0) {
       isValid = true;
       validationError.name="name is required";
@@ -210,6 +214,7 @@ if(cardNumber.length == 0) {
                 <br />
                 <input
                   type="number"
+                  minLength="10"
                   style={{
                     height: "35px",
                     width: "300px",

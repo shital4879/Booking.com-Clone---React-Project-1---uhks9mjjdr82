@@ -190,6 +190,7 @@ const FlightHeader = () => {
           id="searchitem"
           // style={{marginLeft:"50px",marginRight:"-100px"}}
           onClick={() => setOpenBookingDate(!openbookingDate)}
+          style={{marginLeft:'30px'}}
         >
           <FontAwesomeIcon icon={faCalendarDays} className="headerIcon" />
           <span className="headerSearchText1">{`${format(

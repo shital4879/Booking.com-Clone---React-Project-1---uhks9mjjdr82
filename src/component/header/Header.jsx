@@ -120,7 +120,7 @@ const Header = () => {
   //      fetchHotelState;
   // },[])
 
-  const handleSearch = (data) => {
+  const handleSearch = () => {
     navigate(`/hotel/destination=${destination}`, {
       state: {
         data: data,
@@ -158,10 +158,12 @@ const Header = () => {
             value={destination}
             onChange={(e) => {
               setDestination(e.target.value);
-              handleSearchlocation();setOpenDestination(true)
+              handleSearchlocation();
+              // setOpenDestination(true)
             }}
             onClick={()=>{
-              handleSearchlocation();setOpenDestination(true)
+              handleSearchlocation();
+              // setOpenDestination(true)
             }}
             ref={hotelInput}
             onBlur={hotelInputBlur}
@@ -180,7 +182,7 @@ const Header = () => {
                   top: "40px",
                   width: "100%",
                   height: "auto",
-                  overflowY: "scroll",
+                  // overflowY: "scroll",
                   right: "-35px",
                   backgroundColor: "white",
                   borderRadius: "10px",
