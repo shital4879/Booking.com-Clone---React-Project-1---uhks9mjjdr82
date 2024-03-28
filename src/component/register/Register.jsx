@@ -4,7 +4,9 @@ import { Link, json, useNavigate } from "react-router-dom";
 import SignOut from "./SignOut";
 import SignIn from "./SignIn";
 
+
 const Register = () => {
+  
   const navigate = useNavigate();
   const [registerData,setRegisterData] = useState({
     name:"",
@@ -44,6 +46,7 @@ const Register = () => {
       if (result.status === "success") {
         localStorage.setItem("token", result.token);
         handleHome();
+
       }
       if(result.status === "fail"){
         setValid(false);
@@ -95,7 +98,7 @@ const Register = () => {
     const handleHome = ()=>{
         navigate(`/`)
     }
-  
+   
  
 
   return (

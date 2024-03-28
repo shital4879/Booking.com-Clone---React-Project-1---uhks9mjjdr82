@@ -7,13 +7,14 @@ import {
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { json, useNavigate } from "react-router-dom";
+import { NavLink, json, useNavigate } from "react-router-dom";
 import SignOut from "../register/SignOut";
+import { AIRPORTID } from "../../utill";
 
 const Navbar = ({ type }) => {
   const [openSign, setOpenSing] = useState(false);
   const navigate = useNavigate();
-
+ console.log(AIRPORTID);
   const RegisterPage = () => {
     navigate(`/Register`);
   };
@@ -23,7 +24,7 @@ const Navbar = ({ type }) => {
   // const SignOut = () =>{
   //   navigate()
   // }
-  const [activeButton, setActiveButton] = useState(1);
+  const [activeButton, setActiveButton] = useState(0);
 
   // Function to handle button click
   const handleButtonClick = (buttonId) => {
@@ -70,24 +71,42 @@ const Navbar = ({ type }) => {
         <div className="header">
           <div className="headerContainer">
             <div className="headerList">
-              <button
+              <nav className="navlink" style={{display:"flex"}}>
+              <NavLink 
+              className="nav-bar-link"
+              to="/"
+              id="activebutton"
+              style={{marginRight:"40px",display:"flex"}}
+              >
+                <FontAwesomeIcon icon={faBed} className="stays-i"  style={{marginRight:"-1px",paddingLeft:"6px"}}/>
+                Stays</NavLink>
+              <NavLink
+              className="nav-bar-link"
+              to="/flight"
+              id="activebutton"
+              style={{display:"flex"}}
+              >
+                <FontAwesomeIcon icon={faPlane} className="flights-i" style={{marginRight:"-1px",paddingLeft:"6px"}}/>
+                Flights</NavLink>
+              {/* <button
                 // className="headerListItem active"
                 id="activebutton"
-                className={activeButton == 1 ? 'active' : 'activity'}
-                onClick={() => {handleButtonClick(1),navigate("/")}}
+                className={activeButton == 0 ? 'active' : 'activity'}
+                onClick={() => {handleButtonClick(0),navigate("/")}}
               >
                 <FontAwesomeIcon icon={faBed} className="stays-i" />
                 <span>Stays</span>
               </button>
               <button
                 // className="headerListItem"
-                className={activeButton == 2 ? 'active' : 'activity'}
+                className={activeButton == 1 ? 'active' : 'activity'}
                 id="activebutton"
-                onClick={() => {handleButtonClick(2),navigate("/flight")}}
+                onClick={() => {handleButtonClick(1),navigate("/flight")}}
               >
                 <FontAwesomeIcon icon={faPlane} className="flights-i" />
                 <span>Flights</span>
-              </button>
+              </button> */}
+              </nav>
             </div>
           </div>
         </div>

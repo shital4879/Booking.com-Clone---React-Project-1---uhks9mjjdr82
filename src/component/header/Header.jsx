@@ -98,7 +98,7 @@ const Header = () => {
       );
       const result = await responce.json();
       setFetchingData(result.data.hotels);
-      console.log(result.data.hotels)
+      console.log("city",result.data.hotels)
     } catch (error) {
       console.log(error);
     }
@@ -158,11 +158,12 @@ const Header = () => {
             value={destination}
             onChange={(e) => {
               setDestination(e.target.value);
-              handleSearchlocation();
-              // setOpenDestination(true)
+              // handleSearchlocation();
+             
             }}
             onClick={()=>{
               handleSearchlocation();
+               setOpenDestination(!opendestination)
               // setOpenDestination(true)
             }}
             ref={hotelInput}
@@ -171,24 +172,24 @@ const Header = () => {
           />
 
           <div
-            onClick={(e) => {
-              e.stopPropagation();
-            }}
+            // onClick={(e) => {
+            //   e.stopPropagation();
+            // }}
           >
-            {destination && (
+            {opendestination && (
               <div
                 style={{
                   position: "absolute",
                   top: "40px",
                   width: "100%",
-                  height: "auto",
-                  // overflowY: "scroll",
+                  height: "300px",
+                  overflowY: "hidden",
                   right: "-35px",
                   backgroundColor: "white",
                   borderRadius: "10px",
-               
+               zIndex:"1000",
                   boxShadow: "0px 0px 10px -2px rgba(0,0,0,0.4)",
-              
+                  padding:"10px"
                 }}
               >
                 {fetchingData &&
@@ -201,7 +202,7 @@ const Header = () => {
                     .map((item) => (
                       <div
                         className="locationData "
-                        onClick={(e) => setDestination(item.location)}
+                        onClick={(e) => {setDestination(item.location),setOpenDestination(!opendestination)}}
                       >
                         {item.location}
                       </div>

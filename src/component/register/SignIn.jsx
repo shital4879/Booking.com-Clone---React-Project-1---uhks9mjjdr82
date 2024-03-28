@@ -4,7 +4,9 @@ import "./SignIn.css"
 import { Link, useNavigate } from "react-router-dom";
 import SignOut from "./SignOut";
 
+
 const SignIn = () => {
+
   const navigate = useNavigate();
   const[valid,setValid] = useState(true);
   const[error,setError] = useState({})
@@ -14,7 +16,15 @@ const SignIn = () => {
   })
   const [toggle, setToggle] = useState();
   const [token, setToken] = useState(localStorage.getItem("token"));
-  
+
+//  const handlesign=()=>{
+//   if(isAuthenticated){
+//     window.location.href='/paymentHotel/:cost'
+//   }
+//    SignIn();
+//  }
+
+ 
  
 
   const SignIndata = async () => {
@@ -154,12 +164,12 @@ const SignIn = () => {
           <span className="dangerZoneB">{error.password}</span>
         }
 
-        <button className="signEmailBtn" onClick={()=>SignIndata()}>
+        <button className="signEmailBtn" onClick={()=>{SignIndata()}}>
           Sign In
         </button>
         {
           valid?<></>:
-          <span className="text1" style={{marginLeft:"-20px"}}>{error.correction}</span>
+          <span className="text1" style={{marginLeft:"-50px"}}>{error.correction}</span>
         }
       </div>
     )}

@@ -1,13 +1,13 @@
 .boggage-details,.paymentMethod{
     border: 2px solid gray;
     border-radius: 10px;
-    width: 60%;
+    width: 55%;
     padding-left: 15px;
     padding-top: 20px;
     padding-bottom: 25px;
 }
 .bag-payment{
-    margin: 15px 190px 0px 190px;
+    margin: 15px 190px 0px 220px;
     display: flex;
     /* justify-content: space-around; */
     gap: 110px;
@@ -23,8 +23,8 @@
     /* padding-left: 100px; */
 }
 .paymentMethod{
-    margin: 50px 190px 0px 190px;
-    width: 45%;
+    margin: 50px 190px 0px 220px;
+    width: 40%;
 }
 .payImg{
     margin-right: 10px;

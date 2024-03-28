@@ -21,6 +21,8 @@ import FlightInfo from "./FlightInfo";
 import { AIRPORT, iataCodeGet } from "../../utils";
 import FlightConfirm from "./FlightConfirm";
 import FlightDetail from "./FlightDetail";
+import FlightNav from "./FlightNav";
+import SignOut from "../../component/register/SignOut";
 
 const FlightSearch = () => {
   const navigate = useNavigate();
@@ -101,18 +103,9 @@ const FlightSearch = () => {
           } else if (filter == "anystops") {
             return item.stops >= 0;
           }
-          // else if (filter === "stops") {
-          //   return item.stops >=0;
-          // }
           return true;
         });
       }
-      // if(filter!= ""){
-      //   flightresults.flights = flightresults.flightID.filter(item=>{
-      //     if(filter == item.flightID.slice(0,2))
-      //   )}
-      // }
-
       setData(flightresults);
       console.log("ko", result);
     } catch (error) {
@@ -221,7 +214,7 @@ const FlightSearch = () => {
 
   return (
     <div>
-      <Navbar type="list" />
+      <FlightNav/>
       <div className="flight-class" style={{marginTop:"10px"}}>
         <select className="flightOption">
           <option>Economy</option>
@@ -299,7 +292,9 @@ const FlightSearch = () => {
             // onClick={() => setGoingflight(!goingflight)}
             className="inputflighttext"
           />
-        </div>
+          </div>
+
+        
         <FontAwesomeIcon
           icon={faArrowRightArrowLeft}
           className="headerIcon"
@@ -324,7 +319,7 @@ const FlightSearch = () => {
         <div
           className="headerSearchItem"
           id="searchitem"
-          onClick={() => setOpenBookingDate(!openbookingDate)}
+          onClick={() => setOpenBookingDate(true)}
         >
           <FontAwesomeIcon icon={faCalendarDays} className="headerIcon" />
           <span className="headerSearchText">{`${format(
@@ -332,6 +327,7 @@ const FlightSearch = () => {
             "dd/MM/yyyy"
           )} to ${format(selectedDate[0].endDate, "dd/MM/yyyy")}`}</span>
           {openbookingDate && (
+             <>
             <DateRange
               editableDateInputs={true}
               onChange={(item) => setSelectedDate([item.selection])}
@@ -340,6 +336,13 @@ const FlightSearch = () => {
               minDate={new Date()}
               className="selectedDate"
             />
+            <button
+            onClick={(e) => { e.stopPropagation(), setOpenBookingDate(false) }}
+            className="donebtnforDate"
+          >
+            Done
+          </button>
+        </>
           )}
         </div>
         <div className="headerSearchItem" id="searchbtn">
@@ -642,7 +645,7 @@ const FlightSearch = () => {
                                 : item.stops == 0
                                 ? "direct"
                                 : item.stops >= 2
-                                ? "any"
+                                ? "2 stop"
                                 : "1 stop"}
                             </span>
                           </div>

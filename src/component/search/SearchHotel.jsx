@@ -7,6 +7,7 @@ import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import HotelInfo from "../Info/HotelInfo";
 import { format } from "date-fns";
 import { DateRange } from "react-date-range";
+import SignOut from "../register/SignOut";
 
 const Search = () => {
   const navigate = useNavigate();

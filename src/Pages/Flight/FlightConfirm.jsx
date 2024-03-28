@@ -43,6 +43,9 @@ const FlightConfirm = () => {
         flightPrice:flightPrice,
         }})
   }
+  const handlesubmitclick=(e)=>{
+    e.preventDefault()
+  }
   // const handlepopup = () =>{
   //   if(emailId === ""  || emailId === null){
   //     alert("pop")
@@ -75,7 +78,8 @@ const FlightConfirm = () => {
           </div>
         </div>
       </div>
-      <form>
+      <form onSubmit={()=>handlesubmitclick()}
+      noValidate>
       <div className="confirmation-main">
         <div className="mainSet1">
           <div className="set1">
@@ -200,28 +204,28 @@ const FlightConfirm = () => {
           <h5 style={{ fontWeight: "400", marginBottom: "20px" }}>
             <span style={{ color: "red", marginRight: "5px" }}>*</span>Required
           </h5>
-          <label style={{ fontSize: "15px", marginRight: "250px" }}>
+          <label style={{ fontSize: "15px", marginRight: "220px" }}>
             First names{" "}
             <span style={{ color: "red", marginRight: "5px" }}>*</span>
           </label>
           <label style={{ fontSize: "15px" }}>
             Last names{" "}
-            <span style={{ color: "red", marginRight: "5px" }}>*</span>
+            <span style={{ color: "red", marginRight: "px" }}>*</span>
           </label>
           <br />
           <input
             type="text"
             style={{
               height: "35px",
-              width: "250px",
-              marginRight: "90px",
+              width: "240px",
+              marginRight: "70px",
             }}
             required
           />
           {/* <p style={{fontSize:"12px",width:"250px", marginRight:"10px"}}>Enter exactly what's written on this traveller's travel document</p> */}
           <input
             type="text"
-            style={{ height: "35px", width: "250px" }}
+            style={{ height: "35px", width: "240px" }}
            
             required
           />
@@ -244,6 +248,7 @@ const FlightConfirm = () => {
               height: "35px",
               width: "250px",
             }}
+            required
           >
             <option value="gender">Select Gender</option>
             <option value="male">Male</option>
@@ -256,7 +261,7 @@ const FlightConfirm = () => {
         </div>
 
         <div className="buttons">
-            <button className="backBtnbtn" style={{marginLeft:"0px",marginBottom:"50px"}} onClick={()=>flightPayment(params.fid)}>Next</button>
+            <button className="backBtnbtn" type="submit" style={{marginLeft:"0px",marginBottom:"50px"}} onClick={()=>{flightPayment(params.fid)}}>Next</button>
         </div>
       </div>
       </form>

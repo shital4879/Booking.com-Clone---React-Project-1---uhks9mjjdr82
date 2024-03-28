@@ -1,15 +1,15 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useContext, useEffect, useMemo, useState } from "react";
 import "./hotelInfo.css";
 import Navbar from "../navbar/Navbar";
 import HotelSearch from "../../Pages/hotelSearchlist/HotelSearch";
-import { Link, Navigate, redirect, useLocation, useParams } from "react-router-dom";
+import { Link, NavLink, Navigate, redirect, useLocation, useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
 import { format } from "date-fns";
 import { DateRange } from "react-date-range";
-// import styled from "styled-="
 import styled from "styled-components";
+import SignOut from "../register/SignOut";
 import {
   faPeopleRoof,
   faBanSmoking,
@@ -39,7 +39,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import PaymentHotel from "../paymentHotel/PaymentHotel";
 import HotelRoom from "./HotelRoom";
 
+import  Context  from "../../components/Context";
+
+
 const HotelInfo = () => {
+// const{isLogIn,LogIn,LogOut} = useContext(Context);
   const navigate = useNavigate();
   const location = useLocation();
   // const data = location.state;
@@ -116,7 +120,7 @@ const HotelInfo = () => {
 
   const hotelPaymentPage=(cost)=>{
 if(!localStorage.getItem("token")){
-  navigate(`/Register?redirect=${encodeURI(`/paymentHotel/${cost}`)}`,{
+  navigate(`/Register?redirect=${encodeURI(`/paymentHotel`)}`,{
     state:{
       // data:data,
       totalguest:totalguest,
@@ -125,9 +129,9 @@ if(!localStorage.getItem("token")){
   })
 }
 else{
-  // const PaymentPage = () => {
-    console.log("cost",cost);
-    console.log("guest",inputval)
+  // const hotelPaymentPage = (cost) => {
+    // console.log("cost",cost);
+    // console.log("guest",inputval)
     navigate(`/paymentHotel/${cost}`,{
       state:{
         // data:data,
@@ -135,13 +139,17 @@ else{
         inputval:inputval
       }
     });
-  // };
+  };
 }
-  }
+  // }
+
 
   return (
     <div>
-      <Navbar type="list" />
+      {/* {
+        isLogIn ? ( */}
+    <div>
+     <HotelRoom/>
       <div className="maindiv">
         
           <div className="listContainer">
@@ -294,11 +302,11 @@ else{
         
 
         <div className="detail-overview" id="detail-overview">
-          <div className="nav-overview">
-            <a href="#detailImg">Overview</a>
-            <a href="#infoHotel" className="facilities">Facilities</a>
+          {/* <div className="nav-overview">
+            <a to="#detailImg">Overview</a>
+            <a to="#infoHotel" className="facilities">Facilities</a>
             <div className="amenities">Amenities</div>
-          </div>
+          </div> */}
           <div className="detailImg" id="detailImg">
              {information && information.images.map((item,key)=>(
                 <div className="img-img"
@@ -413,7 +421,7 @@ else{
             // <HotelRoom information={information} totalguest={totalguest}
             // setTotalguest={setTotalguest}/>
             <div style={{ height: "130px",marginTop:"5px",marginLeft:"10px" }}>
-            <input type="number" defaultValue={0} style={{width:"50px"}} onChange={(e)=>{setinputval(e.target.value)}}/>
+            <input type="number" placeholder="0" style={{width:"50px",textAlign:"center"}} onChange={(e)=>{setinputval(e.target.value)}} requ/>
             <br/>
             </div>
               ))}
@@ -863,6 +871,9 @@ else{
         </div>
         <div className="amenities-options"></div>
       </div>
+    </div>
+    {/* )
+    : navigate(`/Register`)} */}
     </div>
   );
 };

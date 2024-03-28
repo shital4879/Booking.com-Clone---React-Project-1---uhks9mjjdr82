@@ -95,7 +95,21 @@ const FlightDetail = () => {
     return { logoSrc, airlineName };
   };
 
-  const flightConfirmation = (fid) => {
+
+  const flightConfirmation=(fid)=>{
+    if(!localStorage.getItem("token")){
+      navigate(`/Register?redirect=${encodeURI(`/flightconfirm`)}`,{
+        state: {
+          destination: location.state.destination,
+          flightPrice: location.state.flightPrice,
+          source: location.state.source,
+          selectedDate: location.state.selectedDate,
+          people: location.state.people,
+        
+        }
+      })
+    }else{
+     // const flightConfirmation = (fid) => {
     navigation(`/flightconfirm/${fid}`, {
       state: {
         destination: location.state.destination,
@@ -106,6 +120,7 @@ const FlightDetail = () => {
       },
     });
   };
+}
 
 
 

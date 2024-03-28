@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import React from "react";
 import "./paymentHotel.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -10,6 +10,8 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import SignOut from "../register/SignOut";
+
+
 
 const PaymentHotel = () => {
   const navigat = useNavigate();
@@ -117,7 +119,9 @@ if(cardNumber.length == 0) {
       navigat(`/`);
     }, 3000);
   };
-
+  // if(!isAuthenticated){
+  //   window.location.href = "/SignIn"
+  // }
 
 
   const [expiryDate, setExpiryDate] = useState('');
@@ -214,7 +218,8 @@ if(cardNumber.length == 0) {
                 <br />
                 <input
                   type="number"
-                  minLength="10"
+                  minLength={10}
+                  required
                   style={{
                     height: "35px",
                     width: "300px",

@@ -5,14 +5,14 @@
 .paymentMethodHotel{
     margin-top: 50px;
     border: 2px solid gray;
-    width: 60%;
+    width: 56%;
     padding: 15px 0px 40px 20px;
     border-radius: 10px;
     margin-left: -5px;
     position: relative;
 }
 .hotelset1{
-    width: 60%;
+    width: 56%;
     border: 2px solid gray;
     padding: 15px 0px 20px 20px;
     border-radius: 10px;
@@ -56,9 +56,13 @@
     font-size: 14px;
 }
 .cvcZone{
+    position: relative;
     color: red;
     font-size: 14px;
-    margin-top: 50px;
+    margin-top: 250px;
+}
+#cvcinput{
+    position: absolute;
 }
 .expZone{
     margin-right: 110px;

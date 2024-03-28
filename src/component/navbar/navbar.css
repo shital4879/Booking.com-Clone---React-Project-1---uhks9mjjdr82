@@ -28,16 +28,6 @@
     background-color: #fff;
     padding: 5px 10px;
 }
-.navItems{
-    /* margin-right: 50px; */
-}
-/* .header{
-    display: flex;
-    justify-content: center;
-    color: #fff;
-    background-color: #003580;
-    position: relative;
-} */
 .header{
     display: flex;
     margin-left: 105px;
@@ -57,13 +47,14 @@
     gap: 40px;
     margin-left: 80px;
 }
-.headerListItem{
-    display: flex;
+.nav-bar-link{
+    /* display: flex; */
+    width: 150px;
     align-items: center;
     gap: 10px;
 }
-.headerListItem.active{
-  
+nav{
+    width: 200px;
 }
 .head{
     height: 100px;
@@ -101,19 +92,25 @@
     border: 3px solid gray;
 }
 
-.active {
+.navlink .active {
     border: 1px solid #fff;
-    padding: 10px;
-    border-radius: 20px;
-    /* margin-left: 75px; */
-    background-color: #174a91;
+    padding: 5px;
+    padding-right: 10px;
+    border-radius: 22px;
+    height: 37px;
+    text-align: center;
+    text-decoration: none;
+    background-color: #003580;
+    z-index: 1000;
     font-size: 16px;
     color: #fff;
-    
+    width: 100px;  
 }
-.activity{
+#activebutton{
+    /* height: 50px;
+    width: 150px; */
+    text-decoration: none;
     background-color: #003580;
     font-size: 16px;
     color: #fff;
-    border: none;
 }

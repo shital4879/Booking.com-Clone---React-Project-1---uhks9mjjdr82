@@ -1,4 +1,5 @@
-import React,{useState}from 'react'
+import React, { useState } from 'react'
+
 import { Link, NavLink, useNavigate } from 'react-router-dom'
 import {
   faBed,
@@ -7,27 +8,26 @@ import {
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import SignOut from '../register/SignOut';
-
-const HotelRoom = () => {
-
-  const [openSign, setOpenSing] = useState(false);
-  const navigate = useNavigate();
- 
-  const RegisterPage = () => {
-    navigate(`/Register`);
-  };
-  const SignInPage = () => {
-    navigate(`/SignIn`);
-  };
-
-  const [activeButton, setActiveButton] = useState(0);
+import SignOut from '../../component/register/SignOut';
 
 
-  const handleButtonClick = (buttonId) => {
-    setActiveButton(buttonId);
-  };
+export default function FlightNav() {
 
+    const [openSign, setOpenSing] = useState(false);
+    const navigate = useNavigate();
+    const RegisterPage = () => {
+        navigate(`/Register`);
+      };
+      const SignInPage = () => {
+        navigate(`/SignIn`);
+      };
+      
+      const [activeButton, setActiveButton] = useState(0);
+      
+      
+      const handleButtonClick = (buttonId) => {
+        setActiveButton(buttonId);
+      };
   return (
     <div>
        <div className="navbar">
@@ -69,7 +69,7 @@ const HotelRoom = () => {
                 <div className="headerList">
               <nav className="navlink" style={{display:"flex"}}>
               <NavLink 
-              className="navv"
+              className="nav-bar-link"
               to="/"
               id="activebutton"
               style={{marginRight:"40px",display:"flex",marginLeft:"-80px"}}
@@ -77,10 +77,10 @@ const HotelRoom = () => {
                 <FontAwesomeIcon icon={faBed} className="stays-i"  style={{marginRight:"-1px",paddingLeft:"6px"}}/>
                 Stays</NavLink>
               <NavLink
-              className="nav-bar-link"
+              className="navv"
               to="/flight"
               id="activebutton"
-              style={{display:"flex"}}
+              style={{display:"flex",marginLeft:"-60px"}}
               >
                 <FontAwesomeIcon icon={faPlane} className="flights-i" style={{marginRight:"-1px",paddingLeft:"6px"}}/>
                 Flights</NavLink>
@@ -93,7 +93,3 @@ const HotelRoom = () => {
     </div>
   )
 }
-
-export default HotelRoom
-
-

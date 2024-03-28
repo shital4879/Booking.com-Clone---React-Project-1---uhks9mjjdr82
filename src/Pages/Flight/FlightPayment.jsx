@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import "./flightPayment.css";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -9,6 +9,7 @@ import {
   faL,
 } from "@fortawesome/free-solid-svg-icons";
 import SignOut from "../../component/register/SignOut";
+
 // import hi from "../Images/hi";
 
 const FlightPayment = () => {
@@ -31,14 +32,14 @@ const FlightPayment = () => {
     let isValid = false;
     let validationError = {};
     e.preventDefault();
-    if (email.length == 0) {
-      isValid = true;
-      validationError.email = "email is required";
-    }
-    if (number.length == 0) {
-      isValid = true;
-      validationError.number = "number is required";
-    }
+    // if (email.length == 0) {
+    //   isValid = true;
+    //   validationError.email = "email is required";
+    // }
+    // if (number.length == 0) {
+    //   isValid = true;
+    //   validationError.number = "number is required";
+    // }
     if (name.length == 0) {
       isValid = true;
       validationError.name = "name is required";
@@ -70,7 +71,7 @@ const FlightPayment = () => {
 
     if (!isValid) {
       setPopUpPay(!popUpPay);
-      console.log("jjjjjjjjjj");
+    
     }
   };
 
@@ -89,9 +90,13 @@ const FlightPayment = () => {
   const handlepaybtn = () => {
     setAction("Payment successful!"), setStatus("Enjoy your journey");
     setTimeout(() => {
-      navigat(`/`);
+      navigate(`/`);
     }, 3000);
   };
+
+// if(!isAuthenticated){
+//   window.location.href='/SignIn'
+// }
 
   return (
     <div>
@@ -297,6 +302,7 @@ const FlightPayment = () => {
           // onClick={() => {
           //   handlepaybtn;
           // }}
+          
         >
           Pay Now
         </button>

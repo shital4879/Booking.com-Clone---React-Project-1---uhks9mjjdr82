@@ -83,3 +83,8 @@
   background-color: #fff;
   border: 2px solid black;
 } */
+.slick-prev,
+.slick-next {
+  color: black; /* Change to the desired color */
+  background-color: black;
+}

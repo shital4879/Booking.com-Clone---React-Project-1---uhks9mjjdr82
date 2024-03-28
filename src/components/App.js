@@ -1,5 +1,6 @@
 import { Routes, Route, BrowserRouter } from "react-router-dom";
 import "../styles/App.css";
+
 // import { faBed, faPlane } from "@fortawesome/free-solid-svg-icons";
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import { faEnvelope } from '@fortawesome/free-solid-svg-icons'
@@ -15,12 +16,14 @@ import Register from "../component/register/Register";
 import SignIn from "../component/register/SignIn";
 import PaymentHotel from "../component/paymentHotel/PaymentHotel";
 import FlightDetail from "../Pages/Flight/FlightDetail";
+import { Authprovider } from "./Context";
 // import HotelInfo from "../Pages/Info/HotelInfo"
 
 
 function App() {
   return (
-    
+    <>
+   <Authprovider>
       <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home/>}/>
@@ -37,6 +40,8 @@ function App() {
         <Route path="/SignIn" element={<SignIn/>}/>
       </Routes>
       </BrowserRouter>
+    </Authprovider>
+      </>
   );
 }
 

@@ -10,7 +10,15 @@ import { DateRange } from "react-date-range";
 
 
 
-
+const handlepaybtn = () => {
+  setFunc("Processing ...",
+  setTimeout((e) => {
+    setAction("Payment successful!"), setStatus("Enjoy your journey");
+    setTimeout(() => {
+      navigat(`/`);
+    }, 3000);
+  }, 2000)
+  )}
 
 
 

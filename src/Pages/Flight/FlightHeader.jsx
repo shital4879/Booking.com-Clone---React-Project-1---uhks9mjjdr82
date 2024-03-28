@@ -1,4 +1,4 @@
-import { useState,useEffect } from "react";
+import { useState, useEffect, useMemo, useRef } from "react";
 import React from "react";
 import "./flightHeader.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -14,18 +14,31 @@ import { format } from "date-fns";
 import { DateRange } from "react-date-range";
 import { useNavigate } from "react-router-dom";
 import { AIRPORT } from "../../utils";
+import { AIRPORTID } from "../../utill";
 
 const FlightHeader = () => {
+  // console.log(AIRPORT.city);
+  const[id,setId] = useState(AIRPORTID)
   const navigate = useNavigate();
-
-  const[source,setSource] = useState();
-  const[destination,setDestination] = useState();
+  const hotelInput = useRef();
+  const [data, setData] = useState();
+  const [source, setSource] = useState();
+  const [opensource, setOpensource] = useState(false);
+  const [destination, setDestination] = useState();
   const [bookingchildage, setBookingchildage] = useState(false);
-  const[searchdestination,setSearchdestination] = useState();
+  const [searchdestination, setSearchdestination] = useState();
   const [goingflight, setGoingflight] = useState();
   const [comingflight, setComingflight] = useState();
   const [childage, setChildage] = useState();
   const [bookingPeople, setBookingPeople] = useState(false);
+  const [hotelInputPopUp, setHotelInputPopUp] = useState(false);
+  const [opendestination,setOpendestination] = useState();
+  function hotelInputFocus() {
+    setHotelInputPopUp(true);
+  }
+  function hotelInputBlur() {
+    setHotelInputPopUp(false);
+  }
   const [people, setPeople] = useState({
     adult: 1,
     children: 0,
@@ -39,8 +52,8 @@ const FlightHeader = () => {
     },
   ]);
 
-  function swapinputs(){
-    const temp=source;
+  function swapinputs() {
+    const temp = source;
     setSource(destination);
     setDestination(temp);
   }
@@ -57,19 +70,73 @@ const FlightHeader = () => {
     handleOption("children", "i");
     setChildage(!childage);
   };
-//  console.log("date",dayjs(selectedDate).format("ddd"));
+  //  console.log("date",dayjs(selectedDate).format("ddd"));
 
+  const flightSearch = useMemo(async () => {
+    try {
+      const responce = await fetch(
+        `https://academics.newtonschool.co/api/v1/bookingportals/flight?search={"source":"${iataCodeGet(
+          source
+        )}","destination":"${iataCodeGet(destination)}"}&day=Mon${
+          sort == "" ? "" : `&sort={"${sort}":1}`
+        }`,
+        {
+          method: "GET",
+          headers: { projectID: "uhks9mjjdr82" },
+          "Content-Type": "application/json",
+        }
+      );
+      const result = await responce.json();
+      let flightresults = result.data;
+      setData(flightresults);
+    } catch (error) {
+      console.log(error);
+    }
+  }, []);
 
-  const handleFlight=()=>{
-    navigate(`/flightsearch`
-    ,{state:{
-      source:source,
-      destination:destination,
-      selectedDate:selectedDate,
-      people:people
-    }}
-    )
-  }
+  useEffect(() => {
+    flightSearch;
+  });
+
+  const [dataAir, setDataAir] = useState();
+  const fetchHotelData = useMemo(async () => {
+    try {
+      const response = await fetch(
+        `https://academics.newtonschool.co/api/v1/bookingportals/flight/${iataCodeGet(
+          source
+        )}`,
+        {
+          method: "GET",
+          headers: {
+            projectID: "uhks9mjjdr82",
+          },
+          "Content-Type": "application/json",
+        }
+      );
+      const result = await response.json();
+      setDataAir(result.data);
+      console.log("rho", result);
+    } catch (error) {
+      console.log(error);
+    }
+  }, []);
+  
+
+  useEffect(() => {
+    fetchHotelData;
+  }, []);
+
+  const handleFlight = () => {
+    navigate(`/flightsearch`, {
+      state: {
+        source: source,
+        destination: destination,
+        selectedDate: selectedDate,
+        people: people,
+      },
+    });
+  };
+  
   //  const flightse=()=>{
   //   flightSearch().then((responce)=>{
   //     console.log("success",responce.data);
@@ -78,7 +145,7 @@ const FlightHeader = () => {
   //     console.log("error",error);
   //   })
   // }
-//  console.log("dest",destination);
+  //  console.log("dest",destination);
   return (
     <div>
       <div className="headingflight">
@@ -86,7 +153,12 @@ const FlightHeader = () => {
         <h3 className="mainPara">Discover your next dream destination</h3>
       </div>
       <div className="flight-class">
-        <select className="flightOption" onClick={()=>{bookingPeople?setBookingPeople(false):""}}>
+        <select
+          className="flightOption"
+          onClick={() => {
+            bookingPeople ? setBookingPeople(false) : "";
+          }}
+        >
           <option>Economy</option>
           <option>Premium Economy</option>
           <option>Business</option>
@@ -133,8 +205,9 @@ const FlightHeader = () => {
                     -
                   </button>
                   <span className="optionnum">{people.children}</span>
-                  <button className="optionbtn" 
-                  onClick={() => handleOption("children","i")}
+                  <button
+                    className="optionbtn"
+                    onClick={() => handleOption("children", "i")}
                   >
                     +
                   </button>
@@ -152,45 +225,173 @@ const FlightHeader = () => {
       </div>
 
       <div className="flightsearchbar">
-        <div className="flightGoing">
-          <FontAwesomeIcon icon={faPlaneDeparture} className="headerIcon" />
-          <input
-            type="text"
-            placeholder="Where from?"
-            value={source}
-            onChange={(e) => {
-              setSource(e.target.value), e.preventDefault();
-            }}
-            style={{paddingRight:"50px",marginRight:"50px"}}
-            className="inputflighttext"
-          />
+        <div>
+          <div className="flightGoing"   onClick={(e) => {
+            e.stopPropagation();
+          }}>
+            <FontAwesomeIcon icon={faPlaneDeparture} className="headerIcon" />
+            <input
+              type="text"
+              placeholder="Where from?"
+              value={source}
+              onChange={(e) => {
+                setSource(e.target.value);
+              }}
+              onClick={() => {
+                setOpensource(true);
+                id
+              }}
+              style={{ paddingRight: "50px", marginRight: "50px" }}
+              className="inputflighttext"
+              ref={hotelInput}
+              onBlur={hotelInputBlur}
+              onFocus={hotelInputFocus}
+            />
+            <div
+              // onClick={(e) => {
+              //   e.stopPropagation();
+              // }}
+            >
+              {opensource && (
+                <div
+                  style={{
+                    position: "absolute",
+                    left: "40px",
+                    top: "40px",
+                    width: "200px",
+                    height: "150px",
+                    overflowY: "hidden",
+                    right: "-35px",
+                 
+                    borderRadius: "10px",
+                  
+                  //  height:"200px",
+                    padding: "10px",
+                  }}
+                >
+                  {id &&
+                    id.filter((item) => {
+                      const lower = item.city.toLowerCase();
+
+                      return lower.startsWith(source);
+                    })
+                   
+                    .map((item) => (
+                
+                        <div
+                        style={{
+                          backgroundColor: "white", 
+                          paddingLeft:"5px",
+                          zIndex: "1000",
+                          overflowY: "hidden",
+                          height:"35px",
+                          marginBottom:"-5px",
+                          boxShadow:  "4px 4px 4px 1px rgba(0,0,0,0.4)",
+                          display:"flex",
+                          marginLeft:"5px"
+                        }}
+                          onClick={(e) => {
+                            setSource(item.city), setOpensource(!opensource);
+                          }}
+                        >
+                          {item.city}
+                        </div>
+                    
+                    ))}
+                </div>
+              )}
+            </div>
+          </div>
         </div>
         <FontAwesomeIcon
           icon={faArrowRightArrowLeft}
           className="headerIcon"
           id="reverseicon"
           style={{ fontSize: "22px" }}
-          onClick={()=>{swapinputs()}}
+          onClick={() => {
+            swapinputs();
+          }}
         />
-        <div className="flightComing">
+        <div>
+        <div className="flightComing" onClick={(e) => {
+            e.stopPropagation();
+          }}>
           <FontAwesomeIcon icon={faPlaneArrival} className="headerIcon" />
           <input
             type="text"
             placeholder="Where to?"
             value={destination}
-            onChange={(e)=>
-              {setDestination(e.target.value),(e.preventDefault())}}
-            onClick={() => setComingflight(!comingflight)}
+            onChange={(e) => {
+              setDestination(e.target.value), e.preventDefault();
+            }}
+            onClick={() => setOpendestination(!opendestination)}
             className="inputflighttext"
-            style={{marginRight:"50px"}}
+            style={{ marginRight: "50px" }}
+            // ref={hotelInput}
+            // onBlur={hotelInputBlur}
+            // onFocus={hotelInputFocus}
           />
+          <div  onClick={(e) => {
+                e.stopPropagation();
+              }}>
+            {
+              opendestination &&(
+                <div   style={{
+                  position: "absolute",
+                  left: "420px",
+                  top: "40px",
+                  width: "200px",
+                  height: "150px",
+                  overflowY: "hidden",
+                  right: "-35px",
+                  // backgroundColor: "white", 
+                  borderRadius: "10px",
+                  // marginTop:"7px",
+                //  height:"200px",
+                  padding: "10px",
+                }}
+                >
+                     {AIRPORTID &&
+                    AIRPORTID.filter((item) => {
+                      const lower = item.city.toLowerCase();
+
+                      return lower.startsWith(destination);
+                    })
+                   
+                    .map((item) => (
+                
+                        <div
+                        style={{
+                          backgroundColor: "white", 
+                          paddingLeft:"5px",
+                          zIndex: "1000",
+                          overflowY: "hidden",
+                          height:"35px",
+                          marginBottom:"-5px",
+                          boxShadow:  "4px 4px 4px 1px rgba(0,0,0,0.4)",
+                          display:"flex",
+                          marginLeft:"5px"
+                        }}
+                          onClick={(e) => {
+                            setDestination(item.city), setOpendestination(!opendestination);
+                          }}
+                        >
+                          {item.city}
+                        </div>
+                    
+                    ))}
+                </div>
+              )
+            }
+          </div>
+        </div>
         </div>
         <div
           className="headerSearchItem1"
           id="searchitem"
           // style={{marginLeft:"50px",marginRight:"-100px"}}
-          onClick={() => setOpenBookingDate(!openbookingDate)}
-          style={{marginLeft:'30px'}}
+          onClick={() => setOpenBookingDate(true)}
+          style={{ marginLeft: "30px" }}
         >
           <FontAwesomeIcon icon={faCalendarDays} className="headerIcon" />
           <span className="headerSearchText1">{`${format(
@@ -198,6 +399,7 @@ const FlightHeader = () => {
             "dd/MM/yyyy"
           )} to ${format(selectedDate[0].endDate, "dd/MM/yyyy")}`}</span>
           {openbookingDate && (
+            <>
             <DateRange
               editableDateInputs={true}
               onChange={(item) => setSelectedDate([item.selection])}
@@ -206,13 +408,17 @@ const FlightHeader = () => {
               minDate={new Date()}
               className="selectedDate1"
             />
+             <button
+                  onClick={(e) => { e.stopPropagation(), setOpenBookingDate(false) }}
+                  className="donebtnforDate1"
+                >
+                  Done
+                </button>
+            </>
           )}
         </div>
         <div className="flightsearchbuttonHero">
-          <button
-            className="headerBtn"
-            onClick={handleFlight}
-          >
+          <button className="headerBtn" onClick={handleFlight}>
             Search
           </button>
           {/* onClick={findingHotel} */}
