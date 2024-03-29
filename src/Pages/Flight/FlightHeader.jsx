@@ -22,9 +22,9 @@ const FlightHeader = () => {
   const navigate = useNavigate();
   const hotelInput = useRef();
   const [data, setData] = useState();
-  const [source, setSource] = useState();
+  const [source, setSource] = useState("");
   const [opensource, setOpensource] = useState(false);
-  const [destination, setDestination] = useState();
+  const [destination, setDestination] = useState("");
   const [bookingchildage, setBookingchildage] = useState(false);
   const [searchdestination, setSearchdestination] = useState();
   const [goingflight, setGoingflight] = useState();
