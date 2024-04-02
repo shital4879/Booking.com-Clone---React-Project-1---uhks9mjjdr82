@@ -312,7 +312,7 @@ else{
                 <div className="img-img"
                 style={{height:"auto"}}
                 >
-                <img src={item} alt="j"
+                <img src={item} alt="j" className="dimg"
                 style={{height:"325px",width:"380px"
                 }} />
               </div>

@@ -111,6 +111,7 @@ const Register = () => {
         </div>
       </div>
 
+<div className="flex">
     {!toggle && (
       <form onSubmit={handleSubmit}>
       <div className="signIn">
@@ -195,6 +196,7 @@ const Register = () => {
       </form>
       
     )}
+  </div>
   </div>
   );
 };

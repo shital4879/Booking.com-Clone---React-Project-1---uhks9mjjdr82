@@ -135,3 +135,75 @@
     border-radius: 6px;
  
 }
+
+
+
+
+
+@media screen and (min-device-width: 991px) and (max-device-width: 1200px){
+    .navItems{
+     display: flex;
+ 
+    } 
+    .headerList{
+     margin-left: 20px;
+    }
+ }
+
+ @media screen and (min-device-width: 768px) and (max-device-width: 991px){
+    .headerSearchItem{
+        width: 33%;
+    }
+    .head1{
+        margin-left: -40px;
+        margin-right: -40px;
+    }
+    }
+ @media screen and (min-device-width: 600px)and (max-device-width: 767px) {
+.HeaderSearchInput,.headerIcon,.headerSearchText{
+    font-size: 12px;
+    margin-left: -10px;
+}
+.HeaderSearchInput{
+    margin-left: -10px;
+
+}
+#dates{
+    width: 33%;
+}
+.head1{
+    margin-left: -40px;
+    margin-right: -40px;
+}
+ }
+ @media screen and (min-device-width: 480px)and (max-device-width: 599px) {
+    .HeaderSearchInput,.headerIcon,.headerSearchText{
+        font-size: 12px;
+        /* margin-left: -10px; */
+    }
+    .HeaderSearchInput{
+        margin-left: -10px;
+    
+    }
+    .headerSearchText{
+         /* width: 50%;  */
+        /* margin-right: 10px; */
+        font-size: 12px;
+        padding-left: -30px;
+    }
+    #dates{
+        padding-right: 10px;
+        /* width: 200px; */
+    }
+    .headerBtn{
+        width: 45px;
+        font-size: 12px;
+    }
+  
+    .head1{
+        margin-left: -40px;
+        margin-right: -40px;
+    }
+    
+ }
+ 

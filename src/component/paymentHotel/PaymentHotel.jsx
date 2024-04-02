@@ -52,7 +52,27 @@ const PaymentHotel = () => {
   const [exp, setExp] = useState("");
   const [error, setError] = useState({});
   const [valid, setvalid] = useState(false);
+  const [expiryDate, setExpiryDate] = useState('');
+  const [isValid, setIsValid] = useState(true);
+
+
+  const handleExpiryDateChange = (event) => {
+    const expiryDatePattern = /^(0[1-9]|1[0-2])\/?([0-9]{2})$/;
+    
+    if (expiryDatePattern.test(inputExpiryDate)) {
+      setIsValid(true);
+    } else {
+      setIsValid(false);
+    }
+  };
+  
+  
+  
   const handleSubmit = (e) => {
+    // const inputExpiryDate = e.target.value;
+    // setExp(inputExpiryDate);
+    const regex = /^(0[1-9]|1[0-2])\/?([0-9]{2})$/;
+    const { value } = e.target;
     let isValid = false;
     let validationError = {};
     e.preventDefault();
@@ -86,14 +106,14 @@ if(cardNumber.length == 0) {
       isValid = true;
       validationError.cvc = "Valid 3-4 digit card number";
     }
-    if (exp.length == 0) {
-      isValid = true;
-      validationError.exp = "Expiry date is required";
-    } 
-    // else if (exp.length == 4 || exp.length == 3) {
+    // if (exp.length == 0) {
     //   isValid = true;
-    //   validationError.exp = "Valid 3-4 digit card number";
-    // }
+    //   validationError.exp = "Expiry date is required";
+    // } 
+    if (regex.test(value) && exp.length == 0) {
+      isValid = true;
+      validationError.exp = "Valid digit card number";
+    }
     setvalid(isValid);
     setError(validationError);
 
@@ -124,22 +144,7 @@ if(cardNumber.length == 0) {
   // }
 
 
-  const [expiryDate, setExpiryDate] = useState('');
-  const [isValid, setIsValid] = useState(true);
 
-  const handleExpiryDateChange = (event) => {
-    const inputDate = event.target.value;
-
-    const isValidDate = validateExpiryDate(inputDate);
-    setIsValid(isValidDate);
-    setExpiryDate(inputDate);
-  };
-
-  const validateExpiryDate = (date) => {
-    const currentDate = new Date();
-    const inputDate = new Date(date);
-    return inputDate > currentDate;
-  };
 
   return (
     <div>
@@ -219,7 +224,7 @@ if(cardNumber.length == 0) {
                 <input
                   type="number"
                   minLength={10}
-                  required
+                  // required
                   style={{
                     height: "35px",
                     width: "300px",
@@ -360,11 +365,15 @@ if(cardNumber.length == 0) {
                     CVC <span style={{ color: "red" }}>*</span>
                   </label>
                   <br />
-                  {/* {!isvalid ? <p>Please enter a valid expiry date</p>:<></>} */}
+                  {/* {!isValid && <p style={{ color: 'red' }}>Invalid expiry date format. Please enter MM/YY.</p>} */}
+                  {/* {valid ? <p></p>:<></>} */}
                   <input
                     type="text"
                     placeholder="MM/YY"
                     className="expinput"
+                    // value={expiryDate}
+                    // onChange={handleExpiryDateChange}
+                    value={exp}
                     onChange={(e) => {
                       setExp(e.target.value)
                     
@@ -392,7 +401,7 @@ if(cardNumber.length == 0) {
                   <br />
 
                   {/* <br/> */}
-                  {!isValid && <p style={{ color: 'red' }}>Invalid expiry date</p>}
+                  {/* {!isValid && <p style={{ color: 'red' }}>Invalid expiry date</p>} */}
 
                   {valid ? <span className="expZone">{error.exp}</span> : <></>}
                   {valid ? <span className="cvcZone">{error.cvc}</span> : <></>}

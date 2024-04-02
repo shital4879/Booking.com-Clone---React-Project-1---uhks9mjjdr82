@@ -255,3 +255,90 @@ input[type="range"]::-webkit-slider-thumb{
 .searchbox1{
     margin-left: -15px;
 }
+
+@media screen and (min-device-width: 992px) and (max-device-width: 1300px){
+  .mainfilter{
+    display: none;
+  }
+  .searchbox2{
+    margin-left: 90px;
+  }
+    }
+    
+    @media screen and (min-device-width: 768px) and (max-device-width: 991px){
+        .mainfilter{
+            display: none;
+          }
+    .searchCard{
+        width: 83%;
+    }
+    }
+    
+      @media screen and (min-device-width: 600px)and (max-device-width: 767px) {
+        .mainfilter{
+            display: none;
+          }
+    .searchCard{
+        /* display: flex;
+        justify-content: center; */
+        width: 79%;
+        margin-left: -30px;
+    }
+    .hotelimg{
+        height: 150px;
+        width: 150px;
+    }
+    .card-2{
+        /* width: 150px; */
+        /* margin-left: 40px; */
+    }
+    .card-box3{
+        display: none;
+    }
+    
+    }
+    @media screen and (min-device-width: 480px)and (max-device-width: 599px) {
+        .mainfilter{
+            display: none;
+          }
+    .searchCard{
+        /* display: flex;
+        justify-content: center; */
+        width: 70%;
+        margin-left: -30px;
+        /* margin-left: 50px; */
+    }
+    .hotelimg{
+        height: 120px;
+        width: 120px;
+        /* margin-left: 13px; */
+    }
+    .hotelName{
+        width: 150px;
+    }
+    .card-1{
+        width: 140px;
+        margin-left: 30px;
+    }
+    .card-2{
+        /* width: 150px; */
+        /* margin-left: 10px;
+        padding-left: 20px; */
+    }
+    .card-box3{
+        display: none;
+    }
+    .hotelName{
+        font-size: 14px;
+    }
+    .card-3{
+        margin-right: 50px;
+        margin-left: -150px;
+    }
+    .box-E{
+        font-size: 13px;
+        width: 120px;
+    }
+    }
+    
+    

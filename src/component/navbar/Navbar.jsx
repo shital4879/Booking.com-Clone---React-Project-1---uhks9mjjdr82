@@ -34,7 +34,7 @@ const Navbar = ({ type }) => {
 
 
   return (
-    <div>
+    <div style={{width:"100%"}}>
       <div className="navbar">
         <div className="navContainer">
           <span className="logo">Booking.com</span>

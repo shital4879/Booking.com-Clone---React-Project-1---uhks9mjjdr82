@@ -246,7 +246,7 @@ const Header = () => {
             )}
           </div>
         </div>
-        <div className="headerSearchItem"  style={{marginLeft:"20px"}}>
+        <div className="headerSearchItem" id="dates" style={{marginLeft:"20px"}}>
           
           <FontAwesomeIcon icon={faUser} className="headerIcon" />
           <span

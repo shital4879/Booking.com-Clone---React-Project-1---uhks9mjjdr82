@@ -227,3 +227,83 @@
     overflow: hidden;
     margin-bottom: 120px;
 }
+@media screen and (min-device-width: 991px) and (max-device-width: 1200px){
+    .navItems{
+     display: flex;
+ 
+    } 
+    .headerList{
+     margin-left: 20px;
+    }
+ }
+ 
+
+ @media screen and (min-device-width: 992px) and (max-device-width: 1200px){
+    .listSearch{
+     display: none;
+
+    } 
+    .detail-overview{
+        margin-left: -450px;
+    }
+    /* }
+    .img-img{
+     height: 100px;
+     width: 100px;
+    } */
+    /* .dimg{
+        height: 100px;
+        width: 100px;
+    } */
+    /* .detailImg{
+        height: auto;
+        width: 600px;
+        margin-left: -50px;
+    }
+ } */
+}
+ @media screen and (min-device-width: 768px) and (max-device-width: 991px){
+
+    .listSearch{
+        display: none;
+   
+       } 
+       .dimg{
+        height: 150px;
+        width: 150px;
+       }
+       .detail-overview{
+           margin-left: -280px;
+       }
+       #infoHotel{
+        /* margin-right: 50px; */
+        margin-left: 10px;
+        width: 100%;
+       }
+       .hotel-amenities{
+        margin-left: 10px;
+       }
+       .col1,.col2{
+         margin-right: 120px;
+       }
+ }
+ @media screen and (min-device-width: 600px)and (max-device-width: 767px) {
+    .listSearch{
+        display: none;
+       } 
+       .detail-overview{
+        margin-left: -280px;
+    }
+    .detailImg{
+        grid-template-columns: auto;
+        height: auto;
+        width: 500px;
+    }
+    /* .dimg{
+        height: 500px;
+        width: 500px;
+       } */
+ } 
+ @media screen and (min-device-width: 480px)and (max-device-width: 599px) {
+ 
+ }
