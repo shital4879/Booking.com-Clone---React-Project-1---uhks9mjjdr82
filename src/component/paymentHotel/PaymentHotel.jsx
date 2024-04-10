@@ -54,25 +54,10 @@ const PaymentHotel = () => {
   const [valid, setvalid] = useState(false);
   const [expiryDate, setExpiryDate] = useState('');
   const [isValid, setIsValid] = useState(true);
-
-
-  const handleExpiryDateChange = (event) => {
-    const expiryDatePattern = /^(0[1-9]|1[0-2])\/?([0-9]{2})$/;
-    
-    if (expiryDatePattern.test(inputExpiryDate)) {
-      setIsValid(true);
-    } else {
-      setIsValid(false);
-    }
-  };
   
   
   
   const handleSubmit = (e) => {
-    // const inputExpiryDate = e.target.value;
-    // setExp(inputExpiryDate);
-    const regex = /^(0[1-9]|1[0-2])\/?([0-9]{2})$/;
-    const { value } = e.target;
     let isValid = false;
     let validationError = {};
     e.preventDefault();
@@ -80,11 +65,19 @@ const PaymentHotel = () => {
       isValid = true;
       validationError.email = "email is required";
     }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      isValid = true;
+      validationError.email = "email is required";
+    }
     if (number.length == 0) {
       isValid = true;
       validationError.number = "number is required";
     }
-    else if(number.length < 10 && number.length >10){
+    else if(number.length<9){
+      isValid = true;
+      validationError.number = "10 digit number is required";
+    }
+    else if(number.length>11){
       isValid = true;
       validationError.number = "10 digit number is required";
     }
@@ -92,33 +85,45 @@ const PaymentHotel = () => {
       isValid = true;
       validationError.name="name is required";
     }
+    else if(!/^[a-zA-Z ]+$/.test(name)){
+      isValid = true;
+      validationError.name=" valid name is required";
+    }
 if(cardNumber.length == 0) {
       isValid = true;
       validationError.cardNumber = "number is required";
-    } else if (cardNumber.length < 16 && cardNumber > 16) {
+    } else if (cardNumber.length < 16) {
+      isValid = true;
+      validationError.cardNumber = "Valid 16-digit card number";
+    }
+    else if (cardNumber.length > 16) {
       isValid = true;
       validationError.cardNumber = "Valid 16-digit card number";
     }
     if (cvc.length == 0) {
       isValid = true;
       validationError.cvc = "CVC is required";
-    } else if (cvc.length == 4 && cvc.length == 3) {
+    } else if (!/^[0-9]{3}$/.test(cvc)) {
       isValid = true;
-      validationError.cvc = "Valid 3-4 digit card number";
+      validationError.cvc = "Valid 3 digit card number";
     }
-    // if (exp.length == 0) {
-    //   isValid = true;
-    //   validationError.exp = "Expiry date is required";
-    // } 
-    if (regex.test(value) && exp.length == 0) {
+    if (exp.length == "") {
       isValid = true;
-      validationError.exp = "Valid digit card number";
+      validationError.exp = "Expiry date is required";
+    } 
+    else if(/^\d{2}\/\d{2}$/.test(exp)) {
+      isValid = true;
+      validationError.exp = "Please enter a valid expiry date";
     }
     setvalid(isValid);
     setError(validationError);
 
     if (!isValid) {
       setPopUpPay(!popUpPay);
+      // setAction("Booking successful!"), setStatus("Enjoy your journey");
+    setTimeout(() => {
+      navigat(`/`);
+    }, 3000);
     }
   };
 
@@ -134,7 +139,7 @@ if(cardNumber.length == 0) {
   const [action, setAction] = useState();
   const [status, setStatus] = useState();
   const handlepaybtn = () => {
-    setAction("Payment successful!"), setStatus("Enjoy your journey");
+    setAction("Booking successful!"), setStatus("Enjoy your journey");
     setTimeout(() => {
       navigat(`/`);
     }, 3000);
@@ -196,6 +201,7 @@ if(cardNumber.length == 0) {
 
                 <input
                   type="email"
+                  className="emailclass"
                   onChange={(e) => {setEmail(e.target.value)
                     setError(prev =>{
                       return{...prev,email:""}
@@ -222,9 +228,11 @@ if(cardNumber.length == 0) {
                 </label>
                 <br />
                 <input
+                className="numclass"
                   type="number"
                   minLength={10}
                   // required
+                  value={number}
                   style={{
                     height: "35px",
                     width: "300px",
@@ -312,6 +320,8 @@ if(cardNumber.length == 0) {
                   <input
                     type="text"
                     name="name"
+                    id="cardhold"
+                    value={name}
                     className="inputdata"
                     onChange={(e) => {
                       setName(e.target.value);
@@ -338,6 +348,7 @@ if(cardNumber.length == 0) {
                       type="number"
                       name="name"
                       style={{ border: "none", outline: "none" }}
+                      maxLength="16"
                       value={cardNumber}
                       onChange={(e) => {
                         setCardNumber(e.target.value)
@@ -354,25 +365,19 @@ if(cardNumber.length == 0) {
                     )}
                   
                 </div>
-                <div style={{ marginTop: "-8px" }}>
-                  <label>
+                <div>
+                <div>
+                <label>
                     Expiry Date{" "}
                     <span style={{ color: "red", marginRight: "160px" }}>
                       *
                     </span>
                   </label>
-                  <label>
-                    CVC <span style={{ color: "red" }}>*</span>
-                  </label>
-                  <br />
-                  {/* {!isValid && <p style={{ color: 'red' }}>Invalid expiry date format. Please enter MM/YY.</p>} */}
-                  {/* {valid ? <p></p>:<></>} */}
                   <input
                     type="text"
                     placeholder="MM/YY"
                     className="expinput"
-                    // value={expiryDate}
-                    // onChange={handleExpiryDateChange}
+                    id="expdata"
                     value={exp}
                     onChange={(e) => {
                       setExp(e.target.value)
@@ -381,15 +386,23 @@ if(cardNumber.length == 0) {
                       return{...prev,exp:""}
                     })
                     }}
-                    // onChange={handleExpiryDateChange}
                   />
-                
-
+                  <br/>
+                    {valid ? <span className="expZone">{error.exp}</span> : <></>}
+                </div>
+                <div style={{marginTop:"20px"}}>
+ 
+                <label >
+                    CVC <span style={{ color: "red" }}>*</span>
+                  </label>
+                  <br/>
                   <input
                     type="text"
                     className="expinput"
                     // maxLength={4}
+                    maxLength="4"
                     value={cvc}
+                    id="cvcdata"
                     onChange={(e) => {
                       setCvc(e.target.value)
                       setError(prev =>{
@@ -398,20 +411,17 @@ if(cardNumber.length == 0) {
                     
                     }}
                   />
-                  <br />
-
-                  {/* <br/> */}
-                  {/* {!isValid && <p style={{ color: 'red' }}>Invalid expiry date</p>} */}
-
-                  {valid ? <span className="expZone">{error.exp}</span> : <></>}
+                  <br/>
                   {valid ? <span className="cvcZone">{error.cvc}</span> : <></>}
                 </div>
+                </div>    
               </div>
             </div>
             <button
               className="backBtn"
+              id="btnpay"
               style={{marginLeft:"550px"}}
-              // onClick={() => setPopUpPay(!popUpPay)}
+              // onClick={handlepaybtn}
             >
               Pay Now
             </button>
@@ -430,15 +440,19 @@ if(cardNumber.length == 0) {
               borderRadius: "15px",
             }}
           >
-            <p style={{ marginTop: "75px", fontSize: "18px" }}>{action}</p>
+            {/* <p style={{ marginTop: "75px", fontSize: "18px" }}>{action}</p> */}
             <div>
-              <button
-                className="pay-Btn"
-                onClick={handlepaybtn}
-              >
-                Done
-              </button>
-              <p style={{ marginTop: "10px", fontSize: "16px" }}>{status}</p>
+             <p style={{ marginTop: "75px", fontSize: "30px" ,fontWeight:"700", color:"green" }}>
+
+              Booking successful!
+             </p>
+   
+            <p style={{ marginTop: "20px", fontSize: "20px"}}>
+              {"Enjoy your journey"}
+
+            </p>
+            <p style={{ fontSize:"60px"}}>👍</p>
+              {/* <p style={{ marginTop: "10px", fontSize: "16px" }}>{status}</p> */}
             </div>
           </div>
         </div>

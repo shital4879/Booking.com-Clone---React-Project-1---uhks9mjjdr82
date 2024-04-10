@@ -18,11 +18,10 @@
 .flight-card{
     height: 190px;
     width: 800px;
-    /* border: 1px solid gray; */
+    
 }
 .FlightBox{
     height: 190px;
-    /* border-right: 1px solid gray; */
     border: 1px solid gray;
     border-radius: 10px;
     margin-bottom: 20px;
@@ -98,10 +97,9 @@
     margin-bottom: 200px;
     height: auto;
 }
-
-
-
-
+#searchsearch{
+  margin-right: -75px;
+}
 .infoPopBox1{
      background-color: rgba(0, 0, 0, 0.2);
 }
@@ -119,10 +117,160 @@
 }
 .filterName{
     font-size: 18px;
-    /* margin-top: 20px; */
     margin-bottom: 8px;
 }
 .radioBtn{
     height: 16px;
     width: 16px;
 }
+
+@media screen and (min-device-width: 992px) and (max-device-width: 1300px){
+  .flightflight{
+    margin-left: -125px;
+    width: 200px;
+  }
+
+  .flight-card{
+    width: 610px;
+    margin-left: -10px;
+  }
+  #head12{
+    margin-left: 30px;
+    margin-right: -10px;
+  }
+      }
+      
+      @media screen and (min-device-width: 768px) and (max-device-width: 991px){
+        .flightflight,.filterhead{
+            display: none;
+          }
+          .flight-card{
+            width: 610px;
+            margin-left: -10px;
+          }
+          #head12{
+            margin-left: 5px;
+    
+          }
+
+          
+          .flightcard-1{
+            width: 680px;
+            margin-left: -120px;
+            padding-left: 50px;
+          }
+        
+          #btnbutton{
+            margin-left: 40px;
+          }
+      }
+      
+        @media screen and (min-device-width: 600px)and (max-device-width: 767px) {
+            .flightflight,.filterhead{
+                display: none;
+              }
+            
+              #head12{
+                /* width: 150px; */
+                margin-left: 5px;
+        
+              }
+              .flightcard-1{
+                width: 590px;
+                margin-left: -140px;
+                padding-left: 50px;
+              }
+             
+          
+      
+      }
+      @media screen and (min-device-width: 480px)and (max-device-width: 599px) {
+        .flightflight,.filterhead{
+            display: none;
+          }
+        .headerSearchItem{
+          margin-right: -20px;
+        }
+          #head12{
+            margin-left: 5px;
+          }
+          .sort{
+            margin-left: 100px;
+          }
+          #searchitem{
+            width: 150px;
+          }
+          .flightcard-1{
+            width: 500px;
+            margin-left: -160px;
+            padding-left: 50px;
+            
+          }
+          .hrtag{
+            width: 70px;
+            margin-right: -50px;
+            display: none;
+          }
+          #flight-Time,#date-Time{
+            margin-left: -50px;
+          }
+    .luggage-logo,.flightcard1,.flight-price,.lightpara{
+        margin-right: 8px;
+    }
+    .flightView{
+        width: 100px;
+        margin-left: 70px;
+        height: 25px;
+    }
+    .duration,.direct{
+        margin-left: -60px;
+    }
+      }
+
+      @media screen and (min-device-width: 380px)and (max-device-width: 479px) {
+        .flightflight,.filterhead{
+            display: none;
+          }
+        .headerSearchItem{
+          margin-right: -20px;
+        }
+          #head12{
+            margin-left: 5px;
+          }
+          .sort{
+            margin-left: -100px;
+          }
+          #searchitem{
+            width: 150px;
+          }
+          .flightcard-1{
+            width: 445px;
+            margin-left: -195px;
+            padding-left: 50px;
+            
+          }
+          .hrtag{
+            width: 70px;
+            margin-right: -50px;
+            display: none;
+          }
+          #flight-Time,#date-Time{
+            margin-left: -50px;
+          }
+    .luggage-logo,.flightcard1,.flight-price,.lightpara{
+        margin-right: 8px;
+    }
+    .flightView{
+        width: 100px;
+        margin-left: 70px;
+        height: 25px;
+    }
+    .duration,.direct{
+        margin-left: -60px;
+    }
+    .flightArrivalTime{
+      display: block;
+    }
+      }
+      
+      

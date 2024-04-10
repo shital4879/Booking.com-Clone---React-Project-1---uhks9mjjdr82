@@ -1,309 +1,350 @@
-.listContainer{
+.listContainer {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20px;
+  width: 270px;
+  height: 400px;
+  display: block;
+  gap: -200px;
+  /* flex-direction: column;
+    /* justify-content: space-around; */
+  /* margin-left: -40px; */
+}
+.infoLabel {
+  font-size: 14px;
+  margin-top: 20px;
+  padding-bottom: 10px;
+  margin-bottom: 15px;
+}
+.destinationlist {
+  height: 36px;
+  margin-bottom: 20px;
+  background-color: white;
+  border: 1px solid transparent;
+  width: 255px;
+  display: flex;
+  align-items: center;
+  padding: 4px 0px 4px 5px;
+  gap: 5px;
+}
+.searchinput1 {
+  border: none;
+  font-size: 16px;
+  color: gray;
+  outline: none;
+}
+.searchicon1 {
+  font-size: 18px;
+  margin-right: 5px;
+}
+.listWrapper {
+  width: 100%;
+  max-width: 1024px;
+  display: flex;
+  gap: 20px;
+}
+.listSearch {
+  flex: 1;
+  background-color: #febb02;
+  padding: 10px;
+  border-radius: 10px;
+  margin-top: 30px;
+  position: absolute;
+}
+.listResult {
+  flex: 3;
+}
+.listTitle {
+  font-size: 22px;
+  margin-bottom: 10px;
+}
+.listResult-1 {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+.block-1 {
+  height: 500px;
+  width: 500px;
+}
+.nav-overview {
+  display: flex;
+  justify-content: space-around;
+  font-size: 20px;
+}
+.moreBtn {
+  height: 25px;
+  font-weight: 600;
+  background-color: cadetblue;
+  border: none;
+  width: 40px;
+}
+
+.maindiv {
+  display: flex;
+  gap: 100px;
+  margin-top: 10px;
+}
+.box-image--style {
+  height: 200px;
+  width: 200px;
+}
+
+.hotel-amenities {
+  margin: 200px 100px 50px 200px;
+}
+.popular-facility {
+  font-size: 24px;
+  font-weight: 500;
+}
+.popular-service {
+  margin-top: 15px;
+  display: flex;
+}
+.popular {
+  display: flex;
+  justify-content: space-between;
+  margin-right: 30px;
+  align-items: center;
+}
+.service-name {
+  margin-left: 10px;
+  font-size: 16px;
+}
+.serive-logo {
+  color: green;
+  font-weight: 300;
+}
+.maincol {
+  display: flex;
+  gap: 10px;
+  margin-top: 30px;
+  font-size: 18px;
+  font-weight: 500;
+}
+.divisioncol {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+  font-size: 16px;
+}
+.facilitycol-1 {
+  display: flex;
+  justify-content: space-between;
+}
+.col3 {
+  margin-right: 100px;
+}
+.hotel-info {
+  margin-left: 200px;
+  margin-right: 180px;
+  /* margin-top:-100px; */
+  height: 800px;
+}
+.info-type {
+  padding: 10px 10px 0px 10px;
+  display: flex;
+  justify-content: space-between;
+  background-color: #427aca;
+  font-size: 16px;
+  height: 60px;
+  font-weight: 500;
+}
+.room-type {
+  margin-top: 50px;
+  margin-bottom: 100px;
+}
+.typeRoom {
+  margin-bottom: 8px;
+  color: #427aca;
+  text-decoration: underline;
+  font-size: 17px;
+  font-weight: 500;
+}
+
+.bed {
+  margin-left: 15px;
+}
+.offpay {
+  color: #fff;
+  background-color: green;
+  height: auto;
+  width: 60px;
+  border: none;
+}
+.limitedDeal {
+  color: #fff;
+  background-color: green;
+  height: auto;
+  width: 120px;
+  border: none;
+}
+.reserveBtn {
+  height: 30px;
+  width: 85px;
+  font-size: 15px;
+  background-color: #427aca;
+  color: white;
+  border: none;
+  border-radius: 5px;
+}
+
+.detailImg {
+  margin-left: 10px;
+  width: 800px;
+  background-size: cover;
+  display: grid;
+  grid-template-columns: auto auto;
+  margin-bottom: 50px;
+  row-gap: 15px;
+  column-gap: 10px;
+  overflow: scroll;
+}
+.listContainer {
+  margin-left: 180px;
+  margin-top: -25px;
+}
+.detailImg {
+  margin-top: 10px;
+  height: auto;
+  width: 800px;
+  overflow: hidden;
+  margin-bottom: 120px;
+}
+
+@media screen and (min-device-width: 992px) and (max-device-width: 1200px) {
+  .listSearch {
+    display: none;
+  }
+  .detail-overview {
+    margin-left: -450px;
+  }
+  .navItems {
     display: flex;
-    justify-content: space-around;
-    margin-top: 20px;
-    width: 270px;
-    height: 400px;
-    display: block;
-    gap: -200px;
-    /* flex-direction: column;
-    /* justify-content: space-around; */ 
-    /* margin-left: -40px; */
+  }
+  .headerList {
+    margin-left: 20px;
+  }
 }
-.infoLabel{
-    font-size: 14px;
-    margin-top: 20px;
-    padding-bottom:  10px;
-    margin-bottom: 15px;
-}
-.destinationlist{
-    height: 36px;
-    margin-bottom: 20px;
-    background-color: white;
-    border: 1px solid transparent;
-    width: 255px;
-    display: flex;
-    align-items: center;
-    padding: 4px 0px 4px 5px;
-    gap: 5px;
-}
-.searchinput1{
-    border: none;
-    font-size: 16px;
-    color: gray;
-    outline: none;
-}
-.searchicon1{
-    font-size: 18px;
-    margin-right: 5px;
-}
-.listWrapper{
+@media screen and (min-device-width: 768px) and (max-device-width: 991px) {
+  .listSearch {
+    display: none;
+  }
+  .dimg {
+    height: 150px;
+    width: 150px;
+  }
+  .detail-overview {
+    margin-left: -280px;
+  }
+  #infoHotel {
+    /* margin-right: 50px; */
+    margin-left: 10px;
     width: 100%;
-    max-width: 1024px;
-    display: flex;
-    gap: 20px;
+  }
+  .hotel-amenities {
+    margin-left: 10px;
+  }
+  .col1,
+  .col2 {
+    margin-right: 120px;
+  }
 }
-.listSearch{
-    flex: 1;
-    background-color: #febb02;
-    padding: 10px;
-    border-radius: 10px;
-    margin-top: 30px;
-    position: absolute;
-}
-.listResult{
-    flex: 3;
-}
-.listTitle{
-    font-size: 22px;
-    margin-bottom: 10px;
-}
-.listResult-1{
-    display: flex;
-    gap: 10px;
-    margin-bottom: 10px;
-}
-.block-1{
-    height: 500px;
+@media screen and (min-device-width: 600px) and (max-device-width: 767px) {
+  .listSearch {
+    display: none;
+  }
+  .detail-overview {
+    margin-left: -280px;
+  }
+  .detailImg {
+    grid-template-columns: auto;
+    height: auto;
     width: 500px;
-}
-.nav-overview{
-    display: flex;
-    justify-content: space-around;
-    font-size: 20px;
-}
-.moreBtn{
-    height: 25px;
-    font-weight: 600;
-    background-color: cadetblue;
-    border: none;
-    width: 40px;
-}
-
-.maindiv{
-    display: flex;
-    /* justify-content: center; */
-    /* width: 90%; */
-    gap: 100px;
-    /* margin: 0px 350px 0px 190px; */
-    /* margin-left: 100px; */
-    margin-top: 10px;
-}
-.box-image--style{
-    height: 200px;
-    width: 200px;
-    /* display: grid;
-    grid-template-columns: 1fr 1fr 1fr;  */
-    /* grid-template-rows: 1fr 1fr 1fr; */
-}
-
-.hotel-amenities{
-    margin: 200px 100px 50px 200px;
-
-}
-.popular-facility{
-    font-size: 24px;
-    font-weight: 500;
-}
-.popular-service{
+  }
+  #infoHotel {
+    /* margin-right: 50px; */
+    margin-left: 10px;
+    width: 100%;
+  }
+  .hotel-amenities {
+    margin-left: 10px;
+    width: 100%;
+  }
+  .col1,
+  .col2 {
+    margin-right: 120px;
+  }
+  #reserveBtn {
     margin-top: 15px;
-    display: flex;
-}
-.popular{
-    display: flex;
-    justify-content: space-between;
-    margin-right: 30px;
-    align-items: center;
-}
-.service-name{
     margin-left: 10px;
-    font-size: 16px;
+  }
 }
-.serive-logo{
-    color: green;
-    font-weight: 300;
-}
-.maincol{
-    display: flex;
-    gap: 10px;
-    margin-top: 30px;
-    font-size: 18px;
-    font-weight: 500;
-}
-.divisioncol{
-    display: flex;
-    gap: 10px;
-    margin-top: 10px;
-    font-size: 16px;
-}
-.facilitycol-1{
-    display: flex;
-    justify-content: space-between;
-}
-.col3{
-    margin-right: 100px;
-}
-.hotel-info{
-    margin-left: 200px;
-    margin-right: 180px;
-    /* margin-top:-100px; */
-    height: 800px;
-}
-.info-type{
-    padding: 10px 10px 0px 10px;
-    display: flex;
-    justify-content: space-between;
-    background-color: #427aca;
-    font-size: 16px;
-    height: 60px;
-    font-weight: 500;
-}
-.room-type{
-    margin-top: 50px;
-    margin-bottom: 100px;
-}
-.typeRoom{
-    margin-bottom: 8px;
-    color: #427aca;
-    text-decoration: underline;
-    font-size: 17px;
-    font-weight: 500;
-}
-
-.bed{
-    margin-left: 15px;
-}
-.offpay{
-    color: #fff;
-    background-color: green;
+@media screen and (min-device-width: 480px) and (max-device-width: 599px) {
+  .listSearch {
+    display: none;
+  }
+  .detail-overview {
+    margin-left: -280px;
+  }
+  .detailImg {
+    margin-left: 50px;
+    grid-template-columns: auto;
     height: auto;
-    width: 60px;
-    border: none;
-}
-.limitedDeal{
-    color: #fff;
-    background-color: green;
-    height: auto;
-    width: 120px;
-    border: none;
-}
-.reserveBtn{
-    height: 30px;
-    width: 85px;
-    font-size: 15px;
-    background-color: #427aca;
-    color: white;
-    border: none;
-    border-radius: 5px;
-}
-
-.detailImg{
+    width: 500px;
+  }
+  #infoHotel {
+    /* margin-right: 50px; */
     margin-left: 10px;
-    width: 800px;
-    /* width: 100%; */
-     /* max-width: 700px; */
-    background-size: cover;
-    display: grid;
-    grid-template-columns: auto auto;
-    margin-bottom: 50px;
-    /* grid-template-rows: 1fr 1fr 1fr; */
-     row-gap: 15px;
-     column-gap: 10px;
-     overflow: scroll; 
-     /* overflow-anchor: none; 
-     border: 2px solid black; */
-     
+    width: 100%;
+  }
+  .hotel-amenities {
+    margin-left: 10px;
+    width: 100%;
+  }
+  .col1,
+  .col2 {
+    margin-right: 50px;
+  }
+  .popular-service {
+    display: none;
+  }
 }
-.listContainer{
-    margin-left: 180px;
-    margin-top: -25px;
-}
-.detailImg{
-    margin-top: 10px;
-    /* margin-right: -85px; */
-    height: auto;
-    width: 800px;
-    /* border: 2px solid yellow; */
-    overflow: hidden;
-    margin-bottom: 120px;
-}
-@media screen and (min-device-width: 991px) and (max-device-width: 1200px){
-    .navItems{
-     display: flex;
- 
-    } 
-    .headerList{
-     margin-left: 20px;
-    }
- }
- 
 
- @media screen and (min-device-width: 992px) and (max-device-width: 1200px){
-    .listSearch{
-     display: none;
-
-    } 
-    .detail-overview{
-        margin-left: -450px;
+@media screen and (min-device-width: 380px) and (max-device-width: 479px) {
+    .listSearch {
+      display: none;
     }
-    /* }
-    .img-img{
-     height: 100px;
-     width: 100px;
-    } */
-    /* .dimg{
-        height: 100px;
-        width: 100px;
-    } */
-    /* .detailImg{
-        height: auto;
-        width: 600px;
-        margin-left: -50px;
+    .detail-overview {
+      margin-left: -280px;
     }
- } */
-}
- @media screen and (min-device-width: 768px) and (max-device-width: 991px){
-
-    .listSearch{
+    .detailImg {
+      margin-left: -0px;
+      grid-template-columns: auto;
+      height: auto;
+      width: 500px;
+    }
+    #infoHotel {
+      /* margin-right: 50px; */
+      margin-left: 10px;
+      width: 100%;
+    }
+    .hotel-amenities {
+      margin-left: 10px;
+      width: 100%;
+    }
+    .col1,
+    .col2 {
+      margin-right: 50px;
+    }
+    .popular-service {
+      display: none;
+    }
+    .yourChoices{
         display: none;
-   
-       } 
-       .dimg{
-        height: 150px;
-        width: 150px;
-       }
-       .detail-overview{
-           margin-left: -280px;
-       }
-       #infoHotel{
-        /* margin-right: 50px; */
-        margin-left: 10px;
-        width: 100%;
-       }
-       .hotel-amenities{
-        margin-left: 10px;
-       }
-       .col1,.col2{
-         margin-right: 120px;
-       }
- }
- @media screen and (min-device-width: 600px)and (max-device-width: 767px) {
-    .listSearch{
-        display: none;
-       } 
-       .detail-overview{
-        margin-left: -280px;
     }
-    .detailImg{
-        grid-template-columns: auto;
-        height: auto;
-        width: 500px;
+    .facilitycol-1{
+        display: flex;
+        flex-wrap: wrap;
     }
-    /* .dimg{
-        height: 500px;
-        width: 500px;
-       } */
- } 
- @media screen and (min-device-width: 480px)and (max-device-width: 599px) {
- 
- }
+  }

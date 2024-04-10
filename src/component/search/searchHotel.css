@@ -263,15 +263,57 @@ input[type="range"]::-webkit-slider-thumb{
   .searchbox2{
     margin-left: 90px;
   }
+  #idDate1{
+    /* margin-left: 80px; */
+    padding-left: 10px;
+    width: 350px;
+  }
+  #self{
+    width: 250px;
+  }
+  #idDate2{
+    width: 300px;
+  }
+  .sort{
+    margin-left: 15px;
+  }
+  .sortlogo{
+    display: none;
+  }
+  .searchOptions{
+    margin-left: 15px;
+  }
     }
     
     @media screen and (min-device-width: 768px) and (max-device-width: 991px){
         .mainfilter{
             display: none;
           }
-    .searchCard{
-        width: 83%;
-    }
+      .searchbox2{
+        margin-left: -32px;
+        width: 100%;
+      }
+      #idDate1{
+        /* margin-left: 80px; */
+        padding-left: 10px;
+        width: 220px;
+        /* font-size: 12px; */
+      }
+      #self{
+        width: 250px;
+      }
+      #idDate2{
+        width: 300px;
+      }
+      .sort{
+        margin-left: 15px;
+      }
+      .sortlogo{
+        display: none;
+      }
+      .searchOptions{
+        margin-left: 15px;
+      }
     }
     
       @media screen and (min-device-width: 600px)and (max-device-width: 767px) {
@@ -279,22 +321,45 @@ input[type="range"]::-webkit-slider-thumb{
             display: none;
           }
     .searchCard{
-        /* display: flex;
-        justify-content: center; */
-        width: 79%;
-        margin-left: -30px;
+        width: 160%;
+        margin-left: -50px;
     }
     .hotelimg{
         height: 150px;
         width: 150px;
     }
-    .card-2{
-        /* width: 150px; */
-        /* margin-left: 40px; */
-    }
     .card-box3{
         display: none;
     }
+    .searchbox2{
+        width: 100%;
+      }
+      #idDate1{
+        margin-left: -20px;
+        padding-left: 5px;
+        width: 195px;
+        border-left: 4px solid rgb(230, 165, 15);
+      }
+      #id12{
+        margin-left: -5px;
+        margin-right: 20px;
+      }
+      #self{
+        width: 100px;
+        margin-left: -40px;
+      }
+      #idDate2{
+        width: 300px;
+      }
+      .sort{
+        margin-left: -55px;
+      }
+      .sortlogo{
+        display: none;
+      }
+      .searchOptions{
+        margin-left: 15px;
+      }
     
     }
     @media screen and (min-device-width: 480px)and (max-device-width: 599px) {
@@ -302,16 +367,12 @@ input[type="range"]::-webkit-slider-thumb{
             display: none;
           }
     .searchCard{
-        /* display: flex;
-        justify-content: center; */
         width: 70%;
         margin-left: -30px;
-        /* margin-left: 50px; */
     }
     .hotelimg{
         height: 120px;
         width: 120px;
-        /* margin-left: 13px; */
     }
     .hotelName{
         width: 150px;
@@ -319,11 +380,6 @@ input[type="range"]::-webkit-slider-thumb{
     .card-1{
         width: 140px;
         margin-left: 30px;
-    }
-    .card-2{
-        /* width: 150px; */
-        /* margin-left: 10px;
-        padding-left: 20px; */
     }
     .card-box3{
         display: none;
@@ -339,6 +395,126 @@ input[type="range"]::-webkit-slider-thumb{
         font-size: 13px;
         width: 120px;
     }
+    #id1{
+        position: relative;
+        left: -40px;
+        margin-right: -20px;
+    }
+    .searchbox2{
+        margin-left: 35px;
+      }
+      #idDate1{
+        margin-left: -20px;
+        padding-left: 2px;
+        width: 152px;
+        font-size: 12px;
+        border-left: 4px solid rgb(230, 165, 15);
+      }
+      #id12{
+        margin-left: -50px;
+        margin-right: 20px;
+      }
+      #self{
+        width: 100px;
+        margin-left: -40px;
+      }
+      #idDate2{
+        width: 300px;
+      }
+      .sort{
+        margin-left: -33px;
+      }
+      .sortlogo{
+        display: none;
+      }
+      .searchOptions{
+        margin-left: 15px;
+      }
+    }
+
+    @media screen and (min-device-width: 380px)and (max-device-width: 479px) {
+        .mainfilter{
+            display: none;
+          }
+    .searchCard{
+        display: block;
+        width: 130%;
+        height: 230px;
+        margin-left: -35px;
+    }
+    .hotelimg{
+        width: 150px;
+        height: 150px;
+    }
+    .card-3{
+        margin-top: -180px;
+    }
+    .box-A{
+        display: none;   
+    }
+   .box1{
+    display: none;
+   }
+    .hotelimg{
+        height: 120px;
+        width: 120px;
+    }
+    .hotelName{
+        width: 150px;
+    }
+    .card-1{
+        width: 140px;
+        margin-left: 30px;
+    }
+    .card-box3{
+        display: none;
+    }
+    .hotelName{
+        font-size: 14px;
+    }
+    .card-3{
+        margin-right: 50px;
+        margin-left: -150px;
+    }
+    .box-E{
+        font-size: 13px;
+        width: 120px;
+    }
+    #id1{
+        position: relative;
+        left: -40px;
+        margin-right: -20px;
+    }
+    .searchbox2{
+        margin-left: 35px;
+      }
+      #idDate1{
+        margin-left: -20px;
+        padding-left: 2px;
+        width: 152px;
+        font-size: 12px;
+        border-left: 4px solid rgb(230, 165, 15);
+      }
+      #id12{
+        margin-left: -50px;
+        margin-right: 20px;
+      }
+      #self{
+        width: 100px;
+        margin-left: 270px;
+      }
+      #idDate2{
+        width: 300px;
+      }
+      .sort{
+        margin-left: -33px;
+      }
+      .sortlogo{
+        display: none;
+      }
+      .searchOptions{
+        margin-left: 15px;
+      }
     }
     
     

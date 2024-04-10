@@ -23,6 +23,7 @@ import FlightConfirm from "./FlightConfirm";
 import FlightDetail from "./FlightDetail";
 import FlightNav from "./FlightNav";
 import SignOut from "../../component/register/SignOut";
+import Nav from "../../component/navbar/Nav"
 
 const FlightSearch = () => {
   const navigate = useNavigate();
@@ -214,7 +215,7 @@ const FlightSearch = () => {
 
   return (
     <div>
-      <FlightNav/>
+     <Nav/>
       <div className="flight-class" style={{marginTop:"10px"}}>
         <select className="flightOption">
           <option>Economy</option>
@@ -222,7 +223,7 @@ const FlightSearch = () => {
           <option>Business</option>
           <option>First Class</option>
         </select>
-        <div className="headerSearchItem">
+        <div className="headerSearchItema">
           <span
             onClick={() => setBookingPeople(!bookingPeople)}
             className="headerSearchText"
@@ -280,21 +281,25 @@ const FlightSearch = () => {
           )}
         </div>
       </div>
+      <div style={{display:"flex",justifyContent:"center",}}>
       <div className="flightsearchbar">
+    <div>
         <div className="flightGoing">
           <FontAwesomeIcon icon={faPlaneDeparture} className="headerIcon" />
           <input
             type="text"
             value={source}
+            id="texttext"
             onChange={(e) => {
               setSource(e.target.value), e.preventDefault();
             }}
             // onClick={() => setGoingflight(!goingflight)}
-            className="inputflighttext"
+            className="inputflighttext1"
+            style={{ paddingRight: "50px", marginRight: "50px" }}
           />
           </div>
 
-        
+          </div>
         <FontAwesomeIcon
           icon={faArrowRightArrowLeft}
           className="headerIcon"
@@ -309,20 +314,22 @@ const FlightSearch = () => {
           <input
             type="text"
             value={destination}
+            id="texttext"
+            style={{ marginRight: "50px" }}
             onChange={(e) => {
               setDestination(e.target.value), e.preventDefault();
             }}
-            // onClick={() => setComingflight(!comingflight)}
             className="inputflighttext"
           />
         </div>
         <div
-          className="headerSearchItem"
+          className="headerSearchItem1"
           id="searchitem"
           onClick={() => setOpenBookingDate(true)}
+          style={{ marginLeft: "30px" }}
         >
-          <FontAwesomeIcon icon={faCalendarDays} className="headerIcon" />
-          <span className="headerSearchText">{`${format(
+          <FontAwesomeIcon icon={faCalendarDays} className="headerIcon" id="headerIcon1" />
+          <span className="headerSearchText1" id="texttext">{`${format(
             selectedDate[0].startDate,
             "dd/MM/yyyy"
           )} to ${format(selectedDate[0].endDate, "dd/MM/yyyy")}`}</span>
@@ -334,20 +341,21 @@ const FlightSearch = () => {
               moveRangeOnFirstSelection={false}
               ranges={selectedDate}
               minDate={new Date()}
-              className="selectedDate"
+              className="selectedDate1"
             />
             <button
             onClick={(e) => { e.stopPropagation(), setOpenBookingDate(false) }}
-            className="donebtnforDate"
+            className="donebtnforDate1"
           >
             Done
           </button>
         </>
           )}
         </div>
-        <div className="headerSearchItem" id="searchbtn">
+        <div className="headerSearchItem" >
           <button
             className="headerBtn"
+            id="searchsearch"
             onClick={() => {
               SelfNavigate,
                 (searchinput && destinationinput) != ""
@@ -359,9 +367,10 @@ const FlightSearch = () => {
           </button>
         </div>
       </div>
+      </div>
 
       <div className="filter-card" >
-        <div
+        <div className="filterhead"
           style={{ marginTop: "-20px", fontSize: "20px", fontWeight: "600",marginBottom:"20px" }}
         >
           Filters:
@@ -634,7 +643,7 @@ const FlightSearch = () => {
                             >
                               {item.duration}hour
                             </span>
-                            <hr style={{ width: "170px" }} />
+                            <hr style={{ width: "170px" }} className="hrtag" />
                             <br />
                             <span
                               className="direct"
@@ -650,11 +659,11 @@ const FlightSearch = () => {
                             </span>
                           </div>
                           <div className="departureTime">
-                            <span className="flight-Time">
+                            <span className="flight-Time" id="flight-Time">
                               {item.arrivalTime}
                             </span>
                             <br />
-                            <span className="date-Time">
+                            <span className="date-Time" id="date-Time">
                               {item.destination} -
                               {format(selectedDate[0].startDate, "dd/MM")}
                             </span>

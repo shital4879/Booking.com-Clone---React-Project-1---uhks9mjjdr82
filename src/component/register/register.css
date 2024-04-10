@@ -14,15 +14,16 @@
     justify-content: center;
     font-size:14px;
     margin-top: 30px;
+    margin-bottom: 10px;
     margin-left: -170px;
 }
-.signEmail,.signpass,.signName{
+.signpass,.signName{
     margin-bottom: 50px;
     display: flex;
     justify-content: center;
     height: 36px;
     width: 360px;
-    margin-left: 640px;
+    /* margin-left: 640px; */
     margin-top: 5px;
     margin-bottom: 15px;
 }
@@ -74,19 +75,76 @@
     font-size: 14px;
 }
 @media screen and (min-device-width: 992px) and (max-device-width: 1300px){
-  .flex{
+ .flex{
+    width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
+ }
+  .signName,.signEmail,.signpass,.signEmailBtn{
+    position: relative;
+    left: -270px;
+  }
+  .text-danger1,.text-danger2,.text-danger3,.text1{
+    position: absolute;
+    left: 370px;
+    margin-bottom: 10px;
   }
   }
   
   @media screen and (min-device-width: 768px) and (max-device-width: 991px){
-   
+    .flex{
+        align-items: center;
+     }
+      .signName,.signEmail,.signpass,.signEmailBtn{
+        position: relative;
+        left: -390px;
+      }
+      .text-danger1,.text-danger2,.text-danger3,.text1{
+        position: absolute;
+        left: 250px;
+        /* margin-bottom: 10px; */
+      }
+      .signEmail{
+        margin-top: 5px;
+        margin-bottom: 2px;
+      }
   
   }
   
     @media screen and (min-device-width: 600px)and (max-device-width: 767px) {
-  
+        .signName,.signEmail,.signpass,.signEmailBtn{
+            position: relative;
+            left: -470px;
+            /* margin-top: 10px ; */
+            height: 20px;
+          }
+          .text-danger1,.text-danger2,.text-danger3,.text1{
+            /* left: 200px; */
+            position: absolute;
+            left: 170px;
+            margin-bottom: 10px;
+          }
+          .emailAddress,.name1{
+            margin-bottom: 5px;
+          }
   
   }
+  @media screen and (min-device-width: 480px)and (max-device-width: 599px) {
+    .signName,.signEmail,.signpass,.signEmailBtn{
+        position: relative;
+        left: -540px;
+        /* margin-top: 10px ; */
+        height: 20px;
+      }
+      .text-danger1,.text-danger2,.text-danger3,.text1{
+        /* left: 200px; */
+        position: absolute;
+        left: 100px;
+        margin-bottom: 10px;
+      }
+      .emailAddress,.name1{
+        margin-bottom: 5px;
+      }
+
+}

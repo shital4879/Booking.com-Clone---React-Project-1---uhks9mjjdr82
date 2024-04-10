@@ -186,7 +186,7 @@ const FlightConfirm = () => {
                 <h2 style={{ marginTop: "40px",display:"flex",justifyContent:"end"}}> INR{(params.fid)}</h2>
               </div>
             </div>
-            <div style={{marginLeft:"200px",marginTop:"30px"}}>
+            <div style={{marginLeft:"200px",marginTop:"30px"}} className="taxx">
             <p style={{ marginBottom: "5px"}}>
                   Includes taxes and charges
                 </p>
@@ -204,15 +204,12 @@ const FlightConfirm = () => {
           <h5 style={{ fontWeight: "400", marginBottom: "20px" }}>
             <span style={{ color: "red", marginRight: "5px" }}>*</span>Required
           </h5>
+         <div className="data">
+          <div style={{marginRight:"-100px"}}>
           <label style={{ fontSize: "15px", marginRight: "220px" }}>
             First names{" "}
             <span style={{ color: "red", marginRight: "5px" }}>*</span>
           </label>
-          <label style={{ fontSize: "15px" }}>
-            Last names{" "}
-            <span style={{ color: "red", marginRight: "px" }}>*</span>
-          </label>
-          <br />
           <input
             type="text"
             style={{
@@ -222,13 +219,28 @@ const FlightConfirm = () => {
             }}
             required
           />
-          {/* <p style={{fontSize:"12px",width:"250px", marginRight:"10px"}}>Enter exactly what's written on this traveller's travel document</p> */}
+          </div>
+          <div style={{marginLeft:"-70px", display:"block"}} className="namee">
+          <label style={{ fontSize: "15px" }}>
+            Last names{" "}
+            <span style={{ color: "red", marginRight: "px" }}>*</span>
+          </label>
+          <br />
           <input
             type="text"
             style={{ height: "35px", width: "240px" }}
            
             required
           />
+          </div>
+          </div>
+        
+         
+        
+         
+         
+          {/* <p style={{fontSize:"12px",width:"250px", marginRight:"10px"}}>Enter exactly what's written on this traveller's travel document</p> */}
+        
           <p style={{ fontSize: "12px", width: "250px", marginTop:"5px",marginBottom:"10px"}}>
             Enter exactly what's written on this traveller's travel document
           </p>

@@ -81,7 +81,8 @@
     border: none;
     cursor: pointer;
    font-size: 20px;
-   height: auto;
+   height: 40px;
+   width: 30px;
    background-color: #fff;
     /* justify-content: flex-end; */
     margin-left: 100px;
@@ -95,3 +96,69 @@
     background-color: #fff;
    
 } */
+
+
+@media screen and (min-device-width: 992px) and (max-device-width: 1300px){
+    .first-Item{
+        width: 250px;
+    }
+    .baggage-1{
+        width: 200px;
+    }
+  }
+  
+  @media screen and (min-device-width: 768px) and (max-device-width: 991px){
+    .first-Item{
+        width: 250px;
+    }
+    .baggage-1{
+        width: 200px;
+    }
+    .fly-box2{
+        margin-left: 40px;
+    }
+  
+  }
+  /* @media screen and (min-device-width: 768px) and (max-device-width: 991px){ */
+    @media screen and (min-device-width: 600px)and (max-device-width: 767px) {
+        .first-Item{
+            width: 150px;
+        }
+        .baggage-1{
+            width: 200px;
+        }
+        .fly-box2{
+            margin-top: 40px;
+            margin-left: 40px;
+        }
+        .contex{
+            /* margin-top: -50px; */
+            height: 90%;
+            width: 60%;
+        }
+        .total-price{
+            margin-top: 5px;
+        }
+  }
+  /* @media screen and (min-device-width: 768px) and (max-device-width: 991px){ */
+    @media screen and (min-device-width: 480px)and (max-device-width: 599px) {
+        .first-Item{
+            width: 150px;
+        }
+        .baggage-1{
+            width: 200px;
+        }
+        .fly-box2{
+            margin-top: 40px;
+            margin-left: 40px;
+        }
+        .contex{
+            /* margin-top: -50px; */
+            height: 90%;
+            width: 70%;
+        }
+        .total-price{
+            margin-top: 5px;
+        }
+  
+  }

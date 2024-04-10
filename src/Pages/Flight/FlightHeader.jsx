@@ -18,7 +18,7 @@ import { AIRPORTID } from "../../utill";
 
 const FlightHeader = () => {
   // console.log(AIRPORT.city);
-  const[id,setId] = useState(AIRPORTID)
+  const [id, setId] = useState(AIRPORTID);
   const navigate = useNavigate();
   const hotelInput = useRef();
   const [data, setData] = useState();
@@ -32,7 +32,7 @@ const FlightHeader = () => {
   const [childage, setChildage] = useState();
   const [bookingPeople, setBookingPeople] = useState(false);
   const [hotelInputPopUp, setHotelInputPopUp] = useState(false);
-  const [opendestination,setOpendestination] = useState();
+  const [opendestination, setOpendestination] = useState();
   function hotelInputFocus() {
     setHotelInputPopUp(true);
   }
@@ -120,7 +120,6 @@ const FlightHeader = () => {
       console.log(error);
     }
   }, []);
-  
 
   useEffect(() => {
     fetchHotelData;
@@ -136,7 +135,7 @@ const FlightHeader = () => {
       },
     });
   };
-  
+
   //  const flightse=()=>{
   //   flightSearch().then((responce)=>{
   //     console.log("success",responce.data);
@@ -155,9 +154,9 @@ const FlightHeader = () => {
       <div className="flight-class">
         <select
           className="flightOption"
-          onClick={() => {
-            bookingPeople ? setBookingPeople(false) : "";
-          }}
+          // onClick={() => {
+          //   bookingPeople ? setBookingPeople(!bookingPeople) : "";
+          // }}
         >
           <option>Economy</option>
           <option>Premium Economy</option>
@@ -166,7 +165,7 @@ const FlightHeader = () => {
         </select>
 
         {/* <span>adult</span> */}
-        <div className="headerSearchItem">
+        <div className="headerSearchItema">
           <span
             onClick={() => setBookingPeople(!bookingPeople)}
             className="headerSearchText"
@@ -224,33 +223,37 @@ const FlightHeader = () => {
         </div>
       </div>
 
+
+<div style={{display:"flex",justifyContent:"center",}}>
       <div className="flightsearchbar">
-        <div>
-          <div className="flightGoing"   onClick={(e) => {
-            e.stopPropagation();
-          }}>
+      <div>
+          <div
+            className="flightGoing"
+            onClick={(e) => {
+              e.stopPropagation();
+            }}
+          >
             <FontAwesomeIcon icon={faPlaneDeparture} className="headerIcon" />
             <input
               type="text"
               placeholder="Where from?"
               value={source}
+              id="texttext"
               onChange={(e) => {
                 setSource(e.target.value);
               }}
               onClick={() => {
-                setOpensource(true);
-                id
+                setOpensource(!opensource);
+              
               }}
               style={{ paddingRight: "50px", marginRight: "50px" }}
-              className="inputflighttext"
+              className="inputflighttext1"
               ref={hotelInput}
               onBlur={hotelInputBlur}
               onFocus={hotelInputFocus}
+              
             />
             <div
-              // onClick={(e) => {
-              //   e.stopPropagation();
-              // }}
             >
               {opensource && (
                 <div
@@ -259,45 +262,44 @@ const FlightHeader = () => {
                     left: "40px",
                     top: "40px",
                     width: "200px",
-                    height: "150px",
+                    height: "160px",
                     overflowY: "hidden",
                     right: "-35px",
-                 
+                    zIndex: "1000",
                     borderRadius: "10px",
-                  
-                  //  height:"200px",
                     padding: "10px",
+                    cursor:"pointer"
                   }}
                 >
                   {id &&
-                    id.filter((item) => {
-                      const lower = item.city.toLowerCase();
+                    id
+                      .filter((item) => {
+                        const lower = item.city.toLowerCase();
 
-                      return lower.startsWith(source);
-                    })
-                   
-                    .map((item) => (
-                
+                        return lower.startsWith(source);
+                      })
+
+                      .map((item) => (
                         <div
-                        style={{
-                          backgroundColor: "white", 
-                          paddingLeft:"5px",
-                          zIndex: "1000",
-                          overflowY: "hidden",
-                          height:"35px",
-                          marginBottom:"-5px",
-                          boxShadow:  "4px 4px 4px 1px rgba(0,0,0,0.4)",
-                          display:"flex",
-                          marginLeft:"5px"
-                        }}
+                          style={{
+                            backgroundColor: "white",
+                            paddingLeft: "5px",
+                            zIndex: "1000",
+                            overflowY: "hidden",
+                            height: "35px",
+                            marginBottom: "-5px",
+                            boxShadow: "4px 4px 4px 1px rgba(0,0,0,0.4)",
+                            display: "flex",
+                            zIndex: "10000000",
+                            marginLeft: "5px",
+                          }}
                           onClick={(e) => {
                             setSource(item.city), setOpensource(!opensource);
                           }}
                         >
                           {item.city}
                         </div>
-                    
-                    ))}
+                      ))}
                 </div>
               )}
             </div>
@@ -313,115 +315,319 @@ const FlightHeader = () => {
           }}
         />
         <div>
-        <div className="flightComing" onClick={(e) => {
-            e.stopPropagation();
-          }}>
-          <FontAwesomeIcon icon={faPlaneArrival} className="headerIcon" />
-          <input
-            type="text"
-            placeholder="Where to?"
-            value={destination}
-            onChange={(e) => {
-              setDestination(e.target.value), e.preventDefault();
+          <div
+            className="flightComing"
+            onClick={(e) => {
+              e.stopPropagation();
             }}
-            onClick={() => setOpendestination(!opendestination)}
-            className="inputflighttext"
-            style={{ marginRight: "50px" }}
-            // ref={hotelInput}
-            // onBlur={hotelInputBlur}
-            // onFocus={hotelInputFocus}
-          />
-          <div  onClick={(e) => {
+          >
+            <FontAwesomeIcon icon={faPlaneArrival} className="headerIcon" />
+            <input
+              type="text"
+              placeholder="Where to?"
+              value={destination}
+              onChange={(e) => {
+                setDestination(e.target.value), e.preventDefault();
+              }}
+              onClick={() => setOpendestination(!opendestination)}
+              className="inputflighttext"
+              style={{ marginRight: "50px" }}
+              id="texttext"
+            />
+            <div
+              onClick={(e) => {
                 e.stopPropagation();
-              }}>
-            {
-              opendestination &&(
-                <div   style={{
-                  position: "absolute",
-                  left: "420px",
-                  top: "40px",
-                  width: "200px",
-                  height: "150px",
-                  overflowY: "hidden",
-                  right: "-35px",
-                  // backgroundColor: "white", 
-                  borderRadius: "10px",
-                  // marginTop:"7px",
-                //  height:"200px",
-                  padding: "10px",
-                }}
+              }}
+            >
+              {opendestination && (
+                <div
+                  style={{
+                    position: "absolute",
+                    left: "420px",
+                    top: "40px",
+                    width: "200px",
+                    height: "160px",
+                    overflowY: "hidden",
+                    right: "-35px",
+                    paddingBottom:"2px",
+                    borderRadius: "10px",
+                    zIndex:"1000",
+                    padding: "10px",
+                    cursor:"pointer"
+                  }}
+                  className="desti1"
                 >
-                     {AIRPORTID &&
+                  {AIRPORTID &&
                     AIRPORTID.filter((item) => {
                       const lower = item.city.toLowerCase();
 
                       return lower.startsWith(destination);
-                    })
-                   
-                    .map((item) => (
-                
-                        <div
+                    }).map((item) => (
+                      <div
                         style={{
-                          backgroundColor: "white", 
-                          paddingLeft:"5px",
+                          backgroundColor: "white",
+                          paddingLeft: "5px",
                           zIndex: "1000",
                           overflowY: "hidden",
-                          height:"35px",
-                          marginBottom:"-5px",
-                          boxShadow:  "4px 4px 4px 1px rgba(0,0,0,0.4)",
-                          display:"flex",
-                          marginLeft:"5px"
+                          height: "35px",
+                          marginBottom: "-5px",
+                          boxShadow: "4px 4px 4px 1px rgba(0,0,0,0.4)",
+                          display: "flex",
+                          marginLeft: "5px",
+                          cursor:"pointer"
                         }}
-                          onClick={(e) => {
-                            setDestination(item.city), setOpendestination(!opendestination);
-                          }}
-                        >
-                          {item.city}
-                        </div>
-                    
+                        onClick={(e) => {
+                          setDestination(item.city),
+                            setOpendestination(!opendestination);
+                        }}
+                      >
+                        {item.city}
+                      </div>
                     ))}
                 </div>
-              )
-            }
+              )}
+            </div>
           </div>
         </div>
-        </div>
-        <div
+        <d
           className="headerSearchItem1"
           id="searchitem"
-          // style={{marginLeft:"50px",marginRight:"-100px"}}
           onClick={() => setOpenBookingDate(true)}
           style={{ marginLeft: "30px" }}
         >
-          <FontAwesomeIcon icon={faCalendarDays} className="headerIcon" />
-          <span className="headerSearchText1">{`${format(
+          <FontAwesomeIcon
+            icon={faCalendarDays}
+            className="headerIcon"
+            id="headerIcon1"
+          />
+          <span className="headerSearchText1" id="texttext">{`${format(
             selectedDate[0].startDate,
             "dd/MM/yyyy"
           )} to ${format(selectedDate[0].endDate, "dd/MM/yyyy")}`}</span>
           {openbookingDate && (
             <>
-            <DateRange
-              editableDateInputs={true}
-              onChange={(item) => setSelectedDate([item.selection])}
-              moveRangeOnFirstSelection={false}
-              ranges={selectedDate}
-              minDate={new Date()}
-              className="selectedDate1"
-            />
-             <button
-                  onClick={(e) => { e.stopPropagation(), setOpenBookingDate(false) }}
-                  className="donebtnforDate1"
-                >
-                  Done
-                </button>
+              <DateRange
+                editableDateInputs={true}
+                onChange={(item) => setSelectedDate([item.selection])}
+                moveRangeOnFirstSelection={false}
+                ranges={selectedDate}
+                minDate={new Date()}
+                className="selectedDate1"
+              />
+              <button
+                onClick={(e) => {
+                  e.stopPropagation(), setOpenBookingDate(false);
+                }}
+                className="donebtnforDate1"
+              >
+                Done
+              </button>
             </>
           )}
-        </div>
+        </d>
         <div className="flightsearchbuttonHero">
-          <button className="headerBtn" onClick={handleFlight}>
+          <button className="headerBtn" onClick={handleFlight} id="searchsearch">
             Search
           </button>
           {/* onClick={findingHotel} */}
+        </div>
+      </div>
+      </div>
+
+      <div style={{ marginTop: "50px" }}>
+        <div>
+          <div
+            style={{
+              marginTop: "70px",
+              marginLeft: "190px",
+              marginBottom: "15px",
+            }}
+          >
+            <h2 className="flightdest">Popular flights near you</h2>
+            <p className="flightdest">
+              Find deals on domestic and international flights
+            </p>
+          </div>
+          <div>
+            <div></div>
+          </div>
+
+          <div>
+            <div
+              className="imagebox2"
+              style={{
+                marginTop: "10px",
+                display: "flex",
+                justifyContent: "center",
+                marginLeft: "15px",
+              }}
+            >
+              <div style={{ position: "relative" }}>
+                <img
+                  src="/delhi.avif"
+                  alt=""
+                  style={{
+                    height: "230px",
+                    borderRadius: "3%",
+                    width: "270px",
+                    borderRadius: "3%",
+                    marginRight: "20px",
+                    backgroundSize: "contain",
+                  }}
+                />
+                <h1 className="flightcity">Mumbai to Delhi</h1>
+              </div>
+
+              <div style={{ position: "relative" }}>
+                <img
+                  src="/mum.avif"
+                  alt=""
+                  style={{
+                    height: "230px",
+                    borderRadius: "3%",
+                    width: "270px",
+                    borderRadius: "3%",
+                    marginRight: "20px",
+                    backgroundSize: "contain",
+                  }}
+                />
+                <h1 className="flightcity">Delhi to Mumbai</h1>
+              </div>
+
+              <div style={{ position: "relative" }}>
+                <img
+                  src="/ahmedabad.avif"
+                  alt=""
+                  style={{
+                    height: "230px",
+                    borderRadius: "3%",
+                    width: "270px",
+                    borderRadius: "3%",
+                    marginRight: "20px",
+                    backgroundSize: "contain",
+                  }}
+                />
+                <h1 className="flightcity">Bangalore to Ahmedabad</h1>
+              </div>
+
+              <div style={{ position: "relative" }}>
+                <img
+                  src="/hydrabad.avif"
+                  alt=""
+                  style={{
+                    height: "230px",
+                    borderRadius: "3%",
+                    width: "270px",
+                    borderRadius: "3%",
+                    marginRight: "20px",
+                    backgroundSize: "contain",
+                  }}
+                />
+                <h1 className="flightcity">Bangalore to Hyderabad</h1>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div
+            style={{
+              marginTop: "70px",
+              marginLeft: "190px",
+              marginBottom: "15px",
+            }}
+          >
+            <h2 className="flightdest">Trending cities</h2>
+            <p className="flightdest">
+              Book flights to a destination popular with travellers from India
+            </p>
+          </div>
+          <div>
+            <div></div>
+          </div>
+
+          <div>
+            <div
+              className="imagebox2"
+              style={{
+                marginTop: "10px",
+                display: "flex",
+                justifyContent: "center",
+              }}
+            >
+              <div style={{ position: "relative" }}>
+                <h1 className="namecity" style={{ fontSize: "26px" }}>
+                  Agra
+                </h1>
+                <img
+                  src="/Hampi.avif"
+                  alt=""
+                  style={{
+                    height: "230px",
+                    borderRadius: "3%",
+                    width: "270px",
+                    borderRadius: "3%",
+                    marginRight: "20px",
+                    backgroundSize: "contain",
+                  }}
+                />
+              </div>
+
+              <div style={{ position: "relative" }}>
+                <h1 className="namecity" style={{ fontSize: "26px" }}>
+                  Goa
+                </h1>
+                <img
+                  src="/goa.avif"
+                  alt=""
+                  style={{
+                    height: "230px",
+                    borderRadius: "3%",
+                    width: "270px",
+                    borderRadius: "3%",
+                    marginRight: "20px",
+                    backgroundSize: "cover",
+                  }}
+                />
+              </div>
+
+              <div style={{ position: "relative" }} className="imgimage3">
+                <h1 className="namecity" style={{ fontSize: "26px" }}>
+                  Chennai
+                </h1>
+                <img
+                  src="/chennai.avif"
+                  alt=""
+                  style={{
+                    height: "230px",
+                    borderRadius: "3%",
+                    width: "270px",
+                    borderRadius: "3%",
+                    marginRight: "20px",
+                    backgroundImage: "cover",
+                  }}
+                />
+              </div>
+
+              <div style={{ position: "relative" }} id="image13">
+                <h1 className="namecity" style={{ fontSize: "26px" }}>
+                  Pune
+                </h1>
+                <img
+                  src="/pune.avif"
+                  alt=""
+                  style={{
+                    height: "230px",
+                    borderRadius: "3%",
+                    width: "270px",
+                    borderRadius: "3%",
+                    // marginRight: "50px",
+                    backgroundImage: "cover",
+                  }}
+                />
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

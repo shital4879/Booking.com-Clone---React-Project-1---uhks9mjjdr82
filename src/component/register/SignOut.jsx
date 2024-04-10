@@ -24,7 +24,8 @@ const SignOut = () => {
           marginTop: "10px",
           zIndex: "1000",
           borderRadius:"4px",
-          fontSize:"14px"
+          fontSize:"15px",
+          border:"none"
         }}
       >
         Sign Out

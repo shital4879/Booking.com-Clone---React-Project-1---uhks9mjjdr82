@@ -50,3 +50,128 @@
     justify-content: end;
     
 }
+
+.data{
+    display: flex;
+}
+@media screen and (min-device-width: 992px) and (max-device-width: 1300px){
+ .set2{
+    margin-right: 50px;
+    margin-left: -100px;
+ }
+ .data{
+    display: block;
+}
+.namee{
+    margin-top: 5px;
+    padding-left: 70px;
+}
+.mainSet1{
+    width: 800px;
+    margin-left: -80px;
+}
+.mainSet2{
+    width: 370px;
+    margin-left: -80px;
+}
+  }
+  
+  @media screen and (min-device-width: 768px) and (max-device-width: 991px){
+    .set2{
+        margin-right: 30px;
+        margin-left: -180px;
+     }
+     .data{
+        display: block;
+    }
+    .namee{
+        margin-top: 5px;
+        padding-left: 70px;
+    }
+    .mainSet1{
+        width: 700px;
+        margin-left: -130px;
+    }
+    .mainSet2{
+        width: 370px;
+        margin-left: -130px;
+    }
+    .buttons{
+        margin-left: 700px;
+    }
+    .backBtnbtn{
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+  }
+    @media screen and (min-device-width: 600px)and (max-device-width: 767px) {
+        .set2{
+            margin-right: 30px;
+            margin-left: -180px;
+         }
+         .data{
+            display: block;
+        }
+        .namee{
+            margin-top: 5px;
+            padding-left: 70px;
+        }
+        .mainSet1{
+            width: 640px;
+            margin-left: -190px;
+        }
+        .mainSet2{
+            width: 370px;
+            margin-left: -190px;
+        }
+        .buttons{
+            margin-left: 700px;
+        }
+        .backBtnbtn{
+            padding-left: 15px;
+            padding-right: 15px;
+        }
+        .setBox1{
+            width: 180px;
+        }
+        .setTicket{
+            margin-right: -50px;
+        }
+        .taxx{
+            width: 180px;
+        }
+  }
+    @media screen and (min-device-width: 480px)and (max-device-width: 599px) {
+        .mainSet1{
+            display: block;
+        }
+        .set2{
+            margin-top: 30px;
+            margin-right: 30px;
+            margin-left: -180px;
+         }
+         .data{
+            display: block;
+        }
+        .namee{
+            margin-top: 5px;
+            padding-left: 70px;
+        }
+        .mainSet1{
+            width: 700px;
+            margin-left: -130px;
+        }
+        .mainSet2{
+            width: 370px;
+            margin-left: -130px;
+        }
+        .buttons{
+            margin-left: 700px;
+        }
+        .backBtnbtn{
+            padding-left: 15px;
+            padding-right: 15px;
+        }
+       
+  
+  }

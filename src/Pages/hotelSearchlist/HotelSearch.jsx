@@ -10,8 +10,10 @@ import {
   faCalendarDays,
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import SignOut from '../../component/register/SignOut'
+import Nav from '../../component/navbar/Nav'
 
 const HotelSearch = () => {
   const [openSign, setOpenSing] = useState(false);
@@ -36,39 +38,9 @@ const HotelSearch = () => {
       {/* <Header/> */}
 
 
-      <div className="navbar">
-        <div className="navContainer">
-          <span className="logo">Booking.com</span>
-          <div className="navItems">
-            {!localStorage.getItem("token") && (
-              <button className="navButton" onClick={RegisterPage}>
-                Register
-              </button>
-            )}
-            {!localStorage.getItem("token") && (
-              <button className="navButton" onClick={SignInPage}>
-                Sign in
-              </button>
-            )}
-            {localStorage.getItem("token") && (
-              <div>
-              <div style={{width:"180px",display:"flex"}}></div>
-              <div
-                className="profile"
-                style={{ marginLeft: "50px", }}
-                onClick={(e) => {
-                  e.stopPropagation(), setOpenSing(!openSign);
-                }}
-              >
-                {openSign && <SignOut />}
-              </div>
-              </div>
-            )}
-          </div>
-        </div>
-      </div>
+      <Nav/>
 
-      <div className="head">
+      {/* <div className="head">
         <div className="header">
           <div className="headerContainer">
             <div className="headerList">
@@ -95,7 +67,7 @@ const HotelSearch = () => {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
 
       <SearchHotel/>
     </div>

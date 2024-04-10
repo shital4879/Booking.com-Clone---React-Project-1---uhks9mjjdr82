@@ -136,6 +136,7 @@ const Register = () => {
             </span>
           }
         <h5 className="emailAddress">Email address</h5>
+        
         <input
           type="email"
           name="email"

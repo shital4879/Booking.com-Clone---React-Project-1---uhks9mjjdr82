@@ -123,26 +123,28 @@ const Search = () => {
     <div>
       <div className="head1">
         <div className="headerSearch">
-          <div className="headerSearchItem" style={{}}>
+        <div className="searching">
+          <div className="headerSearchItem" style={{position: "relative"}} id="idsearch">
             {/* <FontAwesomeIcon icon={faBed} className="headerIcon" /> */}
             <input
               type="text"
               className="HeaderSearchInput"
+              id="id12"
               value={searchinput}
               onChange={(e) => {
                 setsearchinput(e.target.value), e.preventDefault();
               }}
-              style={{ color: "rgb(90, 88, 88)", marginLeft: "50px" }}
+              style={{ color: "rgb(90, 88, 88)", marginLeft: "10px" }}
             />
             {/* onChange={(e)=>setDestination(e.target.value)} */}
           </div>
           <div
             className="headerSearchItem"
-            id="searchitem"
+            id="idDate1"
             onClick={() => setOpenBookingDate(!openbookingDate)}
           >
             {/* <FontAwesomeIcon icon={faCalendarDays} className="headerIcon" /> */}
-            <span className="headerSearchText">{`${format(
+            <span className="headerSearchText1">{`${format(
               selectedDate[0].startDate,
               "dd/MM/yyyy"
             )} to ${format(selectedDate[0].endDate, "dd/MM/yyyy")}`}</span>
@@ -158,9 +160,10 @@ const Search = () => {
             )}
           </div>
 
-          <div className="headerSearchItem">
+          <div className="headerSearchItem12">
             <span
               onClick={() => setBookingPersons(!bookingPersons)}
+              id="idPeople"
               className="headerSearchText"
             >{`${persons.adult}adult. ${persons.children}children. ${persons.room}room`}</span>
             {bookingPersons && (
@@ -231,16 +234,17 @@ const Search = () => {
               </div>
             )}
           </div>
-          <div className="headerSearchItem" id="searchbtn">
-            <button
+          </div>
+          <button
               className="headerBtn"
+              id="self"
               onClick={() => {
                 SelfNavigate(), searchinput != "" ? settoggle(!toggle) : "";
               }}
             >
               Search
             </button>
-          </div>
+         
         </div>
       </div>
 

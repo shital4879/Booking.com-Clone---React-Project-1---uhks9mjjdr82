@@ -56,7 +56,7 @@ const SignIn = () => {
     if(result.status === "fail"){
       setValid(false);
       setError(prev =>{
-        return {...prev,correction: result.message}
+        return {...prev,correction: ""}
       })
     }
       console.log(result);

@@ -1,40 +1,30 @@
-import React, { useEffect, useState } from "react";
-import "./navbar.css";
+import React, { useState } from 'react'
 import {
-  faBed,
-  faPlane,
-  faCar,
-  faTaxi,
-  faCircleQuestion,
-} from "@fortawesome/free-solid-svg-icons";
+    faBed,
+    faPlane,
+    faCar,
+    faTaxi,
+    faCircleQuestion,
+  } from "@fortawesome/free-solid-svg-icons";
+  
+  import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+  import { NavLink, json, useNavigate } from "react-router-dom";
+  import SignOut from "../register/SignOut";
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { NavLink, json, useNavigate } from "react-router-dom";
-import SignOut from "../register/SignOut";
-import { AIRPORTID } from "../../utill";
 
-const Navbar = ({ type }) => {
+const Nav = () => {
   const [openSign, setOpenSing] = useState(false);
-  const navigate = useNavigate();
-  console.log(AIRPORTID);
-  const RegisterPage = () => {
-    navigate(`/Register`);
-  };
-  const SignInPage = () => {
-    navigate(`/SignIn`);
-  };
-  // const SignOut = () =>{
-  //   navigate()
-  // }
-  const [activeButton, setActiveButton] = useState(0);
-
-  // Function to handle button click
-  const handleButtonClick = (buttonId) => {
-    setActiveButton(buttonId);
-  };
+    const RegisterPage = () => {
+        navigate(`/Register`);
+      };
+      const SignInPage = () => {
+        navigate(`/SignIn`);
+      };
+      //
 
   return (
-    <div style={{ width: "100%" }}>
+    <div>
+        <div style={{ width: "100%" }}>
       <div className="navbar">
         <div className="navContainer">
           <span className="logo">Booking.com</span>
@@ -93,7 +83,7 @@ const Navbar = ({ type }) => {
         </div>
       </div>
 
-      {type !== "list1" && (
+  
       <div className="head">
         <div className="header">
           <div className="headerContainer">
@@ -183,22 +173,10 @@ const Navbar = ({ type }) => {
           </div>
         </div>
       </div>
-      )}
 
-      {type !== "list" && (
-        <>
-          <div className="headerTitle">
-            <h1 className="heading1" style={{ fontSize: "40px" }}>
-              Find your next stay
-            </h1>
-            <p className="para" style={{ fontSize: "26px" }}>
-              Search low prices hotels,homes and much more...
-            </p>
-          </div>
-        </>
-      )}
     </div>
-  );
-};
+    </div>
+  )
+}
 
-export default Navbar;
+export default Nav

@@ -17,6 +17,8 @@ import SignIn from "../component/register/SignIn";
 import PaymentHotel from "../component/paymentHotel/PaymentHotel";
 import FlightDetail from "../Pages/Flight/FlightDetail";
 import { Authprovider } from "./Context";
+import CarRentel from "../component/navbar/CarRentel";
+import AirportTaxi from "../component/navbar/AirportTaxi";
 // import HotelInfo from "../Pages/Info/HotelInfo"
 
 
@@ -38,6 +40,8 @@ function App() {
         <Route path="/flightDetail/:id" element={<FlightDetail/>}/>
         <Route path="/Register" element={<Register/>}/>
         <Route path="/SignIn" element={<SignIn/>}/>
+        <Route path="/CarRentel" element={<CarRentel/>}/>
+        <Route path="/AirportTaxi" element={<AirportTaxi/>}/>
       </Routes>
       </BrowserRouter>
     </Authprovider>
