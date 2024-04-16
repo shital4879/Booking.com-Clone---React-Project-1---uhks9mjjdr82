@@ -351,6 +351,7 @@ if(cardNumber.length == 0) {
                     <FontAwesomeIcon icon={faCreditCard} />
                     <input
                       type="text"
+                      onInput={(e)=>{e.target.value = e.target.value.replace(/[a-z]/g , "")}}
                       name="name"
                       style={{ border: "none", outline: "none" }}
                       maxLength="16"

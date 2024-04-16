@@ -486,7 +486,9 @@ padding-right: 50px;
   .mainfilter {
     display: none;
   }
-
+.headerSearch{
+  display: none;
+}
   #idDate1{
     margin-left: -5px;
     padding-left: -10px;
@@ -597,13 +599,14 @@ border-left: 4px solid rgb(230, 165, 15);
   }
   .sort {
     margin-left: -40px;
-    /* margin-top: -250px; */
+    
   }
   .sortlogo {
     display: none;
   }
   .sortoption{
     margin-top: -50px;
+    margin-top: -120px;
   }
   .searchOptions {
     margin-left: 15px;

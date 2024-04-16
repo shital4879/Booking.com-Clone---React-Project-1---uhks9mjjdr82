@@ -283,6 +283,7 @@ const FlightPayment = () => {
                     type="text"
                     name="name"
                     maxLength="16"
+                    onInput={(e)=>{e.target.value = e.target.value.replace(/[a-z]/g, '')}}
                     style={{
                       border: "none",
                       outline: "none",

@@ -107,7 +107,8 @@
   height: auto;
 }
 #searchsearch {
-  margin-right: -75px;
+  margin-right: -70px;
+  /* padding-right: -70px; */
 }
 .infoPopBox1 {
   background-color: rgba(0, 0, 0, 0.2);
@@ -310,6 +311,11 @@
     width: 135px;
     font-size: 12px;
   }
+  #searchitem14 {
+    display: flex;
+    align-items: center;
+    padding-left: -50px;
+  }
   #texttext1{
     font-size: 14px;
   }
@@ -380,7 +386,7 @@ padding-right: -80px;
   }
   .flightcard-1 {
     width: 500px;
-    margin-left: -160px;
+    margin-left: -180px;
     padding-left: 50px;
   }
   .hrtag {
@@ -407,11 +413,29 @@ padding-right: -80px;
   .direct {
     margin-left: -60px;
   }
+  .flightsearchbar{
+    display: none;
+  }
 }
 
 @media screen and (min-device-width: 380px) and (max-device-width: 479px) {
   .flightflight,
   .filterhead {
+    display: none;
+  }
+  .FlightBox{
+    border: none;
+  }
+  .flightBox1{
+    border: 1px solid rgb(137, 137, 137);
+    width: 300px;
+    margin-left: 50px;
+    border-radius: 5px;
+  }
+  .flightBox2{
+    display: none;
+  }
+  .flightsearchbar{
     display: none;
   }
   .headerSearchItem {
@@ -422,6 +446,7 @@ padding-right: -80px;
   }
   .sort {
     margin-left: -100px;
+    margin-top: 10px;
   }
   #searchitem {
     width: 150px;
