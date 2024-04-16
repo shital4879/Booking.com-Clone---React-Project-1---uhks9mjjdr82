@@ -284,12 +284,12 @@ const FlightSearch = () => {
       <div style={{display:"flex",justifyContent:"center",}}>
       <div className="flightsearchbar">
     <div>
-        <div className="flightGoing">
+        <div className="flightGoing" id="flightGoing">
           <FontAwesomeIcon icon={faPlaneDeparture} className="headerIcon" />
           <input
             type="text"
             value={source}
-            id="texttext"
+            id="texttext1"
             onChange={(e) => {
               setSource(e.target.value), e.preventDefault();
             }}
@@ -309,12 +309,12 @@ const FlightSearch = () => {
             swapinputs();
           }}
         />
-        <div className="flightComing">
+        <div className="flightComing" id="flightComing">
           <FontAwesomeIcon icon={faPlaneArrival} className="headerIcon" />
           <input
             type="text"
             value={destination}
-            id="texttext"
+            id="texttext2"
             style={{ marginRight: "50px" }}
             onChange={(e) => {
               setDestination(e.target.value), e.preventDefault();
@@ -324,12 +324,12 @@ const FlightSearch = () => {
         </div>
         <div
           className="headerSearchItem1"
-          id="searchitem"
+          id="searchitem14"
           onClick={() => setOpenBookingDate(true)}
           style={{ marginLeft: "30px" }}
         >
-          <FontAwesomeIcon icon={faCalendarDays} className="headerIcon" id="headerIcon1" />
-          <span className="headerSearchText1" id="texttext">{`${format(
+          <FontAwesomeIcon icon={faCalendarDays} className="headerIcon" id="headerIcona" />
+          <span className="headerSearchText1" id="texttext1">{`${format(
             selectedDate[0].startDate,
             "dd/MM/yyyy"
           )} to ${format(selectedDate[0].endDate, "dd/MM/yyyy")}`}</span>
@@ -352,7 +352,7 @@ const FlightSearch = () => {
         </>
           )}
         </div>
-        <div className="headerSearchItem" >
+        <div className="headerSearchItem13"id="searc">
           <button
             className="headerBtn"
             id="searchsearch"

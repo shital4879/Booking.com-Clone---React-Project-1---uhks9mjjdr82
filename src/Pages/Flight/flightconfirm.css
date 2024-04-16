@@ -6,9 +6,9 @@
 .set1{
     border: 2px solid gray;
     border-radius: 10px;
-    width: 58%;
     /* padding-left: 30px; */
     padding: 20px 0px 20px 25px;
+    width: 700px;
 }
 .mainSet1{
     display: flex;
@@ -24,7 +24,7 @@
     justify-content: space-between;
 }
 .mainSet2{
-    width: 55%;
+    width: 50%;
     padding: 10px;
     margin-top: 50px;
     border: 2px solid gray;
@@ -112,6 +112,9 @@
          .data{
             display: block;
         }
+        .set1{
+            width: 370px;
+         }
         .namee{
             margin-top: 5px;
             padding-left: 70px;
@@ -148,7 +151,10 @@
         .set2{
             margin-top: 30px;
             margin-right: 30px;
-            margin-left: -180px;
+            margin-left: -160px;
+         }
+         .set1{
+            width: 400px;
          }
          .data{
             display: block;
@@ -158,12 +164,12 @@
             padding-left: 70px;
         }
         .mainSet1{
-            width: 700px;
-            margin-left: -130px;
+            /* width: 700px; */
+            margin-left: -150px;
         }
         .mainSet2{
-            width: 370px;
-            margin-left: -130px;
+            width: 400px;
+            margin-left: -150px;
         }
         .buttons{
             margin-left: 700px;
@@ -175,3 +181,46 @@
        
   
   }
+  @media screen and (min-device-width: 360px)and (max-device-width: 479px) {
+    .mainSet1{
+        display: block;
+    }
+    .set1{
+        width: 370px;
+     }
+    #logo{
+        margin-left: -80px;
+    }
+    #profile{
+        margin-right: 20px;
+    }
+    .set2{
+        margin-top: 30px;
+        margin-right: 30px;
+        margin-left: -180px;
+     }
+     .data{
+        display: block;
+    }
+    .namee{
+        margin-top: 5px;
+        padding-left: 70px;
+    }
+    .mainSet1{
+        width: 620px;
+        margin-left: -220px;
+    }
+    .mainSet2{
+        width: 370px;
+        margin-left: -220px;
+    }
+    .buttons{
+        margin-left: 500px;
+    }
+    .backBtnbtn{
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+   
+
+}

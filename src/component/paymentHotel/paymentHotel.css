@@ -70,6 +70,17 @@
     color: red;
     font-size: 14px;
 }
+#expdata1{
+  /* margin-left: -250px; */
+  /* margin-top: 100px; */
+  margin-top: 2px;
+  margin-bottom: 5px;
+}
+.labelexp{
+  margin-top: -100px;
+}
+
+
 @media screen and (min-device-width: 992px) and (max-device-width: 1300px){
    /* .inputdata{
     width: 500px;
@@ -132,7 +143,7 @@
            .numclass{
             margin: 3px;
            }
-           #expdata{
+           #expdata1{
             margin-left: 4px;
             margin-bottom: 5px;
            }
@@ -179,7 +190,7 @@
       width: 300px;
       margin-top: 5px;
     }
-    #expdata{
+    #expdata1{
       margin-left: 4px;
       margin-bottom: 10px;
       /* margin-top: -10px; */
@@ -199,5 +210,78 @@
      }
      .emailclass{
       width: 50px;
+     }
+  }
+
+  @media screen and (min-device-width: 380px)and (max-device-width: 479px) {
+
+    .paymentpage1{
+      display: block;
+    }
+    .hotelset1{
+      margin-left: -170px;
+      margin-bottom: 50px;
+      width: 350px;
+    }
+    .paymentMethodHotel{
+      /* width: 98%; */
+      width: 350px;
+      margin-left: -170px;
+    }
+    .numclass{
+      margin-top: 10px;
+      margin-left: 2px;
+      margin-bottom: 5px;
+    }
+    .emailclass{
+      /* margin-bottom: px; */
+      /* height: 10px; */
+      width: 50px;
+      margin-left: 2px;
+      margin-top: 5px;
+      /* width: 150px; */
+    }
+    .hotelset2{
+      margin-left: -120px;
+    }
+    #cardhold{
+      width: 300px;
+      margin-top: 5px;
+    }
+    #expdata1{
+      margin-left: 4px;
+      margin-bottom: 10px;
+      /* margin-top: -10px; */
+     }
+     .expZone{
+      /* margin-top: 5px; */
+      position: relative;
+      top:-10px;
+     }
+     #cvcdata{
+      /* margin-top: 8px; */
+      margin-left: 4px;
+     }
+     #btnpay{
+      position:  absolute;
+      left: -300px;
+     }
+     .emailclass{
+      width: 50px;
+     }
+     #expdata1{
+      margin-bottom: 10px;
+     }
+     .expZone{
+      margin-top: 25px;
+     }
+     /* .labeldata{
+      margin-bottom: 15px;
+     } */
+     .logo{
+      margin-left: -80px;
+     }
+     .profile{
+      margin-right: 15px;
      }
   }

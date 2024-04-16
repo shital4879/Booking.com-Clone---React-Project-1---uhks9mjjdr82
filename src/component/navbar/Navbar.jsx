@@ -37,7 +37,7 @@ const Navbar = ({ type }) => {
     <div style={{ width: "100%" }}>
       <div className="navbar">
         <div className="navContainer">
-          <span className="logo">Booking.com</span>
+          <span className="logo" onClick={()=>navigate("/")}>Booking.com</span>
 
           <div style={{ display: "flex", marginLeft: "-350px",marginTop:"-4px" }} className="navp1">
             <button style={{}} className="circle" disabled>

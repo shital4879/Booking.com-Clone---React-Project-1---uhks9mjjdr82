@@ -3,6 +3,15 @@ import "./register.css";
 import { Link, json, useNavigate } from "react-router-dom";
 import SignOut from "./SignOut";
 import SignIn from "./SignIn";
+import {
+  faBed,
+  faPlane,
+  faCar,
+  faTaxi,
+  faCircleQuestion,
+} from "@fortawesome/free-solid-svg-icons";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 
 const Register = () => {
@@ -103,11 +112,36 @@ const Register = () => {
 
   return (
     <div>
-     <div className="navbar">
+    <div className="navbar">
         <div className="navContainer">
-          <span className="logo">Booking.com</span>
-          <div className="navItems">
+          <span className="logo" onClick={()=>navigate("/")}>Booking.com</span>
+
+          <div style={{ display: "flex", marginLeft: "-350px",marginTop:"-4px" }} className="navp1">
+            <button style={{}} className="circle" disabled>
+              INR
+            </button>
+            <button className="circle">
+              <img
+                src="https://faraz-khan-booking-com-clone-react-project-1-jza6qqtrfilv.vercel.app/images/IndiaFlag.png"
+                alt=""
+                style={{
+                  height: "25px",
+                  width: "30px",
+                  borderRadius: "10%",
+                  marginTop: "-4px",
+                }}
+              />
+            </button>
+            <button className="circle">
+              <FontAwesomeIcon
+                icon={faCircleQuestion}
+                style={{ height: "25px", width: "30px", marginTop: "-4px" }}
+              />
+            </button>
+            <button className="circle">List Your Property</button>
           </div>
+
+          
         </div>
       </div>
 

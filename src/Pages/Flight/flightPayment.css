@@ -93,6 +93,9 @@
     width: 40%;
     background-color: white;
 }
+.expinput{
+    margin-bottom: 10px;
+}
 .pay-Btn{
     font-size: 22px;
     /* text-align: center;
@@ -113,6 +116,7 @@
     margin-left: -250px;
     top: 35px;
     position: relative;
+    margin-top: 15px;
 }
 .expZone1{
     /* margin-right: 10px; */
@@ -131,7 +135,22 @@
     position: absolute;
 }
 
-@media screen and (min-device-width: 992px) and (max-device-width: 1300px){
+@media screen and (min-device-width: 1220px) and (max-device-width: 1370px){
+    .boggage-details{
+        width: 500px;
+        margin-left: -100px;
+    }
+    .paymentdetailing{
+        margin-left: -70px;
+    }
+    .paymentMethod
+    {
+        width: 500px;
+        margin-left: 120px;
+    }
+      }
+
+@media screen and (min-device-width: 992px) and (max-device-width: 1219px){
 .boggage-details{
     width: 500px;
     margin-left: -100px;
@@ -246,3 +265,44 @@
             margin-left: 300px;
         }
   }
+  @media screen and (min-device-width: 360px)and (max-device-width: 479px) {
+    .bag-payment{
+        display: block;
+    }
+      .boggage-details{
+        width: 360px;
+        margin-left: -180px;
+    }
+    .paymentdetailing{
+        margin-left: -150px;
+    }
+    .paymentMethod
+    {
+        width: 360px;
+        margin-left: 40px;
+    }
+    #inputd{
+        width:300px;
+        margin-top: 5px;
+        margin: 5px 0 5px 2px;
+    }
+    .totalp{
+        display: block;
+        /* width: 100px; */
+        margin-right: -100px;
+    }
+    .classs{
+        width: 0px;
+        /* font-size: 12px; */
+        margin-left: -80px;
+    }
+    .expinput{
+        margin-left: 2px;
+        margin-top: 5px;
+        margin-bottom: 5px;
+    }
+    #backb{
+        /* margin-right: 500px; */
+        margin-left: 300px;
+    }
+}

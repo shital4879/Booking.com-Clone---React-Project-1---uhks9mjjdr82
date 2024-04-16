@@ -55,7 +55,7 @@ const FlightConfirm = () => {
     <div>
        <div className="navbar">
         <div className="navContainer">
-          <span className="logo">Booking.com</span>
+          <span className="logo" id="logo">Booking.com</span>
           <div className="navItems">
             {!localStorage.getItem("token") && (
               <button className="navButton" onClick={RegisterPage}>
@@ -68,7 +68,7 @@ const FlightConfirm = () => {
               </button>
             )}
             {localStorage.getItem("token") &&
-              <div className="profile" onClick={(e)=>{e.stopPropagation(),setOpenSing(!openSign)}} >
+              <div className="profile" id="profile" onClick={(e)=>{e.stopPropagation(),setOpenSing(!openSign)}} >
                 {openSign && 
                 <SignOut/>
                 }
@@ -214,7 +214,7 @@ const FlightConfirm = () => {
             type="text"
             style={{
               height: "35px",
-              width: "240px",
+              width: "190px",
               marginRight: "70px",
             }}
             required
@@ -228,7 +228,7 @@ const FlightConfirm = () => {
           <br />
           <input
             type="text"
-            style={{ height: "35px", width: "240px" }}
+            style={{ height: "35px", width: "190px",marginRight:"10px" }}
            
             required
           />

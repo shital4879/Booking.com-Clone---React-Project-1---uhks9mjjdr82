@@ -1,276 +1,461 @@
-.filter-card{
-    display: flex;
-   
-    /* justify-content: space-; */
-    margin: 40px 190px 50px 190px;
+.filter-card {
+  display: flex;
+
+  /* justify-content: space-; */
+  margin: 40px 190px 50px 190px;
 }
-.flightflight{
-    border: 1px solid gray;
-    margin: 30px 50px 0px -15px;
-    border-radius: 10px;
-    padding-left: 20px;
-    padding-bottom: 30px;
+.flightflight {
+  border: 1px solid gray;
+  margin: 30px 50px 0px -15px;
+  border-radius: 10px;
+  padding-left: 20px;
+  padding-bottom: 30px;
 }
-.flight-filter{
-    width: 35%;
+.flight-filter {
+  width: 35%;
 }
 
-.flight-card{
-    height: 190px;
-    width: 800px;
-    
+.flight-card {
+  height: 190px;
+  width: 800px;
 }
-.FlightBox{
-    height: 190px;
-    border: 1px solid gray;
-    border-radius: 10px;
-    margin-bottom: 20px;
-    display: flex;
-    justify-content: space-between;
+.FlightBox {
+  height: 190px;
+  border: 1px solid gray;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
 }
-.flightBox1{
-    width: 60%;
-    padding-top: 15px;
-    display: flex;
-    justify-content: space-evenly;
-    border-right: 1px solid gray;
-   
-    height: 190px;
+.headerSearchItem13 {
+  display: flex;
+  /* border-right: 4px solid rgb(230, 165, 15); */
+  align-items: center;
+  justify-content: start;
+  padding-right: 70px;
+  gap: 10px;
+  background-color: #fff;
+  position: relative;
 }
-.duration{
-    display: flex;
-    justify-content: center;
-    font-size: 14px;
+.flightBox1 {
+  width: 60%;
+  padding-top: 15px;
+  display: flex;
+  justify-content: space-evenly;
+  border-right: 1px solid gray;
+
+  height: 190px;
 }
-.direct{
-    display: flex;
-    justify-content: center;
-    margin-top: -20px;
+.duration {
+  display: flex;
+  justify-content: center;
+  font-size: 14px;
 }
-.flightBox2{
-    padding-top: 15px;
-    margin-right: 10px;
+.direct {
+  display: flex;
+  justify-content: center;
+  margin-top: -20px;
 }
-.luggage-logo{
-    display: flex;
-    justify-content: end;
-    gap: 8px;
-    color: rgb(24, 24, 24);
-    font-size: 16px;
+.flightBox2 {
+  padding-top: 15px;
+  margin-right: 10px;
 }
-.flightcard1{
-    display: flex;
-    justify-content: end;
-    font-size: 12px;
-    margin-top: 6px;
-    margin-bottom: 25px;
-    color: rgb(24, 24, 24);
+.luggage-logo {
+  display: flex;
+  justify-content: end;
+  gap: 8px;
+  color: rgb(24, 24, 24);
+  font-size: 16px;
 }
-.flight-price{
-   font-size: 20px;
-    font-weight: 500;
-    display: flex;
-    justify-content: end;
+.flightcard1 {
+  display: flex;
+  justify-content: end;
+  font-size: 12px;
+  margin-top: 6px;
+  margin-bottom: 25px;
+  color: rgb(24, 24, 24);
 }
-.flightpara{
-    display: flex;
-    justify-content: end;
-    font-size: 12px;
-    margin-bottom: 15px;
-    margin-top: 5px;
+.flight-price {
+  font-size: 20px;
+  font-weight: 500;
+  display: flex;
+  justify-content: end;
 }
-.flightView{
-    height: 36px;
-    width: 220px;
-    border-radius: 10px;
-    color: #006ce4;
-    border: 1px solid #006ce4;
+.flightpara {
+  display: flex;
+  justify-content: end;
+  font-size: 12px;
+  margin-bottom: 15px;
+  margin-top: 5px;
 }
-.flight-Time{
-    font-size: 16px;
-    font-weight: 600;
+.flightView {
+  height: 36px;
+  width: 220px;
+  border-radius: 10px;
+  color: #006ce4;
+  border: 1px solid #006ce4;
 }
-.date-Time{
-    font-size: 14px;
+.flight-Time {
+  font-size: 16px;
+  font-weight: 600;
 }
-.flightcard{
-    margin-bottom: 200px;
-    height: auto;
+.date-Time {
+  font-size: 14px;
 }
-#searchsearch{
+.flightcard {
+  margin-bottom: 200px;
+  height: auto;
+}
+#searchsearch {
   margin-right: -75px;
 }
-.infoPopBox1{
-     background-color: rgba(0, 0, 0, 0.2);
+.infoPopBox1 {
+  background-color: rgba(0, 0, 0, 0.2);
 }
-.infoPopBox2{
-    height: 400px;
-    width: 400px;
-    background-color: white;
-    border: 5px solid yellow;
+.infoPopBox2 {
+  height: 400px;
+  width: 400px;
+  background-color: white;
+  border: 5px solid yellow;
 }
-.flightStops{
-    margin-top: 30px;
+.flightStops {
+  margin-top: 30px;
 }
-.flight-filter{
-    margin-left: -45px;
+.flight-filter {
+  margin-left: -45px;
 }
-.filterName{
-    font-size: 18px;
-    margin-bottom: 8px;
+.filterName {
+  font-size: 18px;
+  margin-bottom: 8px;
 }
-.radioBtn{
-    height: 16px;
-    width: 16px;
+.radioBtn {
+  height: 16px;
+  width: 16px;
 }
 
-@media screen and (min-device-width: 992px) and (max-device-width: 1300px){
-  .flightflight{
+@media screen and (min-device-width: 1171px) and (max-device-width: 1360px) {
+  .flightflight {
     margin-left: -125px;
     width: 200px;
   }
 
-  .flight-card{
+  .flight-card {
     width: 610px;
     margin-left: -10px;
   }
-  #head12{
+  #head12 {
     margin-left: 30px;
     margin-right: -10px;
   }
-      }
-      
-      @media screen and (min-device-width: 768px) and (max-device-width: 991px){
-        .flightflight,.filterhead{
-            display: none;
-          }
-          .flight-card{
-            width: 610px;
-            margin-left: -10px;
-          }
-          #head12{
-            margin-left: 5px;
-    
-          }
+  #flightGoing {
+    width: 250px;
+  }
+  #flightComing {
+    width: 300px;
+    padding-right: 60px;
+  }
+  #headerIcona {
+    /* padding-left: -80px; */
+    margin-left: -20px;
+  }
+}
 
-          
-          .flightcard-1{
-            width: 680px;
-            margin-left: -120px;
-            padding-left: 50px;
-          }
-        
-          #btnbutton{
-            margin-left: 40px;
-          }
-      }
-      
-        @media screen and (min-device-width: 600px)and (max-device-width: 767px) {
-            .flightflight,.filterhead{
-                display: none;
-              }
-            
-              #head12{
-                /* width: 150px; */
-                margin-left: 5px;
-        
-              }
-              .flightcard-1{
-                width: 590px;
-                margin-left: -140px;
-                padding-left: 50px;
-              }
-             
-          
-      
-      }
-      @media screen and (min-device-width: 480px)and (max-device-width: 599px) {
-        .flightflight,.filterhead{
-            display: none;
-          }
-        .headerSearchItem{
-          margin-right: -20px;
-        }
-          #head12{
-            margin-left: 5px;
-          }
-          .sort{
-            margin-left: 100px;
-          }
-          #searchitem{
-            width: 150px;
-          }
-          .flightcard-1{
-            width: 500px;
-            margin-left: -160px;
-            padding-left: 50px;
-            
-          }
-          .hrtag{
-            width: 70px;
-            margin-right: -50px;
-            display: none;
-          }
-          #flight-Time,#date-Time{
-            margin-left: -50px;
-          }
-    .luggage-logo,.flightcard1,.flight-price,.lightpara{
-        margin-right: 8px;
-    }
-    .flightView{
-        width: 100px;
-        margin-left: 70px;
-        height: 25px;
-    }
-    .duration,.direct{
-        margin-left: -60px;
-    }
-      }
+@media screen and (min-device-width: 992px) and (max-device-width: 1170px) {
+  .flightflight {
+    margin-left: -125px;
+    width: 200px;
+  }
+  #flightGoing {
+    width: 170px;
+  }
+  #flightComing {
+    width: 220px;
+    padding-right: 30px;
+  }
+  #headerIcona {
+    /* padding-left: -80px; */
+    margin-left: -20px;
+  }
+  .flight-card {
+    width: 610px;
+    margin-left: -10px;
+  }
+  #head12 {
+    margin-left: 30px;
+    margin-right: -10px;
+  }
+}
 
-      @media screen and (min-device-width: 380px)and (max-device-width: 479px) {
-        .flightflight,.filterhead{
-            display: none;
-          }
-        .headerSearchItem{
-          margin-right: -20px;
-        }
-          #head12{
-            margin-left: 5px;
-          }
-          .sort{
-            margin-left: -100px;
-          }
-          #searchitem{
-            width: 150px;
-          }
-          .flightcard-1{
-            width: 445px;
-            margin-left: -195px;
-            padding-left: 50px;
-            
-          }
-          .hrtag{
-            width: 70px;
-            margin-right: -50px;
-            display: none;
-          }
-          #flight-Time,#date-Time{
-            margin-left: -50px;
-          }
-    .luggage-logo,.flightcard1,.flight-price,.lightpara{
-        margin-right: 8px;
-    }
-    .flightView{
-        width: 100px;
-        margin-left: 70px;
-        height: 25px;
-    }
-    .duration,.direct{
-        margin-left: -60px;
-    }
-    .flightArrivalTime{
-      display: block;
-    }
-      }
-      
-      
+@media screen and (min-device-width: 768px) and (max-device-width: 867px) {
+  .flightflight,
+  .filterhead {
+    display: none;
+  }
+  .flight-card {
+    width: 610px;
+    margin-left: -10px;
+  }
+  #head12 {
+    margin-left: 5px;
+  }
+  #flightGoing {
+    width: 65px;
+  }
+  #flightComing {
+    width: 200px;
+  }
+  #searchitem14 {
+    display: flex;
+    align-items: center;
+    padding-left: -50px;
+  }
+  #headerIcona {
+    /* padding-left: -80px; */
+    margin-left: -20px;
+  }
+  .flightcard-1 {
+    width: 680px;
+    margin-left: -120px;
+    padding-left: 50px;
+  }
+
+  #btnbutton {
+    margin-left: 40px;
+  }
+}
+
+@media screen and (min-device-width: 868px) and (max-device-width: 991px) {
+  .flightflight,
+  .filterhead {
+    display: none;
+  }
+  .flight-card {
+    width: 610px;
+    margin-left: -10px;
+  }
+  #head12 {
+    margin-left: 5px;
+  }
+  #flightGoing {
+    width: 120px;
+  }
+  #flightComing {
+    width: 250px;
+    padding-right: 30px;
+  }
+  #searchitem14 {
+    display: flex;
+    align-items: center;
+    padding-left: -50px;
+  }
+  #headerIcona {
+    /* padding-left: -80px; */
+    margin-left: -10px;
+  }
+  .flightcard-1 {
+    width: 680px;
+    margin-left: -120px;
+    padding-left: 50px;
+  }
+
+  #btnbutton {
+    margin-left: 40px;
+  }
+}
+@media screen and (min-device-width: 690px) and (max-device-width: 767px) {
+  .flightflight,
+  .filterhead {
+    display: none;
+  }
+  #searchitem14 {
+    display: flex;
+    align-items: center;
+    padding-left: -50px;
+  }
+  #flightGoing {
+    width: 150px;
+    font-size: 12px;
+  }
+  #texttext1{
+    font-size: 16px;
+    font-weight: 400;
+  }
+  #flightComing {
+    width: 180px;
+    padding-right: 30px;
+  }
+  #headerIcona {
+    /* padding-left: -80px; */
+    font-size: 14px;
+    margin-left: -20px;
+    margin-right: 10px;
+    /* color: gray; */
+  }
+  #head12 {
+    /* width: 150px; */
+    margin-left: 5px;
+  }
+  .flightcard-1 {
+    width: 590px;
+    margin-left: -140px;
+    padding-left: 50px;
+  }
+}
+@media screen and (min-device-width: 600px) and (max-device-width: 689px) {
+  .flightflight,
+  .filterhead {
+    display: none;
+  }
+  #flightGoing {
+    width: 135px;
+    font-size: 12px;
+  }
+  #texttext1{
+    font-size: 14px;
+  }
+  #flightComing {
+    width: 160px;
+    padding-right: 30px;
+  }
+  #headerIcona {
+    /* padding-left: -80px; */
+    margin-left: -20px;
+    margin-right: 10x;
+  }
+  #head12 {
+    /* width: 150px; */
+    margin-left: 5px;
+  }
+  .flightcard-1 {
+    width: 590px;
+    margin-left: -140px;
+    padding-left: 50px;
+  }
+}
+@media screen and (min-device-width: 480px) and (max-device-width: 599px) {
+  .flightflight,
+  .filterhead {
+    display: none;
+  }
+  #flightGoing {
+    width: 90px;
+    font-size: 12px;
+  }
+  #texttext1{
+    font-size: 12px;
+  }
+  #texttext1{
+    font-size: 16px;
+    font-weight: 400;
+  }
+  #searc{
+    margin-left: -100px;
+  }
+  #flightComing {
+    width: 150px;
+    font-size: 12px;
+    padding-right: 30px;
+  }
+  #headerIcona {
+    /* padding-left: -80px; */
+    font-size: 12px;
+    margin-left: -20px;
+    margin-right: 10px;
+    /* color: gray; */
+  }
+  .headerSearchItem {
+    margin-right: -20px;
+  }
+  .headerSearchItem13{
+padding-right: -80px;
+  }
+  #head12 {
+    margin-left: 5px;
+  }
+  .sort {
+    margin-left: 100px;
+  }
+  #searchitem {
+    width: 150px;
+  }
+  .flightcard-1 {
+    width: 500px;
+    margin-left: -160px;
+    padding-left: 50px;
+  }
+  .hrtag {
+    width: 70px;
+    margin-right: -50px;
+    display: none;
+  }
+  #flight-Time,
+  #date-Time {
+    margin-left: -50px;
+  }
+  .luggage-logo,
+  .flightcard1,
+  .flight-price,
+  .lightpara {
+    margin-right: 8px;
+  }
+  .flightView {
+    width: 100px;
+    margin-left: 70px;
+    height: 25px;
+  }
+  .duration,
+  .direct {
+    margin-left: -60px;
+  }
+}
+
+@media screen and (min-device-width: 380px) and (max-device-width: 479px) {
+  .flightflight,
+  .filterhead {
+    display: none;
+  }
+  .headerSearchItem {
+    margin-right: -20px;
+  }
+  #head12 {
+    margin-left: 5px;
+  }
+  .sort {
+    margin-left: -100px;
+  }
+  #searchitem {
+    width: 150px;
+  }
+  .flightcard-1 {
+    width: 445px;
+    margin-left: -195px;
+    padding-left: 50px;
+  }
+  .hrtag {
+    width: 70px;
+    margin-right: -50px;
+    display: none;
+  }
+  #flight-Time,
+  #date-Time {
+    margin-left: -50px;
+  }
+  .luggage-logo,
+  .flightcard1,
+  .flight-price,
+  .lightpara {
+    margin-right: 8px;
+  }
+  .flightView {
+    width: 100px;
+    margin-left: 70px;
+    height: 25px;
+  }
+  .duration,
+  .direct {
+    margin-left: -60px;
+  }
+  .flightArrivalTime {
+    display: block;
+  }
+}

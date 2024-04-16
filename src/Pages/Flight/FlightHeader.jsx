@@ -233,7 +233,7 @@ const FlightHeader = () => {
               e.stopPropagation();
             }}
           >
-            <FontAwesomeIcon icon={faPlaneDeparture} className="headerIcon" />
+            <FontAwesomeIcon icon={faPlaneDeparture} className="headerIcon" id="gologo"/>
             <input
               type="text"
               placeholder="Where from?"
@@ -257,6 +257,7 @@ const FlightHeader = () => {
             >
               {opensource && (
                 <div
+                className="sourcetext"
                   style={{
                     position: "absolute",
                     left: "40px",
@@ -321,7 +322,7 @@ const FlightHeader = () => {
               e.stopPropagation();
             }}
           >
-            <FontAwesomeIcon icon={faPlaneArrival} className="headerIcon" />
+            <FontAwesomeIcon icon={faPlaneArrival} className="headerIcon" id="comelogo"/>
             <input
               type="text"
               placeholder="Where to?"
@@ -341,6 +342,7 @@ const FlightHeader = () => {
             >
               {opendestination && (
                 <div
+             
                   style={{
                     position: "absolute",
                     left: "420px",
@@ -391,9 +393,9 @@ const FlightHeader = () => {
         </div>
         <d
           className="headerSearchItem1"
-          id="searchitem"
+          id="searchitem1"
           onClick={() => setOpenBookingDate(true)}
-          style={{ marginLeft: "30px" }}
+          style={{ marginLeft:"" }}
         >
           <FontAwesomeIcon
             icon={faCalendarDays}
@@ -419,13 +421,14 @@ const FlightHeader = () => {
                   e.stopPropagation(), setOpenBookingDate(false);
                 }}
                 className="donebtnforDate1"
+                id="donebtn"
               >
                 Done
               </button>
             </>
           )}
         </d>
-        <div className="flightsearchbuttonHero">
+        <div className="flightsearchbuttonHero" id="searching">
           <button className="headerBtn" onClick={handleFlight} id="searchsearch">
             Search
           </button>

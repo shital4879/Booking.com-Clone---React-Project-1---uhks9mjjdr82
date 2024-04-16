@@ -97,8 +97,16 @@
    
 } */
 
-
-@media screen and (min-device-width: 992px) and (max-device-width: 1300px){
+@media screen and (min-device-width: 1220px) and (max-device-width: 1370px){
+    .first-Item{
+        width: 260px;
+    }
+    .baggage-1{
+        width: 200px;
+    }
+  }
+  
+@media screen and (min-device-width: 992px) and (max-device-width: 1219px){
     .first-Item{
         width: 250px;
     }
@@ -162,3 +170,30 @@
         }
   
   }
+  @media screen and (min-device-width: 360px)and (max-device-width: 479px) {
+    .first-Item{
+        width: 250px;
+    }
+    .baggage-1{
+        width: 180px;
+    }
+    .fly-box2{
+        margin-top: 40px;
+        margin-left: 40px;
+    }
+    .first-Item,.second-Item{
+        margin-left: -40px;
+        width: 180px;
+    }
+    .contex{
+        /* margin-top: -50px; */
+        height: 90%;
+        width: 70%;
+    }
+    .total-price{
+        margin-top: 5px;
+    }
+.contex{
+    width: 350px;
+}
+}

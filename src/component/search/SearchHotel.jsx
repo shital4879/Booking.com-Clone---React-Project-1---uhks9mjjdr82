@@ -124,7 +124,7 @@ const Search = () => {
       <div className="head1">
         <div className="headerSearch">
         <div className="searching">
-          <div className="headerSearchItem" style={{position: "relative"}} id="idsearch">
+          <div className="headerSearchItemA" style={{position: "relative"}} id="idsearch">
             {/* <FontAwesomeIcon icon={faBed} className="headerIcon" /> */}
             <input
               type="text"
@@ -134,17 +134,17 @@ const Search = () => {
               onChange={(e) => {
                 setsearchinput(e.target.value), e.preventDefault();
               }}
-              style={{ color: "rgb(90, 88, 88)", marginLeft: "10px" }}
+              style={{  marginLeft: "10px" }}
             />
             {/* onChange={(e)=>setDestination(e.target.value)} */}
           </div>
           <div
-            className="headerSearchItem"
+            className="headerSearchItemA"
             id="idDate1"
             onClick={() => setOpenBookingDate(!openbookingDate)}
           >
             {/* <FontAwesomeIcon icon={faCalendarDays} className="headerIcon" /> */}
-            <span className="headerSearchText1">{`${format(
+            <span className="headerSearchText1" id="textdate">{`${format(
               selectedDate[0].startDate,
               "dd/MM/yyyy"
             )} to ${format(selectedDate[0].endDate, "dd/MM/yyyy")}`}</span>
@@ -163,7 +163,7 @@ const Search = () => {
           <div className="headerSearchItem12">
             <span
               onClick={() => setBookingPersons(!bookingPersons)}
-              id="idPeople"
+              id="idPeople1"
               className="headerSearchText"
             >{`${persons.adult}adult. ${persons.children}children. ${persons.room}room`}</span>
             {bookingPersons && (

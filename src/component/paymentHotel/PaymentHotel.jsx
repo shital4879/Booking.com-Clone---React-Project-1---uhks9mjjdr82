@@ -73,11 +73,11 @@ const PaymentHotel = () => {
       isValid = true;
       validationError.number = "number is required";
     }
-    else if(number.length<9){
+    else if(number.length<10){
       isValid = true;
       validationError.number = "10 digit number is required";
     }
-    else if(number.length>11){
+    else if(number.length>10){
       isValid = true;
       validationError.number = "10 digit number is required";
     }
@@ -100,6 +100,10 @@ if(cardNumber.length == 0) {
       isValid = true;
       validationError.cardNumber = "Valid 16-digit card number";
     }
+    else if (!/^[0-9]{16}$/.test(cardNumber)) {
+      isValid = true;
+      validationError.cardNumber= "CVC is required";
+    } 
     if (cvc.length == 0) {
       isValid = true;
       validationError.cvc = "CVC is required";
@@ -148,7 +152,7 @@ if(cardNumber.length == 0) {
   //   window.location.href = "/SignIn"
   // }
 
-
+  const today = new Date().toISOString().split('T')[0];
 
 
   return (
@@ -193,7 +197,7 @@ if(cardNumber.length == 0) {
                   <span style={{ color: "red", marginRight: "5px" }}>*</span>
                   Required
                 </h5>
-                <label style={{ fontSize: "15px" }}>
+                <label style={{ fontSize: "15px",marginBottom:'2px'}}>
                   Contact Email{" "}
                   <span style={{ color: "red", marginRight: "5px" }}>*</span>
                 </label>
@@ -229,8 +233,8 @@ if(cardNumber.length == 0) {
                 <br />
                 <input
                 className="numclass"
-                  type="number"
-                  minLength={10}
+                  type="text"
+                  maxLength="10"
                   // required
                   value={number}
                   style={{
@@ -329,7 +333,8 @@ if(cardNumber.length == 0) {
                         return{...prev,name:""}
                       })
                     }}
-                    style={{ marginBottom: "30px" }}
+                    onInput={(e)=>{e.target.value = e.target.value.replace(/[0-9]/g, '')}}
+                    style={{ marginBottom: "30px",marginTop:"10px",paddingLeft:"5px" }}
                   />
                   {valid ? (
                     <div className="nameZone">{error.name}</div>
@@ -345,11 +350,11 @@ if(cardNumber.length == 0) {
                   <div className="carddetail">
                     <FontAwesomeIcon icon={faCreditCard} />
                     <input
-                      type="number"
+                      type="text"
                       name="name"
                       style={{ border: "none", outline: "none" }}
                       maxLength="16"
-                      value={cardNumber}
+                                            value={cardNumber}
                       onChange={(e) => {
                         setCardNumber(e.target.value)
                         setError(prev =>{
@@ -367,17 +372,19 @@ if(cardNumber.length == 0) {
                 </div>
                 <div>
                 <div>
-                <label>
+                <label className="labelexp">
                     Expiry Date{" "}
-                    <span style={{ color: "red", marginRight: "160px" }}>
+                    <span style={{ color: "red", marginRight: "160px",}}>
                       *
                     </span>
                   </label>
+                  <br/>
                   <input
-                    type="text"
+                    type="date"
                     placeholder="MM/YY"
                     className="expinput"
-                    id="expdata"
+                    id="expdata1"
+                    min={today}
                     value={exp}
                     onChange={(e) => {
                       setExp(e.target.value)
@@ -400,7 +407,8 @@ if(cardNumber.length == 0) {
                     type="text"
                     className="expinput"
                     // maxLength={4}
-                    maxLength="4"
+                    onInput={(e)=>{e.target.value = e.target.value.replace(/[a-z]/g, '')}}
+                    maxLength="3"
                     value={cvc}
                     id="cvcdata"
                     onChange={(e) => {

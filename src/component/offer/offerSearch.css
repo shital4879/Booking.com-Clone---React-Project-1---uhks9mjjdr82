@@ -162,3 +162,22 @@
   } 
 
 }
+
+@media screen and (min-device-width: 320px)and (max-device-width: 479px) {
+  .container{
+    display: block;
+    height: 380px;
+    width: 155px;
+  }
+  .offer{
+    margin-left: 30px;
+    margin-right: 30px;
+  }
+  /* .offerpara{
+    display: none;
+  } */
+ .offerHeading{
+    font-size: 12px;
+  } 
+
+}

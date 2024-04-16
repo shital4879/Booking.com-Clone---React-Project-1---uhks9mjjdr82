@@ -29,6 +29,11 @@ const FlightPayment = () => {
   const [valid, setvalid] = useState(false);
   const [toggle, setToggle] = useState();
   const handleSubmit = (e) => {
+
+    const [day, month, year] = exp.split('/');
+    const expiryDateObj = new Date(`${year}-${month}-${day}`);
+    const currentDate = new Date();
+
     let isValid = false;
     let validationError = {};
     e.preventDefault();
@@ -43,6 +48,10 @@ const FlightPayment = () => {
     if (name.length == 0) {
       isValid = true;
       validationError.name = "name is required";
+    }
+    else if(!/^[a-zA-Z ]+$/.test(name)){
+      isValid = true;
+      validationError.name=" valid name is required";
     }
     if (cardNumber.length == 0) {
       isValid = true;
@@ -63,13 +72,21 @@ const FlightPayment = () => {
       isValid = true;
       validationError.cvc = "Valid 3 digit card number";
     }
+
+   
+    if (expiryDateObj < currentDate) {
+      return 'Expiry date must be in the future';
+    }
+
+
+
     if (exp.length == "") {
       isValid = true;
       validationError.exp = "Expiry date is required";
     } 
-    else if(!/^\d{2}\/\d{2}$/.test(exp)) {
+    else if( /^(\d{2})\/(\d{2})\/(\d{4})$/.test(exp)) {
       isValid = true;
-      validationError.exp = "Valid card number";
+      validationError.exp = "Please enter a valid expiry date";
     }
     setvalid(isValid);
     setError(validationError);
@@ -94,6 +111,8 @@ const FlightPayment = () => {
   };
   const [action, setAction] = useState();
   const [status, setStatus] = useState();
+
+  const today = new Date().toISOString().split('T')[0];
 
   // const handlepaybtn = () => {
   //   setAction("Payment successful!"), setStatus("Enjoy your journey");
@@ -241,6 +260,7 @@ const FlightPayment = () => {
                   type="text"
                   name="name"
                   id="inputd"
+                  onInput={(e)=>{e.target.value = e.target.value.replace(/[0-9]/g, '')}}
                   className="inputdata"
                   onChange={(e) => {
                     setName(e.target.value);
@@ -248,7 +268,7 @@ const FlightPayment = () => {
                       return { ...prev, name: "" };
                     });
                   }}
-                  style={{ marginBottom: "30px" }}
+                  style={{ marginBottom: "30px" ,paddingLeft:"5px"}}
                 />
                 {valid ? <div className="nameZone">{error.name}</div> : <></>}
                 <br />
@@ -260,8 +280,9 @@ const FlightPayment = () => {
                 <div className="carddetail">
                   <FontAwesomeIcon icon={faCreditCard} />
                   <input
-                    type="number"
+                    type="text"
                     name="name"
+                    maxLength="16"
                     style={{
                       border: "none",
                       outline: "none",
@@ -290,7 +311,8 @@ const FlightPayment = () => {
                   </label>
                   <br />
                   <input
-                    type="text"
+                  min={today}
+                    type="date"
                     placeholder="MM/YY"
                     className="expinput"
                     onChange={(e) => {
@@ -315,8 +337,9 @@ const FlightPayment = () => {
                   <input
                     type="text"
                     className="expinput"
-                    // maxLength={4}
+                    maxLength="3"
                     value={cvc}
+                    onInput={(e)=>{e.target.value = e.target.value.replace(/[a-z]/g, '')}}
                     onChange={(e) => {
                       setCvc(e.target.value);
                       setError((prev) => {
@@ -325,11 +348,13 @@ const FlightPayment = () => {
                     }}
                   />
                   {valid ? (
-                    <span className="cvcZone1">{error.cvc}</span>
+                    <span className="cvcZone1" style={{marginTop:"10px"}}>{error.cvc}</span>
                   ) : (
                     <></>
                   )}
                 </div>
+
+                
               </div>
             </div>
           </div>
