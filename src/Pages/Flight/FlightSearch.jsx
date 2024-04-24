@@ -282,14 +282,14 @@ const FlightSearch = () => {
         </div>
       </div>
       <div style={{display:"flex",justifyContent:"center",}}>
-      <div className="flightsearchbar">
+      <div className="flightsearchbar" id="flyflight">
     <div>
         <div className="flightGoing" id="flightGoing">
-          <FontAwesomeIcon icon={faPlaneDeparture} className="headerIcon" />
+          <FontAwesomeIcon icon={faPlaneDeparture} className="headerIcon" id="icon1"/>
           <input
             type="text"
             value={source}
-            id="texttext1"
+            id="textttext"
             onChange={(e) => {
               setSource(e.target.value), e.preventDefault();
             }}
@@ -310,7 +310,7 @@ const FlightSearch = () => {
           }}
         />
         <div className="flightComing" id="flightComing">
-          <FontAwesomeIcon icon={faPlaneArrival} className="headerIcon" />
+          <FontAwesomeIcon icon={faPlaneArrival} className="headerIcon" id="icon2" />
           <input
             type="text"
             value={destination}
@@ -552,6 +552,7 @@ const FlightSearch = () => {
               <select
                style={{width:"150px"}}
                 className="sort"
+                id="sort"
                 onChange={(e) => {
                   setsort(e.target.value);
                 }}

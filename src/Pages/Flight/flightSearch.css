@@ -308,7 +308,7 @@
     display: none;
   }
   #flightGoing {
-    width: 135px;
+    width: 125px;
     font-size: 12px;
   }
   #searchitem14 {
@@ -320,7 +320,7 @@
     font-size: 14px;
   }
   #flightComing {
-    width: 160px;
+    width: 150px;
     padding-right: 30px;
   }
   #headerIcona {
@@ -334,7 +334,7 @@
   }
   .flightcard-1 {
     width: 590px;
-    margin-left: -140px;
+    margin-left: -180px;
     padding-left: 50px;
   }
 }
@@ -343,19 +343,26 @@
   .filterhead {
     display: none;
   }
+  #icon1,#icon2,#headerIcona{
+    display: none;
+  }
   #flightGoing {
     width: 90px;
-    font-size: 12px;
+    font-size: 10px;
+  }
+  #texttext1,#texttext2,#textttext{
+    font-size: 14px;
   }
   #texttext1{
     font-size: 12px;
-  }
-  #texttext1{
-    font-size: 16px;
     font-weight: 400;
   }
   #searc{
-    margin-left: -100px;
+    /* margin-left:-35px; */
+    margin-right: -5px;
+  }
+  #texttext1{
+    margin-left: -35px;
   }
   #flightComing {
     width: 150px;
@@ -413,9 +420,9 @@ padding-right: -80px;
   .direct {
     margin-left: -60px;
   }
-  .flightsearchbar{
+  /* .flightsearchbar{
     display: none;
-  }
+  } */
 }
 
 @media screen and (min-device-width: 380px) and (max-device-width: 479px) {
@@ -435,18 +442,18 @@ padding-right: -80px;
   .flightBox2{
     display: none;
   }
-  .flightsearchbar{
+  /* .flightsearchbar{
     display: none;
-  }
+  } */
   .headerSearchItem {
     margin-right: -20px;
   }
   #head12 {
     margin-left: 5px;
   }
-  .sort {
+  #sort {
     margin-left: -100px;
-    margin-top: 10px;
+    margin-top: 90px;
   }
   #searchitem {
     width: 150px;
@@ -483,4 +490,8 @@ padding-right: -80px;
   .flightArrivalTime {
     display: block;
   }
+  #flyflight{
+    display: none;
+  }
 }
+

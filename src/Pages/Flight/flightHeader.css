@@ -61,11 +61,32 @@
 
   color: #5a5858;
 }
+.headBtn{
+  height: 43px;
+  z-index: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+  color: #fff;
+  background-color: #003B95;
+  width: 160px;
+  
+  text-align: center;
+  border: none;
+  border-radius: 5px;
+ 
+}
 .headerIcon {
   color: rgb(90, 88, 88);
   font-size: 20px;
   margin-right: 7px;
   /* border-right: 5px solid yellow; */
+}
+#searching{
+  /* width: 100px; */
+  margin-left: -10px;
+  margin-right: 20px;
 }
 .flightGoing,
 .flightComing {
@@ -84,12 +105,12 @@
 }
 #searching{
   margin-left: -100px;
-  margin-right: 75px;
+  margin-right: 70px;
 }
 #searchsearch{
   cursor: pointer;
   /* margin-left: -50px; */
-  margin-right: 50px;
+  margin-right: 60px;
 }
 
 .airportinput {
@@ -160,6 +181,12 @@
 .selectedDate1{
   position: absolute;
 }
+.searching2{
+  display: flex;
+  justify-content: space-evenly;
+  width: 92%;
+  background: white;
+}
 
 @media screen and (min-device-width: 1250px) and (max-device-width: 1380px) {
 
@@ -182,9 +209,69 @@
   #headerIcon1{
     margin-left: -10px;
   }
+  #searching{
+    margin-right: 70px;
+  }
 }
 
-@media screen and (min-device-width: 992px) and (max-device-width: 1249px) {
+@media screen and (min-device-width: 1150px) and (max-device-width: 1249px) {
+
+  .flightsearchbar {
+    width: 85%;
+  }
+  .flightGoing{
+    width: 250px;
+  }
+  .flightComing{
+    margin-left: -10px;
+    width: 250px;
+  }
+  #searchitem{
+    margin-left: -10px;
+  }
+  .inputflighttext{
+    width: 100px;
+  }
+  #headerIcon1{
+    margin-left: -10px;
+  }
+  #searching{
+    margin-right: 70px;
+  }
+}
+
+@media screen and (min-device-width: 1071px) and (max-device-width: 1149px) {
+
+  .flightsearchbar {
+    width: 85%;
+  }
+  .flightGoing{
+    width: 215px;
+  }
+  .flightComing{
+    margin-left: -10px;
+    width: 220px;
+  }
+  #searchitem{
+    margin-left: -10px;
+  }
+  .inputflighttext{
+    width: 100px;
+  }
+  #headerIcon1{
+    margin-left: -10px;
+  }
+  .sourcetext{
+    margin-left: -50px;
+  }
+  .desti1{
+    margin-left: -170px;
+  }
+  #searching{
+    margin-right: 70px;
+  }
+}
+@media screen and (min-device-width: 992px) and (max-device-width: 1070px) {
 
   .flightsearchbar {
     width: 85%;
@@ -210,6 +297,9 @@
   }
   .desti1{
     margin-left: -170px;
+  }
+  #searching{
+    margin-right: 70px;
   }
 }
 
@@ -290,12 +380,15 @@
     width: 80px;
   }
   #searchsearch{
-    width: 70px;
+    width: 80px;
     margin-left: 15px;
   }
   #texttext{
 
 width: 150px;
+  }
+  #searching{
+    margin-right: 70px;
   }
 }
 
@@ -377,6 +470,9 @@ margin-left: -10px;
   }
   .inputflighttext{
     width: 80px;
+  }
+  #searching{
+    margin-right: 70px;
   }
 }
 @media screen and (min-device-width: 681px) and (max-device-width: 767px) {
@@ -461,6 +557,9 @@ margin-left: -10px;
   .inputflighttext{
     width: 80px;
   }
+  #searching{
+    margin-right: 70px;
+  }
 }
 @media screen and (min-device-width: 501px) and (max-device-width: 599px) {
 .flightOption,.headerSearchItema{
@@ -529,7 +628,7 @@ margin-left: -8px;
  
   .flightComing{
     margin-left: -15px;
-    width: 125px;
+    width: 120px;
     border-left: 4px solid rgb(230, 165, 15);
   }
   #searchitem{
@@ -540,6 +639,9 @@ margin-left: -8px;
   }
 #headerIcon1{
   margin-right: -1px;
+}
+#searching{ 
+  margin-right: 70px;
 }
 }
 
@@ -564,7 +666,7 @@ margin-left: -8px;
     }
     .flightGoing {
       width: 113px;
-      margin-left: -15px;
+      margin-left: -5px;
     
     }
     #searchitem1{
@@ -592,11 +694,12 @@ margin-left: -8px;
     #searchsearch{
       width: 60px;
       font-size: 16px;
-      margin-left: 100px;
+      /* margin-left: 100px; */
+      /* margin-right: 50px; */
     }
     #searchitem {
       width: 100px;
-      font-size: 12px;
+      font-size: 10px;
     }
     .flightdest{
       margin-left: -170px;
@@ -623,9 +726,106 @@ margin-left: -8px;
   #headerIcon1{
     margin-right: -1px;
   }
+  #searching{
+    margin-right: 60px;
+  }
   }
 
-@media screen and (min-device-width: 300px) and (max-device-width: 449px) {
+  @media screen and (min-device-width: 400px) and (max-device-width: 449px) {
+      .flightOption,.headerSearchItema{
+        display: none;
+      }
+      #reverseicon{
+        display: none;
+      }
+      .desti1{
+        margin-left: -230px;
+      }
+      #reverseicon{
+        width: 18px;
+      }
+        .flightsearchbar {
+          width: 95%;
+        }
+        .mainHead,.mainPara {
+          margin-left: -95px;
+        }
+        .flightGoing {
+          width: 15px;
+          margin-left: -5px;
+          font-size: 10px;
+        
+        }
+        #headerIcon1,#comelogo,#gologo{
+          display: none;
+        }
+        #searchitem1{
+          display: flex;
+          align-items: center;
+          margin-left: 25px;
+          width: 100px;
+          /* padding-left: -10px; */
+        }
+        #texttext{
+          font-size: 13px;
+      margin-left: -8px;
+      /* width: 150px; */
+        }
+        .selectedDate1,.donebtnforDate1{
+          margin-left: -160px;
+        }
+        .headerSearchText1{
+          width: 60px;
+          margin-left: 10px;
+          padding-left: 10px;
+          display: flex;
+          flex-wrap: wrap;
+        }
+        #searchsearch{
+          width: 60px;
+          font-size: 16px;
+          margin-left: 100px;
+        }
+        #searchitem {
+          width: 100px;
+          font-size: 10px;
+        }
+        .flightdest{
+          margin-left: -170px;
+        }
+        #headerIcon1{
+          margin-left: -20px;
+        }
+        .headingflight {
+          margin-left: 120px;
+        }
+       
+        .flightComing{
+          margin-left: px;
+          width: 80px;
+          padding-left: -15px;
+          border-left: 4px solid rgb(230, 165, 15);
+        }
+        #searchitem{
+          margin-left: -10px;
+        }
+        .inputflighttext{
+          width: 60px;
+        }
+      #headerIcon1{
+        margin-right: -1px;
+      }
+      #searching{
+        margin-right: 70px;
+      }
+      #searchitem1{
+        margin-left: -50px;
+      } 
+  }
+    
+ 
+ 
+@media screen and (min-device-width: 320px) and (max-device-width: 399px) {
   .flightOption,.headerSearchItema{
     display: none;
   }
@@ -645,19 +845,23 @@ margin-left: -8px;
       margin-left: -95px;
     }
     .flightGoing {
-      width: 95px;
-      margin-left: -15px;
+      width: 50px;
+      margin-left: -8px;
+      font-size: 10px;
     
+    }
+    #headerIcon1,#comelogo,#gologo{
+      display: none;
     }
     #searchitem1{
       display: flex;
       align-items: center;
       margin-left: 25px;
-      width: 200px;
+      width: 100px;
       /* padding-left: -10px; */
     }
     #texttext{
-      font-size: 11px;
+      font-size: 10px;
   margin-left: -8px;
   /* width: 150px; */
     }
@@ -665,7 +869,7 @@ margin-left: -8px;
       margin-left: -160px;
     }
     .headerSearchText1{
-      width: 40px;
+      width: 60px;
       margin-left: 10px;
       padding-left: 10px;
       display: flex;
@@ -673,12 +877,12 @@ margin-left: -8px;
     }
     #searchsearch{
       width: 60px;
-      font-size: 16px;
+      font-size: 14px;
       margin-left: 100px;
     }
     #searchitem {
       width: 100px;
-      font-size: 12px;
+      font-size: 8px;
     }
     .flightdest{
       margin-left: -170px;
@@ -691,9 +895,10 @@ margin-left: -8px;
     }
    
     .flightComing{
+      margin-left: px;
+      width: 80px;
+      /* padding-left: -20px; */
       margin-left: -10px;
-      width: 105px;
-      padding-left: -25px;
       border-left: 4px solid rgb(230, 165, 15);
     }
     #searchitem{
@@ -704,5 +909,16 @@ margin-left: -8px;
     }
   #headerIcon1{
     margin-right: -1px;
+  }
+  #searching{
+    margin-right: 70px;
+  }
+  #searchitem1{
+    margin-left: -10px;
+
+  } 
+  .desti1{
+    margin-left: -350px;
+    width: 50px;
   }
   } 

@@ -168,7 +168,86 @@ z-index: 10000;
     font-size: 17px;
 }
 
-
+@media screen and (min-device-width: 1360px) and (max-device-width: 1400px){
+    .navItems{
+     display: flex;
+ 
+    } 
+    .headerList{
+     margin-left: 20px;
+    }
+    .imagebox1{
+        display: flex;
+        flex-wrap: wrap;
+     }
+     .imagebox2{
+         display: flex;
+         flex-wrap: wrap;
+      }
+    .trendingdest{
+        margin-left: -70px;
+    }
+    #idsearch{
+        padding-left: 20px;
+        width: 240px;
+        border-right: 4px solid rgb(230, 165, 15);
+        padding-right: 20px;
+    }
+    #idDate{
+        padding-right: 20px;
+        padding-left: 10px;
+        border-left: 4px solid rgb(230, 165, 15);
+    }
+    #idPeople{
+        width: 240px;
+        padding-right: 20px;
+        padding-left: 10px; 
+    }
+    #h1{
+      padding-left: 1px;
+    }
+    
+ }
+@media screen and (min-device-width: 1201px) and (max-device-width: 1360px){
+    .navItems{
+     display: flex;
+ 
+    } 
+    .headerList{
+     margin-left: 20px;
+    }
+    .imagebox1{
+        display: flex;
+        flex-wrap: wrap;
+     }
+     .imagebox2{
+         display: flex;
+         flex-wrap: wrap;
+      }
+    .trendingdest{
+        margin-left: -70px;
+    }
+    #idsearch{
+        padding-left: 20px;
+        width: 240px;
+        border-right: 4px solid rgb(230, 165, 15);
+        padding-right: 20px;
+    }
+    #idDate{
+        padding-right: 20px;
+        padding-left: 10px;
+        border-left: 4px solid rgb(230, 165, 15);
+    }
+    #idPeople{
+        width: 240px;
+        padding-right: 20px;
+        padding-left: 10px; 
+    }
+    #h1{
+      padding-left: 1px;
+    }
+    
+ }
 
 @media screen and (min-device-width: 991px) and (max-device-width: 1200px){
     .navItems{
@@ -259,7 +338,7 @@ z-index: 10000;
     margin-left: -10px;
 }
 .HeaderSearchInput{
-    margin-left: -10px;
+    margin-left: -12px;
 
 }
 #dates{
@@ -294,7 +373,7 @@ z-index: 10000;
     /* padding-right: 10px; */
 }
 #idDate{
-    padding-right: 20px;
+    padding-right: 5px;
     padding-left: 15px;
     border-left: 4px solid rgb(230, 165, 15);
 }

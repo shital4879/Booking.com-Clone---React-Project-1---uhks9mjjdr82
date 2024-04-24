@@ -391,7 +391,8 @@ const FlightHeader = () => {
             </div>
           </div>
         </div>
-        <d
+        
+        <div
           className="headerSearchItem1"
           id="searchitem1"
           onClick={() => setOpenBookingDate(true)}
@@ -427,9 +428,9 @@ const FlightHeader = () => {
               </button>
             </>
           )}
-        </d>
+        </div>
         <div className="flightsearchbuttonHero" id="searching">
-          <button className="headerBtn" onClick={handleFlight} id="searchsearch">
+          <button className="headBtn" onClick={handleFlight} id="searchsearch">
             Search
           </button>
           {/* onClick={findingHotel} */}

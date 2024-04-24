@@ -122,7 +122,7 @@ const Search = () => {
   return (
     <div>
       <div className="head1">
-        <div className="headerSearch">
+        <div className="headerSearch" id="headerSearch">
         <div className="searching">
           <div className="headerSearchItemA" style={{position: "relative"}} id="idsearch">
             {/* <FontAwesomeIcon icon={faBed} className="headerIcon" /> */}
