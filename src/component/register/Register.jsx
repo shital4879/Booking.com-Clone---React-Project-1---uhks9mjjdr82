@@ -219,7 +219,7 @@ const Register = () => {
         </button>
         {
             valid ? <></>:
-            <span className="text1">
+            <span className="text1" style={{marginTop:"12px"}}>
               {errors.correction}
             </span>
           }

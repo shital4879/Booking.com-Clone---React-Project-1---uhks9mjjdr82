@@ -216,8 +216,8 @@ const HotelInfo = () => {
                 <label className="infoLabel" style={{ marginBottom: "5px" }}>
                   2-night stay:
                 </label>
-                <span className="destinationlist">
-                  <div className="headerSearchItem">
+                <span className="destinationn">
+                  <div className="headerSearc">
                     <FontAwesomeIcon icon={faUser} className="headerIcon" />
                     <span
                       onClick={() => setBookingPersons(!bookingPersons)}
