@@ -17,6 +17,7 @@ import AirportTaxi from "../component/navbar/AirportTaxi";
 import { createContext, useState, } from "react";
 import Mytrip from "./abs";
 import History from "./History";
+import Paymentlastpage from "../component/paymentHotel/Paymentlastpage";
 
  export const MyContext = createContext();
 
@@ -47,6 +48,7 @@ function App() {
         <Route path="/CarRentel" element={<CarRentel/>}/>
         <Route path="/AirportTaxi" element={<AirportTaxi/>}/>
         <Route path="/history" element={<History/>}/>
+        <Route path="/paymentlastpage" element={<Paymentlastpage/>}/>
       </Routes>
       </MyContext.Provider>
       </BrowserRouter>

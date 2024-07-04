@@ -41,6 +41,7 @@ import {
   faMagnifyingGlass,
   faCalendarDays,
   faUser,
+  faLocationDot
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Nav from "../navbar/Nav";
@@ -48,6 +49,7 @@ import { MyContext } from "../../components/App";
 
 const HotelInfo = () => {
   const{todate,setTodate,setFormdate,formdate} = useContext(MyContext)
+  const[showerror,setShowerror] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
   const [totalguest, setTotalguest] = useState();
@@ -108,14 +110,21 @@ const HotelInfo = () => {
   };
 
   const hotelPaymentPage = (cost) => {
+    
     if (!localStorage.getItem("token")) {
-      navigate(`/Register?redirect=${encodeURI(`/paymentHotel`)}`, {
-        state: {
-          totalguest: totalguest,
-          inputval: inputval,
-          selectedDate: selectedDate,
-        },
-      });
+      if(inputval === 0 || inputval === ""){
+        setShowerror(true);
+      }
+      else{
+
+        navigate(`/Register?redirect=${encodeURI(`/paymentHotel`)}`, {
+          state: {
+            totalguest: totalguest,
+            inputval: inputval,
+            selectedDate: selectedDate,
+          },
+        });
+      }
     } else {
       navigate(`/paymentHotel/${cost}/`, {
         state: {
@@ -285,9 +294,22 @@ const HotelInfo = () => {
           </div>
 
           <div className="detail-overview" id="detail-overview">
-            <div className="detailImg" id="detailImg">
               {information &&
+                  <div style={{marginLeft:"8px"}}>
+                     <h1 >{information.name}</h1>
+                     <p><FontAwesomeIcon icon={faLocationDot} style={{fontSize:"20px",marginRight:"4px",color:"#0071c2"}} />
+                      {information.location}</p>
+                  </div>
+              
+              }
+            <div className="detailImg" id="detailImg">
+
+              {
+              information &&
                 information.images.map((item, key) => (
+
+                  <div>
+                   
                   <div className="img-img" style={{ height: "auto" }}>
                     <img
                       src={item}
@@ -296,6 +318,7 @@ const HotelInfo = () => {
                       style={{ height: "325px", width: "380px" }}
                     />
                   </div>
+                  </div>
                 ))}
             </div>
           </div>
@@ -303,6 +326,7 @@ const HotelInfo = () => {
 
         <div className="hotel-info" id="infoHotel">
           <div className="info-type">
+            <table>
             <div className="roomTypeHead">
               <div className="tablehead">Room type</div>
               <div className="room-type">
@@ -328,12 +352,15 @@ const HotelInfo = () => {
                               style={{ marginLeft: "7px" }}
                             />
                           </div>
+
                         </div>
+                        {/* <hr/> */}
                       </div>
                     );
                   })}
               </div>
             </div>
+            </table>
             <div className="pricefornight">
               <div className="tablehead">Price for 2 night</div>
               <div className="room-type">

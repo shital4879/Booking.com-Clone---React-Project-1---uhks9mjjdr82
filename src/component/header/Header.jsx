@@ -1,7 +1,6 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import "./header.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { ToastContainer, toast } from 'react-toastify';
 import {
   faBed,
   faPlane,
@@ -181,8 +180,7 @@ else{
       document.body.removeEventListener("click",handleclickoutside)}
   },[]);
 
-  const notifySuccess = () => toast.success('Item saved successfully');
-  const notifyError = () => toast.error('Error: Could not save item');
+ 
 
 
 
@@ -234,6 +232,7 @@ else{
                       zIndex: "1000",
                       boxShadow: "0px 0px 10px -2px rgba(0,0,0,0.4)",
                       padding: "10px",
+                      cursor:"pointer",
                     }}
                     ref={contentref}
                   >

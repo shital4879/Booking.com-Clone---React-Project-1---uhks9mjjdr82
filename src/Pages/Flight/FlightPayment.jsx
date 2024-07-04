@@ -89,7 +89,6 @@ const FlightPayment = () => {
     else if (cardNumber.length > 16) {
       isValid = true;
       validationError.cardNumber = "Valid 16-digit card number";
-    
     }
     if (cvc.length == 0) {
       isValid = true;

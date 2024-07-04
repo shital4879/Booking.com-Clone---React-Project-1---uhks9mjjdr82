@@ -223,6 +223,17 @@
   overflow: hidden;
   margin-bottom: 120px;
 }
+td{
+  border: 1px solid black;
+}
+/* .room-type{
+  border: 1px solid black;
+} */
+
+
+
+
+
 
 @media screen and (min-device-width: 992px) and (max-device-width: 1200px) {
   .listSearch {

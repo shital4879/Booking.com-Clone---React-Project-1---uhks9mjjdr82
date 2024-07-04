@@ -7,19 +7,19 @@ import {
   faBriefcase,
   faCreditCard,
   faL,
+  faCheck,
+  faMugSaucer,
 } from "@fortawesome/free-solid-svg-icons";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import SignOut from "../register/SignOut";
 import { MyContext } from "../../components/App";
 
-
-
 const PaymentHotel = () => {
-  const{todate,setTodate,setFormdate,formdate} = useContext(MyContext)
+  const { todate, setTodate, setFormdate, formdate } = useContext(MyContext);
   const navigat = useNavigate();
   const location = useLocation();
   const params = useParams();
-  
+
   console.log(params.cost);
   console.log(params.inputval);
   const inputval = location.state.inputval;
@@ -48,17 +48,18 @@ const PaymentHotel = () => {
       setCardNumber(inputNumber);
     }
   };
+  const [selectedDate, setSelectedDate] = useState(location.state.selectedDate);
+  console.log(selectedDate[0].endDate, "date");
   const [email, setEmail] = useState("");
   const [number, setNumber] = useState("");
   const [name, setName] = useState("");
+  const[lastname,setLastname] = useState("");
   const [exp, setExp] = useState("");
   const [error, setError] = useState({});
   const [valid, setvalid] = useState(false);
-  const [expiryDate, setExpiryDate] = useState('');
+  const [expiryDate, setExpiryDate] = useState("");
   const [isValid, setIsValid] = useState(true);
-  
-  
-  
+
   const handleSubmit = (e) => {
     let isValid = false;
     let validationError = {};
@@ -74,65 +75,45 @@ const PaymentHotel = () => {
     if (number.length == 0) {
       isValid = true;
       validationError.number = "number is required";
-    }
-    else if(number.length<10){
+    } else if (number.length < 10) {
       isValid = true;
       validationError.number = "10 digit number is required";
-    }
-    else if(number.length>10){
+    } else if (number.length > 10) {
       isValid = true;
       validationError.number = "10 digit number is required";
     }
     if (name.length == 0) {
       isValid = true;
-      validationError.name="name is required";
+      validationError.name = "name is required";
+    } else if (!/^[a-zA-Z ]+$/.test(name)) {
+      isValid = true;
+      validationError.name = " valid name is required";
     }
-    else if(!/^[a-zA-Z ]+$/.test(name)){
+    if (lastname.length == 0) {
       isValid = true;
-      validationError.name=" valid name is required";
-    }
-if(cardNumber.length == 0) {
+      validationError.lastname = "Lastname is required";
+    } else if (!/^[a-zA-Z ]+$/.test(lastname)) {
       isValid = true;
-      validationError.cardNumber = "number is required";
-    } else if (cardNumber.length < 16) {
-      isValid = true;
-      validationError.cardNumber = "Valid 16-digit card number";
-    }
-    else if (cardNumber.length > 16) {
-      isValid = true;
-      validationError.cardNumber = "Valid 16-digit card number";
-    }
-    else if (!/^[0-9]{16}$/.test(cardNumber)) {
-      isValid = true;
-      validationError.cardNumber= "CVC is required";
-    } 
-    if (cvc.length == 0) {
-      isValid = true;
-      validationError.cvc = "CVC is required";
-    } else if (!/^[0-9]{3}$/.test(cvc)) {
-      isValid = true;
-      validationError.cvc = "Valid 3 digit card number";
-    }
-    if (exp.length == "") {
-      isValid = true;
-      validationError.exp = "Expiry date is required";
-    } 
-    else if(/^\d{2}\/\d{2}$/.test(exp)) {
-      isValid = true;
-      validationError.exp = "Please enter a valid expiry date";
+      validationError.lastname = " valid Lastname is required";
     }
     setvalid(isValid);
     setError(validationError);
 
     if (!isValid) {
-      if(localStorage.getItem("hotelid")){
-        bookingConfirmation(localStorage.getItem("hotelid"),formdate,todate,localStorage.getItem("token"));
+      if (localStorage.getItem("hotelid")) {
+        bookingConfirmation(
+          localStorage.getItem("hotelid"),
+          formdate,
+          todate,
+          localStorage.getItem("token")
+        );
       }
-      setPopUpPay(!popUpPay);
-      // setAction("Booking successful!"), setStatus("Enjoy your journey");
-    setTimeout(() => {
-      navigat(`/`);
-    }, 3000);
+      navigat(`/paymentlastpage`);
+      // setPopUpPay(!popUpPay);
+      // // setAction("Booking successful!"), setStatus("Enjoy your journey");
+      // setTimeout(() => {
+      //   navigat(`/`);
+      // }, 3000);
     }
   };
 
@@ -153,14 +134,11 @@ if(cardNumber.length == 0) {
       navigat(`/`);
     }, 3000);
   };
-  // if(!isAuthenticated){
-  //   window.location.href = "/SignIn"
-  // }
-
-  const today = new Date().toISOString().split('T')[0];
+ 
+  const today = new Date().toISOString().split("T")[0];
 
   const bookingConfirmation = async (id, date, enddate, token) => {
-    console.log(id,date,enddate,token);
+    console.log(id, date, enddate, token);
     try {
       const resp = await fetch(
         "https://academics.newtonschool.co/api/v1/bookingportals/booking",
@@ -186,9 +164,8 @@ if(cardNumber.length == 0) {
       console.log("booking confirmation result: ", result);
     } catch (err) {
       console.log(err.message ? err.message : err);
-    }
-  };
-
+    }
+  };
 
   return (
     <div>
@@ -221,84 +198,248 @@ if(cardNumber.length == 0) {
         </div>
       </div>
       {!toggle && (
-        <form onSubmit={handleSubmit}>
-          <div style={{ margin: "30px 190px 50px 190px" }}>
-            <div className="paymentpage1">
-              <div className="hotelset1">
-                <h2 style={{ fontSize: "20px", marginBottom: "8px" }}>
-                  Contact details
-                </h2>
-                <h5 style={{ fontWeight: "400", marginBottom: "20px" }}>
-                  <span style={{ color: "red", marginRight: "5px" }}>*</span>
-                  Required
-                </h5>
-                <label style={{ fontSize: "15px",marginBottom:'2px'}}>
-                  Contact Email{" "}
-                  <span style={{ color: "red", marginRight: "5px" }}>*</span>
-                </label>
-                <br />
-
-                <input
-                  type="email"
-                  className="emailclass"
-                  onChange={(e) => {setEmail(e.target.value)
-                    setError(prev =>{
-                      return{...prev,email:""}
-                    })
-                  }}
-                  style={{
-                    height: "35px",
-                    width: "300px",
-                    marginBottom: "30px",
-                    marginTop: "8px",
-                    fontSize: "18px",
-                  }}
-                />
-                {valid ? (
-                  <div className="emailZone1">{error.email}</div>
-                ) : (
-                  <></>
-                )}
-
-                <br />
-                <label>
-                  Phone number{" "}
-                  <span style={{ color: "red", marginRight: "5px" }}>*</span>
-                </label>
-                <br />
-                <input
-                className="numclass"
-                  type="text"
-                  maxLength="10"
-                  // required
-                  value={number}
-                  style={{
-                    height: "35px",
-                    width: "300px",
-                    marginBottom: "30px",
-                    fontSize: "16px",
-                    paddingLeft: "10px",
-                  }}
-                  placeholder="+91"
-                  onChange={(e) => {setNumber(e.target.value)
-                    setError(prev =>{
-                      return{...prev,number:""}
-                    })
-                  
-                  }}
-                />
-                {valid ? (
-                  <div className="numberZone2">{error.number}</div>
-                ) : (
-                  <></>
-                )}
+        <div>
+          <div
+            className="paymentline"
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              marginTop: "20px",
+            }}
+          >
+            <FontAwesomeIcon icon={faCheck} className="circlefornum" />
+            <p style={{ marginRight: "10px" }}>Your selection</p>
+            <div className="line"></div>
+            <div className="circlefornum">2</div>
+            <p style={{ marginRight: "10px" }}>Your details</p>
+            <div className="line"></div>
+            <div className="circlefornum1">3</div>
+            <p>Final step</p>
+          </div>
+          <div style={{ display: "flex" }} className="maincontent">
+            <div style={{ width: "40%" }}>
+              <h3>Your booking details</h3>
+            </div>
+            <div>
+              <div className="content2">
+                <form>
+                  <h2 style={{ marginBottom: "10px" }}>Enter your details</h2>
+                  <div>
+                    <label className="labelforname">First name *</label>
+                    <br />
+                    <input
+                      type="text"
+                      name="name"
+                      // id="cardhold"
+                      value={name}
+                      className="inputdataofname"
+                      onChange={(e) => {
+                        setName(e.target.value);
+                        setError((prev) => {
+                          return { ...prev, name: "" };
+                        });
+                      }}
+                      onInput={(e) => {
+                        e.target.value = e.target.value.replace(/[0-9]/g, "");
+                      }}
+                    />
+                    {valid ? (
+                      <div className="nameZone">{error.name}</div>
+                    ) : (
+                      <></>
+                    )}
+                  </div>
+                  <div>
+                    <label className="labelforname">Last name *</label>
+                    <br />
+                    <input
+                      type="text"
+                      name="name"
+                      // id="cardhold"
+                      value={lastname}
+                      className="inputdataofname"
+                      onChange={(e) => {
+                        setLastname(e.target.value);
+                        setError((prev) => {
+                          return { ...prev, lastname: "" };
+                        });
+                      }}
+                      onInput={(e) => {
+                        e.target.value = e.target.value.replace(/[0-9]/g, "");
+                      }}
+                    />
+                    {valid ? (
+                      <div className="nameZone">{error.lastname}</div>
+                    ) : (
+                      <></>
+                    )}
+                  </div>
+                  <div>
+                    <label className="labelforname">Email address *</label>
+                    <br />
+                    <input
+                      type="email"
+                      className="inputdataofname"
+                      onChange={(e) => {
+                        setEmail(e.target.value);
+                        setError((prev) => {
+                          return { ...prev, email: "" };
+                        });
+                      }}
+                    />
+                    {valid ? (
+                      <div className="emailZone1">{error.email}</div>
+                    ) : (
+                      <></>
+                    )}
+                  </div>
+                  <div>
+                    <label className="labelforname">Phone number *</label>
+                    <br />
+                    <input
+                      className="inputdataofname"
+                      type="text"
+                      maxLength="10"
+                      // required
+                      value={number}
+                      placeholder="+91"
+                      onChange={(e) => {
+                        setNumber(e.target.value);
+                        setError((prev) => {
+                          return { ...prev, number: "" };
+                        });
+                      }}
+                      onInput={(e) => {
+                        e.target.value = e.target.value.replace(/[^0-9]/g, '');
+                      }}
+                    />
+                    {valid ? (
+                      <div className="numberZone2">{error.number}</div>
+                    ) : (
+                      <></>
+                    )}
+                  </div>
+                </form>
               </div>
-              <div className="hotelset2" >
-                <div style={{ display: "flex"}}>
-                  <h2 style={{marginRight:"160px"}}>Total{hotelPrice}</h2>
-                  <h2 style={{marginLeft:"-5px"}}>INR {inputval*params.cost}</h2>
+
+              <div className="content3">
+                <h2 className="" style={{ marginBottom: "5px" }}>
+                  Your arrival time
+                </h2>
+                <div className="" style={{ display: "flex", width: "100%" }}>
+                  <FontAwesomeIcon
+                    icon={faCheck}
+                    style={{ margin: "8px 10px 20px 0" }}
+                  />
+                  <p>Your room will be ready for check-in at 15:00</p>
                 </div>
-                {/* <h5
+                <div style={{ display: "flex", width: "100%" ,marginTop:"-10px" }}>
+                  <FontAwesomeIcon
+                    icon={faMugSaucer}
+                    style={{ margin: "8 10px 20px 0" }}
+                  />
+                  <p>24-hour front desk – Help whenever you need it!</p>
+                </div>
+              </div>
+
+              <div className="content3">
+                <h2 className="" style={{ marginBottom: "5px" }}>
+                  Cots and extra beds
+                </h2>
+                <ul>
+                  <li>Requests are subject to availability</li>
+                  <li>Requests must be confirmed by the property</li>
+                  <li>Requests not labelled 'Free' may incur extra charges</li>
+                </ul>
+              </div>
+
+              <button className="step2" onClick={handleSubmit}>
+                Next: Final details
+              </button>
+            </div>
+          </div>
+
+          <form >
+            <div style={{ margin: "30px 190px 50px 190px" }}>
+              <div className="paymentpage1">
+                <div className="hotelset1">
+                  <h2 style={{ fontSize: "20px", marginBottom: "8px" }}>
+                    Contact details
+                  </h2>
+                  <h5 style={{ fontWeight: "400", marginBottom: "20px" }}>
+                    <span style={{ color: "red", marginRight: "5px" }}>*</span>
+                    Required
+                  </h5>
+                  <label style={{ fontSize: "15px", marginBottom: "2px" }}>
+                    Contact Email{" "}
+                    <span style={{ color: "red", marginRight: "5px" }}>*</span>
+                  </label>
+                  <br />
+
+                  <input
+                    type="email"
+                    className="emailclass"
+                    onChange={(e) => {
+                      setEmail(e.target.value);
+                      setError((prev) => {
+                        return { ...prev, email: "" };
+                      });
+                    }}
+                    style={{
+                      height: "35px",
+                      width: "300px",
+                      marginBottom: "30px",
+                      marginTop: "8px",
+                      fontSize: "18px",
+                    }}
+                  />
+                  {valid ? (
+                    <div className="emailZone1">{error.email}</div>
+                  ) : (
+                    <></>
+                  )}
+
+                  <br />
+                  <label>
+                    Phone number{" "}
+                    <span style={{ color: "red", marginRight: "5px" }}>*</span>
+                  </label>
+                  <br />
+                  <input
+                    className="numclass"
+                    type="text"
+                    maxLength="10"
+                    // required
+                    value={number}
+                    style={{
+                      height: "35px",
+                      width: "300px",
+                      marginBottom: "30px",
+                      fontSize: "16px",
+                      paddingLeft: "10px",
+                    }}
+                    placeholder="+91"
+                    onChange={(e) => {
+                      setNumber(e.target.value);
+                      setError((prev) => {
+                        return { ...prev, number: "" };
+                      });
+                    }}
+                  />
+                  {valid ? (
+                    <div className="numberZone2">{error.number}</div>
+                  ) : (
+                    <></>
+                  )}
+                </div>
+                <div className="hotelset2">
+                  <div style={{ display: "flex" }}>
+                    <h2 style={{ marginRight: "160px" }}>Total{hotelPrice}</h2>
+                    <h2 style={{ marginLeft: "-5px" }}>
+                      INR {inputval * params.cost}
+                    </h2>
+                  </div>
+                  {/* <h5
                   style={{
                     fontSize: "15px",
                     fontWeight: "400",
@@ -309,168 +450,191 @@ if(cardNumber.length == 0) {
                 </h5>
                 <h2 style={{ marginTop: "40px", }}>Total</h2>
                 <span>INR{params.cost}</span> */}
-                <p style={{ marginBottom: "15px",marginRight:"180px", margin:"15px 10px 10px 0px"}}>
-                  Includes taxes and charges
-                </p>
-                <p>No hidden fees - track your price at every step</p>
-              </div>
-            </div>
-            <div className="paymentMethodHotel">
-              <div className="flightPay">
-                <h2 style={{ fontSize: "20px", fontWeight: "700" }}>
-                  Your payment
-                </h2>
-                <p
-                  style={{
-                    fontSize: "16px",
-                    fontWeight: "400",
-                    margin: "10px 0px 20px ",
-                    color: "gray",
-                  }}
-                >
-                  Simple, safe and secure.
-                </p>
-                <h3 style={{ fontWeight: "500", marginBottom: "5px" }}>
-                  How would you like to pay?
-                </h3>
-                <div className="pay-img">
-                  <img
-                    src="https://t-ec.bstatic.com/static/img/payments/payment_icons_redesign/visa.svg"
-                    className="payImg"
-                  />
-                  <img
-                    src="https://t-ec.bstatic.com/static/img/payments/payment_icons_redesign/jcb.svg"
-                    className="payImg"
-                  />
-                  <img
-                    src="https://t-ec.bstatic.com/static/img/payments/payment_icons_redesign/discover.svg"
-                    className="payImg"
-                  />
-                  <img
-                    src="https://t-ec.bstatic.com/static/img/payments/payment_icons_redesign/mc.svg"
-                    className="payImg"
-                  />
-                </div>
-                <div>
-                  <label className="labeldata">
-                    Cardholder's Name <span style={{ color: "red" }}>*</span>
-                  </label>
-                  <br />
-                  <input
-                    type="text"
-                    name="name"
-                    id="cardhold"
-                    value={name}
-                    className="inputdata"
-                    onChange={(e) => {
-                      setName(e.target.value);
-                      setError(prev =>{
-                        return{...prev,name:""}
-                      })
+                  <p
+                    style={{
+                      marginBottom: "15px",
+                      marginRight: "180px",
+                      margin: "15px 10px 10px 0px",
                     }}
-                    onInput={(e)=>{e.target.value = e.target.value.replace(/[0-9]/g, '')}}
-                    style={{ marginBottom: "30px",marginTop:"10px",paddingLeft:"5px" }}
-                  />
-                  {valid ? (
-                    <div className="nameZone">{error.name}</div>
-                  ) : (
-                    <></>
-                  )}
-                  <br />
-
-                  <label className="labeldata">
-                    Card Number <span style={{ color: "red" }}>*</span>
-                  </label>
-                  <br />
-                  <div className="carddetail">
-                    <FontAwesomeIcon icon={faCreditCard} />
+                  >
+                    Includes taxes and charges
+                  </p>
+                  <p>No hidden fees - track your price at every step</p>
+                </div>
+              </div>
+              <div className="paymentMethodHotel">
+                <div className="flightPay">
+                  <h2 style={{ fontSize: "20px", fontWeight: "700" }}>
+                    Your payment
+                  </h2>
+                  <p
+                    style={{
+                      fontSize: "16px",
+                      fontWeight: "400",
+                      margin: "10px 0px 20px ",
+                      color: "gray",
+                    }}
+                  >
+                    Simple, safe and secure.
+                  </p>
+                  <h3 style={{ fontWeight: "500", marginBottom: "5px" }}>
+                    How would you like to pay?
+                  </h3>
+                  <div className="pay-img">
+                    <img
+                      src="https://t-ec.bstatic.com/static/img/payments/payment_icons_redesign/visa.svg"
+                      className="payImg"
+                    />
+                    <img
+                      src="https://t-ec.bstatic.com/static/img/payments/payment_icons_redesign/jcb.svg"
+                      className="payImg"
+                    />
+                    <img
+                      src="https://t-ec.bstatic.com/static/img/payments/payment_icons_redesign/discover.svg"
+                      className="payImg"
+                    />
+                    <img
+                      src="https://t-ec.bstatic.com/static/img/payments/payment_icons_redesign/mc.svg"
+                      className="payImg"
+                    />
+                  </div>
+                  <div>
+                    <label className="labeldata">
+                      Cardholder's Name <span style={{ color: "red" }}>*</span>
+                    </label>
+                    <br />
                     <input
                       type="text"
-                      onInput={(e)=>{e.target.value = e.target.value.replace(/[a-z]/g , "")}}
                       name="name"
-                      style={{ border: "none", outline: "none" }}
-                      maxLength="16"
-                                            value={cardNumber}
+                      id="cardhold"
+                      value={name}
+                      className="inputdata"
                       onChange={(e) => {
-                        setCardNumber(e.target.value)
-                        setError(prev =>{
-                          return{...prev,cardNumber:""}
-                        })
+                        setName(e.target.value);
+                        setError((prev) => {
+                          return { ...prev, name: "" };
+                        });
                       }}
-                    /></div>
+                      onInput={(e) => {
+                        e.target.value = e.target.value.replace(/[0-9]/g, "");
+                      }}
+                      style={{
+                        marginBottom: "30px",
+                        marginTop: "10px",
+                        paddingLeft: "5px",
+                      }}
+                    />
+                    {valid ? (
+                      <div className="nameZone">{error.name}</div>
+                    ) : (
+                      <></>
+                    )}
+                    <br />
+
+                    <label className="labeldata">
+                      Card Number <span style={{ color: "red" }}>*</span>
+                    </label>
+                    <br />
+                    <div className="carddetail">
+                      <FontAwesomeIcon icon={faCreditCard} />
+                      <input
+                        type="text"
+                        onInput={(e) => {
+                          e.target.value = e.target.value.replace(/[a-z]/g, "");
+                        }}
+                        name="name"
+                        style={{ border: "none", outline: "none" }}
+                        maxLength="16"
+                        value={cardNumber}
+                        onChange={(e) => {
+                          setCardNumber(e.target.value);
+                          setError((prev) => {
+                            return { ...prev, cardNumber: "" };
+                          });
+                        }}
+                      />
+                    </div>
                     <br />
                     {valid ? (
                       <div className="cardZone">{error.cardNumber}</div>
                     ) : (
                       <></>
                     )}
-                  
+                  </div>
+                  <div>
+                    <div>
+                      <label className="labelexp">
+                        Expiry Date{" "}
+                        <span style={{ color: "red", marginRight: "160px" }}>
+                          *
+                        </span>
+                      </label>
+                      <br />
+                      <input
+                        type="date"
+                        placeholder="MM/YY"
+                        className="expinput"
+                        id="expdata1"
+                        min={today}
+                        value={exp}
+                        onChange={(e) => {
+                          setExp(e.target.value);
+
+                          setError((prev) => {
+                            return { ...prev, exp: "" };
+                          });
+                        }}
+                      />
+                      <br />
+                      {valid ? (
+                        <span className="expZone">{error.exp}</span>
+                      ) : (
+                        <></>
+                      )}
+                    </div>
+                    <div style={{ marginTop: "20px" }}>
+                      <label>
+                        CVC <span style={{ color: "red" }}>*</span>
+                      </label>
+                      <br />
+                      <input
+                        type="text"
+                        className="expinput"
+                        // maxLength={4}
+                        onInput={(e) => {
+                          e.target.value = e.target.value.replace(/[a-z]/g, "");
+                        }}
+                        maxLength="3"
+                        value={cvc}
+                        id="cvcdata"
+                        onChange={(e) => {
+                          setCvc(e.target.value);
+                          setError((prev) => {
+                            return { ...prev, cvc: "" };
+                          });
+                        }}
+                      />
+                      <br />
+                      {valid ? (
+                        <span className="cvcZone">{error.cvc}</span>
+                      ) : (
+                        <></>
+                      )}
+                    </div>
+                  </div>
                 </div>
-                <div>
-                <div>
-                <label className="labelexp">
-                    Expiry Date{" "}
-                    <span style={{ color: "red", marginRight: "160px",}}>
-                      *
-                    </span>
-                  </label>
-                  <br/>
-                  <input
-                    type="date"
-                    placeholder="MM/YY"
-                    className="expinput"
-                    id="expdata1"
-                    min={today}
-                    value={exp}
-                    onChange={(e) => {
-                      setExp(e.target.value)
-                    
-                    setError(prev =>{
-                      return{...prev,exp:""}
-                    })
-                    }}
-                  />
-                  <br/>
-                    {valid ? <span className="expZone">{error.exp}</span> : <></>}
-                </div>
-                <div style={{marginTop:"20px"}}>
- 
-                <label >
-                    CVC <span style={{ color: "red" }}>*</span>
-                  </label>
-                  <br/>
-                  <input
-                    type="text"
-                    className="expinput"
-                    // maxLength={4}
-                    onInput={(e)=>{e.target.value = e.target.value.replace(/[a-z]/g, '')}}
-                    maxLength="3"
-                    value={cvc}
-                    id="cvcdata"
-                    onChange={(e) => {
-                      setCvc(e.target.value)
-                      setError(prev =>{
-                        return{...prev,cvc:""}
-                      })
-                    
-                    }}
-                  />
-                  <br/>
-                  {valid ? <span className="cvcZone">{error.cvc}</span> : <></>}
-                </div>
-                </div>    
               </div>
+              <button
+                className="backBtn"
+                id="btnpay"
+                style={{ marginLeft: "550px" }}
+                // onClick={handlepaybtn}
+              >
+                Pay Now
+              </button>
             </div>
-            <button
-              className="backBtn"
-              id="btnpay"
-              style={{marginLeft:"550px"}}
-              // onClick={handlepaybtn}
-            >
-              Pay Now
-            </button>
-          </div>
-        </form>
+          </form>
+        </div>
       )}
       {popUpPay && (
         <div className="flightinfo">
@@ -486,16 +650,21 @@ if(cardNumber.length == 0) {
           >
             {/* <p style={{ marginTop: "75px", fontSize: "18px" }}>{action}</p> */}
             <div>
-             <p style={{ marginTop: "75px", fontSize: "30px" ,fontWeight:"700", color:"green" }}>
+              <p
+                style={{
+                  marginTop: "75px",
+                  fontSize: "30px",
+                  fontWeight: "700",
+                  color: "green",
+                }}
+              >
+                Booking successful!
+              </p>
 
-              Booking successful!
-             </p>
-   
-            <p style={{ marginTop: "20px", fontSize: "20px"}}>
-              {"Enjoy your journey"}
-
-            </p>
-            <p style={{ fontSize:"60px"}}>👍</p>
+              <p style={{ marginTop: "20px", fontSize: "20px" }}>
+                {"Enjoy your journey"}
+              </p>
+              <p style={{ fontSize: "60px" }}>👍</p>
               {/* <p style={{ marginTop: "10px", fontSize: "16px" }}>{status}</p> */}
             </div>
           </div>

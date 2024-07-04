@@ -2,19 +2,20 @@
     height: 50px;
     background-color: #003580;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
 }
 .navContainer{
     color: #fff;
-    width: 80%;
+    /* width: 80%; */
     display: flex;
     align-items: center;
     margin-top: 5px;
-    justify-content: space-around;
+    margin: 0 180px 0 190px;
 }
 .logo{
     font-size: 22px;
     font-weight: 500;
+    width: 800px;
     /* margin-left: 100px; */
 }
 .navButton{

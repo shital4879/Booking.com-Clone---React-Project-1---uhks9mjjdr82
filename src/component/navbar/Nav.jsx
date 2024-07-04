@@ -43,6 +43,7 @@ const Nav = () => {
                   width: "30px",
                   borderRadius: "10%",
                   marginTop: "-4px",
+                  marginLeft:"20px"
                 }}
               />
             </button>
@@ -68,7 +69,7 @@ const Nav = () => {
             )}
             {localStorage.getItem("token") && (
               <div>
-                <div style={{ width: "180px", display: "flex" }}></div>
+                <div style={{ width: "180px", display: "flex" ,marginLeft:"10px" }}></div>
                 <div
                   className="profile"
                   style={{ marginLeft: "50px" }}
