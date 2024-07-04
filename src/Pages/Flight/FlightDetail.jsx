@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useContext, useEffect, useMemo, useState } from "react";
 import FlightSearch from "./FlightSearch";
 import { AIRPORT } from "../../utils";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
@@ -12,8 +12,10 @@ import {
   faArrowDown,
 } from "@fortawesome/free-solid-svg-icons";
 import { format } from "date-fns";
+import { MyContext } from "../../components/App";
 
 const FlightDetail = () => {
+  const{setfendate,fstartdate,setfstartdate,fenddate} = useContext(MyContext);
     const location = useLocation();
     const navigation = useNavigate();
     const selectedDate = location.state.selectedDate;
@@ -122,6 +124,12 @@ const FlightDetail = () => {
   };
 }
 
+useEffect(()=>{
+  setfstartdate(selectedDate[0].startDate)
+  setfendate(selectedDate[0].endDate)
+  localStorage.setItem("flightid",params.id);
+ },[])
+console.log(fstartdate,"start");
 
 
   return (
@@ -256,7 +264,7 @@ const FlightDetail = () => {
               <button
                 className="flightSelectbtn"
                 onClick={() => {
-                  flightConfirmation(data.ticketPrice);
+                  flightConfirmation(data.ticketPrice)
                 }}
               >
                 SELECT
@@ -271,155 +279,4 @@ const FlightDetail = () => {
 };
 
 export default FlightDetail;
-//
-// {infoPopUp && (
-//     <FlightInfo
-//       trigger={infoPopUp}
-//       setTrigger={setInfoPopUp}
-//     >
-//       <div className="mainContent">
-//         <div className="name-1">
-//           Flight to {destination}
-//         </div>
-//         <div className="main-duration">
-//           direct - {item.duration}hour
-//         </div>
-//         <div className="detailing">
-//           <div className="fly-box1">
-//             <div className="flyfly">
-//               <FontAwesomeIcon
-//                 icon={faCircle}
-//                 style={{ marginTop: "10px" }}
-//               />
-//               <div className="flightGoingDetail">
-//                 <span>
-//                   {" "}
-//                   {format(
-//                     selectedDate[0].startDate,
-//                     "dd/MM"
-//                   )}{" "}
-//                   - {item.arrivalTime}
-//                 </span>
-//                 <h5>{item.source}</h5>
-//               </div>
-//             </div>
-//             <br />
-//             <FontAwesomeIcon icon={faArrowDown} />
-
-//             <br />
-//             <div className="flyfly">
-//               <FontAwesomeIcon icon={faCircle} />
-//               <div className="flightGoingDetail">
-//                 <span>
-//                   {" "}
-//                   {format(
-//                     selectedDate[0].startDate,
-//                     "dd/MM"
-//                   )}{" "}
-//                   - {item.arrivalTime}
-//                 </span>
-//                 <h5>{item.destination}</h5>
-//               </div>
-//             </div>
-//           </div>
-//           <div className="fly-box2">
-//             <img
-//               src={
-//                 getAirlineInfo(item.flightID.slice(0, 2))
-//                   .logoSrc
-//               }
-//               className="airline-logo"
-//               style={{ height: "40px", width: "40px" }}
-//             />
-//             <div>
-//               <h5
-//                 style={{
-//                   fontSize: "12px",
-//                   fontWeight: "400",
-//                 }}
-//               >
-//                 {
-//                   getAirlineInfo(
-//                     item.flightID.slice(0, 2)
-//                   ).airlineName
-//                 }
-//               </h5>
-//               {/* <br/> */}
-//               <h5
-//                 style={{
-//                   fontSize: "12px",
-//                   fontWeight: "400",
-//                 }}
-//               >
-//                 Flight time {item.duration}
-//               </h5>
-//             </div>
-//           </div>
-//         </div>
-//       </div>
-
-//       <div
-//         className="baggage-detail"
-//         style={{ paddingTop: "15px" }}
-//       >
-//         <div className="baggage-1">
-//           <h2 style={{ fontSize: "16px" }}>
-//             Included baggage
-//           </h2>
-//           <span style={{ fontSize: "14px" }}>
-//             The total baggage included in the price
-//           </span>
-//         </div>
-//         <div
-//           className="baggage-2"
-//           onClick={() => {
-//             setInfoPopUp(true);
-//           }}
-//         >
-//           <div className="first-Item">
-//             <FontAwesomeIcon icon={faSuitcaseRolling} />
-//             <span
-//               style={{
-//                 fontSize: "14px",
-//                 fontWeight: "400",
-//                 marginLeft: "15px",
-//               }}
-//             >
-//               1 personal item
-//               <br />
-//               Fits under the seat in front of you
-//             </span>
-//           </div>
-//           <div className="second-Item">
-//             <FontAwesomeIcon icon={faBriefcase} />
-//             <span
-//               style={{
-//                 fontSize: "14px",
-//                 fontWeight: "400",
-//                 marginLeft: "15px",
-//               }}
-//             >
-//               1 cabin bag
-//               <br />
-//               25 x 35 x 55 cm · Max weight 7 kg
-//             </span>
-//           </div>
-//         </div>
-//       </div>
-//       <div className="total-price">
-//         <div className="price-Detail">
-//           <h2>INR{item.ticketPrice}</h2>
-//           <span>Total price for all travellers</span>
-//         </div>
-//         <button
-//           className="flightSelectbtn"
-//           onClick={() => {
-//             flightConfirmation(item._id);
-//           }}
-//         >
-//           SELECT
-//         </button>
-//       </div>
-//     </FlightInfo>
-//   )}
 //

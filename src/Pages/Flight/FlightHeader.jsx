@@ -70,7 +70,6 @@ const FlightHeader = () => {
     handleOption("children", "i");
     setChildage(!childage);
   };
-  //  console.log("date",dayjs(selectedDate).format("ddd"));
 
   const flightSearch = useMemo(async () => {
     try {
@@ -136,15 +135,6 @@ const FlightHeader = () => {
     });
   };
 
-  //  const flightse=()=>{
-  //   flightSearch().then((responce)=>{
-  //     console.log("success",responce.data);
-  //     // handleFlight(responce)
-  //   }).catch((error)=>{
-  //     console.log("error",error);
-  //   })
-  // }
-  //  console.log("dest",destination);
   return (
     <div>
       <div className="headingflight">
@@ -154,17 +144,12 @@ const FlightHeader = () => {
       <div className="flight-class">
         <select
           className="flightOption"
-          // onClick={() => {
-          //   bookingPeople ? setBookingPeople(!bookingPeople) : "";
-          // }}
         >
           <option>Economy</option>
           <option>Premium Economy</option>
           <option>Business</option>
           <option>First Class</option>
         </select>
-
-        {/* <span>adult</span> */}
         <div className="headerSearchItema">
           <span
             onClick={() => setBookingPeople(!bookingPeople)}

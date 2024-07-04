@@ -1,10 +1,5 @@
 import { Routes, Route, BrowserRouter } from "react-router-dom";
 import "../styles/App.css";
-
-// import { faBed, faPlane } from "@fortawesome/free-solid-svg-icons";
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import { faEnvelope } from '@fortawesome/free-solid-svg-icons'
-// import Home from "../home/Home";
 import Flight from "../Pages/Flight/Flight";
 import Home from "../Pages/home/Home";
 import HotelSearch from "../Pages/hotelSearchlist/HotelSearch";
@@ -19,14 +14,23 @@ import FlightDetail from "../Pages/Flight/FlightDetail";
 import { Authprovider } from "./Context";
 import CarRentel from "../component/navbar/CarRentel";
 import AirportTaxi from "../component/navbar/AirportTaxi";
-// import HotelInfo from "../Pages/Info/HotelInfo"
+import { createContext, useState, } from "react";
+import Mytrip from "./abs";
+import History from "./History";
 
+ export const MyContext = createContext();
 
 function App() {
+  const[formdate,setFormdate] = useState()
+  const [todate,setTodate] = useState();
+  const [fstartdate,setfstartdate] = useState();
+  const [fenddate,setfendate] = useState();
+
   return (
     <>
    <Authprovider>
       <BrowserRouter>
+      <MyContext.Provider value={{todate,setTodate,setFormdate,formdate,setfendate,fstartdate,setfstartdate,fenddate}}>
       <Routes>
         <Route path="/" element={<Home/>}/>
         <Route path="/hotel/:results" element={<HotelSearch/>}/>
@@ -42,7 +46,9 @@ function App() {
         <Route path="/SignIn" element={<SignIn/>}/>
         <Route path="/CarRentel" element={<CarRentel/>}/>
         <Route path="/AirportTaxi" element={<AirportTaxi/>}/>
+        <Route path="/history" element={<History/>}/>
       </Routes>
+      </MyContext.Provider>
       </BrowserRouter>
     </Authprovider>
       </>

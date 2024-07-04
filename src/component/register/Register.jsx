@@ -175,8 +175,6 @@ const Register = () => {
           type="email"
           name="email"
           className="signEmail"
-          // value={email}
-          // onChange={(e) => setEmail(e.target.value)}
           placeholder="Enter email address"
           onChange={(e)=>{setRegisterData({...registerData, email:(e.target.value)})
           setErrors(prev =>{
@@ -198,8 +196,6 @@ const Register = () => {
           name="password"
           className="signpass"
           placeholder="Enter Password"
-          // value={password}
-          // onChange={(e) => setPassword(e.target.value)}
           onChange={(e)=>{setRegisterData({...registerData, password:(e.target.value)})
           setErrors(prev =>{
             return {...prev,password:""}

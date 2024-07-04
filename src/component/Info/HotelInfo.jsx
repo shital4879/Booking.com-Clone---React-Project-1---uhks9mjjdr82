@@ -43,17 +43,13 @@ import {
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import PaymentHotel from "../paymentHotel/PaymentHotel";
-import HotelRoom from "./HotelRoom";
-
-import Context from "../../components/Context";
 import Nav from "../navbar/Nav";
+import { MyContext } from "../../components/App";
 
 const HotelInfo = () => {
-  // const{isLogIn,LogIn,LogOut} = useContext(Context);
+  const{todate,setTodate,setFormdate,formdate} = useContext(MyContext)
   const navigate = useNavigate();
   const location = useLocation();
-  // const data = location.state;
   const [totalguest, setTotalguest] = useState();
   const [hotelPrice, setHotelPrice] = useState();
   const [inputval, setinputval] = useState();
@@ -64,23 +60,12 @@ const HotelInfo = () => {
   const [selectedDate, setSelectedDate] = useState(location.state.selectedDate);
   const [selectedId, setselectedId] = useState(location.state.selectedId);
   const [fetchData, setFetchData] = useState();
-  // console.log("date", selectedDate);
-  // console.log("destination", destination);
-  // console.log("hotel",hotelPrice);
   const params = useParams();
   console.log(params.id);
   const [information, setInformation] = useState();
-  // const [visibleImages, setVisibleImages] = useState(
-  //   data.data.hotels.slice(0, 6)
-  // );
-  console.log("ae", location.state.selectedId);
-  // const [hiddenImages, setHiddenImages] = useState(data.data.hotels.slice(6));
 
-  // const showMoreImages = () => {
-  //   const nextBatch = hiddenImages.slice(0, 6);
-  //   setVisibleImages((prevVisible) => [...prevVisible, ...nextBatch]);
-  //   setHiddenImages((prevHidden) => prevHidden.slice(6));
-  // };
+  console.log("ae", location.state.selectedId);
+
   const grid = {
     gridColumnStart: "2",
     gridColumnEnd: "5",
@@ -126,30 +111,32 @@ const HotelInfo = () => {
     if (!localStorage.getItem("token")) {
       navigate(`/Register?redirect=${encodeURI(`/paymentHotel`)}`, {
         state: {
-          // data:data,
           totalguest: totalguest,
           inputval: inputval,
+          selectedDate: selectedDate,
         },
       });
     } else {
-      // const hotelPaymentPage = (cost) => {
-      // console.log("cost",cost);
-      // console.log("guest",inputval)
-      navigate(`/paymentHotel/${cost}`, {
+      navigate(`/paymentHotel/${cost}/`, {
         state: {
-          // data:data,
           totalguest: totalguest,
           inputval: inputval,
+          selectedDate: selectedDate,
         },
       });
     }
   };
-  // }
+  
+  useEffect(()=>{
+   setFormdate(selectedDate[0].startDate)
+   setTodate(selectedDate[0].endDate)
+   localStorage.setItem("hotelid",params.id);
+  },[])
+
+
 
   return (
     <div>
-      {/* {
-        isLogIn ? ( */}
       <div>
         <Nav />
         <div className="maindiv">
@@ -186,7 +173,6 @@ const HotelInfo = () => {
                     style={{ color: "rgb(90, 88, 88)" }}
                   />
                   <div
-                    // className="headerSearchItem"
                     className="searchinput1"
                     id="searchitem"
                     onClick={() => setOpenBookingDate(!openbookingDate)}
@@ -299,11 +285,6 @@ const HotelInfo = () => {
           </div>
 
           <div className="detail-overview" id="detail-overview">
-            {/* <div className="nav-overview">
-            <a to="#detailImg">Overview</a>
-            <a to="#infoHotel" className="facilities">Facilities</a>
-            <div className="amenities">Amenities</div>
-          </div> */}
             <div className="detailImg" id="detailImg">
               {information &&
                 information.images.map((item, key) => (
@@ -412,8 +393,6 @@ const HotelInfo = () => {
               <div className="room-type">
                 {information &&
                   information.rooms.slice(0, 6).map((item) => (
-                    // <HotelRoom information={information} totalguest={totalguest}
-                    // setTotalguest={setTotalguest}/>
                     <div
                       style={{
                         height: "130px",
@@ -450,7 +429,8 @@ const HotelInfo = () => {
                       onClick={() => {
                         hotelPaymentPage(
                           information.rooms[key].costPerNight,
-                          totalguest
+                          totalguest,
+                          
                         );
                       }}
                     >
@@ -459,11 +439,7 @@ const HotelInfo = () => {
                     <br />
                   </>
                 ))}
-              {/* <div>
-            persons{
-              totalguest
-            }
-           </div> */}
+
             </div>
           </div>
         </div>

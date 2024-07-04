@@ -165,24 +165,7 @@ const FlightConfirm = () => {
                 >
                   INR{(params.fid)}
                 </h5>
-                {/* <h5
-                  style={{
-                    fontSize: "15px",
-                    fontWeight: "400",
-                    marginBottom: "8px",
-                  }}
-                >
-                  INR
-                </h5> */}
-                {/* <h5
-                  style={{
-                    fontSize: "15px",
-                    fontWeight: "400",
-                    marginBottom: "8px",
-                  }}
-                >
-                  INR
-                </h5> */}
+          
                 <h2 style={{ marginTop: "40px",display:"flex",justifyContent:"end"}}> INR{(params.fid)}</h2>
               </div>
             </div>

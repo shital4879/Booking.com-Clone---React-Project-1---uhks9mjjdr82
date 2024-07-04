@@ -10,14 +10,16 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import SignOut from "../register/SignOut";
+import { MyContext } from "../../components/App";
 
 
 
 const PaymentHotel = () => {
+  const{todate,setTodate,setFormdate,formdate} = useContext(MyContext)
   const navigat = useNavigate();
   const location = useLocation();
   const params = useParams();
- 
+  
   console.log(params.cost);
   console.log(params.inputval);
   const inputval = location.state.inputval;
@@ -123,6 +125,9 @@ if(cardNumber.length == 0) {
     setError(validationError);
 
     if (!isValid) {
+      if(localStorage.getItem("hotelid")){
+        bookingConfirmation(localStorage.getItem("hotelid"),formdate,todate,localStorage.getItem("token"));
+      }
       setPopUpPay(!popUpPay);
       // setAction("Booking successful!"), setStatus("Enjoy your journey");
     setTimeout(() => {
@@ -153,6 +158,36 @@ if(cardNumber.length == 0) {
   // }
 
   const today = new Date().toISOString().split('T')[0];
+
+  const bookingConfirmation = async (id, date, enddate, token) => {
+    console.log(id,date,enddate,token);
+    try {
+      const resp = await fetch(
+        "https://academics.newtonschool.co/api/v1/bookingportals/booking",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+            projectID: "uhks9mjjdr82",
+          },
+          body: JSON.stringify({
+            bookingType: "hotel",
+            bookingDetails: {
+              hotelId: id,
+              startDate: date,
+              endDate: enddate,
+            },
+          }),
+        }
+      );
+      if (!resp.ok) return;
+      const result = await resp.json();
+      console.log("booking confirmation result: ", result);
+    } catch (err) {
+      console.log(err.message ? err.message : err);
+    }
+  };
 
 
   return (

@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import "./header.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { ToastContainer, toast } from 'react-toastify';
 import {
   faBed,
   faPlane,
@@ -16,10 +17,16 @@ import { json, useNavigate } from "react-router-dom";
 
 const Header = () => {
   const navigate = useNavigate();
+  const [showError, setShowError] = useState(false);
   const [fetchingData, setFetchingData] = useState();
   const [opendestination, setOpenDestination] = useState(false);
   const hotelInput = useRef();
   const [hotelInputPopUp, setHotelInputPopUp] = useState(false);
+
+  const ref = useRef();
+  const contentref = useRef();
+
+
   function hotelInputFocus() {
     setHotelInputPopUp(true);
   }
@@ -84,6 +91,7 @@ const Header = () => {
       });
   }
 
+
   //--------------------Hotel input cities data dynamically----------------------
 
   const fetchHotelState = async () => {
@@ -116,11 +124,14 @@ const Header = () => {
       });
   }
 
-  //   useEffect(()=>{
-  //      fetchHotelState;
-  // },[])
-
   const handleSearch = () => {
+
+    if (destination.trim() === '') {
+      setShowError(true);
+    }
+else{
+  setShowError(false);
+
     navigate(`/hotel/destination=${destination}`, {
       state: {
         data: data,
@@ -131,233 +142,275 @@ const Header = () => {
         bookingPersons: bookingPersons,
         // selectedDate:selectedDate
       },
+    
     });
+  }
   };
+
+  const [mytripInfo, setMyTripInfo] = useState("");
+  const mytrip = async () => {
+    try {
+      const response = await fetch(
+        "https://academics.newtonschool.co/api/v1/bookingportals/booking",
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            projectID: "uhks9mjjdr82",
+          },
+          // "Content-Type": "application/json",
+        }
+      );
+      const result = await response.json();
+      setMyTripInfo("mytripinfo", result.data);
+      console.log(result);
+    } catch (error) {
+      console.log("error", error);
+    }
+  };
+  useEffect(() => {
+    mytrip();
+    function handleclickoutside(e){
+      if(hotelInput.current && !hotelInput.current.contains(e.target) && contentref.current && !contentref.current.contains(e.target)){
+         setOpenDestination(false);
+         
+      }
+    }
+    document.body.addEventListener("click",handleclickoutside)
+    return ()=>{
+      document.body.removeEventListener("click",handleclickoutside)}
+  },[]);
+
+  const notifySuccess = () => toast.success('Item saved successfully');
+  const notifyError = () => toast.error('Error: Could not save item');
+
+
 
   return (
     <div>
       <div className="head1">
         {/* SEARCHBAR */}
         <div className="headerSearch">
-        <div className="searching">
-          <div
-            className="headerSearchItem"
-            id="idsearch"
-            style={{ position: "relative"}}
-            onClick={(e) => {
-              e.stopPropagation();
-            }}
-          >
-            <FontAwesomeIcon icon={faBed} className="headerIcon" id="h1" />
-            <input
-              type="text"
-              placeholder="Where are you going?"
-              className="HeaderSearchInput"
-              value={destination}
-              onChange={(e) => {
-                setDestination(e.target.value);
-                // handleSearchlocation();
-              }}
-              onClick={() => {
-                handleSearchlocation();
-                setOpenDestination(!opendestination);
-                // setOpenDestination(true)
-              }}
-              ref={hotelInput}
-              onBlur={hotelInputBlur}
-              onFocus={hotelInputFocus}
-            />
-
+          <div className="searching">
             <div
+              className="headerSearchItem"
+              id="idsearch"
+              style={{ position: "relative" }}
+              onClick={(e) => {
+                e.stopPropagation();
+              }}
             >
-              {opendestination && (
-                <div
-                  className="styledest"
-                  style={{
-                    position: "absolute",
-                    top: "40px",
-                    width: "100%",
-                    height: "300px",
-                    overflowY: "hidden",
-                    right: "-35px",
-                    backgroundColor: "white",
-                    borderRadius: "6px",
-                    zIndex: "1000",
-                    boxShadow: "0px 0px 10px -2px rgba(0,0,0,0.4)",
-                    padding: "10px",
-                  }}
-                >
-                  {fetchingData &&
-                    fetchingData
-                      .filter((item) => {
-                        const lower = item.location.toLowerCase();
+              <FontAwesomeIcon icon={faBed} className="headerIcon" id="h1" />
+              <input
+                type="text"
+                placeholder="Where are you going?"
+                className="HeaderSearchInput"
+                value={destination}
+                onChange={(e) => {
+                  setDestination(e.target.value)
+                }}
+                onClick={() => {
+                  handleSearchlocation();
+                  setOpenDestination(!opendestination);
+                  setShowError(false)
+                }}
+                ref={hotelInput}
+              />
 
-                        return lower.startsWith(destination);
-                      })
-                      .map((item) => (
-                        <div
-                          className="locationData "
-                          onClick={(e) => {
-                            setDestination(item.location),
-                              setOpenDestination(!opendestination);
-                          }}
-                        >
-                          {item.location}
-                        </div>
-                      ))}
-                </div>
-              )}
+              <div>
+                {opendestination && (
+                  <div
+                    className="styledest"
+                    style={{
+                      position: "absolute",
+                      top: "40px",
+                      width: "100%",
+                      height: "300px",
+                      // overflowY: "hidden",
+                      overflow:"scroll",
+                      right: "-35px",
+                      backgroundColor: "white",
+                      borderRadius: "6px",
+                      zIndex: "1000",
+                      boxShadow: "0px 0px 10px -2px rgba(0,0,0,0.4)",
+                      padding: "10px",
+                    }}
+                    ref={contentref}
+                  >
+                    {fetchingData &&
+                      fetchingData
+                        .filter((item) => {
+                          const lower = item.location.toLowerCase();
+
+                          return lower.startsWith(destination);
+                        })
+                        .map((item) => (
+                          <div
+                            className="locationData "
+                            onClick={(e) => {
+                              setDestination(item.location),
+                                setOpenDestination(!opendestination)
+                                
+                            }}
+                          >
+                            {item.location}
+                          </div>
+                        ))}
+                  </div>
+                )}
+              </div>
+              {/* )} */}
+              {showError && <p className="error-message" style={{position:"absolute",top:"40px",backgroundColor:"red",color:"white",padding:"2px 6px 2px 4px",borderRadius:"5px"}}>Please add a location to search.</p>}
             </div>
 
-            {/* )} */}
-          </div>
+            <div
+              style={{}}
+              className="headerSearchItem"
+              id="idDate"
+              onClick={(e) => {
+                setOpenBookingDate(true);
+              }}
+            >
+              <FontAwesomeIcon
+                icon={faCalendarDays}
+                className="headerIcon"
+                id="hhhh"
+              />
+              <div>
+                <span className="headerSearchText">{`${format(
+                  selectedDate[0].startDate,
+                  "dd/MM/yyyy"
+                )} to ${format(selectedDate[0].endDate, "dd/MM/yyyy")}`}</span>
+                {openbookingDate && (
+                  <>
+                    <DateRange
+                      editableDateInputs={true}
+                      onChange={(item) => setSelectedDate([item.selection])}
+                      moveRangeOnFirstSelection={false}
+                      ranges={selectedDate}
+                      minDate={new Date()}
+                      className="selectedDate"
+                    />
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation(), setOpenBookingDate(false);
+                      }}
+                      className="donebtnforDate"
+                    >
+                      Done
+                    </button>
+                  </>
+                )}
+              </div>
+            </div>
+            <div className="headerSearchItem12" id="idPeople" style={{}}>
+              <FontAwesomeIcon
+                icon={faUser}
+                className="headerIcon"
+                id="personp"
+              />
+              <span
+                onClick={() => setBookingPersons(!bookingPersons)}
+                className="headerSearchText"
+              >{`${persons.adult}adult. ${persons.children}children. ${persons.room}room`}</span>
+              {bookingPersons && (
+                <div className="options">
+                  <div className="optionItem">
+                    <span className="openText">Adult</span>
+                    <div className="optionCounter">
+                      <button
+                        disabled={persons.adult <= 1}
+                        className="optionbtn"
+                        onClick={() => handleOption("adult", "d")}
+                      >
+                        -
+                      </button>
+                      <span className="optionnum">{persons.adult}</span>
+                      <button
+                        className="optionbtn"
+                        onClick={() => handleOption("adult", "i")}
+                      >
+                        +
+                      </button>
+                    </div>
+                  </div>
 
-          <div
-            style={{}}
-            className="headerSearchItem"
-            id="idDate"
-            onClick={(e) => {
-              setOpenBookingDate(true);
-            }}
-          >
-            <FontAwesomeIcon
-              icon={faCalendarDays}
-              className="headerIcon"
-              id="hhhh"
-            />
-            <div>
-              <span className="headerSearchText">{`${format(
-                selectedDate[0].startDate,
-                "dd/MM/yyyy"
-              )} to ${format(selectedDate[0].endDate, "dd/MM/yyyy")}`}</span>
-              {openbookingDate && (
-                <>
-                  <DateRange
-                    editableDateInputs={true}
-                    onChange={(item) => setSelectedDate([item.selection])}
-                    moveRangeOnFirstSelection={false}
-                    ranges={selectedDate}
-                    minDate={new Date()}
-                    className="selectedDate"
-                  />
+                  <div className="optionItem">
+                    <span className="openText">Children</span>
+                    <div className="optionCounter">
+                      <button
+                        disabled={persons.children <= 0}
+                        className="optionbtn"
+                        onClick={() => handleOption("children", "d")}
+                      >
+                        -
+                      </button>
+                      <span className="optionnum">{persons.children}</span>
+                      <button
+                        className="optionbtn"
+                        onClick={() => handleOption("children", "i")}
+                      >
+                        +
+                      </button>
+                    </div>
+                  </div>
+                  <div className="optionItem">
+                    <span className="openText">room</span>
+                    <div className="optionCounter">
+                      <button
+                        disabled={persons.room <= 1}
+                        className="optionbtn"
+                        onClick={() => handleOption("room", "d")}
+                      >
+                        -
+                      </button>
+                      <span className="optionnum">{persons.room}</span>
+                      <button
+                        className="optionbtn"
+                        onClick={() => handleOption("room", "i")}
+                      >
+                        +
+                      </button>
+                    </div>
+                  </div>
                   <button
-                    onClick={(e) => {
-                      e.stopPropagation(), setOpenBookingDate(false);
-                    }}
-                    className="donebtnforDate"
+                    onClick={() => setBookingPersons(!bookingPersons)}
+                    className="donebtn"
                   >
                     Done
                   </button>
-                </>
+                </div>
               )}
             </div>
           </div>
-          <div
-            className="headerSearchItem12"
-            id="idPeople"
-            style={{ }}
+          <button
+            className="headerBtn"
+            id="headbutton1
+          "
+            onClick={handleSearch}
           >
-            <FontAwesomeIcon
-              icon={faUser}
-              className="headerIcon"
-              id="personp"
-            />
-            <span
-              onClick={() => setBookingPersons(!bookingPersons)}
-              className="headerSearchText"
-            >{`${persons.adult}adult. ${persons.children}children. ${persons.room}room`}</span>
-            {bookingPersons && (
-              <div className="options">
-                <div className="optionItem">
-                  <span className="openText">Adult</span>
-                  <div className="optionCounter">
-                    <button
-                      disabled={persons.adult <= 1}
-                      className="optionbtn"
-                      onClick={() => handleOption("adult", "d")}
-                    >
-                      -
-                    </button>
-                    <span className="optionnum">{persons.adult}</span>
-                    <button
-                      className="optionbtn"
-                      onClick={() => handleOption("adult", "i")}
-                    >
-                      +
-                    </button>
-                  </div>
-                </div>
-
-                <div className="optionItem">
-                  <span className="openText">Children</span>
-                  <div className="optionCounter">
-                    <button
-                      disabled={persons.children <= 0}
-                      className="optionbtn"
-                      onClick={() => handleOption("children", "d")}
-                    >
-                      -
-                    </button>
-                    <span className="optionnum">{persons.children}</span>
-                    <button
-                      className="optionbtn"
-                      onClick={() => handleOption("children", "i")}
-                    >
-                      +
-                    </button>
-                  </div>
-                </div>
-                <div className="optionItem">
-                  <span className="openText">room</span>
-                  <div className="optionCounter">
-                    <button
-                      disabled={persons.room <= 1}
-                      className="optionbtn"
-                      onClick={() => handleOption("room", "d")}
-                    >
-                      -
-                    </button>
-                    <span className="optionnum">{persons.room}</span>
-                    <button
-                      className="optionbtn"
-                      onClick={() => handleOption("room", "i")}
-                    >
-                      +
-                    </button>
-                  </div>
-                </div>
-                <button
-                  onClick={() => setBookingPersons(!bookingPersons)}
-                  className="donebtn"
-                >
-                  Done
-                </button>
-              </div>
-            )}
-          </div>
-          </div>
-          <button className="headerBtn" id="headbutton1
-          " onClick={handleSearch}>
             Search
           </button>
+          
         </div>
       </div>
 
       <div>
-
-
         <div
- 
           style={{
             marginTop: "70px",
             marginLeft: "190px",
           }}
         >
-          <h1 style={{ fontSize: "26px" }}  className="trendingdest">Trending destinations</h1>
-          <p  className="trendingdest">Most popular choices for traveller from India</p>
+          <h1 style={{ fontSize: "26px" }} className="trendingdest">
+            Trending destinations
+          </h1>
+          <p className="trendingdest">
+            Most popular choices for traveller from India
+          </p>
         </div>
         <div
-        className="imagebox1"
+          className="imagebox1"
           style={{
             marginTop: "20px",
             display: "flex",
@@ -382,7 +435,7 @@ const Header = () => {
               className="image12"
             />
           </div>
-          <div style={{ position: "relative" }}  id="image13">
+          <div style={{ position: "relative" }} id="image13">
             <h1 className="namecity" style={{ fontSize: "26px" }}>
               Jaipur
             </h1>
@@ -422,7 +475,7 @@ const Header = () => {
 
         <div>
           <div
-          className="imagebox2"
+            className="imagebox2"
             style={{
               marginTop: "10px",
               display: "flex",
@@ -466,7 +519,7 @@ const Header = () => {
             </div>
 
             <div style={{ position: "relative" }} className="imgimage3">
-              <h1 className="namecity" style={{ fontSize: "26px" }} >
+              <h1 className="namecity" style={{ fontSize: "26px" }}>
                 Chennai
               </h1>
               <img
@@ -484,7 +537,7 @@ const Header = () => {
             </div>
 
             <div style={{ position: "relative" }} id="image13">
-              <h1 className="namecity" style={{ fontSize: "26px" }} >
+              <h1 className="namecity" style={{ fontSize: "26px" }}>
                 Pune
               </h1>
               <img
@@ -500,6 +553,58 @@ const Header = () => {
                 }}
               />
             </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="static">
+        <div className="" style={{position:"relative"}}>
+
+        <h2 className="findhomes" onClick={()=>notifyError()}>
+          Find Homes
+          {/* <div style={{color:"white"}}>Homes</div>  */}
+          {/* <br /> */}
+          <br />
+          for your next Trip
+        </h2>
+        <h1 style={{height:"80px",width:"80px",backgroundColor:"#0d49a2",position:"absolute",top:"140px",left:"200px",borderRadius:"50%"}}></h1>
+        </div>
+        <img
+          className="staticimg"
+          src="https://cf.bstatic.com/psb/capla/static/js/../../static/media/bh_aw_cpg_main_image.b4347622.png"
+        />
+
+      </div>
+
+      <div className="mab">
+        <div className="abc">
+          <img
+            className="classimg"
+            src="https://t-cf.bstatic.com/design-assets/assets/v3.118.0/illustrations-traveller/FreeCancellation.png"
+          />
+          <div className="acd">
+            <h3>Book now, pay at the property</h3>
+            <p>FREE cancellation on most rooms</p>
+          </div>
+        </div>
+        <div className="bcd">
+          <img
+            className="classimg"
+            src="https://t-cf.bstatic.com/design-assets/assets/v3.118.0/illustrations-traveller/TripsGlobe.png"
+          />
+          <div className="">
+            <h3>2+ million properties worldwide</h3>
+            <p>Hotels, guest houses, apartments, and more…</p>
+          </div>
+        </div>
+        <div className="def">
+          <img
+            className="classimg"
+            src="https://t-cf.bstatic.com/design-assets/assets/v3.118.0/illustrations-traveller/CustomerSupport.png"
+          />
+          <div className="">
+            <h3>Trusted customer service you can rely on, 24/7</h3>
+            <p>We're always here to help</p>
           </div>
         </div>
       </div>

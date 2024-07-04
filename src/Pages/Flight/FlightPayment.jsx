@@ -9,11 +9,11 @@ import {
   faL,
 } from "@fortawesome/free-solid-svg-icons";
 import SignOut from "../../component/register/SignOut";
-
-// import hi from "../Images/hi";
+import { MyContext } from "../../components/App";
 
 const FlightPayment = () => {
   const navigat = useNavigate();
+  const{setfendate,fstartdate,setfstartdate,fenddate} = useContext(MyContext);
   const params = useParams();
   const location = useLocation();
   const [cardNumber, setCardNumber] = useState("");
@@ -28,6 +28,40 @@ const FlightPayment = () => {
   const [error, setError] = useState({});
   const [valid, setvalid] = useState(false);
   const [toggle, setToggle] = useState();
+
+
+
+  const bookingConfirmation = async (id, date,token) => {
+    // console.log(id,date,enddate,token);
+    try {
+      const resp = await fetch(
+        "https://academics.newtonschool.co/api/v1/bookingportals/booking",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+            projectID: "uhks9mjjdr82",
+          },
+          body: JSON.stringify({
+            bookingType: "flight",
+            bookingDetails: {
+              flightId: id,
+              startDate: date,
+              endDate: date,
+            },
+          }),
+        }
+      );
+      if (!resp.ok) return;
+      const result = await resp.json();
+      console.log("booking confirmation result: ", result);
+    } catch (err) {
+      console.log(err.message ? err.message : err);
+    }
+  };
+
+
   const handleSubmit = (e) => {
 
     const [day, month, year] = exp.split('/');
@@ -37,14 +71,6 @@ const FlightPayment = () => {
     let isValid = false;
     let validationError = {};
     e.preventDefault();
-    // if (email.length == 0) {
-    //   isValid = true;
-    //   validationError.email = "email is required";
-    // }
-    // if (number.length == 0) {
-    //   isValid = true;
-    //   validationError.number = "number is required";
-    // }
     if (name.length == 0) {
       isValid = true;
       validationError.name = "name is required";
@@ -91,7 +117,12 @@ const FlightPayment = () => {
     setvalid(isValid);
     setError(validationError);
 
+    
+
     if (!isValid) {
+      if(localStorage.getItem("flightid")){
+        bookingConfirmation(localStorage.getItem("flightid"),fstartdate,localStorage.getItem("token"));
+      }
       setPopUpPay(!popUpPay);
       setTimeout(()=> {
         navigat(`/`);
@@ -114,17 +145,7 @@ const FlightPayment = () => {
 
   const today = new Date().toISOString().split('T')[0];
 
-  // const handlepaybtn = () => {
-  //   setAction("Payment successful!"), setStatus("Enjoy your journey");
-  //   setTimeout(() => {
-  //     navigate(`/`);
-  //   }, 3000);
-  // };
-
-  // if(!isAuthenticated){
-  //   window.location.href='/SignIn'
-  // }
-
+ 
   return (
     <div>
       <div className="navbar">

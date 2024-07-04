@@ -18,15 +18,6 @@ const Offer = () => {
 
   };
 
-  // const settings = {
-  //   dots: true,
-  //   infinite: true,
-  //   speed: 500,
-  //   slidesToShow: 2,
-  //   slidesToScroll: 1
-  // };
-
-
 
     const [offers, setOffers] = useState([]);
     // const [loading, setLoading] = useState(true);

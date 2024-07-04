@@ -60,17 +60,7 @@ const Search = () => {
       const result = await sortResponse.json();
       setFetchData(result.data.hotels);
       console.log(result.data.hotels);
-      console.log(
-        "oh",
-        `https://academics.newtonschool.co/api/v1/bookingportals/hotel?search={"location":"${searchinput}"}       
-      ${
-        sort != ""
-          ? `&sort={"${sort == "rating" ? "rating" : "avgCostPerNight"}":"${
-              sort == "highToLow" ? -1 : 1
-            }"}`
-          : ""
-      }`
-      );
+     
     } catch (error) {
       console.log(error);
     }

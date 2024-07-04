@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useContext, useEffect, useMemo, useState } from "react";
 import "./flightSearch.css";
 import Navbar from "../../component/navbar/Navbar";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -24,8 +24,10 @@ import FlightDetail from "./FlightDetail";
 import FlightNav from "./FlightNav";
 import SignOut from "../../component/register/SignOut";
 import Nav from "../../component/navbar/Nav"
+import { MyContext } from "../../components/App";
 
 const FlightSearch = () => {
+  const{setfendate,fstartdate,setfstartdate,fenddate} = useContext(MyContext);
   const navigate = useNavigate();
   const location = useLocation();
   const [data, setData] = useState();
@@ -132,17 +134,7 @@ const FlightSearch = () => {
     }
   };
 
-  // const flightConfirmation = (fid) => {
-  //   navigate(`/flightconfirm/${fid}`, {
-  //     state: {
-  //       destination: destination,
-  //       flightPrice: flightPrice,
-  //       source: location.state.source,
-  //       selectedDate: location.state.selectedDate,
-  //       people: location.state.people,
-  //     },
-  //   });
-  // };
+ 
 
   const flightDetail = (id) => {
     navigate(`/flightDetail/${id}`, {
@@ -212,6 +204,9 @@ const FlightSearch = () => {
     }
     return { logoSrc, airlineName };
   };
+
+ 
+ 
 
   return (
     <div>

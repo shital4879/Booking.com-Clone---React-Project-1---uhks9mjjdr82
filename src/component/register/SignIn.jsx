@@ -2,19 +2,10 @@ import { useState } from "react";
 import React from "react";
 import "./SignIn.css"
 import { Link, useNavigate } from "react-router-dom";
-import SignOut from "./SignOut";
 import {
-  faBed,
-  faPlane,
-  faCar,
-  faTaxi,
   faCircleQuestion,
 } from "@fortawesome/free-solid-svg-icons";
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { NavLink, json } from "react-router-dom";
-
-
 
 const SignIn = () => {
 
@@ -27,16 +18,6 @@ const SignIn = () => {
   })
   const [toggle, setToggle] = useState();
   const [token, setToken] = useState(localStorage.getItem("token"));
-
-//  const handlesign=()=>{
-//   if(isAuthenticated){
-//     window.location.href='/paymentHotel/:cost'
-//   }
-//    SignIn();
-//  }
-
- 
- 
 
   const SignIndata = async () => {
     try {

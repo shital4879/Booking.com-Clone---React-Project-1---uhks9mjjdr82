@@ -16,7 +16,6 @@ import { AIRPORTID } from "../../utill";
 const Navbar = ({ type }) => {
   const [openSign, setOpenSing] = useState(false);
   const navigate = useNavigate();
-  console.log(AIRPORTID);
   const RegisterPage = () => {
     navigate(`/Register`);
   };
@@ -33,13 +32,52 @@ const Navbar = ({ type }) => {
     setActiveButton(buttonId);
   };
 
+  const [check, setCheck] = useState({
+    stays: true,
+    flight: true,
+    car: true,
+    taxi: true,
+  });
+
+  const checker=(key)=>{
+    setCheck((prev) => ({ ...prev, [key]: !check[key] }));
+  }
+
+  const fetchapi = async () => {
+    try {
+      const response = await fetch(
+        `https://academics.newtonschool.co/api/v1/bookingportals/booking/`,
+        {
+          method: "GET",
+          headers: {
+            projectID: "uhks9mjjdr82",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      const result = await response.json();
+
+      console.log(result.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+    fetchapi();
+  });
+
   return (
     <div style={{ width: "100%" }}>
       <div className="navbar">
         <div className="navContainer">
-          <span className="logo" onClick={()=>navigate("/")}>Booking.com</span>
+          <span className="logo" onClick={() => navigate("/")}  style={{cursor:"pointer"}}>
+            Booking.com
+          </span>
 
-          <div style={{ display: "flex", marginLeft: "-350px",marginTop:"-4px" }} className="navp1">
+          <div
+            style={{ display: "flex", marginLeft: "-350px", marginTop: "-4px" }}
+            className="navp1"
+          >
             <button style={{}} className="circle" disabled>
               INR
             </button>
@@ -94,95 +132,116 @@ const Navbar = ({ type }) => {
       </div>
 
       {type !== "list1" && (
-      <div className="head">
-        <div className="header">
-          <div className="headerContainer">
-            <div className="headerList">
-              <nav className="navlink" style={{ display: "flex" }}>
-                <NavLink
-                  className="nav-bar-link"
-                  to="/"
-                  id="activebutton"
-                  style={{ marginRight: "30px", display: "flex" }}
-                >
-                  <FontAwesomeIcon
-                    icon={faBed}
-                    className="stays-i"
-                    style={{ marginRight: "-1px", paddingLeft: "6px" }}
-                  />
-                  Stays
-                </NavLink>
-                
-                <NavLink
-                  className="nav-bar-link"
-                  to="/flight"
-                  id="activebutton"
-                  style={{ display: "flex" }}
-                >
-                  <FontAwesomeIcon
-                    icon={faPlane}
-                    className="flights-i"
-                    style={{ marginRight: "-1px", paddingLeft: "6px" }}
-                  />
-                  Flights
-                </NavLink>
-
-                <div className="navitem2" style={{
-                    display: "flex ",
-                    marginLeft: "35px",
-                    width: "225px",
-                  }}>
-                <NavLink
-                  className="nav-bar"
-                  to="/CarRentel"
-                  id="activebutton"
-                  style={{
-                    display: "flex ",
-                    marginLeft: "10px",
-                    width: "225px",
-                  }}
-                >
-                  <FontAwesomeIcon icon={faCar} className="nav-bar"/>
-                  <h1
-                    style={{
-                      width: "80px",
-                      fontSize: "16px",
-                      fontWeight: "400",
-                    }}
-                    className="nav-bar"
+        <div className="head">
+          <div className="header">
+            <div className="headerContainer">
+              <div className="headerList">
+                <nav className="navlink" style={{ display: "flex" }}>
+                  {check == "stays" ? true : check == "flight"}
+                  <NavLink
+                    className="nav-bar-link"
+                    to="/"
+                    id="activebutton"
+                    style={{ marginRight: "30px", display: "flex" }}
                   >
-                    Car Rentals
-                  </h1>
-                </NavLink>
+                    <FontAwesomeIcon
+                      icon={faBed}
+                      className="stays-i"
+                      style={{ marginRight: "-1px", paddingLeft: "6px" }}
+                    />
+                    {/* <input type="checkbox" checked={check["stays"]} onClick={()=>checker("stays")} /> */}
+                    Stays
+                  </NavLink>
+    
 
-                <NavLink
-                  className="nav-bar"
-                  to="/AirportTaxi"
-                  id="activebutton"
-                  style={{
-                    display: "flex ",
-                    width: "225px",
-                    marginLeft: "35px",
-                  }}
-                >
-                  <FontAwesomeIcon icon={faTaxi} className="nav-bar"/>
-                  <h1
-                    style={{
-                      width: "90px",
-                      fontSize: "16px",
-                      fontWeight: "400",
-                    }}
-                    className="nav-bar"
+                  <NavLink
+                    className="nav-bar-link"
+                    to="/flight"
+                    id="activebutton"
+                    style={{ display: "flex" }}
                   >
-                    Airport taxis
-                  </h1>
-                </NavLink>
-                </div>
-              </nav>
+                    <FontAwesomeIcon
+                      icon={faPlane}
+                      className="flights-i"
+                      style={{ marginRight: "-1px", paddingLeft: "6px" }}
+                    />
+                    {/* <input type="checkbox" checked={check["flight"]} onClick={()=>checker("stays")}  /> */}
+                    Flights
+                  </NavLink>
+
+                  <div
+                    className="navitem2"
+                    style={{
+                      display: "flex ",
+                      marginLeft: "35px",
+                      width: "225px",
+                    }}
+                  >
+                    <NavLink
+                      className="nav-bar"
+                      to="/CarRentel"
+                      id="activebutton"
+                      style={{
+                        display: "flex ",
+                        marginLeft: "10px",
+                        width: "225px",
+                      }}
+                    >
+                      <FontAwesomeIcon icon={faCar} className="nav-bar" />
+                      <h1
+                        style={{
+                          width: "80px",
+                          fontSize: "16px",
+                          fontWeight: "400",
+                        }}
+                        className="nav-bar"
+                      >
+                        {/* <input type="checkbox" checked={check["car"]} onClick={()=>checker("stays")}  /> */}
+                        Car Rentals
+                      </h1>
+                    </NavLink>
+
+                    <NavLink
+                      className="nav-bar"
+                      to="/AirportTaxi"
+                      id="activebutton"
+                      style={{
+                        display: "flex ",
+                        width: "225px",
+                        marginLeft: "35px",
+                      }}
+                    >
+                      <FontAwesomeIcon icon={faTaxi} className="nav-bar" />
+                      <h1
+                        style={{
+                          width: "90px",
+                          fontSize: "16px",
+                          fontWeight: "400",
+                        }}
+                        className="nav-bar"
+                      >
+                        {/* <input type="checkbox" value={check["taxi"]} onClick={()=>checker("stays")}  /> */}
+                        Airport taxis
+                      </h1>
+                    </NavLink>
+                    <NavLink
+                      to="/history"
+                      className="nav-bar"
+                      id="activebutton"
+                      style={{
+                        display: "flex ",
+                        width: "225px",
+                        marginLeft: "35px",
+                      }}
+                    >
+                      Mytrip
+                    </NavLink>
+                  </div>
+                </nav>
+              </div>
             </div>
           </div>
         </div>
-      </div>
       )}
 
       {type !== "list" && (
