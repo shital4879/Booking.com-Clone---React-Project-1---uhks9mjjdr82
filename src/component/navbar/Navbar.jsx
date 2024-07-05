@@ -7,41 +7,29 @@ import {
   faTaxi,
   faCircleQuestion,
 } from "@fortawesome/free-solid-svg-icons";
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { NavLink, json, useNavigate } from "react-router-dom";
 import SignOut from "../register/SignOut";
-import { AIRPORTID } from "../../utill";
+
 
 const Navbar = ({ type }) => {
-  const [openSign, setOpenSing] = useState(false);
   const navigate = useNavigate();
+  const [openSign, setOpenSing] = useState(false);
+  const [activeButton, setActiveButton] = useState(0);
   const RegisterPage = () => {
     navigate(`/Register`);
   };
   const SignInPage = () => {
     navigate(`/SignIn`);
   };
-  // const SignOut = () =>{
-  //   navigate()
-  // }
-  const [activeButton, setActiveButton] = useState(0);
+ 
 
   // Function to handle button click
   const handleButtonClick = (buttonId) => {
     setActiveButton(buttonId);
   };
 
-  const [check, setCheck] = useState({
-    stays: true,
-    flight: true,
-    car: true,
-    taxi: true,
-  });
-
-  const checker=(key)=>{
-    setCheck((prev) => ({ ...prev, [key]: !check[key] }));
-  }
+ 
 
   const fetchapi = async () => {
     try {
@@ -143,7 +131,6 @@ const Navbar = ({ type }) => {
             <div className="headerContainer">
               <div className="headerList">
                 <nav className="navlink" style={{ display: "flex" }}>
-                  {check == "stays" ? true : check == "flight"}
                   <NavLink
                     className="nav-bar-link"
                     to="/"

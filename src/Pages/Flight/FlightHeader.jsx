@@ -619,6 +619,62 @@ const FlightHeader = () => {
           </div>
         </div>
       </div>
+
+
+      <div className="static">
+        <div className="" style={{position:"relative"}}>
+
+        <h2 className="findhomes" onClick={()=>notifyError()}>
+          Find Homes
+          {/* <div style={{color:"white"}}>Homes</div>  */}
+          {/* <br /> */}
+          <br />
+          for your next Trip
+        </h2>
+        <h1 style={{height:"80px",width:"80px",backgroundColor:"#0d49a2",position:"absolute",top:"140px",left:"200px",borderRadius:"50%"}}></h1>
+        </div>
+        <img
+          className="staticimg"
+          src="https://cf.bstatic.com/psb/capla/static/js/../../static/media/bh_aw_cpg_main_image.b4347622.png"
+        />
+
+      </div>
+
+      <div className="mab">
+        <div className="abc">
+          <img
+            className="classimg"
+            src="https://t-cf.bstatic.com/design-assets/assets/v3.117.0/illustrations-traveller/MagnifyingGlassUsp.png"
+          />
+          <div className="acd">
+            <h3>Search a huge selection</h3>
+            <p>Easily compare flights, airlines and prices - all in one place</p>
+          </div>
+        </div>
+        <div className="bcd">
+          <img
+            className="classimg"
+            src="https://t-cf.bstatic.com/design-assets/assets/v3.117.0/illustrations-traveller/MoneyUsp.png"
+          />
+          <div className="">
+            <h3>Pay no hidden fees</h3>
+            <p>Get a clear price breakdown, every step of the way</p>
+          </div>
+        </div>
+        <div className="def">
+          <img
+            className="classimg"
+            src="https://t-cf.bstatic.com/design-assets/assets/v3.117.0/illustrations-traveller/TicketsUsp.png"
+          />
+          <div className="">
+            <h3>Get more flexibility</h3>
+            <p>Change your travel dates with the Flexible ticket option*</p>
+          </div>
+        </div>
+      </div>
+
+  
+
     </div>
   );
 };
