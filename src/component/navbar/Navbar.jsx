@@ -66,6 +66,9 @@ const Navbar = ({ type }) => {
     fetchapi();
   });
 
+  const storeddata = JSON.parse(localStorage.getItem("UserInfo"));
+  console.log(storeddata);
+
   return (
     <div style={{ width: "100%" }}>
       <div className="navbar">
@@ -75,7 +78,7 @@ const Navbar = ({ type }) => {
           </span>
 
           <div
-            style={{ display: "flex", marginLeft: "-350px", marginTop: "-4px" }}
+            style={{ display: "flex", marginTop: "-4px" }}
             className="navp1"
           >
             <button style={{}} className="circle" disabled>
@@ -92,6 +95,7 @@ const Navbar = ({ type }) => {
                   marginTop: "-4px",
                 }}
               />
+              
             </button>
             <button className="circle">
               <FontAwesomeIcon
@@ -123,6 +127,8 @@ const Navbar = ({ type }) => {
                     e.stopPropagation(), setOpenSing(!openSign);
                   }}
                 >
+                   {storeddata.name.charAt(0).toUpperCase()}
+                 
                   {openSign && <SignOut />}
                 </div>
               </div>
