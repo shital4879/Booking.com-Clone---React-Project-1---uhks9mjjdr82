@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useMemo, useState } from "react";
 import React from "react";
 import "./paymentHotel.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -11,22 +11,23 @@ import {
   faMugSaucer,
 } from "@fortawesome/free-solid-svg-icons";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { format } from "date-fns";
 import SignOut from "../register/SignOut";
 import { MyContext } from "../../components/App";
 
 const PaymentHotel = () => {
-  const { todate, setTodate, setFormdate, formdate } = useContext(MyContext);
+  const { todate, setTodate, setFormdate, formdate,hotelinformation,setHotelinformation } = useContext(MyContext);
   const navigat = useNavigate();
   const location = useLocation();
   const params = useParams();
-
-  console.log(params.cost);
-  console.log(params.inputval);
-  const inputval = location.state.inputval;
-  const data = location.state.data;
-  const hotelPrice = location.state.hotelPrice;
-  const totalguest = location.state.totalguest;
-  console.log("mm", hotelPrice);
+  // console.log(params.paramid);
+  // console.log(params.cost);
+  // console.log(params.inputval);
+  // const inputval = location.state.inputval;
+  // const data = location.state.data;
+  // const hotelPrice = location.state.hotelPrice;
+  // const totalguest = location.state.totalguest;
+  // console.log("mm", hotelPrice);
   const [popUpPay, setPopUpPay] = useState(false);
   const [openPopUp, setOpenPopUp] = useState(false);
   const [toggle, setToggle] = useState();
@@ -49,16 +50,39 @@ const PaymentHotel = () => {
     }
   };
   const [selectedDate, setSelectedDate] = useState(location.state.selectedDate);
-  console.log(selectedDate[0].endDate, "date");
+  const [information, setInformation] = useState(location.state.information);
+  // console.log("info", information);
+  // console.log(selectedDate[0].endDate, "date");
   const [email, setEmail] = useState("");
   const [number, setNumber] = useState("");
   const [name, setName] = useState("");
-  const[lastname,setLastname] = useState("");
+  const [lastname, setLastname] = useState("");
   const [exp, setExp] = useState("");
   const [error, setError] = useState({});
   const [valid, setvalid] = useState(false);
   const [expiryDate, setExpiryDate] = useState("");
   const [isValid, setIsValid] = useState(true);
+
+  const fetchHotelState = async () => {
+    try {
+      const responce = await fetch(
+        `https://academics.newtonschool.co/api/v1/bookingportals/hotel/${params.id}`,
+        {
+          method: "GET",
+          headers: { projectID: "uhks9mjjdr82" },
+          "Content-Type": "application/json",
+        }
+      );
+      const result = await responce.json();
+      setFetchingData(result.data.hotels);
+      console.log("city", result.data.hotels);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+    fetchHotelState();
+  }, []);
 
   const handleSubmit = (e) => {
     let isValid = false;
@@ -108,7 +132,13 @@ const PaymentHotel = () => {
           localStorage.getItem("token")
         );
       }
-      navigat(`/paymentlastpage`);
+      // if(!isValid){
+        
+      // }
+      setHotelinformation(information)
+      sessionStorage.setItem("cost",params.cost);
+      navigatelastpage();
+      // navigat(`/paymentlastpage`);
       // setPopUpPay(!popUpPay);
       // // setAction("Booking successful!"), setStatus("Enjoy your journey");
       // setTimeout(() => {
@@ -116,6 +146,14 @@ const PaymentHotel = () => {
       // }, 3000);
     }
   };
+  const navigatelastpage=()=>{
+navigat(`/paymentlastpage`,{
+  state:{
+    selectedDate: selectedDate,
+    information : information,
+  }
+})
+  }
 
   const [openSign, setOpenSing] = useState(false);
   const navigate = useNavigate();
@@ -134,7 +172,7 @@ const PaymentHotel = () => {
       navigat(`/`);
     }, 3000);
   };
- 
+
   const today = new Date().toISOString().split("T")[0];
 
   const bookingConfirmation = async (id, date, enddate, token) => {
@@ -167,11 +205,32 @@ const PaymentHotel = () => {
     }
   };
 
+  const storeddata = JSON.parse(localStorage.getItem("UserInfo"));
+
+  useEffect(() => {
+    setFormdate(selectedDate[0].startDate);
+    setTodate(selectedDate[0].endDate);
+    localStorage.setItem("hotelid", params.id);
+  }, []);
+  // console.log(formdate, "form");
+  // console.log(todate, "too");
+
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    return format(date, "EEE MMM dd yyyy");
+  };
+
+
+
   return (
     <div>
       <div className="navbar">
         <div className="navContainer">
-          <span className="logo" style={{ backgroundColor: "#003580" }}>
+          <span
+            className="logo"
+            style={{ backgroundColor: "#003580", cursor: "pointer" }}
+            onClick={() => navigat("/")}
+          >
             Booking.com
           </span>
           <div className="navItems">
@@ -186,12 +245,19 @@ const PaymentHotel = () => {
               </button>
             )}
             {localStorage.getItem("token") && (
-              <div className="profile">
+              <div>
+                <div style={{ width: "180px", display: "flex" }}></div>
                 <div
-                  style={{ height: "20px", width: "20px" }}
-                  onClick={() => setOpenSing(!openSign)}
-                ></div>
-                {openSign && <SignOut />}
+                  className="profile"
+                  style={{ marginLeft: "50px" }}
+                  onClick={(e) => {
+                    e.stopPropagation(), setOpenSing(!openSign);
+                  }}
+                >
+                  {storeddata.name.charAt(0).toUpperCase()}
+
+                  {openSign && <SignOut />}
+                </div>
               </div>
             )}
           </div>
@@ -216,10 +282,56 @@ const PaymentHotel = () => {
             <div className="circlefornum1">3</div>
             <p>Final step</p>
           </div>
+
           <div style={{ display: "flex" }} className="maincontent">
-            <div style={{ width: "40%" }}>
-              <h3>Your booking details</h3>
+            <div style={{ width: "100%" }}>
+              {information && (
+                <div className="infobox1">
+                  <div>
+                    Hotel &nbsp; &nbsp;{" "}
+                    <span className="ratingbox">{information.rating}</span>
+                  </div>
+                  <h2 className="infoname">{information.name}</h2>
+                  <div className="infolocation">{information.location}</div>
+                  <div className="infoam">
+                    {information.amenities[0]},{information.amenities[1]}
+                  </div>
+                </div>
+              )}
+
+              <div className="infobox2" style={{marginTop:'30px'}}>
+                <h3>Your booking details</h3>
+                <div className="boxes2">
+                  <div className="" style={{borderRight:"2px solid rgb(166, 157, 157)",paddingRight:"30px"}}>
+                    <p style={{fontSize:"15px",color:"rgb(61, 59, 59)",fontWeight:"500"}}>Check-in</p>
+                    <div style={{fontWeight:"500",fontSize:"17px",marginTop:"6px",marginBottom:"2px"}}>{formatDate(formdate)}</div>
+                    <p style={{fontSize:"14px",color:"rgb(88, 86, 86)"}}>From 15:00</p>
+                  </div>
+                  <div>
+                    <p style={{fontSize:"15px",color:"rgb(61, 59, 59)",fontWeight:"500"}}>Check-out</p>
+                    <div style={{fontWeight:"500",fontSize:"17px",marginTop:"6px",marginBottom:"2px"}} >{formatDate(todate)}</div>
+                    <p style={{fontSize:"14px",color:"rgb(88, 86, 86)"}}>Until 12:00</p>
+                    
+                  </div>
+                </div>
+              <p style={{marginBottom:"2px",marginTop:"20px"}} >Total length of stay:</p>
+              <p style={{fontWeight:"500"}}>1 night</p>
+              </div>
+
+              <div className="infobox3" style={{marginTop:"30px"}}>
+                <h3 style={{marginBottom:"15px"}}>Your price summary</h3>
+                <div style={{display:"flex"}} className="pricetotal">
+                  <h2>Price</h2>
+                  <h2>{params.cost}</h2>
+                  
+                </div>
+                <h4>Price information</h4>
+                <p style={{fontSize:"15px"}}>Excludes ₹ 4,761 in taxes and charges</p>
+
+              </div>
+
             </div>
+
             <div>
               <div className="content2">
                 <form>
@@ -310,7 +422,7 @@ const PaymentHotel = () => {
                         });
                       }}
                       onInput={(e) => {
-                        e.target.value = e.target.value.replace(/[^0-9]/g, '');
+                        e.target.value = e.target.value.replace(/[^0-9]/g, "");
                       }}
                     />
                     {valid ? (
@@ -333,7 +445,9 @@ const PaymentHotel = () => {
                   />
                   <p>Your room will be ready for check-in at 15:00</p>
                 </div>
-                <div style={{ display: "flex", width: "100%" ,marginTop:"-10px" }}>
+                <div
+                  style={{ display: "flex", width: "100%", marginTop: "-10px" }}
+                >
                   <FontAwesomeIcon
                     icon={faMugSaucer}
                     style={{ margin: "8 10px 20px 0" }}
@@ -353,287 +467,16 @@ const PaymentHotel = () => {
                 </ul>
               </div>
 
+              <div className="content4">
+                <h3>Special requests</h3>
+                <p>Special requests cannot be guaranteed – but the property will do its best to meet your needs. You can always make a special request after your booking is complete!</p>
+              </div>
+
               <button className="step2" onClick={handleSubmit}>
                 Next: Final details
               </button>
             </div>
           </div>
-
-          <form >
-            <div style={{ margin: "30px 190px 50px 190px" }}>
-              <div className="paymentpage1">
-                <div className="hotelset1">
-                  <h2 style={{ fontSize: "20px", marginBottom: "8px" }}>
-                    Contact details
-                  </h2>
-                  <h5 style={{ fontWeight: "400", marginBottom: "20px" }}>
-                    <span style={{ color: "red", marginRight: "5px" }}>*</span>
-                    Required
-                  </h5>
-                  <label style={{ fontSize: "15px", marginBottom: "2px" }}>
-                    Contact Email{" "}
-                    <span style={{ color: "red", marginRight: "5px" }}>*</span>
-                  </label>
-                  <br />
-
-                  <input
-                    type="email"
-                    className="emailclass"
-                    onChange={(e) => {
-                      setEmail(e.target.value);
-                      setError((prev) => {
-                        return { ...prev, email: "" };
-                      });
-                    }}
-                    style={{
-                      height: "35px",
-                      width: "300px",
-                      marginBottom: "30px",
-                      marginTop: "8px",
-                      fontSize: "18px",
-                    }}
-                  />
-                  {valid ? (
-                    <div className="emailZone1">{error.email}</div>
-                  ) : (
-                    <></>
-                  )}
-
-                  <br />
-                  <label>
-                    Phone number{" "}
-                    <span style={{ color: "red", marginRight: "5px" }}>*</span>
-                  </label>
-                  <br />
-                  <input
-                    className="numclass"
-                    type="text"
-                    maxLength="10"
-                    // required
-                    value={number}
-                    style={{
-                      height: "35px",
-                      width: "300px",
-                      marginBottom: "30px",
-                      fontSize: "16px",
-                      paddingLeft: "10px",
-                    }}
-                    placeholder="+91"
-                    onChange={(e) => {
-                      setNumber(e.target.value);
-                      setError((prev) => {
-                        return { ...prev, number: "" };
-                      });
-                    }}
-                  />
-                  {valid ? (
-                    <div className="numberZone2">{error.number}</div>
-                  ) : (
-                    <></>
-                  )}
-                </div>
-                <div className="hotelset2">
-                  <div style={{ display: "flex" }}>
-                    <h2 style={{ marginRight: "160px" }}>Total{hotelPrice}</h2>
-                    <h2 style={{ marginLeft: "-5px" }}>
-                      INR {inputval * params.cost}
-                    </h2>
-                  </div>
-                  {/* <h5
-                  style={{
-                    fontSize: "15px",
-                    fontWeight: "400",
-                    marginBottom: "8px",
-                  }}
-                >
-                  Taxes and charges
-                </h5>
-                <h2 style={{ marginTop: "40px", }}>Total</h2>
-                <span>INR{params.cost}</span> */}
-                  <p
-                    style={{
-                      marginBottom: "15px",
-                      marginRight: "180px",
-                      margin: "15px 10px 10px 0px",
-                    }}
-                  >
-                    Includes taxes and charges
-                  </p>
-                  <p>No hidden fees - track your price at every step</p>
-                </div>
-              </div>
-              <div className="paymentMethodHotel">
-                <div className="flightPay">
-                  <h2 style={{ fontSize: "20px", fontWeight: "700" }}>
-                    Your payment
-                  </h2>
-                  <p
-                    style={{
-                      fontSize: "16px",
-                      fontWeight: "400",
-                      margin: "10px 0px 20px ",
-                      color: "gray",
-                    }}
-                  >
-                    Simple, safe and secure.
-                  </p>
-                  <h3 style={{ fontWeight: "500", marginBottom: "5px" }}>
-                    How would you like to pay?
-                  </h3>
-                  <div className="pay-img">
-                    <img
-                      src="https://t-ec.bstatic.com/static/img/payments/payment_icons_redesign/visa.svg"
-                      className="payImg"
-                    />
-                    <img
-                      src="https://t-ec.bstatic.com/static/img/payments/payment_icons_redesign/jcb.svg"
-                      className="payImg"
-                    />
-                    <img
-                      src="https://t-ec.bstatic.com/static/img/payments/payment_icons_redesign/discover.svg"
-                      className="payImg"
-                    />
-                    <img
-                      src="https://t-ec.bstatic.com/static/img/payments/payment_icons_redesign/mc.svg"
-                      className="payImg"
-                    />
-                  </div>
-                  <div>
-                    <label className="labeldata">
-                      Cardholder's Name <span style={{ color: "red" }}>*</span>
-                    </label>
-                    <br />
-                    <input
-                      type="text"
-                      name="name"
-                      id="cardhold"
-                      value={name}
-                      className="inputdata"
-                      onChange={(e) => {
-                        setName(e.target.value);
-                        setError((prev) => {
-                          return { ...prev, name: "" };
-                        });
-                      }}
-                      onInput={(e) => {
-                        e.target.value = e.target.value.replace(/[0-9]/g, "");
-                      }}
-                      style={{
-                        marginBottom: "30px",
-                        marginTop: "10px",
-                        paddingLeft: "5px",
-                      }}
-                    />
-                    {valid ? (
-                      <div className="nameZone">{error.name}</div>
-                    ) : (
-                      <></>
-                    )}
-                    <br />
-
-                    <label className="labeldata">
-                      Card Number <span style={{ color: "red" }}>*</span>
-                    </label>
-                    <br />
-                    <div className="carddetail">
-                      <FontAwesomeIcon icon={faCreditCard} />
-                      <input
-                        type="text"
-                        onInput={(e) => {
-                          e.target.value = e.target.value.replace(/[a-z]/g, "");
-                        }}
-                        name="name"
-                        style={{ border: "none", outline: "none" }}
-                        maxLength="16"
-                        value={cardNumber}
-                        onChange={(e) => {
-                          setCardNumber(e.target.value);
-                          setError((prev) => {
-                            return { ...prev, cardNumber: "" };
-                          });
-                        }}
-                      />
-                    </div>
-                    <br />
-                    {valid ? (
-                      <div className="cardZone">{error.cardNumber}</div>
-                    ) : (
-                      <></>
-                    )}
-                  </div>
-                  <div>
-                    <div>
-                      <label className="labelexp">
-                        Expiry Date{" "}
-                        <span style={{ color: "red", marginRight: "160px" }}>
-                          *
-                        </span>
-                      </label>
-                      <br />
-                      <input
-                        type="date"
-                        placeholder="MM/YY"
-                        className="expinput"
-                        id="expdata1"
-                        min={today}
-                        value={exp}
-                        onChange={(e) => {
-                          setExp(e.target.value);
-
-                          setError((prev) => {
-                            return { ...prev, exp: "" };
-                          });
-                        }}
-                      />
-                      <br />
-                      {valid ? (
-                        <span className="expZone">{error.exp}</span>
-                      ) : (
-                        <></>
-                      )}
-                    </div>
-                    <div style={{ marginTop: "20px" }}>
-                      <label>
-                        CVC <span style={{ color: "red" }}>*</span>
-                      </label>
-                      <br />
-                      <input
-                        type="text"
-                        className="expinput"
-                        // maxLength={4}
-                        onInput={(e) => {
-                          e.target.value = e.target.value.replace(/[a-z]/g, "");
-                        }}
-                        maxLength="3"
-                        value={cvc}
-                        id="cvcdata"
-                        onChange={(e) => {
-                          setCvc(e.target.value);
-                          setError((prev) => {
-                            return { ...prev, cvc: "" };
-                          });
-                        }}
-                      />
-                      <br />
-                      {valid ? (
-                        <span className="cvcZone">{error.cvc}</span>
-                      ) : (
-                        <></>
-                      )}
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <button
-                className="backBtn"
-                id="btnpay"
-                style={{ marginLeft: "550px" }}
-                // onClick={handlepaybtn}
-              >
-                Pay Now
-              </button>
-            </div>
-          </form>
         </div>
       )}
       {popUpPay && (

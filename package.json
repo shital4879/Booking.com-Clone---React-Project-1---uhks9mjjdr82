@@ -18,6 +18,7 @@
     "@fortawesome/free-solid-svg-icons": "^6.5.1",
     "@fortawesome/react-fontawesome": "^0.2.0",
     "@mui/material": "^5.16.0",
+    "date-fns": "^3.6.0",
     "react": "18.2.0",
     "react-date-range": "^2.0.0-alpha.4",
     "react-dom": "18.2.0",

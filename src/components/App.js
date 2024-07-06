@@ -26,18 +26,20 @@ function App() {
   const [todate,setTodate] = useState();
   const [fstartdate,setfstartdate] = useState();
   const [fenddate,setfendate] = useState();
+  const [hotelinformation,setHotelinformation] = useState({});
 
   return (
     <>
    <Authprovider>
       <BrowserRouter>
-      <MyContext.Provider value={{todate,setTodate,setFormdate,formdate,setfendate,fstartdate,setfstartdate,fenddate}}>
+      <MyContext.Provider value={{todate,setTodate,setFormdate,formdate,setfendate,fstartdate,setfstartdate,fenddate,hotelinformation,setHotelinformation}}>
       <Routes>
         <Route path="/" element={<Home/>}/>
         <Route path="/hotel/:results" element={<HotelSearch/>}/>
         <Route path="/info/:id" element={<HotelInfo/>}/>
          <Route path="/flight" element={<Flight/>}/>
         <Route path="/paymentHotel/:cost" element={<PaymentHotel/>}/>
+        <Route path="/paymentlastpage" element={<Paymentlastpage/>}/>
     
         <Route path="/flightsearch" element={<FlightSearch/>}/>
         <Route path="/flightconfirm/:fid" element={<FlightConfirm/>}/>
@@ -47,8 +49,7 @@ function App() {
         <Route path="/SignIn" element={<SignIn/>}/>
         <Route path="/CarRentel" element={<CarRentel/>}/>
         <Route path="/AirportTaxi" element={<AirportTaxi/>}/>
-        <Route path="/history" element={<History/>}/>
-        <Route path="/paymentlastpage" element={<Paymentlastpage/>}/>
+        {/* <Route path="/history" element={<History/>}/> */}
       </Routes>
       </MyContext.Provider>
       </BrowserRouter>

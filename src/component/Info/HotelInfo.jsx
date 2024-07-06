@@ -117,22 +117,20 @@ const HotelInfo = () => {
       }
       else{
 
-        navigate(`/Register?redirect=${encodeURI(`/paymentHotel`)}`, {
+        navigate(`/Register?redirect=${encodeURI(`/paymentHotel/${cost}`)}`, {
           state: {
-            totalguest: totalguest,
-            inputval: inputval,
             selectedDate: selectedDate,
+            information : information,
           },
         });
       }
     } else {
-      navigate(`/paymentHotel/${cost}/`, {
-        state: {
-          totalguest: totalguest,
-          inputval: inputval,
+      navigate(`/paymentHotel/${cost}`,{
+        state:{
           selectedDate: selectedDate,
-        },
-      });
+          information : information,
+        }
+    })
     }
   };
   
@@ -450,11 +448,7 @@ const HotelInfo = () => {
                         marginBottom: "28px",
                       }}
                       onClick={() => {
-                        hotelPaymentPage(
-                          information.rooms[key].costPerNight,
-                          totalguest,
-                          
-                        );
+                        hotelPaymentPage(item.costPerNight);
                       }}
                     >
                       Reserve

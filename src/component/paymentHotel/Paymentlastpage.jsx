@@ -1,10 +1,18 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faMugSaucer } from "@fortawesome/free-solid-svg-icons";
-import { useNavigate } from "react-router-dom";
+import { useLoaderData, useLocation, useNavigate } from "react-router-dom";
+import { MyContext } from "../../components/App";
 
 export default function Paymentlastpage() {
   const navigat = useNavigate();
+  const location = useLocation();
+  const{hotelinformation} = useContext(MyContext);
+  console.log(hotelinformation);
+  const [selectedDate, setSelectedDate] = useState(location.state.selectedDate);
+  const [information, setInformation] = useState(location.state.information);
+  console.log(selectedDate);
+  console.log(information);
   const[select,setSelect] = useState("");
   const [openSign, setOpenSing] = useState(false);
   const [popUpPay, setPopUpPay] = useState(false);
@@ -19,6 +27,7 @@ export default function Paymentlastpage() {
   const [isValid, setIsValid] = useState(true);
   const [cardNumber, setCardNumber] = useState("");
   const [cvc, setCvc] = useState("");
+  console.log(sessionStorage.getItem("cost"));
 
   const today = new Date().toISOString().split("T")[0];
 

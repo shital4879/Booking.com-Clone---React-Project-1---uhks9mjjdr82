@@ -60,14 +60,6 @@ const Navbar = ({ type }) => {
   });
 
   const storeddata = JSON.parse(localStorage.getItem("UserInfo"));
- 
-  // const[open,setOpen] = useState(false);
-  // const handleclose=(event,reason)=>{
-  //     if(reason === "clickaway"){
-  //       return;
-  //     }
-  //     setOpen(false);
-  // }
 
   const toasts = ()=>{
     // toast("Feature is coming soon.");
@@ -80,8 +72,6 @@ const Navbar = ({ type }) => {
       draggable: true,
       progress: undefined,
       theme: "dark",
-      // fontSize:"25px"
-      // transition: Bounce,
       });
   }
 
