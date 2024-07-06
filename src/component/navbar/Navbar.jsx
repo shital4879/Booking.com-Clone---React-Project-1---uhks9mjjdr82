@@ -9,6 +9,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { NavLink, json, useNavigate } from "react-router-dom";
+// import { Snackbar,Button } from "@mui/material";
 import SignOut from "../register/SignOut";
 
 
@@ -55,7 +56,14 @@ const Navbar = ({ type }) => {
   });
 
   const storeddata = JSON.parse(localStorage.getItem("UserInfo"));
-  console.log(storeddata);
+ 
+  // const[open,setOpen] = useState(false);
+  // const handleclose=(event,reason)=>{
+  //     if(reason === "clickaway"){
+  //       return;
+  //     }
+  //     setOpen(false);
+  // }
 
   return (
     <div style={{ width: "100%" }}>
@@ -64,6 +72,15 @@ const Navbar = ({ type }) => {
           <span className="logo" onClick={() => navigate("/")}  style={{cursor:"pointer"}}>
             Booking.com
           </span>
+           
+{/* 
+          <Button onClick={()=>setOpen(true)}>submit</Button>
+          <Snackbar message="form submmited"
+          autoHideDuration={4000}
+          open={open}
+          onClose={handleclose}
+          /> */}
+
 
           <div
             style={{ display: "flex", marginTop: "-4px" }}
@@ -202,7 +219,9 @@ const Navbar = ({ type }) => {
                         display: "flex ",
                         width: "225px",
                         marginLeft: "35px",
+                        
                       }}
+                      
                     >
                       <FontAwesomeIcon icon={faTaxi} className="nav-bar" />
                       <h1
@@ -217,7 +236,7 @@ const Navbar = ({ type }) => {
                         Airport taxis
                       </h1>
                     </NavLink>
-                    <NavLink
+                    {/* <NavLink
                       to="/history"
                       className="nav-bar"
                       id="activebutton"
@@ -228,7 +247,7 @@ const Navbar = ({ type }) => {
                       }}
                     >
                       Mytrip
-                    </NavLink>
+                    </NavLink> */}
                   </div>
                 </nav>
               </div>

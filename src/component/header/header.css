@@ -306,6 +306,9 @@ z-index: 10000;
     #h1{
       padding-left: 1px;
     }
+    .abc,.bcd{
+        margin-right: 15px;
+    }
     
  }
 @media screen and (min-device-width: 1201px) and (max-device-width: 1360px){
@@ -346,6 +349,9 @@ z-index: 10000;
     #h1{
       padding-left: 1px;
     }
+    .abc,.bcd{
+        margin-right: 15px;
+    }
     
  }
 
@@ -384,7 +390,19 @@ z-index: 10000;
         padding-right: 20px;
         padding-left: 10px; 
     }
-    
+    .mab{
+        flex-direction: column;
+    }
+    .abc,.bcd,.def{
+        margin-bottom: 20px;
+        width: 113%;
+    }
+    .static{
+        width: 70%;
+    }
+    .footer1{
+        margin-left: -100px;
+    }
  }
 
  @media screen and (min-device-width: 768px) and (max-device-width: 991px){
@@ -430,6 +448,22 @@ z-index: 10000;
         width: 240px;
         padding-right: 20px;
         padding-left: 10px; 
+    }
+    .mab{
+        flex-direction: column;
+    }
+    .abc,.bcd,.def{
+        margin-bottom: 20px;
+        width: 113%;
+    }
+    .static{
+        width: 70%;
+        margin-left: 130px;
+    }
+    .staticimg{
+        /* font-size: 20px; */
+        height: 15rem;
+        width: 15rem;
     }
     }
  @media screen and (min-device-width: 600px)and (max-device-width: 767px) {
@@ -484,6 +518,23 @@ z-index: 10000;
 }
 #headbutton1{
     margin-left: -20px;
+}
+.mab{
+    flex-direction: column;
+}
+.abc,.bcd,.def{
+    margin-bottom: 20px;
+    width: 180%;
+    margin-left: -50px;
+}
+.static{
+    width: 70%;
+    margin-left: 130px;
+}
+.staticimg{
+    /* font-size: 20px; */
+    height: 15rem;
+    width: 15rem;
 }
 
  }
@@ -564,7 +615,24 @@ z-index: 10000;
     margin-left: -10px;
     margin-right: 30px;
   }
- 
+  .mab{
+    flex-direction: column;
+}
+.abc,.bcd,.def{
+    margin-bottom: 20px;
+    width: 280%;
+    margin-left: -100px;
+}
+.static{
+    width: 70%;
+    margin-left: 70px;
+}
+.staticimg{
+    /* font-size: 20px; */
+    height: 15rem;
+    width: 15rem;
+    display: none;
+}
  }
  
  @media screen and (min-device-width: 320px)and (max-device-width: 479px) {

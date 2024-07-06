@@ -46,16 +46,14 @@ const FlightConfirm = () => {
   const handlesubmitclick=(e)=>{
     e.preventDefault()
   }
-  // const handlepopup = () =>{
-  //   if(emailId === ""  || emailId === null){
-  //     alert("pop")
-  //   }
-  // }
+  const storeddata = JSON.parse(localStorage.getItem("UserInfo"));
+
+
   return (
     <div>
        <div className="navbar">
         <div className="navContainer">
-          <span className="logo" id="logo">Booking.com</span>
+          <span className="logo" id="logo" onClick={()=>navigate("/") } style={{cursor:"pointer"}}>Booking.com</span>
           <div className="navItems">
             {!localStorage.getItem("token") && (
               <button className="navButton" onClick={RegisterPage}>
@@ -67,13 +65,33 @@ const FlightConfirm = () => {
                 Sign in
               </button>
             )}
-            {localStorage.getItem("token") &&
+            {/* {localStorage.getItem("token") &&
               <div className="profile" id="profile" onClick={(e)=>{e.stopPropagation(),setOpenSing(!openSign)}} >
-                {openSign && 
+                {openSign &&
+                <>
+                 {storeddata.name.charAt(0).toUpperCase()} hii
                 <SignOut/>
+                </>
                 }
               </div>
-            }
+            } */}
+
+{localStorage.getItem("token") && (
+              <div>
+                <div style={{ width: "180px", display: "flex" }}></div>
+                <div
+                  className="profile"
+                  style={{ marginLeft: "250px" }}
+                  onClick={(e) => {
+                    e.stopPropagation(), setOpenSing(!openSign);
+                  }}
+                >
+                   {storeddata.name.charAt(0).toUpperCase()}
+                 
+                  {openSign && <SignOut />}
+                </div>
+              </div>
+            )}
 
           </div>
         </div>

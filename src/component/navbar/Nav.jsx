@@ -23,6 +23,9 @@ const Nav = () => {
       };
       //
 
+      const storeddata = JSON.parse(localStorage.getItem("UserInfo"));
+      // console.log(storeddata);
+
   return (
     <div>
         <div style={{ width: "100%" }}>
@@ -30,7 +33,7 @@ const Nav = () => {
         <div className="navContainer">
           <span className="logo"  onClick={() => navigate("/")} style={{cursor:"pointer"}}>Booking.com</span>
 
-          <div style={{ display: "flex", marginLeft: "-350px",marginTop:"-4px" }} className="navp1">
+          <div style={{ display: "flex",marginTop:"-4px" }} className="navp1">
             <button style={{}} className="circle" disabled>
               INR
             </button>
@@ -77,6 +80,7 @@ const Nav = () => {
                     e.stopPropagation(), setOpenSing(!openSign);
                   }}
                 >
+                  {storeddata.name.charAt(0).toUpperCase()}
                   {openSign && <SignOut />}
                 </div>
               </div>
