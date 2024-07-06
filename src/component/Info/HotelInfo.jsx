@@ -307,17 +307,13 @@ const HotelInfo = () => {
               {
               information &&
                 information.images.map((item, key) => (
-
-                  <div>
-                   
                   <div className="img-img" style={{ height: "auto" }}>
                     <img
                       src={item}
-                      alt="j"
+                      alt=""
                       className="dimg"
                       style={{ height: "325px", width: "380px" }}
                     />
-                  </div>
                   </div>
                 ))}
             </div>

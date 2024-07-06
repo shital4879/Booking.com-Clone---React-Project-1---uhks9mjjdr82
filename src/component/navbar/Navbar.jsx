@@ -11,6 +11,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { NavLink, json, useNavigate } from "react-router-dom";
 // import { Snackbar,Button } from "@mui/material";
 import SignOut from "../register/SignOut";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+// import { Button } from "@mui/material";
+// import Paper from '../Paper';
 
 
 const Navbar = ({ type }) => {
@@ -65,6 +69,22 @@ const Navbar = ({ type }) => {
   //     setOpen(false);
   // }
 
+  const toasts = ()=>{
+    // toast("Feature is coming soon.");
+    toast.info('Feature is coming soon', {
+      position: "bottom-left",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+      // fontSize:"25px"
+      // transition: Bounce,
+      });
+  }
+
   return (
     <div style={{ width: "100%" }}>
       <div className="navbar">
@@ -72,24 +92,15 @@ const Navbar = ({ type }) => {
           <span className="logo" onClick={() => navigate("/")}  style={{cursor:"pointer"}}>
             Booking.com
           </span>
-           
-{/* 
-          <Button onClick={()=>setOpen(true)}>submit</Button>
-          <Snackbar message="form submmited"
-          autoHideDuration={4000}
-          open={open}
-          onClose={handleclose}
-          /> */}
-
 
           <div
             style={{ display: "flex", marginTop: "-4px" }}
             className="navp1"
           >
-            <button style={{}} className="circle" disabled>
+            <button style={{}} className="circle" onClick={toasts} >
               INR
             </button>
-            <button className="circle">
+            <button className="circle" onClick={toasts}>
               <img
                 src="https://faraz-khan-booking-com-clone-react-project-1-jza6qqtrfilv.vercel.app/images/IndiaFlag.png"
                 alt=""
@@ -102,13 +113,13 @@ const Navbar = ({ type }) => {
               />
               
             </button>
-            <button className="circle">
+            <button className="circle" onClick={toasts}>
               <FontAwesomeIcon
                 icon={faCircleQuestion}
                 style={{ height: "25px", width: "30px", marginTop: "-4px" }}
               />
             </button>
-            <button className="circle">List Your Property</button>
+            <button className="circle" style={{paddingTop:-"2px",fontSize:"13px"}} onClick={toasts}>List Your Property</button>
           </div>
 
           <div className="navItems">
@@ -268,6 +279,19 @@ const Navbar = ({ type }) => {
           </div>
         </>
       )}
+       <ToastContainer 
+       position="bottom-left"
+       autoClose={5000}
+       hideProgressBar={false}
+       newestOnTop={false}
+       closeOnClick
+       rtl={false}
+       pauseOnFocusLoss
+       draggable
+       pauseOnHover
+       theme="dark"
+      //  transition: "Bounce"
+        />
     </div>
   );
 };

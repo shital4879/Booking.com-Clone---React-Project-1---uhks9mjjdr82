@@ -213,6 +213,7 @@ else{
                   setShowError(false)
                 }}
                 ref={hotelInput}
+                style={{cursor:"pointer"}}
               />
 
               <div>
@@ -263,12 +264,12 @@ else{
             </div>
 
             <div
-              style={{}}
               className="headerSearchItem"
               id="idDate"
               onClick={(e) => {
                 setOpenBookingDate(true);
               }}
+              style={{cursor:"pointer"}}
             >
               <FontAwesomeIcon
                 icon={faCalendarDays}
@@ -302,7 +303,7 @@ else{
                 )}
               </div>
             </div>
-            <div className="headerSearchItem12" id="idPeople" style={{}}>
+            <div className="headerSearchItem12" id="idPeople" style={{cursor:"pointer"}}>
               <FontAwesomeIcon
                 icon={faUser}
                 className="headerIcon"
@@ -387,6 +388,7 @@ else{
             id="headbutton1
           "
             onClick={handleSearch}
+               style={{cursor:"pointer"}}
           >
             Search
           </button>

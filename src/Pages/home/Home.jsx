@@ -3,8 +3,28 @@ import "./home.css";
 import Navbar from "../../component/navbar/Navbar";
 import Header from "../../component/header/Header";
 import Offer from "../../component/offer/OfferSearch";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Home = () => {
+
+
+  const toasts = ()=>{
+    // toast("Feature is coming soon.");
+    toast.info('Feature is coming soon', {
+      position: "bottom-left",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+      // fontSize:"25px"
+      // transition: Bounce,
+      });
+  }
+
   return (
     <div>
       <Navbar />
@@ -13,15 +33,15 @@ const Home = () => {
 
       <div className="" style={{marginTop:"100px"}}>
         <div className="properydiv">
-          <button className="propertybtn">List your property</button>
+          <button className="propertybtn" onClick={toasts}>List your property</button>
         </div>
       </div>
       <div className="below">
-        <button className="ad">Mobile Version</button>
-        <button className="ad">Your Account</button>
-        <button className="ad">Make changes to booking online</button>
-        <button className="ad">Customer service help</button>
-        <button className="ad">Booking.com for business</button>
+        <button className="ad" onClick={toasts} >Mobile Version</button>
+        <button className="ad" onClick={toasts}>Your Account</button>
+        <button className="ad" onClick={toasts}>Make changes to booking online</button>
+        <button className="ad" onClick={toasts}>Customer service help</button>
+        <button className="ad" onClick={toasts}>Booking.com for business</button>
       </div>
 
       <div className="footer1">
@@ -79,6 +99,21 @@ const Home = () => {
         <img src="https://cf.bstatic.com/static/img/tfl/group_logos/logo_agoda/1c9191b6a3651bf030e41e99a153b64f449845ed.png" style={{marginRight:"50px"}}/>
     </div>
 </div>
+
+
+<ToastContainer 
+       position="bottom-left"
+       autoClose={5000}
+       hideProgressBar={false}
+       newestOnTop={false}
+       closeOnClick
+       rtl={false}
+       pauseOnFocusLoss
+       draggable
+       pauseOnHover
+       theme="dark"
+      //  transition: "Bounce"
+        />
 
     </div>
   );
