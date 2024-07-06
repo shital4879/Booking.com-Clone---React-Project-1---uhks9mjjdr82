@@ -13,7 +13,7 @@ return(
     <FlightOffer/>
     {/* <FlightSearch/> */}
 
-<div style={{display:"flex",justifyContent:"space-evenly",alignItems:"center"}}>
+<div style={{display:"flex",justifyContent:"space-evenly",alignItems:"center",marginTop:"100px "}}>
     <table className="tablefooterflight" >
       <thead>
         <tr>

@@ -3,16 +3,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faMugSaucer } from "@fortawesome/free-solid-svg-icons";
 import { useLoaderData, useLocation, useNavigate } from "react-router-dom";
 import { MyContext } from "../../components/App";
+import { format } from "date-fns";
 
 export default function Paymentlastpage() {
   const navigat = useNavigate();
   const location = useLocation();
-  const{hotelinformation} = useContext(MyContext);
+  const{todate, setTodate, setFormdate, formdate,hotelinformation} = useContext(MyContext);
   console.log(hotelinformation);
-  const [selectedDate, setSelectedDate] = useState(location.state.selectedDate);
-  const [information, setInformation] = useState(location.state.information);
-  console.log(selectedDate);
-  console.log(information);
   const[select,setSelect] = useState("");
   const [openSign, setOpenSing] = useState(false);
   const [popUpPay, setPopUpPay] = useState(false);
@@ -84,12 +81,20 @@ export default function Paymentlastpage() {
       }, 3000);
     }
   };
+  const storeddata = JSON.parse(localStorage.getItem("UserInfo"));
+
+  
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    return format(date, "EEE MMM dd yyyy");
+  };
+
 
   return (
     <div>
       <div className="navbar">
         <div className="navContainer">
-          <span className="logo" style={{ backgroundColor: "#003580" }} onClick={()=>navigat("/")}>
+          <span className="logo" style={{ backgroundColor: "#003580" , cursor: "pointer"}} onClick={()=>navigat("/")}>
             Booking.com
           </span>
           <div className="navItems">
@@ -104,13 +109,20 @@ export default function Paymentlastpage() {
               </button>
             )}
             {localStorage.getItem("token") && (
-              <div className="profile">
-                <div
-                  style={{ height: "20px", width: "20px" }}
-                  onClick={() => setOpenSing(!openSign)}
-                ></div>
-                {openSign && <SignOut />}
-              </div>
+               <div>
+               <div style={{ width: "180px", display: "flex" }}></div>
+               <div
+                 className="profile"
+                 style={{ marginLeft: "50px" }}
+                 onClick={(e) => {
+                   e.stopPropagation(), setOpenSing(!openSign);
+                 }}
+               >
+                 {storeddata.name.charAt(0).toUpperCase()}
+
+                 {openSign && <SignOut />}
+               </div>
+             </div>
             )}
           </div>
         </div>
@@ -135,9 +147,58 @@ export default function Paymentlastpage() {
       </div>
 
       <div className="lastpagecon">
-        <div style={{ width: "40%" }}>
-          <h2>Your booking details</h2>
+      
+        <div style={{ width: "50%" }}>
+              {hotelinformation && (
+                <div className="infobox1">
+                  <div>
+                    Hotel &nbsp; &nbsp;{" "}
+                    <span className="ratingbox">{hotelinformation.rating}</span>
+                  </div>
+                  <h2 className="infoname">{hotelinformation.name}</h2>
+                  <div className="infolocation">{hotelinformation.location}</div>
+                  <div className="infoam">
+                    {/* {hotelinformation.amenities[0]},{hotelinformation.amenities[1]} */}
+                  </div>
+                </div>
+              )}
+
+              <div className="infobox2" style={{marginTop:'30px'}}>
+                <h3>Your booking details</h3>
+                <div className="boxes2">
+                  <div className="" style={{borderRight:"2px solid rgb(166, 157, 157)",paddingRight:"30px"}}>
+                    <p style={{fontSize:"15px",color:"rgb(61, 59, 59)",fontWeight:"500"}}>Check-in</p>
+                    <div style={{fontWeight:"500",fontSize:"17px",marginTop:"6px",marginBottom:"2px"}}>{formatDate(formdate)}</div>
+                    <p style={{fontSize:"14px",color:"rgb(88, 86, 86)"}}>From 15:00</p>
+                  </div>
+                  <div>
+                    <p style={{fontSize:"15px",color:"rgb(61, 59, 59)",fontWeight:"500"}}>Check-out</p>
+                    <div style={{fontWeight:"500",fontSize:"17px",marginTop:"6px",marginBottom:"2px"}} >{formatDate(todate)}</div>
+                    <p style={{fontSize:"14px",color:"rgb(88, 86, 86)"}}>Until 12:00</p>
+                    
+                  </div>
+                </div>
+              <p style={{marginBottom:"2px",marginTop:"20px"}} >Total length of stay:</p>
+              <p style={{fontWeight:"500"}}>1 night</p>
+              </div>
+
+              <div className="infobox3" style={{marginTop:"30px"}}>
+                <h3 style={{marginBottom:"15px"}}>Your price summary</h3>
+                <div style={{display:"flex"}} className="pricetotal">
+                  <h2>Price</h2>
+                  <h2>{sessionStorage.getItem("cost")}</h2>
+                  
+                </div>
+                <h4>Price information</h4>
+                <p style={{fontSize:"15px"}}>Excludes ₹ 4,761 in taxes and charges</p>
+
+              </div>
+
+            
         </div>
+
+
+
         <div className="lastpagecon2">
           <h2>How do you want to pay?</h2>
           <div>

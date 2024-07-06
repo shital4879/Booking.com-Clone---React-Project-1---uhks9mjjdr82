@@ -20,14 +20,6 @@ const PaymentHotel = () => {
   const navigat = useNavigate();
   const location = useLocation();
   const params = useParams();
-  // console.log(params.paramid);
-  // console.log(params.cost);
-  // console.log(params.inputval);
-  // const inputval = location.state.inputval;
-  // const data = location.state.data;
-  // const hotelPrice = location.state.hotelPrice;
-  // const totalguest = location.state.totalguest;
-  // console.log("mm", hotelPrice);
   const [popUpPay, setPopUpPay] = useState(false);
   const [openPopUp, setOpenPopUp] = useState(false);
   const [toggle, setToggle] = useState();
@@ -51,8 +43,6 @@ const PaymentHotel = () => {
   };
   const [selectedDate, setSelectedDate] = useState(location.state.selectedDate);
   const [information, setInformation] = useState(location.state.information);
-  // console.log("info", information);
-  // console.log(selectedDate[0].endDate, "date");
   const [email, setEmail] = useState("");
   const [number, setNumber] = useState("");
   const [name, setName] = useState("");
@@ -132,9 +122,6 @@ const PaymentHotel = () => {
           localStorage.getItem("token")
         );
       }
-      // if(!isValid){
-        
-      // }
       setHotelinformation(information)
       sessionStorage.setItem("cost",params.cost);
       navigatelastpage();
