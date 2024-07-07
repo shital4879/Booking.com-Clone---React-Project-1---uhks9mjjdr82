@@ -251,7 +251,7 @@ const FlightHeader = () => {
                 setOpensource(!opensource);
               
               }}
-              style={{ paddingRight: "50px", marginRight: "50px" }}
+              style={{ paddingRight: "50px", marginRight: "50px",cursor:"pointer" }}
               className="inputflighttext1"
               ref={hotelInput}
               onBlur={hotelInputBlur}
@@ -266,14 +266,14 @@ const FlightHeader = () => {
                   style={{
                     position: "absolute",
                     left: "40px",
-                    top: "40px",
-                    width: "200px",
-                    height: "160px",
+                    top: "46px",
                     overflowY: "scroll",
                     right: "-35px",
                     zIndex: "1000",
                     borderRadius: "10px",
-                    padding: "10px",
+                    width: "270px",
+                    height: "280px",
+                    boxShadow: "4px 4px 4px 1px rgba(0,0,0,0.4)",
                     cursor:"pointer"
                   }}
                 >
@@ -291,13 +291,13 @@ const FlightHeader = () => {
                             backgroundColor: "white",
                             paddingLeft: "5px",
                             zIndex: "1000",
-                            // overflowY: "scroll",
+                            padding:"10px 0 10px 10px",
                             height: "35px",
                             marginBottom: "-5px",
-                            boxShadow: "4px 4px 4px 1px rgba(0,0,0,0.4)",
                             display: "flex",
                             zIndex: "10000000",
                             marginLeft: "5px",
+                            cursor:"pointer"
                           }}
                           onClick={(e) => {
                             setSource(item.city), setOpensource(!opensource);
@@ -337,7 +337,7 @@ const FlightHeader = () => {
               }}
               onClick={() => setOpendestination(!opendestination)}
               className="inputflighttext"
-              style={{ marginRight: "50px" }}
+              style={{ marginRight: "50px",cursor:"pointer" }}
               id="texttext"
             />
             <div
@@ -351,15 +351,16 @@ const FlightHeader = () => {
                   style={{
                     position: "absolute",
                     left: "420px",
-                    top: "40px",
-                    width: "200px",
-                    height: "160px",
+                    top: "46px",
+                    width: "270px",
+                    height: "280px",
+                    boxShadow: "4px 4px 4px 1px rgba(0,0,0,0.4)",
                     overflowY: "scroll",
                     right: "-35px",
                     paddingBottom:"2px",
                     borderRadius: "10px",
                     zIndex:"1000",
-                    padding: "10px",
+                    // padding: "10px",
                     cursor:"pointer"
                   }}
                   className="desti1"
@@ -375,10 +376,10 @@ const FlightHeader = () => {
                           backgroundColor: "white",
                           paddingLeft: "5px",
                           zIndex: "1000",
-                          overflowY: "hidden",
+                          // overflowY: "scro",
                           height: "35px",
                           marginBottom: "-5px",
-                          boxShadow: "4px 4px 4px 1px rgba(0,0,0,0.4)",
+                          padding:"10px 0 10px 10px",
                           display: "flex",
                           marginLeft: "5px",
                           cursor:"pointer"

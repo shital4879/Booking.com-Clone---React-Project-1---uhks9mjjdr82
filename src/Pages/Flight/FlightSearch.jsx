@@ -225,6 +225,8 @@ const FlightSearch = () => {
     return { logoSrc, airlineName };
   };
 
+
+
  useEffect(()=>{
   fetchCityNames();
  },[])
@@ -316,7 +318,7 @@ const FlightSearch = () => {
             }}
             // onClick={() => setGoingflight(!goingflight)}
             className="inputflighttext1"
-            style={{ paddingRight: "50px", marginRight: "50px" }}
+            style={{ paddingRight: "50px", marginRight: "50px" ,cursor:"pointer"}}
           />
           </div>
           <div
@@ -327,14 +329,14 @@ const FlightSearch = () => {
                   style={{
                     position: "absolute",
                     left: "40px",
-                    top: "40px",
-                    width: "200px",
-                    height: "160px",
+                    top: "46px",
+                    width: "270px",
+                    height: "280px",
+                    boxShadow: "4px 4px 4px 1px rgba(0,0,0,0.4)",
                     overflowY: "scroll",
                     right: "-35px",
                     zIndex: "1000",
                     borderRadius: "10px",
-                    padding: "10px",
                     cursor:"pointer"
                   }}
                 >
@@ -353,12 +355,13 @@ const FlightSearch = () => {
                             paddingLeft: "5px",
                             zIndex: "1000",
                             // overflowY: "scroll",
+                            padding:"10px 0 10px 10px",
                             height: "35px",
                             marginBottom: "-5px",
-                            boxShadow: "4px 4px 4px 1px rgba(0,0,0,0.4)",
                             display: "flex",
                             zIndex: "10000000",
                             marginLeft: "5px",
+                            cursor:"pointer"
                           }}
                           onClick={(e) => {
                             setSource(item.city), setOpensource(!opensource);
@@ -386,7 +389,7 @@ const FlightSearch = () => {
             type="text"
             value={destination}
             id="texttext2"
-            style={{ marginRight: "50px" }}
+            style={{ marginRight: "50px",cursor:"pointer" }}
             onChange={(e) => {
               setDestination(e.target.value), e.preventDefault();
             }}
@@ -400,7 +403,7 @@ const FlightSearch = () => {
                   style={{
                     position: "absolute",
                     left: "420px",
-                    top: "40px",
+                    top: "46px",
                     width: "200px",
                     height: "160px",
                     overflowY: "scroll",
@@ -408,7 +411,10 @@ const FlightSearch = () => {
                     paddingBottom:"2px",
                     borderRadius: "10px",
                     zIndex:"1000",
-                    padding: "10px",
+                    // padding: "10px",
+                    width: "270px",
+                          height: "280px",
+                          boxShadow: "4px 4px 4px 1px rgba(0,0,0,0.4)",
                     cursor:"pointer"
                   }}
                   className="desti1"
@@ -427,10 +433,10 @@ const FlightSearch = () => {
                           overflowY: "hidden",
                           height: "35px",
                           marginBottom: "-5px",
-                          boxShadow: "4px 4px 4px 1px rgba(0,0,0,0.4)",
                           display: "flex",
                           marginLeft: "5px",
-                          cursor:"pointer"
+                          cursor:"pointer",
+                          padding:"10px 0 10px 10px",
                         }}
                         onClick={(e) => {
                           setDestination(item.city),
