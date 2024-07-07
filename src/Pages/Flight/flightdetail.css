@@ -8,6 +8,12 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    z-index: 999;
+    /* opacity: 0.5; */
+}
+.addblur{
+    filter: blur(5px);
+
 }
 .contex{
     position: relative;
@@ -15,6 +21,8 @@
     width: 55%;
     height: 85%;
     background-color: #fff;
+    z-index: 9999;
+    
 }
 .name-1{
     font-size: 16px;
