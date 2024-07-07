@@ -33,6 +33,7 @@ const FlightHeader = () => {
   const [bookingPeople, setBookingPeople] = useState(false);
   const [hotelInputPopUp, setHotelInputPopUp] = useState(false);
   const [opendestination, setOpendestination] = useState();
+  const [citynames,setCityNames] = useState([]);
   function hotelInputFocus() {
     setHotelInputPopUp(true);
   }
@@ -70,6 +71,24 @@ const FlightHeader = () => {
     handleOption("children", "i");
     setChildage(!childage);
   };
+  
+
+  const fetchCityNames = async () => {
+    try {
+      const res = await fetch(
+        "https://academics.newtonschool.co/api/v1/bookingportals/airport?limit=30",
+        {
+          headers: {
+            projectID: "ob53n4v1jdes",
+          },
+        }
+      );
+      const result = await res.json();
+      setCityNames(result.data.airports);
+    } catch (err) {
+      console.log(err.message ? err.message : err);
+    }
+  };
 
   const flightSearch = useMemo(async () => {
     try {
@@ -122,6 +141,7 @@ const FlightHeader = () => {
 
   useEffect(() => {
     fetchHotelData;
+    fetchCityNames();
   }, []);
 
   const handleFlight = () => {
@@ -257,8 +277,8 @@ const FlightHeader = () => {
                     cursor:"pointer"
                   }}
                 >
-                  {id &&
-                    id
+                  {citynames &&
+                    citynames
                       .filter((item) => {
                         const lower = item.city.toLowerCase();
 
@@ -271,7 +291,7 @@ const FlightHeader = () => {
                             backgroundColor: "white",
                             paddingLeft: "5px",
                             zIndex: "1000",
-                            overflowY: "scroll",
+                            // overflowY: "scroll",
                             height: "35px",
                             marginBottom: "-5px",
                             boxShadow: "4px 4px 4px 1px rgba(0,0,0,0.4)",
@@ -334,7 +354,7 @@ const FlightHeader = () => {
                     top: "40px",
                     width: "200px",
                     height: "160px",
-                    overflowY: "hidden",
+                    overflowY: "scroll",
                     right: "-35px",
                     paddingBottom:"2px",
                     borderRadius: "10px",
@@ -344,8 +364,8 @@ const FlightHeader = () => {
                   }}
                   className="desti1"
                 >
-                  {AIRPORTID &&
-                    AIRPORTID.filter((item) => {
+                  {citynames &&
+                    citynames.filter((item) => {
                       const lower = item.city.toLowerCase();
 
                       return lower.startsWith(destination);

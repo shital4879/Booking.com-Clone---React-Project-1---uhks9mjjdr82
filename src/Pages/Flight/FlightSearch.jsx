@@ -32,7 +32,9 @@ const FlightSearch = () => {
   const location = useLocation();
   const [data, setData] = useState();
   const [flightPrice, setFlightPrice] = useState();
-
+  const [opensource, setOpensource] = useState(false);
+  const [citynames,setCityNames] = useState([]);
+  const [opendestination, setOpendestination] = useState();
   const [source, setSource] = useState(
     location.state.source ? location.state.source : ""
   );
@@ -79,6 +81,25 @@ const FlightSearch = () => {
       };
     });
   };
+
+
+  const fetchCityNames = async () => {
+    try {
+      const res = await fetch(
+        "https://academics.newtonschool.co/api/v1/bookingportals/airport?limit=30",
+        {
+          headers: {
+            projectID: "ob53n4v1jdes",
+          },
+        }
+      );
+      const result = await res.json();
+      setCityNames(result.data.airports);
+    } catch (err) {
+      console.log(err.message ? err.message : err);
+    }
+  };
+
 
   const flightSearch = useMemo(async () => {
     try {
@@ -143,7 +164,6 @@ const FlightSearch = () => {
         destination: location.state.destination,
         flightPrice: location.state.flightPrice,
         source: location.state.source,
-
         people: location.state.people,
       },
     });
@@ -205,7 +225,9 @@ const FlightSearch = () => {
     return { logoSrc, airlineName };
   };
 
- 
+ useEffect(()=>{
+  fetchCityNames();
+ },[])
  
 
   return (
@@ -288,12 +310,66 @@ const FlightSearch = () => {
             onChange={(e) => {
               setSource(e.target.value), e.preventDefault();
             }}
+            onClick={() => {
+              setOpensource(!opensource);
+            
+            }}
             // onClick={() => setGoingflight(!goingflight)}
             className="inputflighttext1"
             style={{ paddingRight: "50px", marginRight: "50px" }}
           />
           </div>
+          <div
+            >
+              {opensource && (
+                <div
+                className="sourcetext"
+                  style={{
+                    position: "absolute",
+                    left: "40px",
+                    top: "40px",
+                    width: "200px",
+                    height: "160px",
+                    overflowY: "scroll",
+                    right: "-35px",
+                    zIndex: "1000",
+                    borderRadius: "10px",
+                    padding: "10px",
+                    cursor:"pointer"
+                  }}
+                >
+                  {citynames &&
+                    citynames
+                      .filter((item) => {
+                        const lower = item.city.toLowerCase();
 
+                        return lower.startsWith(source);
+                      })
+
+                      .map((item) => (
+                        <div
+                          style={{
+                            backgroundColor: "white",
+                            paddingLeft: "5px",
+                            zIndex: "1000",
+                            // overflowY: "scroll",
+                            height: "35px",
+                            marginBottom: "-5px",
+                            boxShadow: "4px 4px 4px 1px rgba(0,0,0,0.4)",
+                            display: "flex",
+                            zIndex: "10000000",
+                            marginLeft: "5px",
+                          }}
+                          onClick={(e) => {
+                            setSource(item.city), setOpensource(!opensource);
+                          }}
+                        >
+                          {item.city}
+                        </div>
+                      ))}
+                </div>
+              )}
+            </div>
           </div>
         <FontAwesomeIcon
           icon={faArrowRightArrowLeft}
@@ -314,9 +390,58 @@ const FlightSearch = () => {
             onChange={(e) => {
               setDestination(e.target.value), e.preventDefault();
             }}
+            onClick={() => setOpendestination(!opendestination)}
             className="inputflighttext"
           />
         </div>
+        {opendestination && (
+                <div
+             
+                  style={{
+                    position: "absolute",
+                    left: "420px",
+                    top: "40px",
+                    width: "200px",
+                    height: "160px",
+                    overflowY: "scroll",
+                    right: "-35px",
+                    paddingBottom:"2px",
+                    borderRadius: "10px",
+                    zIndex:"1000",
+                    padding: "10px",
+                    cursor:"pointer"
+                  }}
+                  className="desti1"
+                >
+                  {citynames &&
+                    citynames.filter((item) => {
+                      const lower = item.city.toLowerCase();
+
+                      return lower.startsWith(destination);
+                    }).map((item) => (
+                      <div
+                        style={{
+                          backgroundColor: "white",
+                          paddingLeft: "5px",
+                          zIndex: "1000",
+                          overflowY: "hidden",
+                          height: "35px",
+                          marginBottom: "-5px",
+                          boxShadow: "4px 4px 4px 1px rgba(0,0,0,0.4)",
+                          display: "flex",
+                          marginLeft: "5px",
+                          cursor:"pointer"
+                        }}
+                        onClick={(e) => {
+                          setDestination(item.city),
+                            setOpendestination(!opendestination);
+                        }}
+                      >
+                        {item.city}
+                      </div>
+                    ))}
+                </div>
+              )}
         <div
           className="headerSearchItem1"
           id="searchitem14"
