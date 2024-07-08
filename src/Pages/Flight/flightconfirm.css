@@ -1,3 +1,15 @@
+
+.open{
+    position: relative;
+    padding: 32px;
+    width: 35%;
+    height: 44%;
+    border-radius: 20px;
+    background-color: #fff;
+    z-index: 9999;
+    
+}
+
 .confirmation-main{
     /* margin-left: 190px;
     margin-right: 190px; */

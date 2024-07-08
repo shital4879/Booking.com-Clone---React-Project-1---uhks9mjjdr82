@@ -1,14 +1,25 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import "./flightconfirm.css";
 import FlightInfo from "./FlightInfo";
 import SignOut from "../../component/register/SignOut";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faCheck,
+  faMugSaucer,
+  faX
+} from "@fortawesome/free-solid-svg-icons";
+import { MyContext } from "../../components/App";
+import { format } from "date-fns";
+import ClearIcon from '@mui/icons-material/Clear';
 
 const FlightConfirm = () => {
   const params = useParams();
   console.log(params.fid, "kt");
   const location = useLocation();
   const [emailId, setEmailId] = useState();
+  const {flightinformation,setFlightinformation} = useContext(MyContext);
+  console.log(flightinformation,"info");
   const flightPrice = location.state.flightPrice;
   console.log("mi", flightPrice);
   const navigation = useNavigate();
@@ -16,6 +27,62 @@ const FlightConfirm = () => {
   const fid = location.state;
   const [openSign, setOpenSing] = useState(false);
   const navigate = useNavigate();
+  const [selectedDate, setSelectedDate] = useState(location.state.selectedDate);
+  const [information, setInformation] = useState(location.state.information);
+  const [email, setEmail] = useState("");
+  const [number, setNumber] = useState("");
+  const [name, setName] = useState("");
+  const [lastname, setLastname] = useState("");
+  const [error, setError] = useState({});
+  const [valid, setvalid] = useState(false);
+  const [opendetails,setOpendetails] = useState(false);
+
+  const handleSubmit = (e) => {
+    let isValid = false;
+    let validationError = {};
+    e.preventDefault();
+    if (email.length == 0) {
+      isValid = true;
+      validationError.email = "email is required";
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      isValid = true;
+      validationError.email = "email is required";
+    }
+    if (number.length == 0) {
+      isValid = true;
+      validationError.number = "number is required";
+    } else if (number.length < 10) {
+      isValid = true;
+      validationError.number = "10 digit number is required";
+    } else if (number.length > 10) {
+      isValid = true;
+      validationError.number = "10 digit number is required";
+    }
+    if (name.length == 0) {
+      isValid = true;
+      validationError.name = "name is required";
+    } else if (!/^[a-zA-Z ]+$/.test(name)) {
+      isValid = true;
+      validationError.name = " valid name is required";
+    }
+    if (lastname.length == 0) {
+      isValid = true;
+      validationError.lastname = "Lastname is required";
+    } else if (!/^[a-zA-Z ]+$/.test(lastname)) {
+      isValid = true;
+      validationError.lastname = " valid Lastname is required";
+    }
+    setvalid(isValid);
+    setError(validationError);
+
+    if (!isValid) {
+      sessionStorage.setItem("fid",params.fid);
+     setFlightinformation(location.state);
+     navigate("/flightPayment")
+     
+    }
+  };
 
   const RegisterPage = () => {
     navigate(`/Register`);
@@ -23,8 +90,8 @@ const FlightConfirm = () => {
   const SignInPage = () => {
     navigate(`/SignIn`);
   };
-
-  console.log("check", location.state);
+  const [high,setHigh] = useState(location.state)
+  console.log("checkf", high);
   const handlebackbtn = () => {
     navigation(`/flightsearch`),
       {
@@ -49,6 +116,13 @@ const FlightConfirm = () => {
   const handlesubmitclick = (e) => {
     e.preventDefault();
   };
+
+  
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    return format(date, "EEE MMM dd yyyy");
+  };
+
   const storeddata = JSON.parse(localStorage.getItem("UserInfo"));
 
   return (
@@ -93,226 +167,193 @@ const FlightConfirm = () => {
           </div>
         </div>
       </div>
-      <form onSubmit={() => handlesubmitclick()} noValidate>
-        <div className="confirmation-main">
-          <div className="mainSet1">
-            <div className="set1">
-              <h2 style={{ fontSize: "20px", marginBottom: "8px" }}>
-                Contact details
-              </h2>
-              <h5 style={{ fontWeight: "400", marginBottom: "10px" }}>
-                <span style={{ color: "red", marginRight: "5px" }}>*</span>
-                Required
-              </h5>
-              <label style={{ fontSize: "15px" }}>
-                Contact Email{" "}
-                <span style={{ color: "red", marginRight: "5px" }}>*</span>
-              </label>
-              <br />
-
-              <input
-                type="email"
-                name="email"
-                // value={emailId}
-                // onChange={(e) => {
-                //   setEmailId(e.target.value), e.preventDefault();
-                // }}
-                style={{
-                  height: "35px",
-                  width: "250px",
-                  marginBottom: "15px",
-                  width: "320px",
-                  fontSize: "16px",
-                }}
-                required
-              />
-
-              <br />
-              <label>
-                Phone number{" "}
-                <span style={{ color: "red", marginRight: "5px" }}>*</span>
-              </label>
-              <br />
-              <input
-                type="number"
-                style={{
-                  height: "35px",
-                  width: "250px",
-                  marginBottom: "30px",
-                  width: "320px",
-                  fontSize: "16px",
-                }}
-                required
-                placeholder="+91"
-              />
-            </div>
-            <div className="set2">
-              <div className="setBox1">
-                <div className="setTicket">
-                  <h5
-                    style={{
-                      fontSize: "15px",
-                      fontWeight: "700",
-                      marginBottom: "5px",
-                    }}
-                  >
-                    Ticket (1 adult)
-                  </h5>
-                  {/* <h5
-                  style={{
-                    fontSize: "15px",
-                    fontWeight: "400",
-                    marginBottom: "8px",
-                  }}
-                >
-                  Flight fare
-                </h5> */}
-                  {/* <h5
-                  style={{
-                    fontSize: "15px",
-                    fontWeight: "400",
-                    marginBottom: "8px",
-                  }}
-                >
-                  Taxes and charges
-                </h5> */}
-                  <h2 style={{ marginTop: "40px" }}>Total</h2>
-                </div>
-                <div className="setMoney">
-                  <h5
-                    style={{
-                      fontSize: "15px",
-                      fontWeight: "700",
-                      marginBottom: "8px",
-                      display: "flex",
-                      justifyContent: "end",
-                    }}
-                  >
-                    INR{params.fid}
-                  </h5>
-
-                  <h2
-                    style={{
-                      marginTop: "40px",
-                      display: "flex",
-                      justifyContent: "end",
-                    }}
-                  >
-                    {" "}
-                    INR{params.fid}
-                  </h2>
-                </div>
-              </div>
-              <div
-                style={{ marginLeft: "200px", marginTop: "30px" }}
-                className="taxx"
-              >
-                <p style={{ marginBottom: "5px" }}>
-                  Includes taxes and charges
-                </p>
-                <p>No hidden fees - track your price at every step</p>
-              </div>
-            </div>
-          </div>
-          <div className="mainSet2">
-            <h2 style={{ fontSize: "20px", marginBottom: "5px" }}>
-              Traveller 1 (adult)
-            </h2>
-            <h5 style={{ fontWeight: "400", marginBottom: "20px" }}>
-              <span style={{ color: "red", marginRight: "5px" }}>*</span>
-              Required
-            </h5>
-            <div className="data">
-              <div style={{ marginRight: "-100px" }}>
-                <label style={{ fontSize: "15px", marginRight: "220px" }}>
-                  First names{" "}
-                  <span style={{ color: "red", marginRight: "5px" }}>*</span>
-                </label>
-                <input
-                  type="text"
-                  style={{
-                    height: "35px",
-                    width: "190px",
-                    marginRight: "70px",
-                  }}
-                  required
-                />
-              </div>
-              <div
-                style={{ marginLeft: "-70px", display: "block" }}
-                className="namee"
-              >
-                <label style={{ fontSize: "15px" }}>
-                  Last names{" "}
-                  <span style={{ color: "red", marginRight: "px" }}>*</span>
-                </label>
-                <br />
-                <input
-                  type="text"
-                  style={{
-                    height: "35px",
-                    width: "190px",
-                    marginRight: "10px",
-                  }}
-                  required
-                />
-              </div>
-            </div>
-
-            {/* <p style={{fontSize:"12px",width:"250px", marginRight:"10px"}}>Enter exactly what's written on this traveller's travel document</p> */}
-
-            <p
-              style={{
-                fontSize: "12px",
-                width: "250px",
-                marginTop: "5px",
-                marginBottom: "10px",
-              }}
-            >
-              Enter exactly what's written on this traveller's travel document
-            </p>
-            <br />
-            <label>
-              Gender specified on your travel document{" "}
-              <span style={{ color: "red", marginRight: "5px" }}>*</span>
-            </label>
-            <br />
-            <select
-              id="gender"
-              style={{
-                height: "25px",
-                width: "150px",
-                marginTop: "10px",
-                fontSize: "14px",
-                height: "35px",
-                width: "250px",
-              }}
-              required
-            >
-              <option value="gender">Select Gender</option>
-              <option value="male">Male</option>
-              <option value="female">Female</option>
-            </select>
-            <p style={{ fontSize: "12px", width: "300px", marginTop: "5px" }}>
-              We're currently required by airlines and providers to ask for this
-              information
-            </p>
+  
+      <div>
+          <div
+            className="paymentline"
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              marginTop: "20px",
+            }}
+          >
+            <FontAwesomeIcon icon={faCheck} className="circlefornum" />
+            <p style={{ marginRight: "10px" }}>Ticket type</p>
+            <div className="line"></div>
+            <div className="circlefornum">2</div>
+            <p style={{ marginRight: "10px" }}>Who's flying?</p>
+            <div className="line"></div>
+            <div className="circlefornum1">3</div>
+            <p>Check and pay</p>
           </div>
 
-          <div className="buttons">
-            <button
-              className="backBtnbtn"
-              type="submit"
-              style={{ marginLeft: "0px", marginBottom: "50px" }}
-              onClick={() => {
-                flightPayment(params.fid);
-              }}
-            >
-              Next
-            </button>
+          <div style={{ display: "flex" }} className="maincontent">
+         
+
+            <div>
+              <div className="content2" style={{marginLeft:"-10px"}}>
+                <form>
+                  <h2 style={{ marginBottom: "10px" }}>Enter your details</h2>
+                  <div>
+                    <label className="labelforname">First name *</label>
+                    <br />
+                    <input
+                      type="text"
+                      name="name"
+                      // id="cardhold"
+                      value={name}
+                      className="inputdataofname"
+                      onChange={(e) => {
+                        setName(e.target.value);
+                        setError((prev) => {
+                          return { ...prev, name: "" };
+                        });
+                      }}
+                      onInput={(e) => {
+                        e.target.value = e.target.value.replace(/[0-9]/g, "");
+                      }}
+                    />
+                    {valid ? (
+                      <div className="nameZone">{error.name}</div>
+                    ) : (
+                      <></>
+                    )}
+                  </div>
+                  <div>
+                    <label className="labelforname">Last name *</label>
+                    <br />
+                    <input
+                      type="text"
+                      name="name"
+                      // id="cardhold"
+                      value={lastname}
+                      className="inputdataofname"
+                      onChange={(e) => {
+                        setLastname(e.target.value);
+                        setError((prev) => {
+                          return { ...prev, lastname: "" };
+                        });
+                      }}
+                      onInput={(e) => {
+                        e.target.value = e.target.value.replace(/[0-9]/g, "");
+                      }}
+                    />
+                    {valid ? (
+                      <div className="nameZone">{error.lastname}</div>
+                    ) : (
+                      <></>
+                    )}
+                  </div>
+                  <div>
+                    <label className="labelforname">Email address *</label>
+                    <br />
+                    <input
+                      type="email"
+                      className="inputdataofname"
+                      onChange={(e) => {
+                        setEmail(e.target.value);
+                        setError((prev) => {
+                          return { ...prev, email: "" };
+                        });
+                      }}
+                    />
+                    {valid ? (
+                      <div className="emailZone1">{error.email}</div>
+                    ) : (
+                      <></>
+                    )}
+                  </div>
+                  <div>
+                    <label className="labelforname">Phone number *</label>
+                    <br />
+                    <input
+                      className="inputdataofname"
+                      type="text"
+                      maxLength="10"
+                      // required
+                      value={number}
+                      placeholder="+91"
+                      onChange={(e) => {
+                        setNumber(e.target.value);
+                        setError((prev) => {
+                          return { ...prev, number: "" };
+                        });
+                      }}
+                      onInput={(e) => {
+                        e.target.value = e.target.value.replace(/[^0-9]/g, "");
+                      }}
+                    />
+                    {valid ? (
+                      <div className="numberZone2">{error.number}</div>
+                    ) : (
+                      <></>
+                    )}
+                  </div>
+                </form>
+              </div>
+              <button className="step2" onClick={handleSubmit} style={{marginBottom:"60px"}}>
+                Next: Final details
+              </button>
+            </div>
+
+               <div style={{ width: "100%",marginLeft:"40px",marginRight:"-35px" }}>
+              <div className="infobox1">
+                <h2>{high.destination} to {high.source}</h2>
+                <p>Round trip</p>
+                {/* <p>{high.selectedDate.startDate}</p> */}
+              </div>
+              <div className="infobox3" style={{marginTop:"30px"}}>
+                <h3 style={{marginBottom:"15px"}}>Your price summary</h3>
+                <p>Total</p>
+                <div style={{display:"flex"}} className="pricetotal">
+                  <h2>Price</h2>
+                  <h2>{params.fid}</h2>
+                  
+                </div>
+                <h4 style={{marginTop:"30px"}}>Price information</h4>
+                <button style={{marginTop:"5px",borderRadius:"10px" ,fontSize:"14px",border:"1px solid blue" ,padding:"10px 15px",color:"blue",}} onClick={()=>setOpendetails(true)}>View price details</button>
+
+                {opendetails &&
+                  <div className="detailingprice">
+
+                    <div className="open">
+                      <div style={{display:"flex",justifyContent:"space-between"}}>
+                       <h3>Price details</h3>
+                       {/* <ClearIcon/> */}
+                       <FontAwesomeIcon icon={faX} onClick={()=>setOpendetails(false)}  />
+                       </div>
+                       <p style={{fontSize:"14px"}}>No hidden fees – track your price at every step</p>
+                       <div className="" style={{marginTop:"15px",border:"1px solid rgb(239, 235, 235)",borderRadius:"5px",paddingBottom:"15px"}}>
+                        <div style={{display:"flex",justifyContent:"space-between",backgroundColor:"rgb(239, 235, 235",padding:"12px 7px",borderTopLeftRadius:"5px",borderTopRightRadius:"5px"}}>
+                        <h4>Tickets</h4>
+                        <h4>INR &nbsp; {params.fid}</h4>
+                        </div>
+                        <div style={{marginTop:"7px",display:"flex",justifyContent:"space-between",padding:"12px 7px 0px 12px"}}>
+                          <h5>Price per adult</h5>
+                          <h5>INR &nbsp; {params.fid}</h5>
+                        </div>
+                        <div style={{marginTop:"5px",display:"flex",justifyContent:"space-between",padding:"1px 7px 0 12px"}}>
+                          <h5>Air India Express taxes and charges</h5>
+                          <h5>INR &nbsp; 1869.00</h5>
+                        </div>
+                       </div>
+                        <div style={{display:"flex",flexDirection:"column",justifyContent:"flex-end",marginTop:"20px"}}>
+                          <p style={{fontSize:"14px",color:"rgb(109, 105, 105)"}}>Total (includes taxes, charges and fees)</p>
+                          <h2>INR &nbsp; {params.fid}</h2>
+                        </div>
+                    </div>
+                  </div>
+                }
+
+              </div>
+
+            </div>
+
+
           </div>
         </div>
-      </form>
+
+
     </div>
   );
 };

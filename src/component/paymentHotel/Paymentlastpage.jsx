@@ -73,7 +73,6 @@ export default function Paymentlastpage() {
     setError(validationError);
 
     if (!isValid) {
-    //   navigat(`/paymentlastpage`);
       setPopUpPay(!popUpPay);
       // setAction("Booking successful!"), setStatus("Enjoy your journey");
       setTimeout(() => {

@@ -10,16 +10,20 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import SignOut from "../../component/register/SignOut";
 import { MyContext } from "../../components/App";
+import { faCheck, faMugSaucer } from "@fortawesome/free-solid-svg-icons";
 
 const FlightPayment = () => {
   const navigat = useNavigate();
-  const{setfendate,fstartdate,setfstartdate,fenddate} = useContext(MyContext);
+  const { setfendate, fstartdate, setfstartdate, fenddate } =
+    useContext(MyContext);
+  const { flightinformation, setFlightinformation } = useContext(MyContext);
+  console.log(flightinformation);
   const params = useParams();
   const location = useLocation();
   const [cardNumber, setCardNumber] = useState("");
   const [popUpPay, setPopUpPay] = useState(false);
   const [openPopUp, setOpenPopUp] = useState(false);
-  const [flightprice, setFlightprice] = useState(location.state.flightPrice);
+  // const [flightprice, setFlightprice] = useState(location.state.flightPrice);
   const [cvc, setCvc] = useState("");
   const [email, setEmail] = useState("");
   const [number, setNumber] = useState("");
@@ -29,9 +33,7 @@ const FlightPayment = () => {
   const [valid, setvalid] = useState(false);
   const [toggle, setToggle] = useState();
 
-
-
-  const bookingConfirmation = async (id, date,token) => {
+  const bookingConfirmation = async (id, date, token) => {
     // console.log(id,date,enddate,token);
     try {
       const resp = await fetch(
@@ -58,13 +60,11 @@ const FlightPayment = () => {
       console.log("booking confirmation result: ", result);
     } catch (err) {
       console.log(err.message ? err.message : err);
-    }
-  };
-
+    }
+  };
 
   const handleSubmit = (e) => {
-
-    const [day, month, year] = exp.split('/');
+    const [day, month, year] = exp.split("/");
     const expiryDateObj = new Date(`${year}-${month}-${day}`);
     const currentDate = new Date();
 
@@ -74,10 +74,9 @@ const FlightPayment = () => {
     if (name.length == 0) {
       isValid = true;
       validationError.name = "name is required";
-    }
-    else if(!/^[a-zA-Z ]+$/.test(name)){
+    } else if (!/^[a-zA-Z ]+$/.test(name)) {
       isValid = true;
-      validationError.name=" valid name is required";
+      validationError.name = " valid name is required";
     }
     if (cardNumber.length == 0) {
       isValid = true;
@@ -85,8 +84,7 @@ const FlightPayment = () => {
     } else if (cardNumber.length < 16) {
       isValid = true;
       validationError.cardNumber = "Valid 16-digit card number";
-    }
-    else if (cardNumber.length > 16) {
+    } else if (cardNumber.length > 16) {
       isValid = true;
       validationError.cardNumber = "Valid 16-digit card number";
     }
@@ -98,37 +96,34 @@ const FlightPayment = () => {
       validationError.cvc = "Valid 3 digit card number";
     }
 
-   
     if (expiryDateObj < currentDate) {
-      return 'Expiry date must be in the future';
+      return "Expiry date must be in the future";
     }
-
-
 
     if (exp.length == "") {
       isValid = true;
       validationError.exp = "Expiry date is required";
-    } 
-    else if( /^(\d{2})\/(\d{2})\/(\d{4})$/.test(exp)) {
+    } else if (/^(\d{2})\/(\d{2})\/(\d{4})$/.test(exp)) {
       isValid = true;
       validationError.exp = "Please enter a valid expiry date";
     }
     setvalid(isValid);
     setError(validationError);
 
-    
-
     if (!isValid) {
-      if(localStorage.getItem("flightid")){
-        bookingConfirmation(localStorage.getItem("flightid"),fstartdate,localStorage.getItem("token"));
+      if (localStorage.getItem("flightid")) {
+        bookingConfirmation(
+          localStorage.getItem("flightid"),
+          fstartdate,
+          localStorage.getItem("token")
+        );
       }
       setPopUpPay(!popUpPay);
-      setTimeout(()=> {
+      setTimeout(() => {
         navigat(`/`);
       }, 3000);
     }
   };
-
 
   const [openSign, setOpenSing] = useState(false);
   const navigate = useNavigate();
@@ -142,14 +137,20 @@ const FlightPayment = () => {
   const [action, setAction] = useState();
   const [status, setStatus] = useState();
 
-  const today = new Date().toISOString().split('T')[0];
+  const today = new Date().toISOString().split("T")[0];
+  const storeddata = JSON.parse(localStorage.getItem("UserInfo"));
 
- 
   return (
     <div>
       <div className="navbar">
         <div className="navContainer">
-          <span className="logo">Booking.com</span>
+          <span
+            className="logo"
+            onClick={() => navigat("/")}
+            style={{ backgroundColor: "#003580", cursor: "pointer" }}
+          >
+            Booking.com
+          </span>
           <div className="navItems">
             {!localStorage.getItem("token") && (
               <button className="navButton" onClick={RegisterPage}>
@@ -168,27 +169,45 @@ const FlightPayment = () => {
                   e.stopPropagation(), setOpenSing(!openSign);
                 }}
               >
+                {" "}
+                {storeddata.name.charAt(0).toUpperCase()}
                 {openSign && <SignOut />}
               </div>
             )}
           </div>
         </div>
       </div>
-      <div className="bag-payment">
-        <div className="ddd">
-          <div className="boggage-details">
-            <h2 style={{ fontSize: "20px", fontWeight: "600" }}>Baggage</h2>
-            <h5
-              style={{
-                fontSize: "16px",
-                fontWeight: "400",
-                margin: "5px 0px 10px ",
-                color: "gray",
-              }}
-            >
-              Total number of bags included for all travellers
-            </h5>
-            <div className="bag-Cat">
+
+      <div
+        className="paymentline"
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          marginTop: "20px",
+        }}
+      >
+        <FontAwesomeIcon icon={faCheck} className="circlefornum" />
+        <p style={{ marginRight: "10px" }}>Your selection</p>
+        <div className="line"></div>
+        <div className="circlefornum">2</div>
+        <p style={{ marginRight: "10px" }}>Your details</p>
+        <div className="line"></div>
+        <div className="circlefornum">3</div>
+        <p>Final step</p>
+      </div>
+
+      <div>
+        <div className="infobox1">
+                {/* <h2>{flightinformation.destination} to {flightinformation.source}</h2>
+                <p>Round trip</p> */}
+        {/* <p>{high.selectedDate.startDate}</p> */}
+        </div>
+
+       <div style={{margin:"50px 180px 50px 200px"}} className="paymentend" >
+        <h2 style={{marginTop:"10px",marginBottom:"10px"}}>Baggage</h2>
+        <p>Total number of bags included for all travellers</p>
+        <div>
+        <div className="bag-Cat">
               <FontAwesomeIcon
                 icon={faBriefcase}
                 style={{ marginTop: "5px" }}
@@ -209,187 +228,17 @@ const FlightPayment = () => {
               />
               <p style={{ width: "200px" }}>1 checked bag Max weight 20 kg</p>
             </div>
-          </div>
-          <br />
+
         </div>
-        <div className="paymentdetailing">
-          <div style={{ display: "flex" }} className="totalp">
-            <h2>Total</h2>
-            <br />
-            <h3
-              className="classs"
-              style={{
-                margin: "4px 0px 0px 180px",
-                display: "flex",
-                justifyContent: "end",
-              }}
-            >
-              INR{params.fid}
-            </h3>
-          </div>
-          <p style={{ color: "gray", marginBottom: "30px", marginTop: "5px" }}>
-            Includes taxes and charges
-          </p>
-          <p style={{ marginTop: "30px" }}>No hidden fees</p>
-        </div>
+        
+        
+
+       </div>
+
       </div>
-      {!toggle && (
-        <form onSubmit={handleSubmit}>
-          <div className="paymentMethod">
-            <div className="flightPay">
-              <h2 style={{ fontSize: "20px", fontWeight: "700" }}>
-                Your payment
-              </h2>
-              <p
-                style={{
-                  fontSize: "16px",
-                  fontWeight: "400",
-                  margin: "10x 0px 20px ",
-                  color: "gray",
-                }}
-              >
-                Simple, safe and secure.
-              </p>
-              <h3 style={{ fontWeight: "500", marginBottom: "5px" }}>
-                How would you like to pay?
-              </h3>
-              <div className="pay-img">
-                <img
-                  src="https://t-ec.bstatic.com/static/img/payments/payment_icons_redesign/visa.svg"
-                  className="payImg"
-                />
-                <img
-                  src="https://t-ec.bstatic.com/static/img/payments/payment_icons_redesign/jcb.svg"
-                  className="payImg"
-                />
-                <img
-                  src="https://t-ec.bstatic.com/static/img/payments/payment_icons_redesign/discover.svg"
-                  className="payImg"
-                />
-                <img
-                  src="https://t-ec.bstatic.com/static/img/payments/payment_icons_redesign/mc.svg"
-                  className="payImg"
-                />
-              </div>
-              <div>
-                <label className="labeldata">
-                  Cardholder's Name <span style={{ color: "red" }}>*</span>
-                </label>
-                <br />
-                <input
-                  type="text"
-                  name="name"
-                  id="inputd"
-                  onInput={(e)=>{e.target.value = e.target.value.replace(/[0-9]/g, '')}}
-                  className="inputdata"
-                  onChange={(e) => {
-                    setName(e.target.value);
-                    setError((prev) => {
-                      return { ...prev, name: "" };
-                    });
-                  }}
-                  style={{ marginBottom: "30px" ,paddingLeft:"5px"}}
-                />
-                {valid ? <div className="nameZone">{error.name}</div> : <></>}
-                <br />
 
-                <label className="labeldata">
-                  Card Number <span style={{ color: "red" }}>*</span>
-                </label>
-                <br />
-                <div className="carddetail">
-                  <FontAwesomeIcon icon={faCreditCard} />
-                  <input
-                    type="text"
-                    name="name"
-                    maxLength="16"
-                    onInput={(e)=>{e.target.value = e.target.value.replace(/[a-z]/g, '')}}
-                    style={{
-                      border: "none",
-                      outline: "none",
-                      height: "30px",
-                      marginLeft: "10px",
-                    }}
-                    // value={cardNumber}
-                    onChange={(e) => {
-                      setCardNumber(e.target.value);
-                      setError((prev) => {
-                        return { ...prev, cardNumber: "" };
-                      });
-                    }}
-                  />
-                </div>
-                {valid ? (
-                  <div className="cardZone1">{error.cardNumber}</div>
-                ) : (
-                  <></>
-                )}
-              </div>
-              <div>
-                <div style={{ marginBottom: "30px" }}>
-                  <label>
-                    Expiry Date <span style={{ color: "red" }}>*</span>
-                  </label>
-                  <br />
-                  <input
-                  min={today}
-                    type="date"
-                    placeholder="MM/YY"
-                    className="expinput"
-                    onChange={(e) => {
-                      setExp(e.target.value);
-                      setError((prev) => {
-                        return { ...prev, exp: "" };
-                      });
-                    }}
-                  />
-                  {valid ? (
-                    <span className="expZone1">{error.exp}</span>
-                  ) : (
-                    <></>
-                  )}
-                </div>
-
-                <div>
-                  <label>
-                    CVC <span style={{ color: "red" }}>*</span>
-                  </label>
-                  <br />
-                  <input
-                    type="text"
-                    className="expinput"
-                    maxLength="3"
-                    value={cvc}
-                    onInput={(e)=>{e.target.value = e.target.value.replace(/[a-z]/g, '')}}
-                    onChange={(e) => {
-                      setCvc(e.target.value);
-                      setError((prev) => {
-                        return { ...prev, cvc: "" };
-                      });
-                    }}
-                  />
-                  {valid ? (
-                    <span className="cvcZone1" style={{marginTop:"10px"}}>{error.cvc}</span>
-                  ) : (
-                    <></>
-                  )}
-                </div>
-
-                
-              </div>
-            </div>
-          </div>
-          <button
-            id="backb"
-            className="backBtn"
-            // onClick={() => {
-            //   handlepaybtn;
-            // }}
-          >
-            Pay Now
-          </button>
-        </form>
-      )}
+  
+     
 
       {popUpPay && (
         <div className="flightinfo">

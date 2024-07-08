@@ -27,7 +27,7 @@ import Nav from "../../component/navbar/Nav";
 import { MyContext } from "../../components/App";
 
 const FlightSearch = () => {
-  const { setfendate, fstartdate, setfstartdate, fenddate } =
+  const { setfendate, fstartdate, setfstartdate, fenddate,flightinformation,setFlightinformation } =
     useContext(MyContext);
   const navigate = useNavigate();
   const location = useLocation();
@@ -182,16 +182,6 @@ const FlightSearch = () => {
   }, []);
 
   const flightDetail = (id) => {
-    // navigate(`/flightDetail/${id}`
-    //   , {
-    //   state: {
-    //     selectedDate: selectedDate,
-    //     destination: location.state.destination,
-    //     flightPrice: location.state.flightPrice,
-    //     source: location.state.source,
-    //     people: location.state.people,
-    //   },
-    // });
     fetchHotelData(id);
   };
 
@@ -253,6 +243,7 @@ const FlightSearch = () => {
 
   const flightConfirmation = (fid) => {
     if (!localStorage.getItem("token")) {
+      setFlightPrice(cardresult);
       navigate(`/Register?redirect=${encodeURI(`/flightconfirm`)}`, {
         state: {
           destination: location.state.destination,
