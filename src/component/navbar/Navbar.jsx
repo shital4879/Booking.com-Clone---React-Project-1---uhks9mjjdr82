@@ -9,12 +9,9 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { NavLink, json, useNavigate } from "react-router-dom";
-// import { Snackbar,Button } from "@mui/material";
 import SignOut from "../register/SignOut";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-// import { Button } from "@mui/material";
-// import Paper from '../Paper';
 
 
 const Navbar = ({ type }) => {
@@ -84,7 +81,7 @@ const Navbar = ({ type }) => {
           </span>
 
           <div
-            style={{ display: "flex", marginTop: "-4px" }}
+            style={{ display: "flex", marginTop: "-4px",marginLeft:"-30px"}}
             className="navp1"
           >
             <button style={{}} className="circle" onClick={toasts} >
@@ -109,10 +106,10 @@ const Navbar = ({ type }) => {
                 style={{ height: "25px", width: "30px", marginTop: "-4px" }}
               />
             </button>
-            <button className="circle" style={{paddingTop:-"2px",fontSize:"13px"}} onClick={toasts}>List Your Property</button>
+            <button className="circle1" style={{fontSize:"12px"}} onClick={toasts}>List Your Property</button>
           </div>
 
-          <div className="navItems">
+          <div className="navItems" style={{display:"flex",marginLeft:"-35px"}}>
             {!localStorage.getItem("token") && (
               <button className="navButton" onClick={RegisterPage}>
                 Register
@@ -128,12 +125,12 @@ const Navbar = ({ type }) => {
                 <div style={{ width: "180px", display: "flex" }}></div>
                 <div
                   className="profile"
-                  style={{ marginLeft: "50px" }}
+                  style={{ marginLeft: "100px" }}
                   onClick={(e) => {
                     e.stopPropagation(), setOpenSing(!openSign);
                   }}
                 >
-                   {storeddata.name.charAt(0).toUpperCase()}
+                   {/* {storeddata.name.charAt(0).toUpperCase()} */}
                  
                   {openSign && <SignOut />}
                 </div>
@@ -271,7 +268,7 @@ const Navbar = ({ type }) => {
       )}
        <ToastContainer 
        position="bottom-left"
-       autoClose={5000}
+       autoClose={3000}
        hideProgressBar={false}
        newestOnTop={false}
        closeOnClick

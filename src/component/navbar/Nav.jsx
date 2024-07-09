@@ -10,6 +10,8 @@ import {
   import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
   import { NavLink, json, useNavigate } from "react-router-dom";
   import SignOut from "../register/SignOut";
+  import { ToastContainer, toast } from 'react-toastify';
+  import 'react-toastify/dist/ReactToastify.css';
 
 
 const Nav = () => {
@@ -21,7 +23,20 @@ const Nav = () => {
       const SignInPage = () => {
         navigate(`/SignIn`);
       };
-      //
+      
+      const toasts = ()=>{
+        // toast("Feature is coming soon.");
+        toast.info('Feature is coming soon', {
+          position: "bottom-left",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+          });
+      }
 
       const storeddata = JSON.parse(localStorage.getItem("UserInfo"));
       // console.log(storeddata);
@@ -33,11 +48,11 @@ const Nav = () => {
         <div className="navContainer">
           <span className="logo"  onClick={() => navigate("/")} style={{cursor:"pointer"}}>Booking.com</span>
 
-          <div style={{ display: "flex",marginTop:"-4px" }} className="navp1">
-            <button style={{}} className="circle" disabled>
+          <div style={{ display: "flex",marginTop:"-4px",marginLeft:"-30px" }} className="navp1">
+            <button style={{}} className="circle" onClick={toasts}>
               INR
             </button>
-            <button className="circle">
+            <button className="circle" style={{display:"flex", justifyContent:"center",alignItems:"center"}}>
               <img
                 src="https://faraz-khan-booking-com-clone-react-project-1-jza6qqtrfilv.vercel.app/images/IndiaFlag.png"
                 alt=""
@@ -46,20 +61,23 @@ const Nav = () => {
                   width: "30px",
                   borderRadius: "10%",
                   marginTop: "-4px",
-                  marginLeft:"20px"
+                  // marginLeft:"20px",
+                  
                 }}
+                onClick={toasts}
               />
             </button>
             <button className="circle">
               <FontAwesomeIcon
                 icon={faCircleQuestion}
                 style={{ height: "25px", width: "30px", marginTop: "-4px" }}
+                onClick={toasts}
               />
             </button>
-            <button className="circle">List Your Property</button>
+            <button className="circle1"onClick={toasts} >List Your Property</button>
           </div>
 
-          <div className="navItems">
+          <div className="navItems"style={{display:"flex",marginLeft:"-35px"}}>
             {!localStorage.getItem("token") && (
               <button className="navButton" onClick={RegisterPage}>
                 Register
@@ -181,6 +199,20 @@ const Nav = () => {
       </div>
 
     </div>
+
+    <ToastContainer 
+       position="bottom-left"
+       autoClose={3000}
+       hideProgressBar={false}
+       newestOnTop={false}
+       closeOnClick
+       rtl={false}
+       pauseOnFocusLoss
+       draggable
+       pauseOnHover
+       theme="dark"
+      //  transition: "Bounce"
+        />
     </div>
   )
 }

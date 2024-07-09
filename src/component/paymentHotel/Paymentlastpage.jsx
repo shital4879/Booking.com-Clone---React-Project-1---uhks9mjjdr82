@@ -224,7 +224,9 @@ export default function Paymentlastpage() {
           <div>
             <label>Card type *</label>
             <br />
-            <select name="" id="" className="dataname" value={select} onChange={(e)=>{setSelect(e.target.value)}} >
+            <select name="" id="" className="dataname" value={select} onChange={(e)=>{setSelect(e.target.value),setError((prev) => {
+                  return { ...prev, select: "" };
+                });}} >
                 <option value="">-- Select --</option>
               <option value="MasterCard">MasterCard</option>
               <option value="Visa">Visa</option>

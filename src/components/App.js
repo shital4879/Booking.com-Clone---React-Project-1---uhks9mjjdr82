@@ -42,7 +42,6 @@ function App() {
          <Route path="/flight" element={<Flight/>}/>
         <Route path="/paymentHotel/:cost" element={<PaymentHotel/>}/>
         <Route path="/paymentlastpage" element={<Paymentlastpage/>}/>
-    
         <Route path="/flightsearch" element={<FlightSearch/>}/>
         <Route path="/flightconfirm/:fid" element={<FlightConfirm/>}/>
         <Route path="/flightPayment" element={<FlightPayment/>}/>

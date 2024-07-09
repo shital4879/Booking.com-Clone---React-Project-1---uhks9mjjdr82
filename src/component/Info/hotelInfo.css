@@ -154,13 +154,31 @@
   height: 800px;
 }
 .info-type {
-  padding: 10px 10px 0px 10px;
+  /* padding: 10px 10px 0px 10px; */
   display: flex;
   justify-content: space-between;
   background-color: #427aca;
   font-size: 16px;
   height: 60px;
+  width: 100%;
   font-weight: 500;
+}
+.tablehead1 {
+  display: flex;
+  /* justify-content: space-evenly; */
+  background-color: #427aca;
+  font-size: 16px;
+  height: 60px;
+  font-weight: 500;
+  align-items: center;
+}
+th,td{
+  margin-left: 40px;
+  width: 200px;
+}
+.tabletable{
+margin: 50px 20px 50px 190px;
+/* width: 100%; */
 }
 .room-type {
   margin-top: 50px;

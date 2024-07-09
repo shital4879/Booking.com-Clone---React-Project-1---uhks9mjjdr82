@@ -18,8 +18,9 @@ const Search = () => {
   const [searchdata, setSearchdata] = useState();
   const location = useLocation();
   const data = location.state;
-  console.log(location.state);
-
+  console.log(location.state,"data");
+  const [fetchingData, setFetchingData] = useState(location.state);
+  const [opendestination, setOpenDestination] = useState(false);
   const [fetchData, setFetchData] = useState();
   const [destination, setDestination] = useState(location.state.destination);
   const [openbookingDate, setOpenBookingDate] = useState(false);
@@ -122,11 +123,58 @@ const Search = () => {
               id="id12"
               value={searchinput}
               onChange={(e) => {
-                setsearchinput(e.target.value), e.preventDefault();
+                setsearchinput(e.target.value), e.preventDefault()
+              }}
+              onClick={()=>{
+                
+                setOpenDestination(!opendestination);
               }}
               style={{  marginLeft: "10px" }}
             />
-            {/* onChange={(e)=>setDestination(e.target.value)} */}
+{/*             
+            <div>
+                {opendestination && (
+                  <div
+                    className="styledest"
+                    style={{
+                      position: "absolute",
+                      top: "40px",
+                      width: "100%",
+                      height: "300px",
+                      // overflowY: "hidden",
+                      overflow:"scroll",
+                      right: "-35px",
+                      backgroundColor: "white",
+                      borderRadius: "6px",
+                      zIndex: "1000",
+                      boxShadow: "0px 0px 10px -2px rgba(0,0,0,0.4)",
+                      padding: "10px",
+                      cursor:"pointer",
+                    }}
+                    // ref={contentref}
+                  >
+                    {data &&
+                      data
+                        .filter((item) => {
+                          const lower = item.location.toLowerCase();
+
+                          return lower.startsWith(destination);
+                        })
+                        .map((item) => (
+                          <div
+                            className="locationData "
+                            onClick={(e) => {
+                              setDestination(item.location),
+                                setOpenDestination(!opendestination)
+                                
+                            }}
+                          >
+                            {item.location}
+                          </div>
+                        ))}
+                  </div>
+                )}
+              </div> */}
           </div>
           <div
             className="headerSearchItemA"

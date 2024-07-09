@@ -34,41 +34,7 @@ const HotelSearch = () => {
   };
   return (
     <div>
-      {/* <Navbar type="list"/> */}
-      {/* <Header/> */}
-
-
       <Nav/>
-
-      {/* <div className="head">
-        <div className="header">
-          <div className="headerContainer">
-            <div className="headerList">
-                <div className="headerList">
-              <nav className="navlink" style={{display:"flex"}}>
-              <NavLink 
-              className="navv"
-              to="/"
-              id="activebutton"
-              style={{marginRight:"40px",display:"flex",marginLeft:"-80px"}}
-              >
-                <FontAwesomeIcon icon={faBed} className="stays-i"  style={{marginRight:"-1px",paddingLeft:"6px"}}/>
-                Stays</NavLink>
-              <NavLink
-              className="nav-bar-link"
-              to="/flight"
-              id="activebutton"
-              style={{display:"flex"}}
-              >
-                <FontAwesomeIcon icon={faPlane} className="flights-i" style={{marginRight:"-1px",paddingLeft:"6px"}}/>
-                Flights</NavLink>
-              </nav>
-            </div>
-            </div>
-          </div>
-        </div>
-      </div> */}
-
       <SearchHotel/>
     </div>
   )

@@ -41,15 +41,15 @@ import {
   faMagnifyingGlass,
   faCalendarDays,
   faUser,
-  faLocationDot
+  faLocationDot,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Nav from "../navbar/Nav";
 import { MyContext } from "../../components/App";
 
 const HotelInfo = () => {
-  const{todate,setTodate,setFormdate,formdate} = useContext(MyContext)
-  const[showerror,setShowerror] = useState(false);
+  const { todate, setTodate, setFormdate, formdate } = useContext(MyContext);
+  const [showerror, setShowerror] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
   const [totalguest, setTotalguest] = useState();
@@ -110,37 +110,32 @@ const HotelInfo = () => {
   };
 
   const hotelPaymentPage = (cost) => {
-    
     if (!localStorage.getItem("token")) {
-      if(inputval === 0 || inputval === ""){
+      if (inputval === 0 || inputval === "") {
         setShowerror(true);
-      }
-      else{
-
+      } else {
         navigate(`/Register?redirect=${encodeURI(`/paymentHotel/${cost}`)}`, {
           state: {
             selectedDate: selectedDate,
-            information : information,
+            information: information,
           },
         });
       }
     } else {
-      navigate(`/paymentHotel/${cost}`,{
-        state:{
+      navigate(`/paymentHotel/${cost}`, {
+        state: {
           selectedDate: selectedDate,
-          information : information,
-        }
-    })
+          information: information,
+        },
+      });
     }
   };
-  
-  useEffect(()=>{
-   setFormdate(selectedDate[0].startDate)
-   setTodate(selectedDate[0].endDate)
-   localStorage.setItem("hotelid",params.id);
-  },[])
 
-
+  useEffect(() => {
+    setFormdate(selectedDate[0].startDate);
+    setTodate(selectedDate[0].endDate);
+    localStorage.setItem("hotelid", params.id);
+  }, []);
 
   return (
     <div>
@@ -292,18 +287,24 @@ const HotelInfo = () => {
           </div>
 
           <div className="detail-overview" id="detail-overview">
-              {information &&
-                  <div style={{marginLeft:"8px"}}>
-                     <h1 >{information.name}</h1>
-                     <p><FontAwesomeIcon icon={faLocationDot} style={{fontSize:"20px",marginRight:"4px",color:"#0071c2"}} />
-                      {information.location}</p>
-                  </div>
-              
-              }
+            {information && (
+              <div style={{ marginLeft: "8px" }}>
+                <h1>{information.name}</h1>
+                <p>
+                  <FontAwesomeIcon
+                    icon={faLocationDot}
+                    style={{
+                      fontSize: "20px",
+                      marginRight: "4px",
+                      color: "#0071c2",
+                    }}
+                  />
+                  {information.location}
+                </p>
+              </div>
+            )}
             <div className="detailImg" id="detailImg">
-
-              {
-              information &&
+              {information &&
                 information.images.map((item, key) => (
                   <div className="img-img" style={{ height: "auto" }}>
                     <img
@@ -318,42 +319,146 @@ const HotelInfo = () => {
           </div>
         </div>
 
+        <div>
+          <table>
+            <thead>
+              <tr>
+                <th>Room type</th>
+                <th>Price for 1 night</th>
+                <th>Your choices</th>
+                <th>Select room</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              {information &&
+                information.rooms.slice(0, 6).map((item, key) => {
+                  return (
+                    <tr>
+                      <td>
+                        {" "}
+                        <div className="typeRoom">{item.roomType} Room</div>
+                        <div
+                          className="bedType"
+                          style={{
+                            fontSize: "14px",
+                            fontFamily: "lighter",
+                            color: "rgb(90, 88, 88)",
+                            gap: "10px",
+                          }}
+                        >
+                          {information.rooms[0].bedDetail}
+                          <FontAwesomeIcon
+                            icon={faBed}
+                            className="bed"
+                            style={{ marginLeft: "7px" }}
+                          />
+                        </div>
+                      </td>
+
+                      <td>
+                        ₹ {item.costPerNight}
+                        <div>
+                          + ₹{information.rooms[0].costDetails.taxesAndFees}{" "}
+                          taxes and charges
+                        </div>
+                        <button className="offpay">40% off</button>
+                        <br />
+                        <button className="limitedDeal">
+                          Limited time deal
+                        </button>
+                      </td>
+
+                      <td>
+                        <div
+                          className="choices"
+                          style={{ fontFamily: "lighter" }}
+                        >
+                          Non refundable
+                        </div>
+                        <div
+                          className="cancellationPolicy"
+                          style={{ fontFamily: "lighter", color: "green" }}
+                        >
+                          <FontAwesomeIcon
+                            icon={faCheck}
+                            className="divisioncol-logo"
+                            style={{
+                              marginRight: "5px",
+                              fontFamily: "lighter",
+                            }}
+                          />
+                          {information.rooms[0].cancellationPolicy}
+                        </div>
+                      </td>
+                      <td>
+                        {" "}
+                        <input
+                          type="number"
+                          placeholder="0"
+                          style={{ width: "50px", textAlign: "center" }}
+                          onChange={(e) => {
+                            setinputval(e.target.value);
+                          }}
+                          required
+                        />
+                      </td>
+                      <td> <button
+                      id="reserveBtn"
+                      className="reserveBtn"
+                      style={{
+                        // marginTop: "75px",
+                        marginRight: "5px",
+                        marginBottom: "28px",
+                      }}
+                      onClick={() => {
+                        hotelPaymentPage(item.costPerNight);
+                      }}
+                    >
+                      Reserve
+                    </button></td>
+                    </tr>
+                  );
+                })}
+            </tbody>
+          </table>
+        </div>
+
         <div className="hotel-info" id="infoHotel">
           <div className="info-type">
             <table>
-            <div className="roomTypeHead">
-              <div className="tablehead">Room type</div>
-              <div className="room-type">
-                {information &&
-                  information.rooms.slice(0, 6).map((item, key) => {
-                    return (
-                      <div style={{ height: "130px" }}>
-                        <div className="typeRoom">{item.roomType} Room</div>
-                        <div className="bedDetail">
-                          <div
-                            className="bedType"
-                            style={{
-                              fontSize: "14px",
-                              fontFamily: "lighter",
-                              color: "rgb(90, 88, 88)",
-                              gap: "10px",
-                            }}
-                          >
-                            {information.rooms[0].bedDetail}
-                            <FontAwesomeIcon
-                              icon={faBed}
-                              className="bed"
-                              style={{ marginLeft: "7px" }}
-                            />
+              <div className="roomTypeHead">
+                <div className="tablehead">Room type</div>
+                <div className="room-type">
+                  {information &&
+                    information.rooms.slice(0, 6).map((item, key) => {
+                      return (
+                        <div style={{ height: "130px" }}>
+                          <div className="typeRoom">{item.roomType} Room</div>
+                          <div className="bedDetail">
+                            <div
+                              className="bedType"
+                              style={{
+                                fontSize: "14px",
+                                fontFamily: "lighter",
+                                color: "rgb(90, 88, 88)",
+                                gap: "10px",
+                              }}
+                            >
+                              {information.rooms[0].bedDetail}
+                              <FontAwesomeIcon
+                                icon={faBed}
+                                className="bed"
+                                style={{ marginLeft: "7px" }}
+                              />
+                            </div>
                           </div>
-
+                          {/* <hr/> */}
                         </div>
-                        {/* <hr/> */}
-                      </div>
-                    );
-                  })}
+                      );
+                    })}
+                </div>
               </div>
-            </div>
             </table>
             <div className="pricefornight">
               <div className="tablehead">Price for 2 night</div>
@@ -456,7 +561,6 @@ const HotelInfo = () => {
                     <br />
                   </>
                 ))}
-
             </div>
           </div>
         </div>

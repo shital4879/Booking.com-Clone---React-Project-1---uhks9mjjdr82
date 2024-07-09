@@ -136,7 +136,25 @@ font-size: 14px;
 padding: 8px;
 margin-right: 10px;
 }
+.circle1{
+    margin-top: 10px;
+    height: 38px;
+    width: auto;
+    border-radius: 5px;
+    background-color: #003580;
+    cursor: pointer;
+    border: none;
+    color: white;
+    font-size: 14px;
+    /* padding: 8px; */
+    /* margin-top: 2px; */
+    padding: 2px 0px 2px 0px;
+    margin-right: 22px;
+    }
 .circle:hover{
+    background-color: #104da2;
+}
+.circle1:hover{
     background-color: #104da2;
 }
 
