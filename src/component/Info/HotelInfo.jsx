@@ -319,10 +319,10 @@ const HotelInfo = () => {
           </div>
         </div>
 
-        <div>
+        <div className="tabletable">
           <table>
-            <thead>
-              <tr>
+          <thead className="tablehead1">
+              <tr className="tableline"  >
                 <th>Room type</th>
                 <th>Price for 1 night</th>
                 <th>Your choices</th>
@@ -334,7 +334,7 @@ const HotelInfo = () => {
               {information &&
                 information.rooms.slice(0, 6).map((item, key) => {
                   return (
-                    <tr>
+                    <tr  className="tableline" >
                       <td>
                         {" "}
                         <div className="typeRoom">{item.roomType} Room</div>
@@ -357,7 +357,10 @@ const HotelInfo = () => {
                       </td>
 
                       <td>
+                        <div style={{fontSize:"16px",fontWeight:"500"}}>
+
                         ₹ {item.costPerNight}
+                        </div>
                         <div>
                           + ₹{information.rooms[0].costDetails.taxesAndFees}{" "}
                           taxes and charges
@@ -372,7 +375,8 @@ const HotelInfo = () => {
                       <td>
                         <div
                           className="choices"
-                          style={{ fontFamily: "lighter" }}
+                          // style={{ fontFamily: "lighter" }}
+                          style={{fontSize:"16px",fontWeight:"500"}}
                         >
                           Non refundable
                         </div>
@@ -396,7 +400,7 @@ const HotelInfo = () => {
                         <input
                           type="number"
                           placeholder="0"
-                          style={{ width: "50px", textAlign: "center" }}
+                          style={{ width: "60px",height:"25px",marginLeft:"50px" , textAlign: "center" }}
                           onChange={(e) => {
                             setinputval(e.target.value);
                           }}
@@ -407,9 +411,7 @@ const HotelInfo = () => {
                       id="reserveBtn"
                       className="reserveBtn"
                       style={{
-                        // marginTop: "75px",
-                        marginRight: "5px",
-                        marginBottom: "28px",
+                       marginLeft:"40px"
                       }}
                       onClick={() => {
                         hotelPaymentPage(item.costPerNight);
@@ -424,148 +426,7 @@ const HotelInfo = () => {
           </table>
         </div>
 
-        <div className="hotel-info" id="infoHotel">
-          <div className="info-type">
-            <table>
-              <div className="roomTypeHead">
-                <div className="tablehead">Room type</div>
-                <div className="room-type">
-                  {information &&
-                    information.rooms.slice(0, 6).map((item, key) => {
-                      return (
-                        <div style={{ height: "130px" }}>
-                          <div className="typeRoom">{item.roomType} Room</div>
-                          <div className="bedDetail">
-                            <div
-                              className="bedType"
-                              style={{
-                                fontSize: "14px",
-                                fontFamily: "lighter",
-                                color: "rgb(90, 88, 88)",
-                                gap: "10px",
-                              }}
-                            >
-                              {information.rooms[0].bedDetail}
-                              <FontAwesomeIcon
-                                icon={faBed}
-                                className="bed"
-                                style={{ marginLeft: "7px" }}
-                              />
-                            </div>
-                          </div>
-                          {/* <hr/> */}
-                        </div>
-                      );
-                    })}
-                </div>
-              </div>
-            </table>
-            <div className="pricefornight">
-              <div className="tablehead">Price for 2 night</div>
-              <div className="room-type">
-                {information &&
-                  information.rooms.slice(0, 6).map((item) => (
-                    <div style={{ height: "130px" }}>
-                      <div className="pricefor">₹ {item.costPerNight}</div>
-                      <div
-                        className="pricetax"
-                        style={{
-                          fontSize: "14px",
-                          fontFamily: "lighter",
-                          color: "rgb(90, 88, 88)",
-                          marginBottom: "5px",
-                          marginTop: "5px",
-                        }}
-                      >
-                        + ₹{information.rooms[0].costDetails.taxesAndFees} taxes
-                        and charges
-                      </div>
-                      <button className="offpay">40% off</button>
-                      <br />
-                      <button className="limitedDeal">Limited time deal</button>
-                    </div>
-                  ))}
-              </div>
-            </div>
-            <div className="yourChoices" id="choice">
-              <div className="tablehead">Your choices</div>
-              <div className="room-type">
-                {information &&
-                  information.rooms.slice(0, 6).map((item) => (
-                    <div style={{ height: "130px" }}>
-                      <div
-                        className="choices"
-                        style={{ fontFamily: "lighter" }}
-                      >
-                        Non refundable
-                      </div>
-                      <div
-                        className="cancellationPolicy"
-                        style={{ fontFamily: "lighter", color: "green" }}
-                      >
-                        <FontAwesomeIcon
-                          icon={faCheck}
-                          className="divisioncol-logo"
-                          style={{ marginRight: "5px", fontFamily: "lighter" }}
-                        />
-                        {information.rooms[0].cancellationPolicy}
-                      </div>
-                    </div>
-                  ))}
-              </div>
-            </div>
-            <div className="selectRoom">
-              <div className="tablehead">Select room</div>
-              <div className="room-type">
-                {information &&
-                  information.rooms.slice(0, 6).map((item) => (
-                    <div
-                      style={{
-                        height: "130px",
-                        marginTop: "5px",
-                        marginLeft: "10px",
-                      }}
-                    >
-                      <input
-                        type="number"
-                        placeholder="0"
-                        style={{ width: "50px", textAlign: "center" }}
-                        onChange={(e) => {
-                          setinputval(e.target.value);
-                        }}
-                        requ
-                      />
-                      <br />
-                    </div>
-                  ))}
-              </div>
-            </div>
-            <div>
-              {information &&
-                information.rooms.slice(0, 6).map((item, key) => (
-                  <>
-                    <button
-                      id="reserveBtn"
-                      className="reserveBtn"
-                      style={{
-                        marginTop: "75px",
-                        marginRight: "5px",
-                        marginBottom: "28px",
-                      }}
-                      onClick={() => {
-                        hotelPaymentPage(item.costPerNight);
-                      }}
-                    >
-                      Reserve
-                    </button>
-                    <br />
-                  </>
-                ))}
-            </div>
-          </div>
-        </div>
-
-        <div className="hotel-amenities">
+        <div className="hotel-amenities" style={{marginTop:"100px"}}>
           <div className="amenities-head">
             <div className="popular-facility">Most popular facility</div>
             <div className="popular-service">
