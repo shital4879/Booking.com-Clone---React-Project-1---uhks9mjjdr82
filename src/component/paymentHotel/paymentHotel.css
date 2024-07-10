@@ -202,7 +202,9 @@
   padding-right: 20px;
 }
 .ratingbox{
-  padding: 1px;
+  /* padding: 2px; */
+  padding-left: 4px;
+  padding-right: 4px;
   background-color: #0071c2;
   border-top-left-radius: 5px;
   color: white;

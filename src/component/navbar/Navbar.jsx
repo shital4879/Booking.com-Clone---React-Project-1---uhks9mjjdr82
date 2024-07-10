@@ -56,7 +56,7 @@ const Navbar = ({ type }) => {
     fetchapi();
   });
 
-  const storeddata = JSON.parse(localStorage.getItem("UserInfo"));
+  const storeddata = JSON.parse(localStorage.getItem("UserInfoo"));
 
   const toasts = ()=>{
     // toast("Feature is coming soon.");
@@ -130,8 +130,7 @@ const Navbar = ({ type }) => {
                     e.stopPropagation(), setOpenSing(!openSign);
                   }}
                 >
-                   {/* {storeddata.name.charAt(0).toUpperCase()} */}
-                 
+                   {storeddata.name.charAt(0).toUpperCase()}
                   {openSign && <SignOut />}
                 </div>
               </div>

@@ -34,6 +34,11 @@ const FlightHeader = () => {
   const [hotelInputPopUp, setHotelInputPopUp] = useState(false);
   const [opendestination, setOpendestination] = useState();
   const [citynames,setCityNames] = useState([]);
+  const ref = useRef();
+  const destinationref = useRef();
+  const destref = useRef();
+  const contentref = useRef();
+
   function hotelInputFocus() {
     setHotelInputPopUp(true);
   }
@@ -142,6 +147,28 @@ const FlightHeader = () => {
   useEffect(() => {
     fetchHotelData;
     fetchCityNames();
+
+   
+    function handleclickoutside(e){
+      if(ref.current && !ref.current.contains(e.target) && contentref.current && !contentref.current.contains(e.target)){
+        setOpensource(false);
+      }
+    }
+    document.body.addEventListener("click",handleclickoutside)
+    return()=>{
+      document.body.removeEventListener("click",handleclickoutside)
+    }
+
+    function handleclickdestination(e){
+      if(destinationref.current && !destinationref.current.contains(e.target) && destref.current && !destref.current.contains(e.target)){
+        setOpendestination(false);
+      }
+    }
+    document.body.addEventListener("click",handleclickdestination)
+      return()=>{
+        document.body.removeEventListener("click",handleclickdestination)
+      }
+    
   }, []);
 
   const handleFlight = () => {
@@ -164,6 +191,7 @@ const FlightHeader = () => {
       <div className="flight-class">
         <select
           className="flightOption"
+          style={{cursor:"pointer"}}
         >
           <option>Economy</option>
           <option>Premium Economy</option>
@@ -175,6 +203,7 @@ const FlightHeader = () => {
             onClick={() => setBookingPeople(!bookingPeople)}
             className="headerSearchText"
             id="searchText"
+            style={{cursor:"pointer"}}
           >{`${people.adult}adult. ${people.children}children`}</span>
           {bookingPeople && (
             <div className="options">
@@ -253,7 +282,7 @@ const FlightHeader = () => {
               }}
               style={{ paddingRight: "50px", marginRight: "50px",cursor:"pointer" }}
               className="inputflighttext1"
-              ref={hotelInput}
+              ref={ref}
               onBlur={hotelInputBlur}
               onFocus={hotelInputFocus}
               
@@ -276,6 +305,7 @@ const FlightHeader = () => {
                     boxShadow: "4px 4px 4px 1px rgba(0,0,0,0.4)",
                     cursor:"pointer"
                   }}
+                  ref={contentref}
                 >
                   {citynames &&
                     citynames
@@ -315,7 +345,7 @@ const FlightHeader = () => {
           icon={faArrowRightArrowLeft}
           className="headerIcon"
           id="reverseicon"
-          style={{ fontSize: "22px" }}
+          style={{ fontSize: "22px",cursor:"pointer" }}
           onClick={() => {
             swapinputs();
           }}
@@ -339,6 +369,7 @@ const FlightHeader = () => {
               className="inputflighttext"
               style={{ marginRight: "50px",cursor:"pointer" }}
               id="texttext"
+              ref={destinationref}
             />
             <div
               onClick={(e) => {
@@ -364,6 +395,7 @@ const FlightHeader = () => {
                     cursor:"pointer"
                   }}
                   className="desti1"
+                  ref={destref}
                 >
                   {citynames &&
                     citynames.filter((item) => {
@@ -402,7 +434,7 @@ const FlightHeader = () => {
           className="headerSearchItem1"
           id="searchitem1"
           onClick={() => setOpenBookingDate(true)}
-          style={{ marginLeft:"" }}
+          style={{ marginLeft:"",cursor:"pointer" }}
         >
           <FontAwesomeIcon
             icon={faCalendarDays}

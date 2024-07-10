@@ -38,7 +38,7 @@ const Nav = () => {
           });
       }
 
-      const storeddata = JSON.parse(localStorage.getItem("UserInfo"));
+      const storeddata = JSON.parse(localStorage.getItem("UserInfoo"));
       // console.log(storeddata);
 
   return (

@@ -46,15 +46,18 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Nav from "../navbar/Nav";
 import { MyContext } from "../../components/App";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const HotelInfo = () => {
   const { todate, setTodate, setFormdate, formdate } = useContext(MyContext);
   const [showerror, setShowerror] = useState(false);
+  const [showError, setShowError] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
   const [totalguest, setTotalguest] = useState();
   const [hotelPrice, setHotelPrice] = useState();
-  const [inputval, setinputval] = useState();
+  const [inputval, setinputval] = useState("");
   const [persons, setPersons] = useState(location.state.persons);
   const [bookingPersons, setBookingPersons] = useState(false);
   const [destination, setDestination] = useState(location.state.destination);
@@ -109,11 +112,22 @@ const HotelInfo = () => {
     });
   };
 
+  const toasts = ()=>{
+    // toast("Feature is coming soon.");
+    toast.error('Select Room', {
+      position: "bottom-left",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+      });
+  }
+
   const hotelPaymentPage = (cost) => {
     if (!localStorage.getItem("token")) {
-      if (inputval === 0 || inputval === "") {
-        setShowerror(true);
-      } else {
         navigate(`/Register?redirect=${encodeURI(`/paymentHotel/${cost}`)}`, {
           state: {
             selectedDate: selectedDate,
@@ -121,7 +135,11 @@ const HotelInfo = () => {
           },
         });
       }
-    } else {
+      else if(inputval === 0 || inputval === "") {
+        setShowerror(true);
+        toasts();
+      }
+    else {
       navigate(`/paymentHotel/${cost}`, {
         state: {
           selectedDate: selectedDate,
@@ -137,8 +155,16 @@ const HotelInfo = () => {
     localStorage.setItem("hotelid", params.id);
   }, []);
 
+ 
+
+  const alert=()=>{
+    window.alert("jjjjjjjjjjjjjj");
+  }
+
   return (
     <div>
+          {/* {showerror && <div>{toasts()}</div> } */}
+          {/* {showerror && <p>{alert()}</p>} */}
       <div>
         <Nav />
         <div className="maindiv">
@@ -210,6 +236,7 @@ const HotelInfo = () => {
                     <span
                       onClick={() => setBookingPersons(!bookingPersons)}
                       className="headerSearchText"
+                      style={{color:"#737171",fontSize:"17px"}}
                     >{`${persons.adult}adult. ${persons.children}children. ${persons.room}room`}</span>
                     {bookingPersons && (
                       <div className="options">
@@ -400,12 +427,16 @@ const HotelInfo = () => {
                         <input
                           type="number"
                           placeholder="0"
+                          value={inputval}
                           style={{ width: "60px",height:"25px",marginLeft:"50px" , textAlign: "center" }}
                           onChange={(e) => {
                             setinputval(e.target.value);
                           }}
                           required
                         />
+                          {/* {showerror && <p className="error-message" style={{position:"absolute",top:"40px",backgroundColor:"red",color:"white",padding:"2px 6px 2px 4px",borderRadius:"5px"}}>Please add a location to search.</p>} */}
+                         
+                        
                       </td>
                       <td> <button
                       id="reserveBtn"

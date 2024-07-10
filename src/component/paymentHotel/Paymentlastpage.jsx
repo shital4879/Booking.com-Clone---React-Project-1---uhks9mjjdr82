@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCheck, faMugSaucer } from "@fortawesome/free-solid-svg-icons";
+import { faCheck, faMugSaucer,faThumbsUp } from "@fortawesome/free-solid-svg-icons";
 import { useLoaderData, useLocation, useNavigate } from "react-router-dom";
 import { MyContext } from "../../components/App";
 import { format } from "date-fns";
@@ -75,12 +75,12 @@ export default function Paymentlastpage() {
     if (!isValid) {
       setPopUpPay(!popUpPay);
       // setAction("Booking successful!"), setStatus("Enjoy your journey");
-      setTimeout(() => {
-        navigat(`/`);
-      }, 3000);
+      // setTimeout(() => {
+      //   navigat(`/`);
+      // }, 3000);
     }
   };
-  const storeddata = JSON.parse(localStorage.getItem("UserInfo"));
+  const storeddata = JSON.parse(localStorage.getItem("UserInfoo"));
 
   
   const formatDate = (dateString) => {
@@ -330,9 +330,10 @@ export default function Paymentlastpage() {
           >
             {/* <p style={{ marginTop: "75px", fontSize: "18px" }}>{action}</p> */}
             <div>
+            <p style={{ fontSize: "60px",color:"blue",marginTop:"30px" }}><FontAwesomeIcon icon={faThumbsUp} /></p>
               <p
                 style={{
-                  marginTop: "75px",
+                  // marginTop: "75px",
                   fontSize: "30px",
                   fontWeight: "700",
                   color: "green",
@@ -344,7 +345,6 @@ export default function Paymentlastpage() {
               <p style={{ marginTop: "20px", fontSize: "20px" }}>
                 {"Enjoy your journey"}
               </p>
-              <p style={{ fontSize: "60px" }}>👍</p>
               {/* <p style={{ marginTop: "10px", fontSize: "16px" }}>{status}</p> */}
             </div>
           </div>

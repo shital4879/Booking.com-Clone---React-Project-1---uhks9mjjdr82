@@ -84,7 +84,7 @@ const PaymentHotel = () => {
     }
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       isValid = true;
-      validationError.email = "email is required";
+      validationError.email = "Invalid email";
     }
     if (number.length == 0) {
       isValid = true;
@@ -192,7 +192,7 @@ navigat(`/paymentlastpage`,{
     }
   };
 
-  const storeddata = JSON.parse(localStorage.getItem("UserInfo"));
+  const storeddata = JSON.parse(localStorage.getItem("UserInfoo"));
 
   useEffect(() => {
     setFormdate(selectedDate[0].startDate);
@@ -480,6 +480,8 @@ navigat(`/paymentlastpage`,{
           >
             {/* <p style={{ marginTop: "75px", fontSize: "18px" }}>{action}</p> */}
             <div>
+
+            <p style={{ fontSize: "60px",color:"green" }}><FontAwesomeIcon icon="faThumbsUp" /></p>
               <p
                 style={{
                   marginTop: "75px",
@@ -494,7 +496,7 @@ navigat(`/paymentlastpage`,{
               <p style={{ marginTop: "20px", fontSize: "20px" }}>
                 {"Enjoy your journey"}
               </p>
-              <p style={{ fontSize: "60px" }}>👍</p>
+              
               {/* <p style={{ marginTop: "10px", fontSize: "16px" }}>{status}</p> */}
             </div>
           </div>
