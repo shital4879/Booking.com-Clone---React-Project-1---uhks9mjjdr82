@@ -42,6 +42,8 @@ const PaymentHotel = () => {
     }
   };
   const [selectedDate, setSelectedDate] = useState(location.state.selectedDate);
+  const [inputval,setinputval] = useState(location.state.inputval);
+  console.log(inputval);
   const [information, setInformation] = useState(location.state.information);
   const [email, setEmail] = useState("");
   const [number, setNumber] = useState("");
@@ -123,7 +125,7 @@ const PaymentHotel = () => {
         );
       }
       setHotelinformation(information)
-      sessionStorage.setItem("cost",params.cost);
+      sessionStorage.setItem("cost",multiplicationResult);
       navigatelastpage();
       // navigat(`/paymentlastpage`);
       // setPopUpPay(!popUpPay);
@@ -207,7 +209,9 @@ navigat(`/paymentlastpage`,{
     return format(date, "EEE MMM dd yyyy");
   };
 
-
+  const cost = parseFloat(params.cost);
+  const inputValue = parseFloat(inputval);
+  const multiplicationResult = cost * inputValue;
 
   return (
     <div>
@@ -233,10 +237,10 @@ navigat(`/paymentlastpage`,{
             )}
             {localStorage.getItem("token") && (
               <div>
-                <div style={{ width: "180px", display: "flex" }}></div>
+                <div style={{ width: "180px", display: "flex",marginLeft:"200px"}}></div>
                 <div
                   className="profile"
-                  style={{ marginLeft: "50px" }}
+                  style={{ marginLeft: "290px" }}
                   onClick={(e) => {
                     e.stopPropagation(), setOpenSing(!openSign);
                   }}
@@ -309,7 +313,7 @@ navigat(`/paymentlastpage`,{
                 <h3 style={{marginBottom:"15px"}}>Your price summary</h3>
                 <div style={{display:"flex"}} className="pricetotal">
                   <h2>Price</h2>
-                  <h2>{params.cost}</h2>
+                  <h2>{multiplicationResult}</h2>
                   
                 </div>
                 <h4>Price information</h4>

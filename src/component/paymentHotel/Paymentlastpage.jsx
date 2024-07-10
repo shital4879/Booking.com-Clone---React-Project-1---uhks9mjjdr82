@@ -75,9 +75,9 @@ export default function Paymentlastpage() {
     if (!isValid) {
       setPopUpPay(!popUpPay);
       // setAction("Booking successful!"), setStatus("Enjoy your journey");
-      // setTimeout(() => {
-      //   navigat(`/`);
-      // }, 3000);
+      setTimeout(() => {
+        navigat(`/`);
+      }, 3000);
     }
   };
   const storeddata = JSON.parse(localStorage.getItem("UserInfoo"));
@@ -330,13 +330,13 @@ export default function Paymentlastpage() {
           >
             {/* <p style={{ marginTop: "75px", fontSize: "18px" }}>{action}</p> */}
             <div>
-            <p style={{ fontSize: "60px",color:"blue",marginTop:"30px" }}><FontAwesomeIcon icon={faThumbsUp} /></p>
+            <div style={{ fontSize: "60px",marginTop:"30px" ,padding:"20px"}}><FontAwesomeIcon icon={faCheck} style={{padding:"20px",backgroundColor:"green",color:"white",margin:"0px 50px",borderRadius:"50%"}}/></div>
               <p
                 style={{
                   // marginTop: "75px",
                   fontSize: "30px",
                   fontWeight: "700",
-                  color: "green",
+                  color: "#2a4dc1",
                 }}
               >
                 Booking successful!

@@ -34,6 +34,8 @@ const FlightHeader = () => {
   const [hotelInputPopUp, setHotelInputPopUp] = useState(false);
   const [opendestination, setOpendestination] = useState();
   const [citynames,setCityNames] = useState([]);
+  const [error,seterror] = useState(false);
+  const [showerror,setshowerror] = useState(false);
   const ref = useRef();
   const destinationref = useRef();
   const destref = useRef();
@@ -172,14 +174,21 @@ const FlightHeader = () => {
   }, []);
 
   const handleFlight = () => {
-    navigate(`/flightsearch`, {
-      state: {
-        source: source,
-        destination: destination,
-        selectedDate: selectedDate,
-        people: people,
-      },
-    });
+    if(source === "" && destination === ""){
+      seterror(true);
+      setshowerror(true);
+    }
+    else{
+
+      navigate(`/flightsearch`, {
+        state: {
+          source: source,
+          destination: destination,
+          selectedDate: selectedDate,
+          people: people,
+        },
+      });
+    }
   };
 
   return (
@@ -277,7 +286,7 @@ const FlightHeader = () => {
                 setSource(e.target.value);
               }}
               onClick={() => {
-                setOpensource(!opensource);
+                setOpensource(!opensource),seterror(false)
               
               }}
               style={{ paddingRight: "50px", marginRight: "50px",cursor:"pointer" }}
@@ -287,6 +296,7 @@ const FlightHeader = () => {
               onFocus={hotelInputFocus}
               
             />
+            {error && <p className="error-message" style={{position:"absolute",top:"40px",backgroundColor:"red",color:"white",padding:"2px 6px 2px 4px",borderRadius:"5px"}}>Please add a location or City.</p>}
             <div
             >
               {opensource && (
@@ -306,7 +316,8 @@ const FlightHeader = () => {
                     cursor:"pointer"
                   }}
                   ref={contentref}
-                >
+                  >
+               
                   {citynames &&
                     citynames
                       .filter((item) => {
@@ -365,12 +376,13 @@ const FlightHeader = () => {
               onChange={(e) => {
                 setDestination(e.target.value), e.preventDefault();
               }}
-              onClick={() => setOpendestination(!opendestination)}
+              onClick={() => {setOpendestination(!opendestination),setshowerror(false)}}
               className="inputflighttext"
               style={{ marginRight: "50px",cursor:"pointer" }}
               id="texttext"
               ref={destinationref}
             />
+               {showerror && <p className="error-message" style={{position:"absolute",top:"40px",backgroundColor:"red",color:"white",padding:"2px 6px 2px 4px",borderRadius:"5px"}}>Please add a location or City.</p>}
             <div
               onClick={(e) => {
                 e.stopPropagation();

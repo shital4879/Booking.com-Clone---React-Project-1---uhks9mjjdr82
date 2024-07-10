@@ -14,56 +14,56 @@ return(
     {/* <FlightSearch/> */}
 
 <div style={{display:"flex",justifyContent:"space-evenly",alignItems:"center",marginTop:"100px "}}>
-    <table className="tablefooterflight" >
-      <thead>
-        <tr>
-          <th>Support</th>
-          <th>Discover
+    <table className="tablefooterflight" style={{border:"none"}} >
+      <thead style={{border:"none"}}>
+        <tr style={{border:"none"}}>
+          <th style={{border:"none"}}>Support</th>
+          <th style={{border:"none"}}>Discover
           </th>
-          <th>Terms and settings</th>
-          <th>Partners</th>
-          <th>About</th>
+          <th style={{border:"none"}}>Terms and settings</th>
+          <th style={{border:"none"}}>Partners</th>
+          <th style={{border:"none"}}>About</th>
         </tr>
       </thead>
       
-         <td>
-            <tr>Coronavirus (COVID-19) FAQs
+         <td className="none" style={{border:"none"}}>
+            <tr style={{border:"none"}}>Coronavirus (COVID-19) FAQs
 
 
 </tr>
-            <tr>Manage your trips</tr>
-            <tr>Customer Service help</tr>
-            <tr>Safety resource centre</tr>
+            <tr style={{border:"none"}}>Manage your trips</tr>
+            <tr style={{border:"none"}}>Customer Service help</tr>
+            <tr style={{border:"none"}}>Safety resource centre</tr>
          
          </td>
-         <td>
-            <tr>Genius loyalty programme</tr>
-            <tr>Seasonal and holiday deals</tr>
-            <tr>Travel articles</tr>
-            <tr>Booking.com for Business</tr>
-            <tr>Traveller Review Awards</tr>
-            <tr>Car hire</tr>
+         <td style={{border:"none"}}>
+            <tr style={{border:"none"}}>Genius loyalty programme</tr>
+            <tr style={{border:"none"}}>Seasonal and holiday deals</tr>
+            <tr style={{border:"none"}}>Travel articles</tr>
+            <tr style={{border:"none"}}>Booking.com for Business</tr>
+            <tr style={{border:"none"}}>Traveller Review Awards</tr>
+            <tr style={{border:"none"}}>Car hire</tr>
          </td>
-         <td>
-            <tr>Privacy & cookies</tr>
-            <tr>Terms and conditions</tr>
-            <tr>Modern Slavery Statement</tr>
-            <tr>Human Rights Statement</tr>
+         <td style={{border:"none"}}>
+            <tr style={{border:"none"}}>Privacy & cookies</tr>
+            <tr style={{border:"none"}}>Terms and conditions</tr>
+            <tr style={{border:"none"}}>Modern Slavery Statement</tr>
+            <tr style={{border:"none"}}>Human Rights Statement</tr>
          </td>
-         <td>
-            <tr>Extranet login</tr>
-            <tr>Partner help</tr>
-            <tr>List your property</tr>
-            <tr>Become an affiliate</tr>
+         <td style={{border:"none"}}>
+            <tr style={{border:"none"}}>Extranet login</tr>
+            <tr style={{border:"none"}}>Partner help</tr>
+            <tr style={{border:"none"}}>List your property</tr>
+            <tr style={{border:"none"}}>Become an affiliate</tr>
          </td>
-         <td>
-            <tr>About Booking.com</tr>
-            <tr>How we work</tr>
-            <tr>Sustainability</tr>
-            <tr>Press centre</tr>
-            <tr>Careers</tr>
-            <tr>Investor relations</tr>
-            <tr>Corporate contact</tr>
+         <td style={{border:"none"}}>
+            <tr style={{border:"none"}}>About Booking.com</tr>
+            <tr style={{border:"none"}}>How we work</tr>
+            <tr style={{border:"none"}}>Sustainability</tr>
+            <tr style={{border:"none"}}>Press centre</tr>
+            <tr style={{border:"none"}}>Careers</tr>
+            <tr style={{border:"none"}}>Investor relations</tr>
+            <tr style={{border:"none"}}>Corporate contact</tr>
          </td>
      </table>
 

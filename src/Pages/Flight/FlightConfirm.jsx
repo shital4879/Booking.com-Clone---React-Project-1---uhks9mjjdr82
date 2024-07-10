@@ -123,7 +123,7 @@ const FlightConfirm = () => {
     return format(date, "EEE MMM dd yyyy");
   };
 
-  const storeddata = JSON.parse(localStorage.getItem("UserInfo"));
+  const storeddata = JSON.parse(localStorage.getItem("UserInfoo"));
 
   return (
     <div>

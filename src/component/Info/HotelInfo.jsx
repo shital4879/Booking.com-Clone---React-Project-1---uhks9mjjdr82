@@ -140,10 +140,12 @@ const HotelInfo = () => {
         toasts();
       }
     else {
+      // sessionStorage.setItem("rooms",inputval);
       navigate(`/paymentHotel/${cost}`, {
         state: {
           selectedDate: selectedDate,
           information: information,
+          inputval: inputval
         },
       });
     }
@@ -154,12 +156,6 @@ const HotelInfo = () => {
     setTodate(selectedDate[0].endDate);
     localStorage.setItem("hotelid", params.id);
   }, []);
-
- 
-
-  const alert=()=>{
-    window.alert("jjjjjjjjjjjjjj");
-  }
 
   return (
     <div>

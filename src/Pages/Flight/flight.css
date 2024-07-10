@@ -6,3 +6,6 @@ tr,td{
 th{
     padding-right: 50px;
 }
+.none{
+    border: none;
+}

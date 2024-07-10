@@ -130,7 +130,7 @@ const FlightPayment = () => {
   const [status, setStatus] = useState();
 
   const today = new Date().toISOString().split("T")[0];
-  const storeddata = JSON.parse(localStorage.getItem("UserInfo"));
+  const storeddata = JSON.parse(localStorage.getItem("UserInfoo"));
 
   return (
     <div>
@@ -481,6 +481,7 @@ const FlightPayment = () => {
             }}
           >
             <div>
+            <p style={{ fontSize: "60px",color:"blue",marginTop:"30px" }}><FontAwesomeIcon icon={faCheck} /></p>
               <p
                 style={{
                   marginTop: "75px",
@@ -495,7 +496,7 @@ const FlightPayment = () => {
               <p style={{ marginTop: "20px", fontSize: "20px" }}>
                 {"Enjoy your journey"}
               </p>
-              <p style={{ fontSize: "60px" }}>👍</p>
+           
             </div>
           </div>
         </div>
