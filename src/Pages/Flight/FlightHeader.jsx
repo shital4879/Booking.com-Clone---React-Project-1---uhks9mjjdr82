@@ -13,8 +13,13 @@ import "react-date-range/dist/theme/default.css";
 import { format } from "date-fns";
 import { DateRange } from "react-date-range";
 import { useNavigate } from "react-router-dom";
+// import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
+// import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import dayjs from "dayjs";
 import { AIRPORT } from "../../utils";
 import { AIRPORTID } from "../../utill";
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 
 const FlightHeader = () => {
   // console.log(AIRPORT.city);
@@ -22,6 +27,7 @@ const FlightHeader = () => {
   const navigate = useNavigate();
   const hotelInput = useRef();
   const [data, setData] = useState();
+  const [selectedDate, setSelectedDate] = useState(null);
   const [source, setSource] = useState("");
   const [opensource, setOpensource] = useState(false);
   const [destination, setDestination] = useState("");
@@ -39,6 +45,8 @@ const FlightHeader = () => {
   const [showerror,setshowerror] = useState(false);
   const [fromcitylist,setfromcitylist] = useState([]);
   const [tocitylist,settocitylist] = useState([]);
+  const [flightDate, setFlightDate] = useState(dayjs());
+  const [dayFromDate, setDayFromDate] = useState(flightDate.format("ddd"))
   const ref = useRef();
   const destinationref = useRef();
   const destref = useRef();
@@ -55,13 +63,13 @@ const FlightHeader = () => {
     children: 0,
   });
   const [openbookingDate, setOpenBookingDate] = useState(false);
-  const [selectedDate, setSelectedDate] = useState([
-    {
-      startDate: new Date(),
-      endDate: new Date(),
-      key: "selection",
-    },
-  ]);
+  // const [selectedDate, setSelectedDate] = useState([
+  //   {
+  //     startDate: new Date(),
+  //     endDate: new Date(),
+  //     key: "selection",
+  //   },
+  // ]);
 
   function swapinputs() {
     const temp = source;
@@ -199,18 +207,17 @@ const FlightHeader = () => {
   };
 
   function fromhandleonchange(e){
-      // e.stopPropagation(),
       setSource(e.target.value);
-      // settocitylist(citynames.filter((item)=>(item.city != e.target.value)))
-      // console.log(e.target.value);
-    
   }
   function tohandleonchange(e){
     setDestination(e.target.value)
-    //  e.stopPropagation();
-    //  setfromcitylist(citynames.filter((item)=>(item.city != e.target.value)))
   }
-  console.log(citynames);
+
+  const handleDate = (value) => {
+    setFlightDate(value);
+    setDayFromDate(value.format("ddd"));
+  };
+
 
   return (
     <div>
@@ -471,7 +478,7 @@ const FlightHeader = () => {
             className="headerIcon"
             id="headerIcon1"
           />
-          <span className="headerSearchText1" id="texttext">{`${format(
+          {/* <span className="headerSearchText1" id="texttext">{`${format(
             selectedDate[0].startDate,
             "dd/MM/yyyy"
           )} to ${format(selectedDate[0].endDate, "dd/MM/yyyy")}`}</span>
@@ -495,7 +502,29 @@ const FlightHeader = () => {
                 Done
               </button>
             </>
-          )}
+          )} */}
+
+              {/* <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <DatePicker
+                sx={{ backgroundColor: "rgb(244, 245, 245)", height: 60 }}
+                label="Departure"
+                value={selectedDate}
+                onChange={(value) => handleDate(value)}
+                textField={(props) => <TextField {...props} />}
+                minDate={dayjs()}
+              />
+            </LocalizationProvider> */}
+
+          <DatePicker
+            selected={selectedDate}
+            onChange={date => setSelectedDate(date)}
+            dateFormat="dd-MM-yyyy"
+            placeholderText="Select a date"
+             className="custom-datepicker"
+             minDate={new Date()}
+        />
+
+
         </div>
         <div className="flightsearchbuttonHero" id="searching">
           <button className="headBtn" onClick={handleFlight} id="searchsearch">

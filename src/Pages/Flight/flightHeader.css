@@ -187,6 +187,24 @@
   width: 92%;
   background: white;
 }
+.custom-datepicker{
+  border: none;
+  outline: none;
+  cursor: pointer;
+  font-size: 16px;
+  
+  margin-left: 5px;
+}
+
+
+
+
+
+
+
+
+
+
 
 @media screen and (min-device-width: 1250px) and (max-device-width: 1380px) {
 

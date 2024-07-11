@@ -25,6 +25,8 @@ import FlightNav from "./FlightNav";
 import SignOut from "../../component/register/SignOut";
 import Nav from "../../component/navbar/Nav";
 import { MyContext } from "../../components/App";
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 
 const FlightSearch = () => {
   const { setfendate, fstartdate, setfstartdate, fenddate,flightinformation,setFlightinformation } =
@@ -271,6 +273,8 @@ const FlightSearch = () => {
     fetchCityNames();
   }, []);
 
+  console.log(selectedDate);
+
   return (
     <div>
       <Nav />
@@ -324,11 +328,7 @@ const FlightSearch = () => {
                           />
                           <div className="flightGoingDetail">
                             <span>
-                              {" "}
-                              {format(
-                                selectedDate[0].startDate,
-                                "dd/MM"
-                              )} - {cardresult.departureTime}
+                              {format(selectedDate,"dd/MM")}
                             </span>
                             <h5>{cardresult.source}</h5>
                           </div>
@@ -343,12 +343,8 @@ const FlightSearch = () => {
                         <div className="flyfly" style={{ marginTop: "18px" }}>
                           <FontAwesomeIcon icon={faCircle} />
                           <div className="flightGoingDetail">
-                            <span>
-                              {" "}
-                              {format(
-                                selectedDate[0].startDate,
-                                "dd/MM"
-                              )} - {cardresult.arrivalTime}
+                               <span>
+                              {format(selectedDate,"dd/MM")}
                             </span>
                             <h5>{cardresult.destination}</h5>
                           </div>
@@ -701,7 +697,7 @@ const FlightSearch = () => {
               className="headerIcon"
               id="headerIcona"
             />
-            <span className="headerSearchText1" id="texttext1">{`${format(
+            {/* <span className="headerSearchText1" id="texttext1">{`${format(
               selectedDate[0].startDate,
               "dd/MM/yyyy"
             )} to ${format(selectedDate[0].endDate, "dd/MM/yyyy")}`}</span>
@@ -724,7 +720,19 @@ const FlightSearch = () => {
                   Done
                 </button>
               </>
-            )}
+            )} */}
+
+
+
+<DatePicker
+            selected={selectedDate}
+            onChange={date => setSelectedDate(date)}
+            dateFormat="dd-MM-yyyy"
+            placeholderText="Select a date"
+             className="custom-datepicker"
+             minDate={new Date()}
+        />
+
           </div>
           <div className="headerSearchItem13" id="searc">
             <button
@@ -1014,7 +1022,10 @@ const FlightSearch = () => {
                             <br />
                             <span className="date-Time">
                               {item.source} -
-                              {format(selectedDate[0].startDate, "dd/MM")}
+                              {/* {format(selectedDate[0].startDate, "dd/MM")} */}
+                              <span>
+                              {format(selectedDate,"dd/MM")}
+                            </span>
                             </span>
                           </div>
                           <div className="flightDuration">
@@ -1050,7 +1061,10 @@ const FlightSearch = () => {
                             <br />
                             <span className="date-Time" id="date-Time">
                               {item.destination} -
-                              {format(selectedDate[0].startDate, "dd/MM")}
+                              {/* {format(selectedDate, "dd/MM")} */}
+                              <span>
+                              {format(selectedDate,"dd/MM")}
+                            </span>
                             </span>
                           </div>
                         </div>
