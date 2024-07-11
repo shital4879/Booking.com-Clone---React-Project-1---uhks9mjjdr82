@@ -127,7 +127,7 @@ const Navbar = ({ type }) => {
                   className="profile"
                   style={{ marginLeft: "100px" }}
                   onClick={(e) => {
-                    e.stopPropagation(), setOpenSing(!openSign);
+                    e.stopPropagation(), setOpenSing(!openSign)
                   }}
                 >
                    {storeddata.name.charAt(0).toUpperCase()}

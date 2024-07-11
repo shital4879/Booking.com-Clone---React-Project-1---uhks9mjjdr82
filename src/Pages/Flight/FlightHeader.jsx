@@ -35,7 +35,10 @@ const FlightHeader = () => {
   const [opendestination, setOpendestination] = useState();
   const [citynames,setCityNames] = useState([]);
   const [error,seterror] = useState(false);
+  const [toerror,settoerror] = useState(false);
   const [showerror,setshowerror] = useState(false);
+  const [fromcitylist,setfromcitylist] = useState([]);
+  const [tocitylist,settocitylist] = useState([]);
   const ref = useRef();
   const destinationref = useRef();
   const destref = useRef();
@@ -92,6 +95,8 @@ const FlightHeader = () => {
       );
       const result = await res.json();
       setCityNames(result.data.airports);
+      settocitylist(result.data.airports);
+      setfromcitylist(result.data.airports);
     } catch (err) {
       console.log(err.message ? err.message : err);
     }
@@ -150,33 +155,35 @@ const FlightHeader = () => {
     fetchHotelData;
     fetchCityNames();
 
-   
     function handleclickoutside(e){
       if(ref.current && !ref.current.contains(e.target) && contentref.current && !contentref.current.contains(e.target)){
         setOpensource(false);
       }
     }
-    document.body.addEventListener("click",handleclickoutside)
-    return()=>{
-      document.body.removeEventListener("click",handleclickoutside)
-    }
-
     function handleclickdestination(e){
       if(destinationref.current && !destinationref.current.contains(e.target) && destref.current && !destref.current.contains(e.target)){
         setOpendestination(false);
       }
     }
     document.body.addEventListener("click",handleclickdestination)
-      return()=>{
+    document.body.addEventListener("click",handleclickoutside)
+    return()=>{
         document.body.removeEventListener("click",handleclickdestination)
+        document.body.removeEventListener("click",handleclickoutside)
       }
-    
   }, []);
 
   const handleFlight = () => {
-    if(source === "" && destination === ""){
+    if(source === "" && destination === "" ){
       seterror(true);
-      setshowerror(true);
+      // setshowerror(true);
+      settoerror(true);
+    }
+    else if(source === ""){
+      seterror(true);
+    }
+    else if(destination === ""){
+      settoerror(true);
     }
     else{
 
@@ -190,6 +197,20 @@ const FlightHeader = () => {
       });
     }
   };
+
+  function fromhandleonchange(e){
+      // e.stopPropagation(),
+      setSource(e.target.value);
+      // settocitylist(citynames.filter((item)=>(item.city != e.target.value)))
+      // console.log(e.target.value);
+    
+  }
+  function tohandleonchange(e){
+    setDestination(e.target.value)
+    //  e.stopPropagation();
+    //  setfromcitylist(citynames.filter((item)=>(item.city != e.target.value)))
+  }
+  console.log(citynames);
 
   return (
     <div>
@@ -282,19 +303,16 @@ const FlightHeader = () => {
               placeholder="Where from?"
               value={source}
               id="texttext"
-              onChange={(e) => {
-                setSource(e.target.value);
-              }}
+              onChange={(e) => fromhandleonchange(e)}
               onClick={() => {
-                setOpensource(!opensource),seterror(false)
-              
+                setOpensource(!opensource),seterror(false),setOpendestination(false)
+               
               }}
               style={{ paddingRight: "50px", marginRight: "50px",cursor:"pointer" }}
               className="inputflighttext1"
               ref={ref}
               onBlur={hotelInputBlur}
               onFocus={hotelInputFocus}
-              
             />
             {error && <p className="error-message" style={{position:"absolute",top:"40px",backgroundColor:"red",color:"white",padding:"2px 6px 2px 4px",borderRadius:"5px"}}>Please add a location or City.</p>}
             <div
@@ -318,12 +336,12 @@ const FlightHeader = () => {
                   ref={contentref}
                   >
                
-                  {citynames &&
-                    citynames
+                  {fromcitylist &&
+                    fromcitylist
                       .filter((item) => {
                         const lower = item.city.toLowerCase();
 
-                        return lower.startsWith(source);
+                        return lower.startsWith(source) && item.city !== destination;
                       })
 
                       .map((item) => (
@@ -331,7 +349,7 @@ const FlightHeader = () => {
                           style={{
                             backgroundColor: "white",
                             paddingLeft: "5px",
-                            zIndex: "1000",
+                            // zIndex: "1000",
                             padding:"10px 0 10px 10px",
                             height: "35px",
                             marginBottom: "-5px",
@@ -373,16 +391,16 @@ const FlightHeader = () => {
               type="text"
               placeholder="Where to?"
               value={destination}
-              onChange={(e) => {
-                setDestination(e.target.value), e.preventDefault();
-              }}
-              onClick={() => {setOpendestination(!opendestination),setshowerror(false)}}
+              onChange={(e) => 
+               tohandleonchange(e)
+              }
+              onClick={() => {setOpendestination(!opendestination),settoerror(false),setOpensource(false)}}
               className="inputflighttext"
               style={{ marginRight: "50px",cursor:"pointer" }}
               id="texttext"
               ref={destinationref}
             />
-               {showerror && <p className="error-message" style={{position:"absolute",top:"40px",backgroundColor:"red",color:"white",padding:"2px 6px 2px 4px",borderRadius:"5px"}}>Please add a location or City.</p>}
+               {toerror && <p className="error-message" style={{position:"absolute",top:"40px",backgroundColor:"red",color:"white",padding:"2px 6px 2px 4px",borderRadius:"5px"}}>Please add a location or City.</p>}
             <div
               onClick={(e) => {
                 e.stopPropagation();
@@ -409,17 +427,17 @@ const FlightHeader = () => {
                   className="desti1"
                   ref={destref}
                 >
-                  {citynames &&
-                    citynames.filter((item) => {
+                  {tocitylist &&
+                    tocitylist.filter((item) => {
                       const lower = item.city.toLowerCase();
 
-                      return lower.startsWith(destination);
+                      return lower.startsWith(destination)  && item.city !== source;
                     }).map((item) => (
                       <div
                         style={{
                           backgroundColor: "white",
                           paddingLeft: "5px",
-                          zIndex: "1000",
+                          // zIndex: "1000",
                           // overflowY: "scro",
                           height: "35px",
                           marginBottom: "-5px",
