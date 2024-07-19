@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./navbar.css";
 import {
   faBed,
@@ -12,9 +12,11 @@ import { NavLink, json, useNavigate } from "react-router-dom";
 import SignOut from "../register/SignOut";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { MyContext } from "../../components/App";
 
 
 const Navbar = ({ type }) => {
+  const {myname,setMyname} = useContext(MyContext);
   const navigate = useNavigate();
   const [openSign, setOpenSing] = useState(false);
   const [activeButton, setActiveButton] = useState(0);
@@ -24,9 +26,7 @@ const Navbar = ({ type }) => {
   const SignInPage = () => {
     navigate(`/SignIn`);
   };
- 
 
-  // Function to handle button click
   const handleButtonClick = (buttonId) => {
     setActiveButton(buttonId);
   };
@@ -47,7 +47,7 @@ const Navbar = ({ type }) => {
       );
       const result = await response.json();
 
-      console.log(result.data);
+      // console.log(result.data);
     } catch (error) {
       console.log(error);
     }
@@ -55,8 +55,6 @@ const Navbar = ({ type }) => {
   useEffect(() => {
     fetchapi();
   });
-
-  const storeddata = JSON.parse(localStorage.getItem("UserInfoo"));
 
   const toasts = ()=>{
     // toast("Feature is coming soon.");
@@ -71,6 +69,7 @@ const Navbar = ({ type }) => {
       theme: "dark",
       });
   }
+
 
   return (
     <div style={{ width: "100%" }}>
@@ -130,7 +129,9 @@ const Navbar = ({ type }) => {
                     e.stopPropagation(), setOpenSing(!openSign)
                   }}
                 >
-                   {storeddata.name.charAt(0).toUpperCase()}
+                   {myname.charAt(0).toUpperCase()}
+
+
                   {openSign && <SignOut />}
                 </div>
               </div>

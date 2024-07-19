@@ -338,7 +338,12 @@ const FlightHeader = () => {
                     width: "270px",
                     height: "280px",
                     boxShadow: "4px 4px 4px 1px rgba(0,0,0,0.4)",
-                    cursor:"pointer"
+                    cursor:"pointer",
+                    backgroundColor: "white",
+                    padding: "10px",
+                    display:"flex",
+                    flexDirection:"column",
+                    justifyContent:"flex-start"
                   }}
                   ref={contentref}
                   >
@@ -354,14 +359,14 @@ const FlightHeader = () => {
                       .map((item) => (
                         <div
                           style={{
-                            backgroundColor: "white",
+                            // backgroundColor: "white",
                             paddingLeft: "5px",
                             // zIndex: "1000",
                             padding:"10px 0 10px 10px",
                             height: "35px",
                             marginBottom: "-5px",
                             display: "flex",
-                            zIndex: "10000000",
+                            // zIndex: "10000000",
                             marginLeft: "5px",
                             cursor:"pointer"
                           }}
@@ -429,7 +434,8 @@ const FlightHeader = () => {
                     borderRadius: "10px",
                     zIndex:"1000",
                     // padding: "10px",
-                    cursor:"pointer"
+                    cursor:"pointer",
+                     backgroundColor: "white"
                   }}
                   className="desti1"
                   ref={destref}

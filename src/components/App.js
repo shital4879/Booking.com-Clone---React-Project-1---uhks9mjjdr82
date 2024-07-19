@@ -28,13 +28,14 @@ function App() {
   const [fenddate,setfendate] = useState();
   const [hotelinformation,setHotelinformation] = useState({});
   const [flightinformation,setFlightinformation] = useState();
+  const [myname,setMyname] = useState(localStorage.getItem("Username")?localStorage.getItem("Username"):"");
 
 
   return (
     <>
    <Authprovider>
       <BrowserRouter>
-      <MyContext.Provider value={{todate,setTodate,setFormdate,formdate,setfendate,fstartdate,setfstartdate,fenddate,hotelinformation,setHotelinformation,flightinformation,setFlightinformation}}>
+      <MyContext.Provider value={{todate,setTodate,setFormdate,formdate,setfendate,fstartdate,setfstartdate,fenddate,hotelinformation,setHotelinformation,flightinformation,setFlightinformation,myname,setMyname}}>
       <Routes>
         <Route path="/" element={<Home/>}/>
         <Route path="/hotel/:results" element={<HotelSearch/>}/>

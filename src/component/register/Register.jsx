@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./register.css";
 import { Link, json, useNavigate } from "react-router-dom";
 import SignOut from "./SignOut";
@@ -12,10 +12,11 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { MyContext } from "../../components/App";
 
 
 const Register = () => {
-  
+  const {myname,setMyname} = useContext(MyContext);
   const navigate = useNavigate();
   const [registerData,setRegisterData] = useState({
     name:"",
@@ -50,20 +51,22 @@ const Register = () => {
           
         }
       );
-      const result = await responce.json();
-   
-      if (result.status === "success") {
-        localStorage.setItem("token", result.token);
-        handleHome();
-
-      }
-      if(result.status === "fail"){
+      if(!responce.ok){
         setValid(false);
-        setErrors(prev =>{
-          return {...prev,correction:result.message}
-        })
-      }
-      console.log(result);
+      setErrors(prev =>{
+        return {...prev,correction:responce.message}
+      })
+    }
+        const result = await responce.json();
+        const {token} = result;
+        const name = result.data.user.name;
+        const email = result.data.user.email;
+        localStorage.setItem("Username",name);
+        setMyname(name)
+        // console.log(name,token);
+        // console.log(result);
+        localStorage.setItem("token", token);
+         handleHome();
     } catch (error) {
       setValid(false);
       setErrors(prev =>{

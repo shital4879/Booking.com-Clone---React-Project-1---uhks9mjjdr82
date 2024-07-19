@@ -8,7 +8,7 @@ import { format } from "date-fns";
 export default function Paymentlastpage() {
   const navigat = useNavigate();
   const location = useLocation();
-  const{todate, setTodate, setFormdate, formdate,hotelinformation} = useContext(MyContext);
+  const{todate, setTodate, setFormdate, formdate,hotelinformation,myname} = useContext(MyContext);
   console.log(hotelinformation);
   const[select,setSelect] = useState("");
   const [openSign, setOpenSing] = useState(false);
@@ -117,7 +117,7 @@ export default function Paymentlastpage() {
                    e.stopPropagation(), setOpenSing(!openSign);
                  }}
                >
-                 {storeddata.name.charAt(0).toUpperCase()}
+                 {myname.charAt(0).toUpperCase()}
 
                  {openSign && <SignOut />}
                </div>

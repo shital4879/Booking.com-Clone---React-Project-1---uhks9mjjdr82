@@ -16,7 +16,7 @@ import SignOut from "../register/SignOut";
 import { MyContext } from "../../components/App";
 
 const PaymentHotel = () => {
-  const { todate, setTodate, setFormdate, formdate,hotelinformation,setHotelinformation } = useContext(MyContext);
+  const { todate, setTodate, setFormdate, formdate,hotelinformation,setHotelinformation,myname } = useContext(MyContext);
   const navigat = useNavigate();
   const location = useLocation();
   const params = useParams();
@@ -194,19 +194,21 @@ navigat(`/paymentlastpage`,{
     }
   };
 
-  const storeddata = JSON.parse(localStorage.getItem("UserInfoo"));
+  // const storeddata = JSON.parse(localStorage.getItem("UserInfoo"));
 
   useEffect(() => {
     setFormdate(selectedDate[0].startDate);
     setTodate(selectedDate[0].endDate);
     localStorage.setItem("hotelid", params.id);
   }, []);
-  // console.log(formdate, "form");
-  // console.log(todate, "too");
+  console.log(formdate, "form");
+  console.log(todate, "too");
+  console.log(selectedDate);
 
   const formatDate = (dateString) => {
     const date = new Date(dateString);
-    return format(date, "EEE MMM dd yyyy");
+    // return format(date, "EEE MMM dd yyyy");
+    console.log(format(date, "EEE MMM dd yyyy"));
   };
 
   const cost = parseFloat(params.cost);
@@ -245,7 +247,7 @@ navigat(`/paymentlastpage`,{
                     e.stopPropagation(), setOpenSing(!openSign);
                   }}
                 >
-                  {storeddata.name.charAt(0).toUpperCase()}
+                  {myname.charAt(0).toUpperCase()}
 
                   {openSign && <SignOut />}
                 </div>
@@ -295,12 +297,12 @@ navigat(`/paymentlastpage`,{
                 <div className="boxes2">
                   <div className="" style={{borderRight:"2px solid rgb(166, 157, 157)",paddingRight:"30px"}}>
                     <p style={{fontSize:"15px",color:"rgb(61, 59, 59)",fontWeight:"500"}}>Check-in</p>
-                    <div style={{fontWeight:"500",fontSize:"17px",marginTop:"6px",marginBottom:"2px"}}>{formatDate(formdate)}</div>
+                    <div style={{fontWeight:"500",fontSize:"17px",marginTop:"6px",marginBottom:"2px"}}>{formdate.format("ddd DD MMM")}</div>
                     <p style={{fontSize:"14px",color:"rgb(88, 86, 86)"}}>From 15:00</p>
                   </div>
                   <div>
                     <p style={{fontSize:"15px",color:"rgb(61, 59, 59)",fontWeight:"500"}}>Check-out</p>
-                    <div style={{fontWeight:"500",fontSize:"17px",marginTop:"6px",marginBottom:"2px"}} >{formatDate(todate)}</div>
+                    <div style={{fontWeight:"500",fontSize:"17px",marginTop:"6px",marginBottom:"2px"}} >{todate.format("ddd DD MMM")}</div>
                     <p style={{fontSize:"14px",color:"rgb(88, 86, 86)"}}>Until 12:00</p>
                     
                   </div>

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import React from "react";
 import "./SignIn.css"
 import { Link, useNavigate } from "react-router-dom";
@@ -6,9 +6,10 @@ import {
   faCircleQuestion,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { MyContext } from "../../components/App";
 
 const SignIn = () => {
-
+  const {myname,setMyname} = useContext(MyContext);
   const navigate = useNavigate();
   const[valid,setValid] = useState(true);
   const[error,setError] = useState({})
@@ -34,24 +35,24 @@ const SignIn = () => {
           }),
         }
       );
-      const result = await responce.json();
 
-      if(result.status==="success"){
-        localStorage.setItem("token",result.token)
-        navigateToHome();
-        localStorage.setItem("UserInfo",JSON.stringify({
-          id:result.data._id,
-          name:result.data.name,
-          email:result.data.email
-        }))
-      }
-    if(result.status === "fail"){
-      setValid(false);
+
+      if(!responce.ok){
+        setValid(false);
       setError(prev =>{
-        return {...prev,correction: result.message}
+        return {...prev,correction: responce.message}
       })
     }
-      console.log(result);
+        const result = await responce.json();
+        const {token} = result;
+        const name = result.data.user.name;
+        const email = result.data.user.email;
+        localStorage.setItem("Username",name);
+        setMyname(name)
+        localStorage.setItem("token", token);
+        //  handleHome();
+        navigateToHome();
+
     } catch (error) {
       console.log(error);
       setValid(false);

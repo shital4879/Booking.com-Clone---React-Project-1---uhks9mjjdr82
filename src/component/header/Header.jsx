@@ -147,28 +147,28 @@ else{
   };
 
   const [mytripInfo, setMyTripInfo] = useState("");
-  const mytrip = async () => {
-    try {
-      const response = await fetch(
-        "https://academics.newtonschool.co/api/v1/bookingportals/booking",
-        {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${token}`,
-            projectID: "uhks9mjjdr82",
-          },
-          // "Content-Type": "application/json",
-        }
-      );
-      const result = await response.json();
-      setMyTripInfo("mytripinfo", result.data);
-      console.log(result);
-    } catch (error) {
-      console.log("error", error);
-    }
-  };
+  // const mytrip = async () => {
+  //   try {
+  //     const response = await fetch(
+  //       "https://academics.newtonschool.co/api/v1/bookingportals/booking",
+  //       {
+  //         method: "GET",
+  //         headers: {
+  //           Authorization: `Bearer ${token}`,
+  //           projectID: "uhks9mjjdr82",
+  //         },
+  //         // "Content-Type": "application/json",
+  //       }
+  //     );
+  //     const result = await response.json();
+  //     setMyTripInfo("mytripinfo", result.data);
+  //     console.log(result);
+  //   } catch (error) {
+  //     console.log("error", error);
+  //   }
+  // };
   useEffect(() => {
-    mytrip();
+    // mytrip();
     function handleclickoutside(e){
       if(hotelInput.current && !hotelInput.current.contains(e.target) && contentref.current && !contentref.current.contains(e.target)){
          setOpenDestination(false);

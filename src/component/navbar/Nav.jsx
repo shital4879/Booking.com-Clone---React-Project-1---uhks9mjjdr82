@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import {
     faBed,
     faPlane,
@@ -12,10 +12,12 @@ import {
   import SignOut from "../register/SignOut";
   import { ToastContainer, toast } from 'react-toastify';
   import 'react-toastify/dist/ReactToastify.css';
+import { MyContext } from '../../components/App';
 
 
 const Nav = () => {
   const navigate = useNavigate();
+  const {myname} = useContext(MyContext)
   const [openSign, setOpenSing] = useState(false);
     const RegisterPage = () => {
         navigate(`/Register`);
@@ -37,9 +39,6 @@ const Nav = () => {
           theme: "dark",
           });
       }
-
-      const storeddata = JSON.parse(localStorage.getItem("UserInfoo"));
-      // console.log(storeddata);
 
   return (
     <div>
@@ -98,7 +97,7 @@ const Nav = () => {
                     e.stopPropagation(), setOpenSing(!openSign);
                   }}
                 >
-                  {storeddata.name.charAt(0).toUpperCase()}
+                  {myname.charAt(0).toUpperCase()}
                   {openSign && <SignOut />}
                 </div>
               </div>

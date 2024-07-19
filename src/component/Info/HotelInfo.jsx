@@ -48,9 +48,10 @@ import Nav from "../navbar/Nav";
 import { MyContext } from "../../components/App";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import RoomInput from "./RoomInput";
 
 const HotelInfo = () => {
-  const { todate, setTodate, setFormdate, formdate } = useContext(MyContext);
+  const { todate, setTodate, setFormdate, formdate,myname } = useContext(MyContext);
   const [showerror, setShowerror] = useState(false);
   const [showError, setShowError] = useState(false);
   const navigate = useNavigate();
@@ -419,20 +420,9 @@ const HotelInfo = () => {
                         </div>
                       </td>
                       <td>
-                        {" "}
-                        <input
-                          type="number"
-                          placeholder="0"
-                          value={inputval}
-                          style={{ width: "60px",height:"25px",marginLeft:"50px" , textAlign: "center" }}
-                          onChange={(e) => {
-                            setinputval(e.target.value);
-                          }}
-                          required
-                        />
-                          {/* {showerror && <p className="error-message" style={{position:"absolute",top:"40px",backgroundColor:"red",color:"white",padding:"2px 6px 2px 4px",borderRadius:"5px"}}>Please add a location to search.</p>} */}
-                         
-                        
+                     
+                     <RoomInput inputval={inputval} setinputval={setinputval} />
+                          {/* {showerror && <p className="error-message" style={{position:"absolute",top:"40px",backgroundColor:"red",color:"white",padding:"2px 6px 2px 4px",borderRadius:"5px"}}>Please add a location to search.</p>} */} 
                       </td>
                       <td> <button
                       id="reserveBtn"

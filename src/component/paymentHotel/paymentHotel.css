@@ -99,7 +99,7 @@
   margin-right: 10px;
 }
 .paymentline{
-  border: 1px solid rgb(196, 195, 195);
+  border: 2px solid rgb(198, 190, 190);
   margin: 50px 200px 50px 190px;
   padding: 20px 0 30px 0;
   border-radius: 8px;
@@ -140,7 +140,7 @@
 .content2,.content3,.content4{
   margin-bottom: 20px;
   /* margin-right:; */
-  border: 2px solid rgb(239, 235, 235);
+  border: 2px solid rgb(198, 190, 190);
   border-radius: 10px;
   width: 100%;
   /* margin-left: 100px; */
@@ -162,7 +162,7 @@
   display: flex;
 }
 .lastpagecon2{
-  border: 2px solid rgb(239, 235, 235);
+  border: 2px solid rgb(198, 190, 190);
   border-radius: 10px;
   width: 80%;
   padding: 40px 0 40px 30px;
@@ -193,7 +193,7 @@
   color: red;
 }
 .infobox1,.infobox2,.infobox3{
-  border: 2px solid rgb(239, 235, 235);
+  border: 2px solid rgb(198, 190, 190);
   margin-right: 40px;
   border-radius: 10px;
   padding-left: 25px;
@@ -229,7 +229,7 @@
   margin-top: 10px;
 }
 .infobox3{
-  border: 2px solid rgb(239, 235, 235);
+  border: 2px solid rgb(198, 190, 190);
   margin-right: 40px;
   border-radius: 10px;
   /* padding-left: 25px; */

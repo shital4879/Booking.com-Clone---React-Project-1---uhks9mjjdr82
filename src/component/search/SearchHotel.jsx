@@ -60,7 +60,7 @@ const Search = () => {
       );
       const result = await sortResponse.json();
       setFetchData(result.data.hotels);
-      console.log(result.data.hotels);
+      console.log(result.data.hotels,"fetch");
      
     } catch (error) {
       console.log(error);
@@ -131,7 +131,7 @@ const Search = () => {
               }}
               style={{  marginLeft: "10px" }}
             />
-{/*             
+            
             <div>
                 {opendestination && (
                   <div
@@ -153,7 +153,7 @@ const Search = () => {
                     }}
                     // ref={contentref}
                   >
-                    {data &&
+                    {/* {data &&
                       data
                         .filter((item) => {
                           const lower = item.location.toLowerCase();
@@ -171,10 +171,10 @@ const Search = () => {
                           >
                             {item.location}
                           </div>
-                        ))}
+                        ))} */}
                   </div>
                 )}
-              </div> */}
+              </div>
           </div>
           <div
             className="headerSearchItemA"
