@@ -27,7 +27,7 @@ const FlightHeader = () => {
   const navigate = useNavigate();
   const hotelInput = useRef();
   const [data, setData] = useState();
-  const [selectedDate, setSelectedDate] = useState(null);
+  const [selectedDate, setSelectedDate] = useState(new Date());
   const [source, setSource] = useState("");
   const [opensource, setOpensource] = useState(false);
   const [destination, setDestination] = useState("");
@@ -352,14 +352,11 @@ const FlightHeader = () => {
                       .map((item) => (
                         <div
                           style={{
-                            // backgroundColor: "white",
                             paddingLeft: "5px",
-                            // zIndex: "1000",
                             padding:"10px 0 10px 10px",
                             height: "35px",
                             marginBottom: "-5px",
                             display: "flex",
-                            // zIndex: "10000000",
                             marginLeft: "5px",
                             cursor:"pointer"
                           }}
@@ -477,43 +474,6 @@ const FlightHeader = () => {
             className="headerIcon"
             id="headerIcon1"
           />
-          {/* <span className="headerSearchText1" id="texttext">{`${format(
-            selectedDate[0].startDate,
-            "dd/MM/yyyy"
-          )} to ${format(selectedDate[0].endDate, "dd/MM/yyyy")}`}</span>
-          {openbookingDate && (
-            <>
-              <DateRange
-                editableDateInputs={true}
-                onChange={(item) => setSelectedDate([item.selection])}
-                moveRangeOnFirstSelection={false}
-                ranges={selectedDate}
-                minDate={new Date()}
-                className="selectedDate1"
-              />
-              <button
-                onClick={(e) => {
-                  e.stopPropagation(), setOpenBookingDate(false);
-                }}
-                className="donebtnforDate1"
-                id="donebtn"
-              >
-                Done
-              </button>
-            </>
-          )} */}
-
-              {/* <LocalizationProvider dateAdapter={AdapterDayjs}>
-              <DatePicker
-                sx={{ backgroundColor: "rgb(244, 245, 245)", height: 60 }}
-                label="Departure"
-                value={selectedDate}
-                onChange={(value) => handleDate(value)}
-                textField={(props) => <TextField {...props} />}
-                minDate={dayjs()}
-              />
-            </LocalizationProvider> */}
-
           <DatePicker
             selected={selectedDate}
             onChange={date => setSelectedDate(date)}
