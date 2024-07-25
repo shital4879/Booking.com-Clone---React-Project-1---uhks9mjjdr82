@@ -7,6 +7,8 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { MyContext } from "../../components/App";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const SignIn = () => {
   const {myname,setMyname} = useContext(MyContext);
@@ -102,20 +104,32 @@ const SignIn = () => {
     navigate(`/`)
   }
 
-  
+  const toasts = ()=>{
+    // toast("Feature is coming soon.");
+    toast.info('Feature is coming soon', {
+      position: "bottom-left",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+      });
+  }
  
   return (
     <div>
   
   <div className="navbar">
         <div className="navContainer">
-          <span className="logo" onClick={()=>navigate("/")}>Booking.com</span>
+          <span className="logo" onClick={()=>navigate("/")} style={{cursor:"pointer"}}>Booking.com</span>
 
           <div style={{ display: "flex",marginTop:"-4px" }} className="navp1">
-            <button style={{}} className="circle" disabled>
+            <button style={{}} className="circle" onClick={toasts}>
               INR
             </button>
-            <button className="circle">
+            <button className="circle" onClick={toasts}>
               <img
                 src="https://faraz-khan-booking-com-clone-react-project-1-jza6qqtrfilv.vercel.app/images/IndiaFlag.png"
                 alt=""
@@ -127,13 +141,13 @@ const SignIn = () => {
                 }}
               />
             </button>
-            <button className="circle">
+            <button className="circle" onClick={toasts}>
               <FontAwesomeIcon
                 icon={faCircleQuestion}
                 style={{ height: "25px", width: "30px", marginTop: "-4px" }}
               />
             </button>
-            <button className="circle">List Your Property</button>
+            <button className="circle" onClick={toasts}>List Your Property</button>
           </div>
 
           
@@ -195,7 +209,19 @@ const SignIn = () => {
       </div>
     )}
 </form>
-    
+<ToastContainer 
+       position="bottom-left"
+       autoClose={3000}
+       hideProgressBar={false}
+       newestOnTop={false}
+       closeOnClick
+       rtl={false}
+       pauseOnFocusLoss
+       draggable
+       pauseOnHover
+       theme="dark"
+      //  transition: "Bounce"
+        />  
   </div>
     
   );

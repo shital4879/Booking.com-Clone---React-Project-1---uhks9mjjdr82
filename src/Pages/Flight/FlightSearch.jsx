@@ -25,12 +25,18 @@ import FlightNav from "./FlightNav";
 import SignOut from "../../component/register/SignOut";
 import Nav from "../../component/navbar/Nav";
 import { MyContext } from "../../components/App";
-import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css';
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 const FlightSearch = () => {
-  const { setfendate, fstartdate, setfstartdate, fenddate,flightinformation,setFlightinformation } =
-    useContext(MyContext);
+  const {
+    setfendate,
+    fstartdate,
+    setfstartdate,
+    fenddate,
+    flightinformation,
+    setFlightinformation,
+  } = useContext(MyContext);
   const navigate = useNavigate();
   const location = useLocation();
   const [data, setData] = useState();
@@ -273,7 +279,7 @@ const FlightSearch = () => {
     fetchCityNames();
   }, []);
 
-  console.log(selectedDate);
+  // console.log(selectedDate);
 
   return (
     <div>
@@ -327,9 +333,7 @@ const FlightSearch = () => {
                             style={{ marginTop: "10px" }}
                           />
                           <div className="flightGoingDetail">
-                            <span>
-                              {format(selectedDate,"dd/MM")}
-                            </span>
+                            <span>{format(selectedDate, "dd/MM")}</span>
                             <h5>{cardresult.source}</h5>
                           </div>
                         </div>
@@ -343,9 +347,7 @@ const FlightSearch = () => {
                         <div className="flyfly" style={{ marginTop: "18px" }}>
                           <FontAwesomeIcon icon={faCircle} />
                           <div className="flightGoingDetail">
-                               <span>
-                              {format(selectedDate,"dd/MM")}
-                            </span>
+                            <span>{format(selectedDate, "dd/MM")}</span>
                             <h5>{cardresult.destination}</h5>
                           </div>
                         </div>
@@ -461,7 +463,7 @@ const FlightSearch = () => {
         // style={{
         //   filter: `${modalopen} ? "blur(5px)" : "none"`,
         // }}
-        style={{marginTop:"10px"}}
+        style={{ marginTop: "10px" }}
       >
         <select className="flightOption">
           <option>Economy</option>
@@ -697,42 +699,15 @@ const FlightSearch = () => {
               className="headerIcon"
               id="headerIcona"
             />
-            {/* <span className="headerSearchText1" id="texttext1">{`${format(
-              selectedDate[0].startDate,
-              "dd/MM/yyyy"
-            )} to ${format(selectedDate[0].endDate, "dd/MM/yyyy")}`}</span>
-            {openbookingDate && (
-              <>
-                <DateRange
-                  editableDateInputs={true}
-                  onChange={(item) => setSelectedDate([item.selection])}
-                  moveRangeOnFirstSelection={false}
-                  ranges={selectedDate}
-                  minDate={new Date()}
-                  className="selectedDate1"
-                />
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation(), setOpenBookingDate(false);
-                  }}
-                  className="donebtnforDate1"
-                >
-                  Done
-                </button>
-              </>
-            )} */}
 
-
-
-<DatePicker
-            selected={selectedDate}
-            onChange={date => setSelectedDate(date)}
-            dateFormat="dd-MM-yyyy"
-            placeholderText="Select a date"
-             className="custom-datepicker"
-             minDate={new Date()}
-        />
-
+            <DatePicker
+              selected={selectedDate}
+              onChange={(date) => setSelectedDate(date)}
+              dateFormat="dd-MM-yyyy"
+              placeholderText="Select a date"
+              className="custom-datepicker"
+              minDate={new Date()}
+            />
           </div>
           <div className="headerSearchItem13" id="searc">
             <button
@@ -1022,10 +997,7 @@ const FlightSearch = () => {
                             <br />
                             <span className="date-Time">
                               {item.source} -
-                              {/* {format(selectedDate[0].startDate, "dd/MM")} */}
-                              <span>
-                              {format(selectedDate,"dd/MM")}
-                            </span>
+                              <span>{format(selectedDate, "dd/MM")}</span>
                             </span>
                           </div>
                           <div className="flightDuration">
@@ -1062,9 +1034,7 @@ const FlightSearch = () => {
                             <span className="date-Time" id="date-Time">
                               {item.destination} -
                               {/* {format(selectedDate, "dd/MM")} */}
-                              <span>
-                              {format(selectedDate,"dd/MM")}
-                            </span>
+                              <span>{format(selectedDate, "dd/MM")}</span>
                             </span>
                           </div>
                         </div>

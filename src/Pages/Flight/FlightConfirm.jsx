@@ -28,6 +28,7 @@ const FlightConfirm = () => {
   const [openSign, setOpenSing] = useState(false);
   const navigate = useNavigate();
   const [selectedDate, setSelectedDate] = useState(location.state.selectedDate);
+  console.log("date",selectedDate);
   const [information, setInformation] = useState(location.state.information);
   const [email, setEmail] = useState("");
   const [number, setNumber] = useState("");
@@ -299,7 +300,8 @@ const FlightConfirm = () => {
 
                <div style={{ width: "100%",marginLeft:"40px",marginRight:"-35px" }}>
               <div className="infobox1">
-                <h2>{high.destination} to {high.source}</h2>
+                <h2 style={{marginBottom:"10px"}}>{high.destination} to {high.source}</h2>
+                <p>{format(selectedDate, "dd/MM/yyyy")}</p>
                 <p>Round trip</p>
                 {/* <p>{high.selectedDate.startDate}</p> */}
               </div>
