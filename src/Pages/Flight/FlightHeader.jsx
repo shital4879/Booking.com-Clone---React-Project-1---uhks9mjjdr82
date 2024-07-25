@@ -63,13 +63,7 @@ const FlightHeader = () => {
     children: 0,
   });
   const [openbookingDate, setOpenBookingDate] = useState(false);
-  // const [selectedDate, setSelectedDate] = useState([
-  //   {
-  //     startDate: new Date(),
-  //     endDate: new Date(),
-  //     key: "selection",
-  //   },
-  // ]);
+
 
   function swapinputs() {
     const temp = source;
@@ -102,13 +96,35 @@ const FlightHeader = () => {
         }
       );
       const result = await res.json();
-      setCityNames(result.data.airports);
-      settocitylist(result.data.airports);
-      setfromcitylist(result.data.airports);
+      setFromCityList(
+        result.data.airports.filter((item) => item.city !== flightToCity)
+      );
+      setToCityList(
+        result.data.airports.filter((item) => item.city !== flightFromCity)
+      );
     } catch (err) {
       console.log(err.message ? err.message : err);
-    }
-  };
+    }
+  };
+
+//   const fetchCityNames = async () => {
+//     try {
+//       const res = await fetch(
+//         "https://academics.newtonschool.co/api/v1/bookingportals/airport?limit=30",
+//         {
+//           headers: {
+//             projectID: "ob53n4v1jdes",
+//           },
+//         }
+//       );
+//       const result = await res.json();
+//       setCityNames(result.data.airports);
+//       settocitylist(result.data.airports);
+//       setfromcitylist(result.data.airports);
+//     } catch (err) {
+//       console.log(err.message ? err.message : err);
+//     }
+//   };
 
   const flightSearch = useMemo(async () => {
     try {

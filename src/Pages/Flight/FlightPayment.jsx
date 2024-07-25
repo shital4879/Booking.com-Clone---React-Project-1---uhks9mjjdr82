@@ -15,7 +15,7 @@ import { faCheck, faMugSaucer } from "@fortawesome/free-solid-svg-icons";
 
 const FlightPayment = () => {
   const navigat = useNavigate();
-  const { setfendate, fstartdate, setfstartdate, fenddate } =
+  const { setfendate, fstartdate, setfstartdate, fenddate,myname } =
     useContext(MyContext);
   const { flightinformation, setFlightinformation } = useContext(MyContext);
   console.log(flightinformation);
@@ -162,7 +162,8 @@ const FlightPayment = () => {
                 }}
               >
                 {" "}
-                {storeddata.name.charAt(0).toUpperCase()}
+                {/* {storeddata.name.charAt(0).toUpperCase()} */}
+                {myname.charAt(0).toUpperCase()}
                 {openSign && <SignOut />}
               </div>
             )}
@@ -484,7 +485,7 @@ const FlightPayment = () => {
             <div style={{ fontSize: "60px",marginTop:"30px" ,padding:"20px"}}><FontAwesomeIcon icon={faCheck} style={{padding:"20px",backgroundColor:"green",color:"white",margin:"0px 50px",borderRadius:"50%"}}/></div>
               <p
                 style={{
-                  marginTop: "75px",
+                  // marginTop: "75px",
                   fontSize: "30px",
                   fontWeight: "700",
                   color: "#2a4dc1",

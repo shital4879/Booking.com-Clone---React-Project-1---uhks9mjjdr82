@@ -18,7 +18,7 @@ const FlightConfirm = () => {
   console.log(params.fid, "kt");
   const location = useLocation();
   const [emailId, setEmailId] = useState();
-  const {flightinformation,setFlightinformation} = useContext(MyContext);
+  const {flightinformation,setFlightinformation,myname} = useContext(MyContext);
   console.log(flightinformation,"info");
   const flightPrice = location.state.flightPrice;
   console.log("mi", flightPrice);
@@ -158,7 +158,8 @@ const FlightConfirm = () => {
                     e.stopPropagation(), setOpenSing(!openSign);
                   }}
                 >
-                  {storeddata.name.charAt(0).toUpperCase()}
+                  {/* {storeddata.name.charAt(0).toUpperCase()} */}
+                  {myname.charAt(0).toUpperCase()}
 
                   {openSign && <SignOut />}
                 </div>

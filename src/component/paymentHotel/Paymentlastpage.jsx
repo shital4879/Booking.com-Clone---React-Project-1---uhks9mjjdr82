@@ -4,6 +4,7 @@ import { faCheck, faMugSaucer,faThumbsUp } from "@fortawesome/free-solid-svg-ico
 import { useLoaderData, useLocation, useNavigate } from "react-router-dom";
 import { MyContext } from "../../components/App";
 import { format } from "date-fns";
+import moment from "moment";
 
 export default function Paymentlastpage() {
   const navigat = useNavigate();
@@ -109,10 +110,10 @@ export default function Paymentlastpage() {
             )}
             {localStorage.getItem("token") && (
                <div>
-               <div style={{ width: "180px", display: "flex" }}></div>
+               <div style={{ width: "180px", display: "flex",marginLeft:"200px"}}></div>
                <div
                  className="profile"
-                 style={{ marginLeft: "50px" }}
+                 style={{ marginLeft: "270px" }}
                  onClick={(e) => {
                    e.stopPropagation(), setOpenSing(!openSign);
                  }}
@@ -167,12 +168,12 @@ export default function Paymentlastpage() {
                 <div className="boxes2">
                   <div className="" style={{borderRight:"2px solid rgb(166, 157, 157)",paddingRight:"30px"}}>
                     <p style={{fontSize:"15px",color:"rgb(61, 59, 59)",fontWeight:"500"}}>Check-in</p>
-                    <div style={{fontWeight:"500",fontSize:"17px",marginTop:"6px",marginBottom:"2px"}}>{formatDate(formdate)}</div>
+                    <div style={{fontWeight:"500",fontSize:"17px",marginTop:"6px",marginBottom:"2px",marginRight:"50px"}}>{moment(formdate).format("ddd DD MMM")}</div>
                     <p style={{fontSize:"14px",color:"rgb(88, 86, 86)"}}>From 15:00</p>
                   </div>
-                  <div>
+                  <div style={{marginLeft:"-50px"}}>
                     <p style={{fontSize:"15px",color:"rgb(61, 59, 59)",fontWeight:"500"}}>Check-out</p>
-                    <div style={{fontWeight:"500",fontSize:"17px",marginTop:"6px",marginBottom:"2px"}} >{formatDate(todate)}</div>
+                    <div style={{fontWeight:"500",fontSize:"17px",marginTop:"6px",marginBottom:"2px",}}>{moment(todate).format("ddd DD MMM")}</div>
                     <p style={{fontSize:"14px",color:"rgb(88, 86, 86)"}}>Until 12:00</p>
                     
                   </div>
@@ -198,7 +199,7 @@ export default function Paymentlastpage() {
 
 
 
-        <div className="lastpagecon2">
+        <div className="lastpagecon2" style={{height:"615px"}}>
           <h2>How do you want to pay?</h2>
           <div>
             <label>Cardholder's name *</label>
@@ -313,7 +314,7 @@ export default function Paymentlastpage() {
             <br />
             {valid ? <span className="errorname">{error.cvc}</span> : <></>}
           </div>
-      <button onClick={handleSubmit} className="paynowbutton">Pay Now</button>
+      <button onClick={handleSubmit} className="paynowbutton" style={{marginTop:"70px",marginBottom:"100px"}} >Pay Now</button>
         </div>
       </div>
       {popUpPay && (
