@@ -220,7 +220,6 @@ const SignIn = () => {
        draggable
        pauseOnHover
        theme="dark"
-      //  transition: "Bounce"
         />  
   </div>
     

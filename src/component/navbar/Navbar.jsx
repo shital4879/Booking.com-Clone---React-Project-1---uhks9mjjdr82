@@ -277,7 +277,6 @@ const Navbar = ({ type }) => {
        draggable
        pauseOnHover
        theme="dark"
-      //  transition: "Bounce"
         />
     </div>
   );
