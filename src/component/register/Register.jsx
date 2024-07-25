@@ -117,7 +117,7 @@ const Register = () => {
     <div>
     <div className="navbar">
         <div className="navContainer">
-          <span className="logo" onClick={()=>navigate("/")}>Booking.com</span>
+          <span className="logo" onClick={()=>navigate("/")} style={{cursor:"pointer"}} >Booking.com</span>
 
           <div style={{ display: "flex",marginTop:"-4px" }} className="navp1">
             <button style={{}} className="circle" disabled>

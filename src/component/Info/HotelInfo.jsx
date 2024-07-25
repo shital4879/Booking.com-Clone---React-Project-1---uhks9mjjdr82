@@ -46,12 +46,13 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Nav from "../navbar/Nav";
 import { MyContext } from "../../components/App";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import RoomInput from "./RoomInput";
 
 const HotelInfo = () => {
-  const { todate, setTodate, setFormdate, formdate,myname } = useContext(MyContext);
+  const { todate, setTodate, setFormdate, formdate, myname } =
+    useContext(MyContext);
   const [showerror, setShowerror] = useState(false);
   const [showError, setShowError] = useState(false);
   const navigate = useNavigate();
@@ -113,9 +114,9 @@ const HotelInfo = () => {
     });
   };
 
-  const toasts = ()=>{
+  const toasts = () => {
     // toast("Feature is coming soon.");
-    toast.error('Select Room', {
+    toast.error("Select Room", {
       position: "bottom-left",
       autoClose: 5000,
       hideProgressBar: false,
@@ -124,29 +125,27 @@ const HotelInfo = () => {
       draggable: true,
       progress: undefined,
       theme: "dark",
-      });
-  }
+    });
+  };
 
   const hotelPaymentPage = (cost) => {
     if (!localStorage.getItem("token")) {
-        navigate(`/Register?redirect=${encodeURI(`/paymentHotel/${cost}`)}`, {
-          state: {
-            selectedDate: selectedDate,
-            information: information,
-          },
-        });
-      }
-      else if(inputval === 0 || inputval === "") {
-        setShowerror(true);
-        toasts();
-      }
-    else {
+      navigate(`/Register?redirect=${encodeURI(`/paymentHotel/${cost}`)}`, {
+        state: {
+          selectedDate: selectedDate,
+          information: information,
+        },
+      });
+    } else if (inputval === 0 || inputval === "") {
+      setShowerror(true);
+      toasts();
+    } else {
       // sessionStorage.setItem("rooms",inputval);
       navigate(`/paymentHotel/${cost}`, {
         state: {
           selectedDate: selectedDate,
           information: information,
-          inputval: inputval
+          inputval: inputval,
         },
       });
     }
@@ -160,8 +159,8 @@ const HotelInfo = () => {
 
   return (
     <div>
-          {/* {showerror && <div>{toasts()}</div> } */}
-          {/* {showerror && <p>{alert()}</p>} */}
+      {/* {showerror && <div>{toasts()}</div> } */}
+      {/* {showerror && <p>{alert()}</p>} */}
       <div>
         <Nav />
         <div className="maindiv">
@@ -233,7 +232,7 @@ const HotelInfo = () => {
                     <span
                       onClick={() => setBookingPersons(!bookingPersons)}
                       className="headerSearchText"
-                      style={{color:"#737171",fontSize:"17px"}}
+                      style={{ color: "#737171", fontSize: "17px" }}
                     >{`${persons.adult}adult. ${persons.children}children. ${persons.room}room`}</span>
                     {bookingPersons && (
                       <div className="options">
@@ -345,8 +344,8 @@ const HotelInfo = () => {
 
         <div className="tabletable">
           <table>
-          <thead className="tablehead1">
-              <tr className="tableline"  >
+            <thead className="tablehead1">
+              <tr className="tableline">
                 <th>Room type</th>
                 <th>Price for 1 night</th>
                 <th>Your choices</th>
@@ -356,94 +355,16 @@ const HotelInfo = () => {
             </thead>
             <tbody>
               {information &&
-                information.rooms.slice(0, 6).map((item, key) => {
+                information.rooms.slice(0, 6).map((item) => {
                   return (
-                    <tr  className="tableline" >
-                      <td>
-                        {" "}
-                        <div className="typeRoom">{item.roomType} Room</div>
-                        <div
-                          className="bedType"
-                          style={{
-                            fontSize: "14px",
-                            fontFamily: "lighter",
-                            color: "rgb(90, 88, 88)",
-                            gap: "10px",
-                          }}
-                        >
-                          {information.rooms[0].bedDetail}
-                          <FontAwesomeIcon
-                            icon={faBed}
-                            className="bed"
-                            style={{ marginLeft: "7px" }}
-                          />
-                        </div>
-                      </td>
-
-                      <td>
-                        <div style={{fontSize:"16px",fontWeight:"500"}}>
-
-                        ₹ {item.costPerNight}
-                        </div>
-                        <div>
-                          + ₹{information.rooms[0].costDetails.taxesAndFees}{" "}
-                          taxes and charges
-                        </div>
-                        <button className="offpay">40% off</button>
-                        <br />
-                        <button className="limitedDeal">
-                          Limited time deal
-                        </button>
-                      </td>
-
-                      <td>
-                        <div
-                          className="choices"
-                          // style={{ fontFamily: "lighter" }}
-                          style={{fontSize:"16px",fontWeight:"500"}}
-                        >
-                          Non refundable
-                        </div>
-                        <div
-                          className="cancellationPolicy"
-                          style={{ fontFamily: "lighter", color: "green" }}
-                        >
-                          <FontAwesomeIcon
-                            icon={faCheck}
-                            className="divisioncol-logo"
-                            style={{
-                              marginRight: "5px",
-                              fontFamily: "lighter",
-                            }}
-                          />
-                          {information.rooms[0].cancellationPolicy}
-                        </div>
-                      </td>
-                      <td>
-                     
-                     <RoomInput inputval={inputval} setinputval={setinputval} />
-                          {/* {showerror && <p className="error-message" style={{position:"absolute",top:"40px",backgroundColor:"red",color:"white",padding:"2px 6px 2px 4px",borderRadius:"5px"}}>Please add a location to search.</p>} */} 
-                      </td>
-                      <td> <button
-                      id="reserveBtn"
-                      className="reserveBtn"
-                      style={{
-                       marginLeft:"40px"
-                      }}
-                      onClick={() => {
-                        hotelPaymentPage(item.costPerNight);
-                      }}
-                    >
-                      Reserve
-                    </button></td>
-                    </tr>
+                   <RoomInput key={item._id} item={item} information={information} hotelPaymentPage={hotelPaymentPage} inputval={inputval} setinputval={setinputval} />
                   );
                 })}
             </tbody>
           </table>
         </div>
 
-        <div className="hotel-amenities" style={{marginTop:"100px"}}>
+        <div className="hotel-amenities" style={{ marginTop: "100px" }}>
           <div className="amenities-head">
             <div className="popular-facility">Most popular facility</div>
             <div className="popular-service">
