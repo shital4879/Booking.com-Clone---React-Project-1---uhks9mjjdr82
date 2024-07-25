@@ -11,7 +11,6 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { MyContext } from "../../components/App";
 import { format } from "date-fns";
-import ClearIcon from '@mui/icons-material/Clear';
 
 const FlightConfirm = () => {
   const params = useParams();
