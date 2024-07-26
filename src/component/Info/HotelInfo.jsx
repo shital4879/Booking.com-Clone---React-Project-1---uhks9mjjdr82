@@ -128,28 +128,7 @@ const HotelInfo = () => {
     });
   };
 
-  const hotelPaymentPage = (cost) => {
-    if (!localStorage.getItem("token")) {
-      navigate(`/Register?redirect=${encodeURI(`/paymentHotel/${cost}`)}`, {
-        state: {
-          selectedDate: selectedDate,
-          information: information,
-        },
-      });
-    } else if (inputval === 0 || inputval === "") {
-      setShowerror(true);
-      toasts();
-    } else {
-      // sessionStorage.setItem("rooms",inputval);
-      navigate(`/paymentHotel/${cost}`, {
-        state: {
-          selectedDate: selectedDate,
-          information: information,
-          inputval: inputval,
-        },
-      });
-    }
-  };
+ 
 
   useEffect(() => {
     setFormdate(selectedDate[0].startDate);
@@ -357,7 +336,7 @@ const HotelInfo = () => {
               {information &&
                 information.rooms.slice(0, 6).map((item) => {
                   return (
-                   <RoomInput key={item._id} item={item} information={information} hotelPaymentPage={hotelPaymentPage} inputval={inputval} setinputval={setinputval} />
+                   <RoomInput key={item._id} item={item} information={information} selectedDate={selectedDate} />
                   );
                 })}
             </tbody>

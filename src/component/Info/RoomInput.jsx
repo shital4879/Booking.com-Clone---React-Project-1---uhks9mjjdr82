@@ -26,9 +26,34 @@ import {
   faUser,
   faLocationDot,
 } from "@fortawesome/free-solid-svg-icons";
+import { useNavigate } from "react-router-dom";
 
-export default function RoomInput({item,information,hotelPaymentPage,setinputval,inputval}) {
-//   const [inputval, setinputval] = useState("");
+export default function RoomInput({item,information,selectedDate}) {
+  const [inputval, setinputval] = useState("");
+  const navigate = useNavigate();
+
+  const hotelPaymentPage = (cost) => {
+    if (!localStorage.getItem("token")) {
+      navigate(`/Register?redirect=${encodeURI(`/paymentHotel/${cost}`)}`, {
+        state: {
+          selectedDate: selectedDate,
+          information: information,
+        },
+      });
+    } else if (inputval === 0 || inputval === "") {
+      setShowerror(true);
+      toasts();
+    } else {
+      // sessionStorage.setItem("rooms",inputval);
+      navigate(`/paymentHotel/${cost}`, {
+        state: {
+          selectedDate: selectedDate,
+          information: information,
+          inputval: inputval,
+        },
+      });
+    }
+  };
 
   return (
        <tr className="tableline">
